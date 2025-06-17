@@ -5,6 +5,7 @@
  * Description: Patient portal with TelegraMD API integration for prescriptions, labs, and subscriptions.
  * Version: 1.0
  * Author: faheemhassan.dev
+ * Prefix: hld
  */
 
 // Include API
@@ -15,9 +16,9 @@
 // require_once plugin_dir_path(__FILE__) . 'admin-settings.php';
 include_once('api-keys.php');
 
-add_action('fluentform/before_insert_submission', 'hsd_before_submission_create_order_in_telegramd', 10, 3);
+add_action('fluentform/before_insert_submission', 'hld_before_submission_create_order_in_telegramd', 10, 3);
 
-function hsd_before_submission_create_order_in_telegramd($insertData, $data, $form)
+function hld_before_submission_create_order_in_telegramd($insertData, $data, $form)
 {
     // Decode submitted data
     $responseData = json_decode($insertData['response'], true);
@@ -63,3 +64,18 @@ function hsd_before_submission_create_order_in_telegramd($insertData, $data, $fo
         error_log("TelegraMD responded: HTTP $code — $response");
     }
 }
+
+add_shortcode('hld_orders', function () {
+    ob_start();
+    include_once('templates/show-orders.php');
+    return ob_get_clean();
+});
+
+add_action('wp_enqueue_scripts', function () {
+    wp_enqueue_style(
+        'hld-plugin-css',
+        plugin_dir_url(__FILE__) . 'css/style.css',
+        [],
+        '1.0'
+    );
+});

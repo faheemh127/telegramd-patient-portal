@@ -1,0 +1,66 @@
+body {
+            background-color: #f2f6f8;
+        }
+
+
+        .hld_orders_wrap {
+            font-family: Helvetica;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 0 15px;
+            max-width: 1300px !important;
+        }
+
+        .hld_orders_wrap .hld_item_wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 35px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .hld_orders_wrap .left {
+            display: flex;
+            justify-content: left;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .hld_orders_wrap h1 {
+            margin: 0;
+            font-family: Helvetica;
+            color: rgba(0, 0, 0, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .hld_orders_wrap .detail_wrap {
+            display: flex;
+            gap: 10px;
+        }
+
+        .hld_orders_wrap button.primary {
+            background: #5a60ff;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 15px;
+            border: 1px solid #5a60ff;
+
+        }
+
+        .hld_orders_wrap .right {
+            display: flex;
+            gap: 13px;
+        }
+
+        .hld_orders_wrap button.secondary {
+            background: white;
+            border: 1px solid #5a60ff;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 15px;
+            color: #5a60ff;
+        }
