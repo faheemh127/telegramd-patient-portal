@@ -1,75 +1,88 @@
 // Variables
 $primary: #007BFF;
-$background: #f9f9f9;
-$text-dark: #333;
-$text-muted: #666;
+$text-muted: #555;
 $border: #e0e0e0;
-$radius: 8px;
-$shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-
-// body {
-//   margin: 0;
-//   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-//   background-color: $background;
-//   color: $text-dark;
-//   line-height: 1.6;
-// }
+$radius: 10px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+$card-padding: 20px;
 
 .profile-container {
-//   max-width: 960px;
+//   max-width: 1000px;
+min-width: 100%;
+  width: 100%;
   margin: 40px auto;
-//   padding: 30px;
-  background-color: #fff;
-  border-radius: $radius;
-//   box-shadow: $shadow;
+//   padding: 20px;
 
-  h1 {
-    text-align: center;
-    color: $primary;
-    margin-bottom: 30px;
-  }
-}
+.profile-image {
+      flex: 0 0 150px;
 
-.profile-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-
-.profile-section {
-  background-color: #fff;
-  border: 1px solid $border;
-  border-radius: $radius;
-  padding: 20px;
-
-  h2 {
-    color: $primary;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      padding: 6px 0;
-      border-bottom: 1px dashed $border;
-
-      &:last-child {
-        border-bottom: none;
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: $radius;
+        box-shadow: $shadow;
       }
+    }
+
+  .flex-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .profile-details {
+      flex: 1;
 
       strong {
-        color: $text-muted;
+            display: inline-block;
+    width: 160px;
+    color: black !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        color: $primary;
+        margin-bottom: 25px;
+      }
+
+      .section-card {
+        background: #fff;
+        border: 1px solid $border;
+        border-radius: $radius;
+        padding: $card-padding;
+        margin-bottom: 30px;
+        box-shadow: $shadow;
+
+        h2 {
+          color: $primary;
+          font-size: 1.2rem;
+          margin-bottom: 15px;
+          border-bottom: 1px dashed $border;
+          padding-bottom: 8px;
+        }
+
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 10px;
+
+          @media (min-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+          }
+
+          div {
+            line-height: 1.6;
+
+            strong {
+              color: $text-muted;
+              display: inline-block;
+              width: 160px;
+            }
+          }
+        }
       }
     }
   }

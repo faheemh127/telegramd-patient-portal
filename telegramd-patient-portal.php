@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: TelegraMD Patient Portal
+ * Plugin Name: ! TelegraMD Patient Portal
  * Description: Patient portal with TelegraMD API integration for prescriptions, labs, and subscriptions.
  * Version: 1.0
  * Author: Faheem

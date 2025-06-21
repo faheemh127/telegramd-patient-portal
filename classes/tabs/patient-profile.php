@@ -1,5 +1,4 @@
 <?php
-// Dummy data for placeholder
 $patient = [
     'full_name' => 'John Doe',
     'gender' => 'Male',
@@ -16,45 +15,60 @@ $patient = [
     'emergency_contact' => 'Jane Doe - +1 234-555-7890',
 ];
 
-// Calculate age
 $dob = new DateTime($patient['dob']);
 $now = new DateTime();
 $patient['age'] = $dob->diff($now)->y;
 ?>
 
 <div class="profile-container">
-    <h1>Patient Profile</h1>
 
-    <div class="profile-grid">
-        <div class="profile-section">
-            <h2>Basic Information</h2>
-            <ul>
-                <li><strong>Name:</strong> <?= $patient['full_name']; ?></li>
-                <li><strong>Gender:</strong> <?= $patient['gender']; ?></li>
-                <li><strong>Date of Birth:</strong> <?= $patient['dob']; ?> (<?= $patient['age']; ?> years)</li>
-                <li><strong>Email:</strong> <?= $patient['email']; ?></li>
-                <li><strong>Phone:</strong> <?= $patient['phone']; ?></li>
-            </ul>
-        </div>
+    <h1>🩺 Patient Profile</h1>
 
-        <div class="profile-section">
-            <h2>Medical Information</h2>
-            <ul>
-                <li><strong>Blood Group:</strong> <?= $patient['blood_group']; ?></li>
-                <li><strong>Allergies:</strong> <?= $patient['allergies']; ?></li>
-                <li><strong>Chronic Conditions:</strong> <?= $patient['chronic_conditions']; ?></li>
-                <li><strong>Current Medications:</strong> <?= $patient['current_medications']; ?></li>
-                <li><strong>Previous Surgeries:</strong> <?= $patient['previous_surgeries']; ?></li>
-                <li><strong>Primary Physician:</strong> <?= $patient['primary_physician']; ?></li>
-            </ul>
-        </div>
+    <!-- Profile Image -->
+    <div class="profile-image">
+        <img src="https://cindykophotography.com/wp-content/uploads/49946859_605163983238131_143987782165987328_o-1.jpg" alt="Profile Picture" />
+    </div>
 
-        <div class="profile-section">
-            <h2>Emergency & Contact</h2>
-            <ul>
-                <li><strong>Address:</strong> <?= $patient['address']; ?></li>
-                <li><strong>Emergency Contact:</strong> <?= $patient['emergency_contact']; ?></li>
-            </ul>
+    <div class="flex-wrapper">
+
+        <!-- Profile Info -->
+        <div class="profile-details">
+
+
+            <!-- Basic Info -->
+            <div class="section-card">
+                <h2>Basic Information</h2>
+                <div class="info-grid">
+                    <div><strong>Name:</strong> <?= $patient['full_name']; ?></div>
+                    <div><strong>Gender:</strong> <?= $patient['gender']; ?></div>
+                    <div><strong>Date of Birth:</strong> <?= $patient['dob']; ?></div>
+                    <div><strong>Age:</strong> <?= $patient['age']; ?> years</div>
+                    <div><strong>Email:</strong> <?= $patient['email']; ?></div>
+                    <div><strong>Phone:</strong> <?= $patient['phone']; ?></div>
+                </div>
+            </div>
+
+            <!-- Medical Info -->
+            <div class="section-card">
+                <h2>Medical Information</h2>
+                <div class="info-grid">
+                    <div><strong>Blood Group:</strong> <?= $patient['blood_group']; ?></div>
+                    <div><strong>Allergies:</strong> <?= $patient['allergies']; ?></div>
+                    <div><strong>Chronic Conditions:</strong> <?= $patient['chronic_conditions']; ?></div>
+                    <div><strong>Current Medications:</strong> <?= $patient['current_medications']; ?></div>
+                    <div><strong>Previous Surgeries:</strong> <?= $patient['previous_surgeries']; ?></div>
+                    <div><strong>Primary Physician:</strong> <?= $patient['primary_physician']; ?></div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="section-card">
+                <h2>Emergency & Contact</h2>
+                <div class="info-grid">
+                    <div><strong>Address:</strong> <?= $patient['address']; ?></div>
+                    <div><strong>Emergency Contact:</strong> <?= $patient['emergency_contact']; ?></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
