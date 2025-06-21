@@ -1,0 +1,10 @@
+1) Create a Dashboard Simple
+
+Only create tabs
+1st tab will order history 
+Lab Order UI Design
+Patient Profile
+Create Profile Page 
+
+
+Dashboard Menu Item
