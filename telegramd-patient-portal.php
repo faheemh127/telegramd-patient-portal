@@ -140,4 +140,13 @@ add_action('wp_enqueue_scripts', function () {
         [],
         '1.0'
     );
+    wp_enqueue_style(
+        'hld-plugin-scss',
+        plugin_dir_url(__FILE__) . 'css/main.css',
+        [],
+        '1.0'
+    );
 });
+
+require_once plugin_dir_path(__FILE__) . 'classes/dashboard-shortcode.php';
+new DashboardShortcode();

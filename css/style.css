@@ -101,3 +101,12 @@ body {
     gap: 10px;
   }
 }
+
+
+/*  */
+
+
+.tab-nav { list-style: none; display: flex; padding: 0; }
+.tab-nav li { margin-right: 10px; }
+.tab-nav li.active a { font-weight: bold; }
+.tab-content { margin-top: 20px; }

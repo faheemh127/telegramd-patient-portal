@@ -1,2 +1,4 @@
 # Ignore specific file
 api-keys.php
+.git
+.vscode

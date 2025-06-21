@@ -1,0 +1,250 @@
+/* ---------------------------------------------
+  IMPORTS & FONTS
+--------------------------------------------- */
+// @import "bourbon";
+// @import 'https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,400';
+
+/* ---------------------------------------------
+  COLORS & VARIABLES
+--------------------------------------------- */
+$blue: #428BFF;
+$red: #FF4A53;
+$dark: #333;
+
+$accent: $blue;
+$accent-inactive: desaturate($accent, 85%);
+$secondary: $accent-inactive;
+
+/* Tab configuration */
+$tab-count: 4;
+$indicator-width: 50px;
+$indicator-height: 4px;
+
+/* Responsive breakpoints */
+$breakpoints: (
+  medium: #{$tab-count * 250px},
+  small: #{$tab-count * 150px}
+);
+
+/* Selectors related to radio tabs */
+$label-selector: "~ ul > li";
+$slider-selector: "~ .slider";
+$content-selector: "~ .content > section";
+
+
+/* ---------------------------------------------
+  MIXIN: Cross-browser user-select
+--------------------------------------------- */
+@mixin user-select($value) {
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
+
+/* ---------------------------------------------
+  MIXIN: Tab input states and content toggle
+--------------------------------------------- */
+@mixin tabs(
+  $label-selector: $label-selector,
+  $slider-selector: $slider-selector,
+  $content-selector: $content-selector
+) {
+  @for $i from 1 through $tab-count {
+    &:nth-of-type(#{$i}):checked {
+      #{$label-selector}:nth-child(#{$i}) {
+        @content;
+      }
+
+      #{$slider-selector} {
+        transform: translateX(#{100% * ($i - 1)});
+      }
+
+      #{$content-selector}:nth-child(#{$i}) {
+        display: block;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------
+  BASE STYLES
+--------------------------------------------- */
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Raleway", sans-serif;
+  background: #efefef;
+  color: $dark;
+}
+
+h1 {
+  text-align: center;
+  color: $accent;
+  font-weight: 300;
+  padding: 40px 0 20px;
+  margin: 0;
+}
+
+/* ---------------------------------------------
+  TABS CONTAINER
+--------------------------------------------- */
+.tabs {
+  background: white;
+  min-width: #{$tab-count * 60px};
+  max-width: 100vw;
+  padding: 50px;
+  padding-bottom: 80px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+  input[name="tab-control"] {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li {
+      flex: 1;
+      width: #{100% / $tab-count};
+      text-align: center;
+      padding: 0 10px;
+
+      label {
+        color: $secondary;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 5px auto;
+        display: block;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @include user-select(none);
+        transition: all 0.2s ease-in-out;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: lighten($secondary, 15%);
+        }
+      }
+    }
+  }
+
+  .slider {
+    position: relative;
+    width: #{100% / $tab-count};
+    transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+
+    .indicator {
+      width: $indicator-width;
+      max-width: 100%;
+      margin: 0 auto;
+      height: $indicator-height;
+      background: $accent;
+      border-radius: 1px;
+    }
+  }
+
+  .content {
+    margin-top: 30px;
+
+    section {
+      display: none;
+      animation: content 0.3s ease-in-out 1;
+      line-height: 1.4;
+
+      h2 {
+        display: none;
+        color: $accent;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 30px;
+          height: 3px;
+          background: $accent;
+          margin-top: 5px;
+        }
+      }
+
+      .inner-content{
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  input[name="tab-control"] {
+    @include tabs {
+      > label {
+        cursor: default;
+        color: $accent;
+
+        @media (max-width: map-get($breakpoints, small)) {
+          background: rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------
+  ANIMATIONS
+--------------------------------------------- */
+@keyframes content {
+  from {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------
+  RESPONSIVE STYLES
+--------------------------------------------- */
+@media (max-width: map-get($breakpoints, medium)) {
+  .tabs ul li label {
+    white-space: initial;
+  }
+
+  .tabs {
+    padding: 8px;
+  }
+}
+
+@media (max-width: map-get($breakpoints, small)) {
+  .tabs ul li label {
+    padding: 5px;
+    border-radius: 5px;
+    span {
+      display: none;
+    }
+  }
+
+  .tabs .slider {
+    display: none;
+  }
+
+  .tabs .content {
+    margin-top: 20px;
+
+    section h2 {
+      display: block;
+    }
+  }
+}
