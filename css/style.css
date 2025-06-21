@@ -1,66 +1,103 @@
+:root {
+  --hld-color-primary: #5a60ff;
+}
 body {
-            background-color: #f2f6f8;
-        }
+  background-color: #f2f6f8;
+}
 
+.hld_orders_wrap {
+  font-family: Helvetica;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 30px 15px;
+  max-width: 1300px !important;
+}
 
-        .hld_orders_wrap {
-            font-family: Helvetica;
-            color: rgba(0, 0, 0, 0.8);
-            padding: 0 15px;
-            max-width: 1300px !important;
-        }
+.hld_orders_wrap .hld_item_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 35px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
 
-        .hld_orders_wrap .hld_item_wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 35px;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 15px;
-        }
+.hld_orders_wrap .left {
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+  align-items: center;
+}
 
-        .hld_orders_wrap .left {
-            display: flex;
-            justify-content: left;
-            gap: 20px;
-            align-items: center;
-        }
+.hld_orders_wrap h1 {
+  margin: 0 5px;
+  font-family: Helvetica;
+  color: rgba(32, 32, 32, 0.9);
 
-        .hld_orders_wrap h1 {
-            margin: 0;
-            font-family: Helvetica;
-            color: rgba(0, 0, 0, 0.9);
-            margin-bottom: 5px;
-        }
+  font-size: 20px;
+}
 
-        .hld_orders_wrap .detail_wrap {
-            display: flex;
-            gap: 10px;
-        }
+.hld_orders_wrap .detail_wrap {
+  display: flex;
+  gap: 10px;
+}
 
-        .hld_orders_wrap button.primary {
-            background: #5a60ff;
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-size: 15px;
-            border: 1px solid #5a60ff;
+.hld_orders_wrap button.primary {
+  background: #5a60ff;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 15px;
+  border: 1px solid #5a60ff;
+}
 
-        }
+.hld_orders_wrap .right {
+  display: flex;
+  gap: 13px;
+}
 
-        .hld_orders_wrap .right {
-            display: flex;
-            gap: 13px;
-        }
+.hld_orders_wrap button.secondary {
+  background: white;
+  border: 1px solid #5a60ff;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #5a60ff;
+}
 
-        .hld_orders_wrap button.secondary {
-            background: white;
-            border: 1px solid #5a60ff;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-size: 15px;
-            color: #5a60ff;
-        }
+.hld_orders_wrap button.primary:hover {
+  background: white;
+  color: var(--hld-color-primary);
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 768px) {
+  /* Your mobile styles go here */
+  .hld_orders_wrap {
+    padding: 30px 15px;
+  }
+  .hld_orders_wrap .hld_item_wrap {
+    padding: 20px 20px;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .hld_orders_wrap .left {
+    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .hld_orders_wrap button {
+    width: 50%;
+  }
+  .hld_orders_wrap .right {
+    width: 100%;
+  }
+  .hld_orders_wrap .desc_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
