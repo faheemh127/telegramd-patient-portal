@@ -7,8 +7,8 @@
 /* ---------------------------------------------
   COLORS & VARIABLES
 --------------------------------------------- */
-$blue: #428BFF;
-$red: #FF4A53;
+$blue: #428bff;
+$red: #ff4a53;
 $dark: #333;
 
 $accent: $blue;
@@ -23,14 +23,13 @@ $indicator-height: 4px;
 /* Responsive breakpoints */
 $breakpoints: (
   medium: #{$tab-count * 250px},
-  small: #{$tab-count * 150px}
+  small: #{$tab-count * 150px},
 );
 
 /* Selectors related to radio tabs */
 $label-selector: "~ ul > li";
 $slider-selector: "~ .slider";
 $content-selector: "~ .content > section";
-
 
 /* ---------------------------------------------
   MIXIN: Cross-browser user-select
@@ -70,7 +69,8 @@ $content-selector: "~ .content > section";
 /* ---------------------------------------------
   BASE STYLES
 --------------------------------------------- */
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   font-family: "Raleway", sans-serif;
@@ -89,117 +89,122 @@ h1 {
 /* ---------------------------------------------
   TABS CONTAINER
 --------------------------------------------- */
-.tabs {
-  background: white;
-  min-width: #{$tab-count * 60px};
-  max-width: 100vw;
-  padding: 50px;
-  padding-bottom: 80px;
-  height: auto;
-  border-radius: 5px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+section#hdlDashboard {
+  min-width: 100%;
+  .container {
+    .tabs {
+      background: white;
+      min-width: #{$tab-count * 60px};
+      max-width: 100vw;
+      padding: 50px;
+      padding-bottom: 80px;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
 
-  input[name="tab-control"] {
-    display: none;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-
-    li {
-      flex: 1;
-      width: #{100% / $tab-count};
-      text-align: center;
-      padding: 0 10px;
-
-      label {
-        color: $secondary;
-        font-family: "Montserrat", sans-serif;
-        font-weight: bold;
-        font-size: 18px;
-        padding: 5px auto;
-        display: block;
-        cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        @include user-select(none);
-        transition: all 0.2s ease-in-out;
-
-        &:hover,
-        &:focus,
-        &:active {
-          color: lighten($secondary, 15%);
-        }
-      }
-    }
-  }
-
-  .slider {
-    position: relative;
-    width: #{100% / $tab-count};
-    transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
-
-    .indicator {
-      width: $indicator-width;
-      max-width: 100%;
-      margin: 0 auto;
-      height: $indicator-height;
-      background: $accent;
-      border-radius: 1px;
-    }
-  }
-
-  .content {
-    margin-top: 30px;
-
-    section {
-      display: none;
-      animation: content 0.3s ease-in-out 1;
-      line-height: 1.4;
-
-      h2 {
+      input[name="tab-control"] {
         display: none;
-        color: $accent;
+      }
 
-        &::after {
-          content: "";
-          display: block;
-          width: 30px;
-          height: 3px;
-          background: $accent;
-          margin-top: 5px;
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+
+        li {
+          flex: 1;
+          width: #{100% / $tab-count};
+          text-align: center;
+          padding: 0 10px;
+
+          label {
+            color: $secondary;
+            font-family: "Montserrat", sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 5px auto;
+            display: block;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            @include user-select(none);
+            transition: all 0.2s ease-in-out;
+
+            &:hover,
+            &:focus,
+            &:active {
+              color: lighten($secondary, 15%);
+            }
+          }
         }
       }
 
-      .inner-content{
-        display: flex;
-        justify-content: center;
+      .slider {
+        position: relative;
+        width: #{100% / $tab-count};
+        transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+
+        .indicator {
+          width: $indicator-width;
+          max-width: 100%;
+          margin: 0 auto;
+          height: $indicator-height;
+          background: $accent;
+          border-radius: 1px;
+        }
       }
-    }
-  }
 
-  input[name="tab-control"] {
-    @include tabs {
-      > label {
-        cursor: default;
-        color: $accent;
+      .content {
+        margin-top: 30px;
 
-        @media (max-width: map-get($breakpoints, small)) {
-          background: rgba(0, 0, 0, 0.08);
+        section {
+          display: none;
+          animation: content 0.3s ease-in-out 1;
+          line-height: 1.4;
+
+          h2 {
+            display: none;
+            color: $accent;
+
+            &::after {
+              content: "";
+              display: block;
+              width: 30px;
+              height: 3px;
+              background: $accent;
+              margin-top: 5px;
+            }
+          }
+
+          .inner-content {
+            display: flex;
+            justify-content: center;
+          }
+        }
+      }
+
+      input[name="tab-control"] {
+        @include tabs {
+          > label {
+            cursor: default;
+            color: $accent;
+
+            @media (max-width: map-get($breakpoints, small)) {
+              background: rgba(0, 0, 0, 0.08);
+            }
+          }
         }
       }
     }
   }
 }
-
 /* ---------------------------------------------
   ANIMATIONS
 --------------------------------------------- */
@@ -233,7 +238,15 @@ h1 {
     border-radius: 5px;
     span {
       display: none;
+
+      &:first-child {
+        display: inline-block;
+      }
     }
+  }
+
+  .tabs {
+    padding: 1rem 4px 0.25rem 4px !important;
   }
 
   .tabs .slider {

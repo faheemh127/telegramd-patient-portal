@@ -20,25 +20,19 @@ $now = new DateTime();
 $patient['age'] = $dob->diff($now)->y;
 ?>
 
-<div class="profile-container">
+<div class="container my-5 profile-container">
+    <h1 class="mb-4 text-primary">🩺 Patient Profile</h1>
 
-    <h1>🩺 Patient Profile</h1>
-
-    <!-- Profile Image -->
-    <div class="profile-image">
-        <img src="https://cindykophotography.com/wp-content/uploads/49946859_605163983238131_143987782165987328_o-1.jpg" alt="Profile Picture" />
-    </div>
-
-    <div class="flex-wrapper">
-
-        <!-- Profile Info -->
-        <div class="profile-details">
-
-
-            <!-- Basic Info -->
-            <div class="section-card">
-                <h2>Basic Information</h2>
-                <div class="info-grid">
+    <div class="row g-4">
+        <div class="col-md-3 px-0 text-center">
+            <img src="https://cindykophotography.com/wp-content/uploads/49946859_605163983238131_143987782165987328_o-1.jpg"
+                class="rounded-circle img-fluid shadow profile-img" alt="Profile Picture">
+        </div>
+        <div class="col-md-9">
+            <!-- Basic Information -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header text-primary fw-bold">Basic Information</div>
+                <div class="card-body row row-cols-1 row-cols-md-2 g-3">
                     <div><strong>Name:</strong> <?= $patient['full_name']; ?></div>
                     <div><strong>Gender:</strong> <?= $patient['gender']; ?></div>
                     <div><strong>Date of Birth:</strong> <?= $patient['dob']; ?></div>
@@ -48,10 +42,10 @@ $patient['age'] = $dob->diff($now)->y;
                 </div>
             </div>
 
-            <!-- Medical Info -->
-            <div class="section-card">
-                <h2>Medical Information</h2>
-                <div class="info-grid">
+            <!-- Medical Information -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header text-primary fw-bold">Medical Information</div>
+                <div class="card-body row row-cols-1 row-cols-md-2 g-3">
                     <div><strong>Blood Group:</strong> <?= $patient['blood_group']; ?></div>
                     <div><strong>Allergies:</strong> <?= $patient['allergies']; ?></div>
                     <div><strong>Chronic Conditions:</strong> <?= $patient['chronic_conditions']; ?></div>
@@ -61,10 +55,10 @@ $patient['age'] = $dob->diff($now)->y;
                 </div>
             </div>
 
-            <!-- Contact Info -->
-            <div class="section-card">
-                <h2>Emergency & Contact</h2>
-                <div class="info-grid">
+            <!-- Emergency & Contact -->
+            <div class="card shadow-sm">
+                <div class="card-header text-primary fw-bold">Emergency & Contact</div>
+                <div class="card-body row row-cols-1 row-cols-md-2 g-3">
                     <div><strong>Address:</strong> <?= $patient['address']; ?></div>
                     <div><strong>Emergency Contact:</strong> <?= $patient['emergency_contact']; ?></div>
                 </div>

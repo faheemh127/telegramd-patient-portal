@@ -134,17 +134,30 @@ add_shortcode('hld_orders', function () {
 });
 
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style(
-        'hld-plugin-css',
-        plugin_dir_url(__FILE__) . 'css/style.css',
-        [],
-        '1.0'
-    );
+    // wp_enqueue_style(
+    //     'hld-plugin-css',
+    //     plugin_dir_url(__FILE__) . 'css/style.css',
+    //     [],
+    //     '1.0'
+    // );
     wp_enqueue_style(
         'hld-plugin-scss',
         plugin_dir_url(__FILE__) . 'css/main.css',
         [],
         '1.0'
+    );
+    wp_enqueue_style(
+        'hld-bootstrap',
+        plugin_dir_url(__FILE__) . 'libs/bootstrap.min.css',
+        [],
+        '1.0'
+    );
+    wp_enqueue_script(
+        'hld-bootstrap',
+        plugin_dir_url(__FILE__) . 'libs/bootstrap.min.js',
+        ['jquery'],
+        '1.0',
+        true
     );
 });
 
