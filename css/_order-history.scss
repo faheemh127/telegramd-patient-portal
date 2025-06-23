@@ -17,13 +17,33 @@ $hld-color-primary: #5a60ff;
 
   .desc-wrap {
     h5 {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
   }
-
+  .hld_color_primary {
+    color: var($hld-color-primary);
+  }
+  .hdl_tab_heading {
+    text-align: left;
+    margin-top: 10px;
+    padding: 0;
+    line-height: 0;
+    margin: 0 !important;
+    margin-bottom: 0px;
+    text-align: left;
+    margin-bottom: 0px !important;
+  }
+  .hld_btn_view_detail {
+    padding: 5px 20px;
+  }
+  .hld_btn_view_detail_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
   button.btn {
     font-size: 15px;
-    padding: 10px 20px;
+    padding: 7px 15px;
     border-radius: 5px;
 
     &.btn-outline-primary {

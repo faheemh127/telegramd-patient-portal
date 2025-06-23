@@ -82,6 +82,7 @@ section#hdlDashboard .container .tabs ul li label {
   -moz-user-select: none;
   user-select: none;
   transition: all 0.2s ease-in-out;
+  color: black !important;
 }
 section#hdlDashboard .container .tabs ul li label:hover, section#hdlDashboard .container .tabs ul li label:focus, section#hdlDashboard .container .tabs ul li label:active {
   color: #bec5cf;
@@ -266,11 +267,32 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):che
   fill: #5a60ff;
 }
 .hld-orders .desc-wrap h5 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+.hld-orders .hld_color_primary {
+  color: var(#5a60ff);
+}
+.hld-orders .hdl_tab_heading {
+  text-align: left;
+  margin-top: 10px;
+  padding: 0;
+  line-height: 0;
+  margin: 0 !important;
+  margin-bottom: 0px;
+  text-align: left;
+  margin-bottom: 0px !important;
+}
+.hld-orders .hld_btn_view_detail {
+  padding: 5px 20px;
+}
+.hld-orders .hld_btn_view_detail_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 .hld-orders button.btn {
   font-size: 15px;
-  padding: 10px 20px;
+  padding: 7px 15px;
   border-radius: 5px;
 }
 .hld-orders button.btn.btn-outline-primary {

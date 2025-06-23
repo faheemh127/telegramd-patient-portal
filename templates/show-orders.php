@@ -1,5 +1,5 @@
 <div class="hld_orders_wrap">
-    <h1 style="margin-bottom: 15px;">Patient Order History</h1>
+    <!-- <h1 style="margin-bottom: 15px;">Patient Order History</h1> -->
     <!-- Single Item -->
     <?php for ($i = 0; $i <= 7; $i++) {  ?>
         <div class="hld_item_wrap">

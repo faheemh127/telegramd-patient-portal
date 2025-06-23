@@ -21,7 +21,7 @@ $patient['age'] = $dob->diff($now)->y;
 ?>
 
 <div class="container my-5 profile-container">
-    <h1 class="mb-4 text-primary">🩺 Patient Profile</h1>
+    <!-- <h1 class="mb-4 text-primary">🩺 Patient Profile</h1> -->
 
     <div class="row g-4">
         <div class="col-md-3 px-0 text-center">
