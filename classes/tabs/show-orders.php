@@ -50,8 +50,10 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 
                 <!-- Right Section -->
                 <div class="col-md-3 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-column justify-content-center gap-2">
+                    <!-- <a href="#"> -->
                     <button class="btn btn-outline-primary">View Detail</button>
                     <button class="btn btn-primary">Completed</button>
+                    <!-- </a> -->
                 </div>
 
             </div>

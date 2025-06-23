@@ -58,13 +58,13 @@ class DashboardShortcode
                         <li title="Shipping">
                             <label for="tab3" role="button">
                                 <span><?php echo $this->icon_patient_profile ?></span>
-                                <span>patient-profile</span>
+                                <span>Patient Profile</span>
                             </label>
                         </li>
                         <li title="Returns">
                             <label for="tab4" role="button">
                                 <span><?php echo $this->icon_returns ?></span>
-                                <span>Returns</span>
+                                <span>Subscriptions</span>
                             </label>
                         </li>
                     </ul>
@@ -89,7 +89,7 @@ class DashboardShortcode
                             <?php include plugin_dir_path(__FILE__) . 'tabs/patient-profile.php'; ?>
                         </section>
                         <section>
-                            <h2>Returns</h2>
+                            <h2>Subscriptions</h2>
                             <?php include plugin_dir_path(__FILE__) . 'tabs/returns.php'; ?>
                         </section>
                     </div>
