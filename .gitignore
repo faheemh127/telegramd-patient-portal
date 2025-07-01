@@ -2,3 +2,6 @@
 api-keys.php
 .git
 .vscode
+
+#ignore the backup folder
+backup/

@@ -9,7 +9,6 @@
  * Prefix: hld
  */
 
-
 // Include API
 // require_once plugin_dir_path(__FILE__) . 'telegramd-api.php';
 // // Register shortcodes
@@ -21,111 +20,6 @@
 
 include_once('api-keys.php');
 
-add_action('fluentform/before_insert_submission', 'hld_before_submission_create_order_in_telegramd', 10, 3);
-
-// function hld_before_submission_create_order_in_telegramd($insertData, $data, $form)
-// {
-//     // Decode submitted data from Fluent Forms
-//     $responseData = json_decode($insertData['response'], true);
-
-//     // STEP 1: Create the patient
-//     $patient_data = [
-//         'dateOfBirth'      => $responseData['dob']         ?? '10-05-1992',
-//         'email'            => $responseData['email']       ?? 'Chewbacca1@rebellion.com',
-//         'firstName'        => $responseData['first_name']  ?? 'Chewbacca',
-//         'lastName'         => $responseData['last_name']   ?? 'Wookie',
-//         'gender'           => $responseData['gender']      ?? 'male',
-//         'genderBiological' => $responseData['gender_bio']  ?? 'male',
-//         'phone'            => $responseData['phone']       ?? '8888888888',
-//     ];
-
-//     $auth_token = 'Bearer '. TELEGRAMD_BEARER_TOKEN; // TRUNCATED FOR BREVITY
-
-//     $patient_response = wp_remote_post('https://dev-core-ias-rest.telegramd.com/patients', [
-//         'headers' => [
-//             'Content-Type'  => 'application/json',
-//             'Accept'        => 'application/json',
-//             'Authorization' => $auth_token,
-//         ],
-//         'body'    => wp_json_encode($patient_data),
-//         'timeout' => 20,
-//     ]);
-
-//     if (is_wp_error($patient_response)) {
-//         error_log('TelegraMD Patient API error: ' . $patient_response->get_error_message());
-//         return; // Abort order creation
-//     }
-
-//     $patient_code = wp_remote_retrieve_response_code($patient_response);
-//     $patient_body = json_decode(wp_remote_retrieve_body($patient_response), true);
-
-//     if ($patient_code !== 200 || empty($patient_body['patient'])) {
-//         error_log("TelegraMD Patient creation failed: HTTP $patient_code — " . print_r($patient_body, true));
-//         return;
-//     }
-
-//     $patient_id = $patient_body['patient']; // e.g., "pat::xxxx"
-
-//     error_log("telegraMD patient ID: ", $patient_id);
-// }
-
-
-
-// add_action('fluentform/before_insert_submission', 'hld_before_submission_create_order_in_telegramd', 10, 3);
-
-// function hld_before_submission_create_order_in_telegramd($insertData, $data, $form)
-// {
-//     $auth_token = 'Bearer '. TELEGRAMD_BEARER_TOKEN;
-
-//     $response = wp_remote_get('https://dev-core-ias-rest.telegramd.com/productVariations', [
-//         'headers' => [
-//             'Accept'        => 'application/json',
-//             'Authorization' => $auth_token,
-//         ],
-//         'timeout' => 20,
-//     ]);
-
-//     if (is_wp_error($response)) {
-//         error_log('TelegraMD productVariations API error: ' . $response->get_error_message());
-//     } else {
-//         $code = wp_remote_retrieve_response_code($response);
-//         $body = wp_remote_retrieve_body($response);
-//         error_log("TelegraMD productVariations response: HTTP $code — $body");
-//     }
-// }
-
-
-
-add_action('fluentform/before_insert_submission', 'hld_before_submission_create_order_in_telegramd', 10, 3);
-
-function hld_before_submission_create_order_in_telegramd($insertData, $data, $form)
-{
-    // Define your Basic Auth token constant (you can move this to wp-config.php or a secure location)
-    if (!defined('TELEGRAMD_BEARER_TOKEN')) {
-        define('TELEGRAMD_BEARER_TOKEN', 'Basic ZmFoZWVtaDEyN0BnbWFpbC5jb206IUAjNDU2Jioo');
-    }
-
-    $response = wp_remote_post('https://dev-core-ias-rest.telegramd.com/auth/client', [
-        'headers' => [
-            'Accept'        => 'application/json',
-            'Authorization' => TELEGRAMD_BEARER_TOKEN,
-        ],
-        'timeout' => 20,
-    ]);
-
-    if (is_wp_error($response)) {
-        error_log('TelegraMD auth/client API error: ' . $response->get_error_message());
-    } else {
-        $code = wp_remote_retrieve_response_code($response);
-        $body = wp_remote_retrieve_body($response);
-        error_log("TelegraMD auth/client response: HTTP $code — $body");
-    }
-}
-
-
-
-
-
 
 add_shortcode('hld_orders', function () {
     ob_start();
@@ -134,12 +28,45 @@ add_shortcode('hld_orders', function () {
 });
 
 add_action('wp_enqueue_scripts', function () {
-    // wp_enqueue_style(
-    //     'hld-plugin-css',
-    //     plugin_dir_url(__FILE__) . 'css/style.css',
-    //     [],
-    //     '1.0'
-    // );
+
+
+
+    // Started adding stripe SDK
+    // Load Stripe.js from Stripe's CDN
+    wp_enqueue_script(
+        'stripe-js',
+        'https://js.stripe.com/v3/',
+        [],
+        null,
+        true
+    );
+
+    // Enqueue your own JavaScript file AFTER stripe.js
+    wp_enqueue_script(
+        'my-stripe-handler',
+        plugin_dir_url(__FILE__) . 'js/stripe-handler.js',
+        ['stripe-js'],
+        '1.0',
+        true
+    );
+
+    // // Pass Stripe Publishable Key to JS
+    // wp_localize_script('my-stripe-handler', 'MyStripeData', [
+    //     'publishableKey' => 'pk_test_YOUR_PUBLISHABLE_KEY',
+    // ]);
+    $your_generated_client_secret = "..";
+    wp_localize_script('my-stripe-handler', 'MyStripeData', [
+        'publishableKey' => 'pk_test_xxx',
+        'clientSecret' => $your_generated_client_secret, // from Stripe API
+    ]);
+    // Ended stripe SDK 
+
+    wp_enqueue_style(
+        'hld-plugin-custom-css',
+        plugin_dir_url(__FILE__) . 'css/custom-style.css',
+        [],
+        '1.0'
+    );
     wp_enqueue_style(
         'hld-plugin-scss',
         plugin_dir_url(__FILE__) . 'css/main.css',
@@ -159,7 +86,176 @@ add_action('wp_enqueue_scripts', function () {
         '1.0',
         true
     );
+
+    //Enqueue your custom JavaScript file
+    wp_enqueue_script(
+        'hld-custom-js',
+        plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
+        ['jquery'], // or [] if no dependency
+        '1.0',
+        true
+    );
 });
 
 require_once plugin_dir_path(__FILE__) . 'classes/dashboard-shortcode.php';
 new DashboardShortcode();
+
+
+
+
+
+
+
+// function create_dummy_patient_on_telegra_md()
+// {
+//     $api_url = 'https://dev-core-ias-rest.telegramd.com/patients';
+
+//     // Dummy patient payload
+//     $payload = [
+//         'name'      => 'John Doe',
+//         'firstName' => 'Chewbacca',
+//         'lastName'   => '',
+//         'email'     => 'johndoe@example.com',
+//         'phone'     => '',
+//         'dateOfBirth' => '',
+//         'gender'    => '',
+//         'genderBiological' => '',
+//         'affiliate' => TELEGRAMD_AFFLIATE_ID,
+//     ];
+//     $response = wp_remote_post($api_url, [
+//         'method'  => 'POST',
+//         'headers' => [
+//             'accept'        => 'application/json',
+//             'authorization' => 'Bearer ' . TELEGRAMD_BEARER_TOKEN,
+//             'content-type'  => 'application/json',
+//         ],
+//         'body' => json_encode($payload),
+//     ]);
+
+//     if (is_wp_error($response)) {
+//         error_log('TelegraMD API Error: ' . $response->get_error_message());
+//     } else {
+//         $body = wp_remote_retrieve_body($response);
+//         error_log('TelegraMD API Response: ' . $body);
+//     }
+// }
+
+
+
+
+// function debug_print_current_nsl_user_info()
+// {
+//     $user_id = get_current_user_id();
+//     $provider = 'google'; // You can change this to 'facebook', 'twitter', etc. if needed
+//     $current_user =  wp_get_current_user();
+//     echo "<pre>";
+//     print_r("user id is");
+//     print_r($user_id);
+//     print_r($current_user);
+//     echo "</pre>";
+
+//     if ($user_id) {
+//         $user_info = get_user_meta($user_id, 'nsl_user_data_' . $provider, true);
+//         echo "working32";
+//         print_r($user_info);
+//         var_dump($user_info);
+//         echo "okfjdsl";
+//         error_log("NSL User Info for logged-in user ID $user_id (provider: $provider):");
+//         error_log(print_r($user_info, true));
+//     } else {
+//         error_log("No user is currently logged in.");
+//     }
+// }
+
+// add_action('init', 'debug_print_current_nsl_user_info');
+
+
+
+
+function get_telegra_patient_id_for_current_user()
+{
+    if (!is_user_logged_in()) {
+        return null;
+    }
+
+    $user_id = get_current_user_id();
+    $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
+
+    $patient_id = get_user_meta($user_id, $meta_key, true);
+
+    return !empty($patient_id) ? $patient_id : null;
+}
+
+
+// $telegra_id =   get_telegra_patient_id_for_current_user();
+// echo "telegraid";
+// print_r($telegra_id);
+
+
+add_action('init', 'create_patient_if_not_exists_on_telegra_md');
+
+function create_patient_if_not_exists_on_telegra_md()
+{
+
+
+    if (!is_user_logged_in()) {
+        return;
+    }
+
+    $user = wp_get_current_user();
+
+    if (!in_array('subscriber', (array) $user->roles)) {
+        return;
+    }
+
+    $user_id = $user->ID;
+    // don't change this key other developers are using this.
+    $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
+
+    // If already exists, skip API call
+    if (get_user_meta($user_id, $meta_key, true)) {
+        error_log("TelegraMD: Patient already exists for user $user_id");
+        return;
+    }
+
+    // Prepare payload with available user data
+    $first_name = $user->first_name ?: 'Chewbacca';
+    $last_name  = $user->last_name ?: 'Wookie';
+    $email      = $user->user_email ?: 'johndoe@example.com';
+
+    $payload = [
+        'name'             => $first_name . ' ' . $last_name,
+        'firstName'        => $first_name,
+        'lastName'         => $last_name,
+        'email'            => $email,
+        'phone'            => '1111111111', // Placeholder
+        'dateOfBirth'      => '1990-01-01', // Placeholder
+        'gender'           => 'male', // Placeholder
+        'genderBiological' => 'male', // Placeholder
+        'affiliate'        => TELEGRAMD_AFFLIATE_ID,
+    ];
+
+    $response = wp_remote_post('https://dev-core-ias-rest.telegramd.com/patients', [
+        'method'  => 'POST',
+        'headers' => [
+            'accept'        => 'application/json',
+            'authorization' => 'Bearer ' . TELEGRAMD_BEARER_TOKEN,
+            'content-type'  => 'application/json',
+        ],
+        'body' => json_encode($payload),
+    ]);
+
+    if (is_wp_error($response)) {
+        error_log('TelegraMD API Error: ' . $response->get_error_message());
+    } else {
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        if (!empty($data['id'])) {
+            update_user_meta($user_id, $meta_key, $data['id']);
+            error_log("TelegraMD: Patient created and saved for user $user_id with ID: {$data['id']}");
+        } else {
+            error_log("TelegraMD API Response missing ID: " . $body);
+        }
+    }
+}

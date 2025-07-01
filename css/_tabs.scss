@@ -263,3 +263,66 @@ section#hdlDashboard {
     }
   }
 }
+
+.hld_payment_method_wrap label {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  padding: 20px 30px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  cursor: pointer;
+}
+.hld_payment_method_wrap label div.hld_wrap {
+  display: flex;
+}
+
+.hld_payment_method_wrap .hld_left {
+  justify-content: left;
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
+}
+
+.hld_payment_method_wrap label.hld_stripe {
+  margin-bottom: 20px;
+}
+
+.hld_payment_method_wrap .hld_right {
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  gap: 7px;
+}
+
+.hld_payment_method_wrap label.hld_stripe .hld_title {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+.hld_master_card_wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+}
+.hld_stripe:hover {
+  background: #ececec;
+  transition: background-color;
+}
+.hld_payment_method_wrap .StripeElement{
+  padding: 15px 10px !important;
+  border: 1px solid rgba(0,0,0,0.9) !important;
+  border-radius: 10px !important;
+  background: #f7f7f7 !important;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  div.ff-summary-inner-wrapper {
+    padding: 10px 20px 0 20px;
+  }
+}
+
+
+
