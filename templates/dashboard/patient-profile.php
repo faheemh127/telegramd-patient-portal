@@ -1,9 +1,11 @@
 <?php
+// $user
+
 $patient = [
-    'full_name' => 'John Doe',
+    'full_name' => $user->data->user_nicename,
     'gender' => 'Male',
     'dob' => '1990-05-15',
-    'email' => 'john@example.com',
+    'email' => $user->data->user_email,
     'phone' => '+1 234-567-8900',
     'blood_group' => 'B+',
     'allergies' => 'Penicillin',

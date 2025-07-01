@@ -1,0 +1,138 @@
+// ===== Variables =====
+$primary: #0d6efd;
+$light-bg: #f8f9fa;
+$white: #ffffff;
+$gray: #6c757d;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+// ===== Mixins =====
+@mixin card {
+  background: $white;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  padding: 1.5rem;
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// ===== Dashboard Styles =====
+.dashboard-wrapper {
+  //   background: $light-bg;
+  //   padding: 2rem;
+
+  .card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .card {
+      @include card;
+      flex: 1 1 250px;
+      flex-direction: row;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .info {
+        h3 {
+          font-size: 1rem;
+          color: $gray;
+          margin-bottom: 0.25rem;
+        }
+
+        .value {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: $primary;
+        }
+      }
+
+      .icon {
+        width: 60px;
+        height: 60px;
+        background: rgba($primary, 0.1);
+        color: $primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+
+  .table-wrapper {
+    @include card;
+    overflow-x: auto;
+
+    h4 {
+      margin-bottom: 1rem;
+      color: $gray;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+
+      thead {
+        background-color: $primary;
+        color: $white;
+      }
+
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #dee2e6;
+
+        &:hover {
+          background-color: #f1f3f5;
+        }
+      }
+
+      td.status {
+        font-weight: 600;
+
+        &.success {
+          color: #198754;
+        }
+        &.pending {
+          color: #ffc107;
+        }
+        &.failed {
+          color: #dc3545;
+        }
+      }
+    }
+  }
+
+  // ===== Responsive =====
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .card-wrapper {
+      flex-direction: column;
+
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+
+    .table-wrapper {
+      padding: 1rem;
+    }
+  }
+}

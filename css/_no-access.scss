@@ -1,0 +1,75 @@
+// =========================
+// Color Palette
+// =========================
+
+$gray-900: #212529;
+$gray-800: #2c3338;
+$gray-700: #3c434a;
+$gray-300: #c3c4c7;
+$gray-100: #f0f0f0;
+
+$white: #ffffff;
+$black: #000000;
+$accent: #0d6efd;
+
+// =========================
+// Mixins
+// =========================
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// =========================
+// Access Denied Page
+// =========================
+
+.access-denied {
+  @include flex-center;
+  //   background-color: $gray-900;
+  color: $gray-100;
+  //   width: 100vw;
+  //   height: 100vh;
+  padding: 2rem;
+
+  .denied-card {
+    background-color: $gray-800;
+    border-radius: 0.75rem;
+    padding: 2rem 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px $black;
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: $white;
+    }
+
+    .message {
+      font-size: 1rem;
+      color: $gray-300;
+      margin-bottom: 2rem;
+    }
+
+    .go-back-btn {
+      background-color: $accent;
+      color: $white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken($accent, 5%);
+      }
+    }
+  }
+}

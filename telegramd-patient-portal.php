@@ -19,6 +19,9 @@
 
 
 include_once('api-keys.php');
+foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
+    require_once $file;
+}
 
 
 add_shortcode('hld_orders', function () {
@@ -97,7 +100,7 @@ add_action('wp_enqueue_scripts', function () {
     );
 });
 
-require_once plugin_dir_path(__FILE__) . 'classes/dashboard-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 new DashboardShortcode();
 
 
