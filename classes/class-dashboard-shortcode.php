@@ -21,12 +21,12 @@ class DashboardShortcode
                 return ob_get_clean();
             } else {
                 // Redirect non-subscribers
-                wp_redirect(home_url('/?patient_login_required=true'));
+                wp_redirect(home_url('/log-in-to-your-account?patient_login_required=true'));
                 exit;
             }
         } else {
             // Redirect non-logged-in users
-            wp_redirect(home_url('/?patient_login_required=true'));
+            wp_redirect(home_url('/log-in-to-your-account?patient_login_required=true'));
             exit;
         }
     }
