@@ -1,17 +1,18 @@
 .hld_form_wrap {
-  max-width: 700px !important;
+  max-width: 600px !important;
 }
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
-  padding: 20px 20px !important;
+  padding: 25px 20px !important;
   border-radius: 12px !important;
   font-size: 17px !important;
   font-weight: 600 !important;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   text-align: left !important;
+  margin-bottom: 10px;
 }
-.hld_form_wrap .ff-el-form-check-label span{
-    padding-left: 5px;
+.hld_form_wrap .ff-el-form-check-label span {
+  padding-left: 5px;
 }
 
 .hld_form_wrap .ff-default .ff-el-input--label label {
@@ -35,9 +36,9 @@
   border: 1px solid #6d6ffc !important;
   color: #6d6ffc;
 }
-.hld_form_wrap .fluentform .ff-el-form-check{
-    margin-bottom: 0 !important;
+.hld_form_wrap .fluentform .ff-el-form-check {
+  margin-bottom: 0 !important;
 }
-.hld_form_wrap .checkbox-1 .ff-el-input--content{
-    gap: 7px;
+.hld_form_wrap .checkbox-1 .ff-el-input--content {
+  gap: 7px;
 }
