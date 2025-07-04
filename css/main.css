@@ -313,6 +313,7 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .hld_btn_profile_logout {

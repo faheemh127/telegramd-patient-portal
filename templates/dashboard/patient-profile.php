@@ -47,7 +47,7 @@ $patient['age'] = $dob->diff($now)->y;
             <div class="card mb-4 shadow-sm">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="d-flex justify-content-between">
-                        <div><strong>Debit Card:</strong> **** **** **** 0000</div>
+                        <div><strong>Debit Card:</strong> <span class="fw-bold">**** **** **** 0000</span></div>
                         <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
                     </div>
 
@@ -58,9 +58,9 @@ $patient['age'] = $dob->diff($now)->y;
 
             <div class="card mb-4 shadow-sm">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-                    <div><strong>Orders:</strong> Need to change the address of an order that's in-progress? <a href="#">Contact customer support</a></div>
-                    <div>subscriptions</div>
-                    <div>Update your shipping address in your <a href="">subscriptions page</a></div>
+                    <div><strong>Orders:</strong> <span class="fw-bold">Need to change the address of an order that's in-progress? </span> <a href="#">Contact customer support</a></div>
+                    <div class="text-secondary">subscriptions</div>
+                    <div class="text-danger">Update your shipping address in your <a href="">subscriptions page</a></div>
 
                 </div>
             </div>
