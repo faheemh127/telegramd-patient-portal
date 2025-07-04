@@ -12,6 +12,8 @@ defined('ABSPATH') || exit;
             <input type="radio" id="tab2" name="tab-control" />
             <input type="radio" id="tab3" name="tab-control" />
             <input type="radio" id="tab4" name="tab-control" />
+            <input type="radio" id="tab5" name="tab-control" />
+            <input type="radio" id="tab6" name="tab-control" />
 
             <style>
                 #hdlDashboard ul {
@@ -20,7 +22,7 @@ defined('ABSPATH') || exit;
                     border-radius: 50px;
                     margin-bottom: 0 !important;
                     margin-right: auto !important;
-                    margin-left: auto !important
+                    margin-left: auto !important overflow: hidden !important;
                 }
             </style>
             <ul class="container">
@@ -30,6 +32,8 @@ defined('ABSPATH') || exit;
                 <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
                 <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile</span></label></li>
                 <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
+                <li><label for="tab5"><span class="pe-2"></span><span>Lab Order</span></label></li>
+                <li><label for="tab6"><span class="pe-2"></span><span>Subscriptions</span></label></li>
 
             </ul>
 
@@ -75,6 +79,21 @@ defined('ABSPATH') || exit;
                         style="border: none;"
                         loading="lazy"></iframe>
 
+                </section>
+
+
+                <section>
+                    <h2>Lab Orders</h2>
+                    <div>
+                        <h4>Welcome</h4>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Subscriptions</h2>
+                    <div>
+                        <h4>Welcome</h4>
+                    </div>
                 </section>
 
             </div>
