@@ -127,8 +127,8 @@ section#hdlDashboard {
           label {
             color: $secondary;
             font-family: "Montserrat", sans-serif;
-            font-weight: bold;
-            font-size: 18px;
+            font-weight: normal;
+            font-size: 16px;
             padding: 5px auto;
             display: block;
             cursor: pointer;
@@ -315,7 +315,28 @@ section#hdlDashboard {
   border-radius: 10px !important;
   background: #f7f7f7 !important;
 }
-
+.btn_edit_settings {
+  background: transparent;
+  color: black;
+  border: 1px solid black;
+  border-radius: 40px;
+  padding: 4px 17px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+.hld_btn_profile_logout {
+  text-align: center;
+  margin: auto;
+  text-decoration: none;
+  background: black;
+  color: white;
+  display: block;
+  max-width: 150px;
+  padding: 10px 0;
+  border-radius: 50px;
+}
 @media only screen and (max-width: 768px) {
   div.ff-summary-inner-wrapper {
     padding: 10px 20px 0 20px;

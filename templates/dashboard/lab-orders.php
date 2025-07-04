@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-4 hld_lab_order_container">
     <!-- <h1 class="hdl_tab_heading">Patient Order History</h1> -->
 
     <?php for ($i = 0; $i <= 7; $i++) { ?>

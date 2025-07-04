@@ -25,7 +25,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
         <div class="card mb-3 shadow-sm p-4 hld-order-item">
             <div class="row align-items-center">
                 <!-- Left Section -->
-                <div class="col-md-9 d-flex align-items-center gap-3">
+                <div class="col-md-8 d-flex align-items-center gap-3">
                     <div class="icon-wrap bg-light rounded-circle p-3 d-flex align-items-center justify-content-center">
                         <?php echo $icon_capsule_tablet; ?>
                     </div>
@@ -49,7 +49,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                 </div>
 
                 <!-- Right Section -->
-                <div class="col-md-3 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
+                <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
                     <!-- <a href="#"> -->
                     <button class="btn btn-outline-primary">View Detail</button>
                     <button class="btn btn-primary">Completed</button>

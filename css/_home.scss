@@ -37,6 +37,7 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border: none;
 
       .info {
         h3 {
@@ -118,6 +119,11 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       }
     }
   }
+
+  .hld_lab_order_container .card{
+    border: none;
+  }
+
 
   // ===== Responsive =====
   @media (max-width: 768px) {

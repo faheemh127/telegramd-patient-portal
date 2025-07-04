@@ -70,8 +70,8 @@ section#hdlDashboard .container .tabs ul li {
 section#hdlDashboard .container .tabs ul li label {
   color: #929daf;
   font-family: "Montserrat", sans-serif;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: normal;
+  font-size: 16px;
   padding: 5px auto;
   display: block;
   cursor: pointer;
@@ -303,6 +303,30 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
   background: #f7f7f7 !important;
 }
 
+.btn_edit_settings {
+  background: transparent;
+  color: black;
+  border: 1px solid black;
+  border-radius: 40px;
+  padding: 4px 17px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.hld_btn_profile_logout {
+  text-align: center;
+  margin: auto;
+  text-decoration: none;
+  background: black;
+  color: white;
+  display: block;
+  max-width: 150px;
+  padding: 10px 0;
+  border-radius: 50px;
+}
+
 @media only screen and (max-width: 768px) {
   div.ff-summary-inner-wrapper {
     padding: 10px 20px 0 20px;
@@ -317,9 +341,11 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
   border-bottom: 1px dashed #e0e0e0;
 }
 .profile-container strong {
-  color: #555;
-  display: inline-block;
   min-width: 160px;
+  display: block;
+  margin-bottom: 7px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 .profile-container .profile-img {
   width: 150px;
@@ -336,7 +362,7 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
 }
 .hld-orders .card {
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: none;
 }
 .hld-orders .icon-wrap svg {
   fill: #5a60ff;
@@ -576,6 +602,7 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: none;
 }
 .dashboard-wrapper .card-wrapper .card:hover {
   transform: translateY(-4px);
@@ -652,6 +679,9 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):che
 }
 .dashboard-wrapper .table-wrapper table td.status.failed {
   color: #dc3545;
+}
+.dashboard-wrapper .hld_lab_order_container .card {
+  border: none;
 }
 @media (max-width: 768px) {
   .dashboard-wrapper {

@@ -23,29 +23,52 @@ $patient['age'] = $dob->diff($now)->y;
 ?>
 
 <div class="container my-5 profile-container">
-    <!-- <h1 class="mb-4 text-primary">🩺 Patient Profile</h1> -->
 
     <div class="row g-4">
-        <div class="col-md-3 px-0 text-center">
-            <img src="https://cindykophotography.com/wp-content/uploads/49946859_605163983238131_143987782165987328_o-1.jpg"
-                class="rounded-circle img-fluid shadow profile-img" alt="Profile Picture">
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <!-- Basic Information -->
+            <h3>Account Details</h3>
             <div class="card mb-4 shadow-sm">
-                <div class="card-header text-primary fw-bold">Basic Information</div>
-                <div class="card-body row row-cols-1 row-cols-md-2 g-3">
-                    <div><strong>Name:</strong> <?= $patient['full_name']; ?></div>
-                    <div><strong>Gender:</strong> <?= $patient['gender']; ?></div>
-                    <div><strong>Date of Birth:</strong> <?= $patient['dob']; ?></div>
-                    <div><strong>Age:</strong> <?= $patient['age']; ?> years</div>
-                    <div><strong>Email:</strong> <?= $patient['email']; ?></div>
-                    <div><strong>Phone:</strong> <?= $patient['phone']; ?></div>
+                <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
+
+                    <!-- Name row with Edit button -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><strong>Name:</strong> <span class="fw-bold"><?= $patient['full_name']; ?></span></div>
+                        <a href="#" class=" btn_edit_settings">Edit</a>
+                    </div>
+
+                    <div><strong>Email:</strong> <span class="fw-bold"><?= $patient['email']; ?></span></div>
+                    <div><strong>Phone:</strong> <span class="fw-bold"><?= $patient['phone']; ?></span></div>
+                    <div><strong>Birthday:</strong> <span class="fw-bold"><?= $patient['dob']; ?></span></div>
                 </div>
             </div>
 
-            <!-- Medical Information -->
+            <h3>Payment Method</h3>
             <div class="card mb-4 shadow-sm">
+                <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
+                    <div class="d-flex justify-content-between">
+                        <div><strong>Debit Card:</strong> **** **** **** 0000</div>
+                        <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
+                    </div>
+
+
+                </div>
+            </div>
+            <h3>Shipping Address</h3>
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
+                    <div><strong>Orders:</strong> Need to change the address of an order that's in-progress? <a href="#">Contact customer support</a></div>
+                    <div>subscriptions</div>
+                    <div>Update your shipping address in your <a href="">subscriptions page</a></div>
+
+                </div>
+            </div>
+
+            <a href="" class="hld_btn_profile_logout">logout</a>
+
+            <!-- Medical Information -->
+            <!-- <div class="card mb-4 shadow-sm">
                 <div class="card-header text-primary fw-bold">Medical Information</div>
                 <div class="card-body row row-cols-1 row-cols-md-2 g-3">
                     <div><strong>Blood Group:</strong> <?= $patient['blood_group']; ?></div>
@@ -55,16 +78,16 @@ $patient['age'] = $dob->diff($now)->y;
                     <div><strong>Previous Surgeries:</strong> <?= $patient['previous_surgeries']; ?></div>
                     <div><strong>Primary Physician:</strong> <?= $patient['primary_physician']; ?></div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Emergency & Contact -->
-            <div class="card shadow-sm">
+            <!-- <div class="card shadow-sm">
                 <div class="card-header text-primary fw-bold">Emergency & Contact</div>
                 <div class="card-body row row-cols-1 row-cols-md-2 g-3">
                     <div><strong>Address:</strong> <?= $patient['address']; ?></div>
                     <div><strong>Emergency Contact:</strong> <?= $patient['emergency_contact']; ?></div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -17,9 +17,11 @@ $box-shadow-sm: 0 10px 10px rgba(0, 0, 0, 0.05);
   }
 
   strong {
-    color: $text-muted;
-    display: inline-block;
     min-width: 160px;
+    display: block;
+    margin-bottom: 7px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 500;
   }
 
   .profile-img {
