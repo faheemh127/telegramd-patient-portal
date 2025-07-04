@@ -1,5 +1,5 @@
 // ===== Variables =====
-$primary: #0d6efd;
+$primary: #5b61fd;
 $light-bg: #f8f9fa;
 $white: #ffffff;
 $gray: #6c757d;
@@ -120,10 +120,53 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
   }
 
-  .hld_lab_order_container .card{
+  .hld_lab_order_container .card {
     border: none;
   }
+  .hld_small_title {
+    margin-bottom: 0;
+  }
+  .hld_dashboard_title {
+    margin-top: 0;
+    padding-top: 0;
+    text-align: left;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .hld_dashboard_subtitle {
+    color: rgba(0, 0, 0, 0.5);
+  }
 
+  .hld-img-wrap {
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .hld_content {
+    .hld_title {
+      margin-bottom: 5px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .hdl_recent_consultations_home {
+    .hld_td {
+      width: 100px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .hld_home_notifications {
+    tr {
+      border-right: 1px solid #dee2e6;
+    }
+  }
 
   // ===== Responsive =====
   @media (max-width: 768px) {

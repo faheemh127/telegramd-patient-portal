@@ -350,7 +350,7 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
   text-align: center;
   margin: auto;
   text-decoration: none;
-  background: black;
+  background: #5b61fd;
   color: white;
   display: block;
   max-width: 150px;
@@ -396,13 +396,14 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
   border: none;
 }
 .hld-orders .icon-wrap svg {
-  fill: #5a60ff;
+  fill: #5b61fd;
 }
 .hld-orders .desc-wrap h5 {
   margin-bottom: 5px;
+  color: #5b61fd !important;
 }
 .hld-orders .hld_color_primary {
-  color: var(#5a60ff);
+  color: var(#5b61fd);
 }
 .hld-orders .hdl_tab_heading {
   text-align: left;
@@ -428,20 +429,20 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
   border-radius: 5px;
 }
 .hld-orders button.btn.btn-outline-primary {
-  color: #5a60ff;
-  border-color: #5a60ff;
+  color: #5b61fd;
+  border-color: #5b61fd;
 }
 .hld-orders button.btn.btn-outline-primary:hover {
-  background-color: #272fff;
+  background-color: #2930fc;
   color: #fff;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
 }
 .hld-orders button.btn.btn-primary {
-  background-color: #5a60ff;
-  border-color: #5a60ff;
+  background-color: #5b61fd;
+  border-color: #5b61fd;
 }
 .hld-orders button.btn.btn-primary:hover {
-  background-color: #272fff;
+  background-color: #2930fc;
   color: #fff;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
 }
@@ -647,13 +648,13 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
 .dashboard-wrapper .card-wrapper .card .info .value {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #0d6efd;
+  color: #5b61fd;
 }
 .dashboard-wrapper .card-wrapper .card .icon {
   width: 60px;
   height: 60px;
-  background: rgba(13, 110, 253, 0.1);
-  color: #0d6efd;
+  background: rgba(91, 97, 253, 0.1);
+  color: #5b61fd;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -685,7 +686,7 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
   min-width: 500px;
 }
 .dashboard-wrapper .table-wrapper table thead {
-  background-color: #0d6efd;
+  background-color: #5b61fd;
   color: #ffffff;
 }
 .dashboard-wrapper .table-wrapper table th,
@@ -713,6 +714,43 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
 }
 .dashboard-wrapper .hld_lab_order_container .card {
   border: none;
+}
+.dashboard-wrapper .hld_small_title {
+  margin-bottom: 0;
+}
+.dashboard-wrapper .hld_dashboard_title {
+  margin-top: 0;
+  padding-top: 0;
+  text-align: left;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.dashboard-wrapper .hld_dashboard_subtitle {
+  color: rgba(0, 0, 0, 0.5);
+}
+.dashboard-wrapper .hld-img-wrap {
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.dashboard-wrapper .hld-img-wrap img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.dashboard-wrapper .hld_content .hld_title {
+  margin-bottom: 5px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.dashboard-wrapper .hdl_recent_consultations_home .hld_td {
+  width: 100px;
+}
+.dashboard-wrapper .hdl_recent_consultations_home .hld_td img {
+  width: 100%;
+}
+.dashboard-wrapper .hld_home_notifications tr {
+  border-right: 1px solid #dee2e6;
 }
 @media (max-width: 768px) {
   .dashboard-wrapper {
