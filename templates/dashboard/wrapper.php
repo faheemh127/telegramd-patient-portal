@@ -6,19 +6,31 @@ defined('ABSPATH') || exit;
 
 <section id="hdlDashboard">
     <div class="container">
-        <div class="tabs">
+        <div class="tabs" style="padding-top: 1px;">
             <input type="radio" id="tab0" name="tab-control" checked />
             <input type="radio" id="tab1" name="tab-control" />
             <input type="radio" id="tab2" name="tab-control" />
             <input type="radio" id="tab3" name="tab-control" />
             <input type="radio" id="tab4" name="tab-control" />
 
-            <ul>
-                <li><label for="tab0"><span class="pe-2"><?= $icons['home'] ?></span><span>Home</span></label></li>
-                <li><label for="tab1"><span class="pe-2"><?= $icons['order_history'] ?></span><span>Order History</span></label></li>
-                <li><label for="tab2"><span class="pe-2"><?= $icons['lab_orders'] ?></span><span>Lab Orders</span></label></li>
-                <li><label for="tab3"><span class="pe-2"><?= $icons['patient_profile'] ?></span><span>Patient Profile</span></label></li>
-                <li><label for="tab4"><span class="pe-2"><?= $icons['returns'] ?></span><span>Subscriptions</span></label></li>
+            <style>
+                #hdlDashboard ul{
+	background: white;
+  padding: 15px 0 !important;
+  border-radius: 50px;
+  margin-bottom: 0 !important;
+  margin-right: auto !important;
+  margin-left: auto !important
+}
+            </style>
+            <ul class="container">
+                <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
+                <li><label for="tab1"><span class="pe-2"></span><span>Order History</span></label></li>
+        
+                <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
+                <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile</span></label></li>
+                <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
+              
             </ul>
 
             <div class="slider">
@@ -29,6 +41,7 @@ defined('ABSPATH') || exit;
                 <section>
                     <h2>Home</h2>
                     <?php hdl_get_template('dashboard/home'); ?>
+                      <?php hdl_get_template('dashboard/lab-orders'); ?>
                 </section>
 
                 <section>
@@ -39,16 +52,33 @@ defined('ABSPATH') || exit;
                 </section>
                 <section>
                     <h2>Lab Orders</h2>
-                    <?php hdl_get_template('dashboard/lab-orders'); ?>
+                           <iframe 
+  src="https://healsend.com/chat-app/" 
+  width="100%" 
+  height="1000" 
+  style="border: none;" 
+  loading="lazy"
+></iframe>
+
+                  
                 </section>
                 <section>
                     <h2>Patient Profile</h2>
                     <?php hdl_get_template('dashboard/patient-profile', ['user' => $user]); ?>
                 </section>
                 <section>
-                    <h2>Subscriptions</h2>
+                    <h2>Visits</h2>
                     <?php hdl_get_template('dashboard/returns'); ?>
+                    <iframe 
+  src="https://healsend.com/visit/" 
+  width="100%" 
+  height="1000" 
+  style="border: none;" 
+  loading="lazy"
+></iframe>
+
                 </section>
+                
             </div>
         </div>
     </div>

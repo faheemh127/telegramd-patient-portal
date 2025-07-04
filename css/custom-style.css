@@ -125,3 +125,7 @@ background: transparent !important;
 .hld_login_form_wrap {
   color: black;
 }
+
+.section#hdlDashboard .container .tabs{
+  padding-top: 1px !important;
+}

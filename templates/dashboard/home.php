@@ -66,7 +66,7 @@ defined('ABSPATH') || exit;
  */
 ?>
 
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper container">
 
     <!-- Cards Section -->
     <div class="card-wrapper">
