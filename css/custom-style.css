@@ -1,9 +1,9 @@
 .hld_form_wrap {
-  max-width: 600px !important;
+  max-width: 550px !important;
 }
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
-  padding: 20px 20px !important;
+  padding: 15px 20px !important;
   border-radius: 12px !important;
   font-size: 17px !important;
   font-weight: 600 !important;
@@ -22,7 +22,9 @@
 }
 
 .hld_form_wrap .ff-float-right.ff-btn {
-  border-radius: 12px;
+  border-radius: 30px;
+  padding: 10px 0;
+  font-size: 16px;
 }
 .hld_form_wrap .ff-el-form-check-checkbox {
   opacity: 1 !important;
@@ -48,7 +50,7 @@
 }
 .hld_form_wrap .nsl-button-google{
 background: transparent !important;
-  border: 1px solid rgba(0,0,0,0.3) !important;
+  border: 1px solid rgba(0,0,0,0.4) !important;
   border-radius: 40px !important;
   justify-content: center;
 }
@@ -82,7 +84,8 @@ background: transparent !important;
   width: 100% !important;
   display: block !important;
   border-radius: 50px !important;
-  padding: 13px 10px !important;
+  
+  padding: 10px 10px !important;
 }
 .hdl_input_wrap label{
   font-size: 16px !important;
@@ -128,4 +131,22 @@ background: transparent !important;
 
 .section#hdlDashboard .container .tabs{
   padding-top: 1px !important;
+}
+
+
+.hld_form_wrap textarea{
+  border: 1px solid rgba(0,0,0,0.4) !important;
+}
+
+
+
+.hld_label_normal label{
+  font-size: 15px !important;
+  margin-bottom: 0 !important;
+  font-weight: bold !important;
+}
+
+.hld_label_normal input{
+  border: 1px solid rgba(0,0,0,0.4) !important;
+  border-radius: 5px !important;
 }

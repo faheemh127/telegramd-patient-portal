@@ -59,8 +59,8 @@ add_action('wp_enqueue_scripts', function () {
     // ]);
     $your_generated_client_secret = "..";
     wp_localize_script('my-stripe-handler', 'MyStripeData', [
-        'publishableKey' => 'pk_test_xxx',
-        'clientSecret' => $your_generated_client_secret, // from Stripe API
+        'publishableKey' => STRIPE_PUBLISHABLE_KEY,
+        'clientSecret' => STRIPE_SECRET_KEY, // from Stripe API
     ]);
     // Ended stripe SDK 
 
@@ -98,6 +98,18 @@ add_action('wp_enqueue_scripts', function () {
         '1.0',
         true
     );
+
+
+    // Get the current user
+    $current_user = wp_get_current_user();
+
+    // Determine if the user is logged in and get their email, or set null
+    $user_email = is_user_logged_in() ? $current_user->user_email : null;
+
+    // Pass the email to the JavaScript file
+    wp_localize_script('hld-custom-js', 'hldData', [
+        'hldPatientEmail' => $user_email,
+    ]);
 });
 
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
