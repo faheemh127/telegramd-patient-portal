@@ -16,9 +16,10 @@
 // // Admin settings page
 // require_once plugin_dir_path(__FILE__) . 'admin-settings.php';
 
-
-
 include_once('api-keys.php');
+
+require_once __DIR__ . '/vendor/autoload.php';
+
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
@@ -274,3 +275,9 @@ function create_patient_if_not_exists_on_telegra_md()
         }
     }
 }
+
+
+use Faheem\TelegramdPatientPortalPlugin\StripeManager;
+
+$stripe = new StripeManager();
+$stripe->charge();

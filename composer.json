@@ -1,0 +1,17 @@
+{
+    "name": "faheem/telegramd-patient-portal-plugin",
+    "autoload": {
+        "psr-4": {
+            "Faheem\\TelegramdPatientPortalPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Muhammad Faheem Hassan",
+            "email": "faheemh127@gmail.com"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^17.4"
+    }
+}
