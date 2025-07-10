@@ -28,12 +28,11 @@ defined('ABSPATH') || exit;
             <ul class="container">
                 <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
                 <li><label for="tab1"><span class="pe-2"></span><span>Order History</span></label></li>
-
                 <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
                 <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile</span></label></li>
                 <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
                 <li><label for="tab5"><span class="pe-2"></span><span>Lab Order</span></label></li>
-                <li><label for="tab6"><span class="pe-2"></span><span>Subscriptions</span></label></li>
+                <li><label for="tab6"><span class="pe-2"></span><span>Action Items</span></label></li>
 
             </ul>
 
@@ -45,7 +44,7 @@ defined('ABSPATH') || exit;
                 <section>
                     <h2>Home</h2>
                     <?php hdl_get_template('dashboard/home'); ?>
-                    <?php hdl_get_template('dashboard/lab-orders'); ?>
+
                 </section>
 
                 <section>
@@ -84,16 +83,47 @@ defined('ABSPATH') || exit;
 
                 <section>
                     <h2>Lab Orders</h2>
-                    <div>
-                        <h4>Welcome</h4>
-                    </div>
+                    <?php hdl_get_template('dashboard/lab-orders'); ?>
                 </section>
 
                 <section>
-                    <h2>Subscriptions</h2>
-                    <div>
-                        <h4>Welcome</h4>
+                    <h2>Action Items</h2>
+                    <div
+                        class="hld-card"
+                        style="
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 50px 50px;
+    max-width: 700px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin: auto;
+  ">
+                        <div
+                            class="hld-card-content"
+                            style="text-align: center;margin-bottom: 20px; color: #333; font-size: 15px">
+                            This is a sample card with some dummy text inside. You can use it to display
+                            messages or call-to-actions in your plugin or page.
+                        </div>
+                        <div class="hld-card-actions" style="text-align: center; margin-top: 50px">
+                            <a
+                                href="/"
+                                class="hld-card-btn"
+                                style="
+        background-color: #6d6ffc;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+      ">
+                                Action Item
+                            </a>
+                        </div>
                     </div>
+
+
                 </section>
 
             </div>

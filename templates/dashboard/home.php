@@ -77,7 +77,7 @@ defined('ABSPATH') || exit;
         <div class="card">
             <div class="info">
                 <h3>Total Orders</h3>
-                <div class="value">1,245</div>
+                <div class="value">2</div>
             </div>
             <div class="icon">
                 <!-- Shopping Cart Icon -->
@@ -91,7 +91,7 @@ defined('ABSPATH') || exit;
         <div class="card">
             <div class="info">
                 <h3>Lab Requests</h3>
-                <div class="value">327</div>
+                <div class="value">0</div>
             </div>
             <div class="icon">
                 <!-- Microscope Icon -->
@@ -103,8 +103,8 @@ defined('ABSPATH') || exit;
 
         <div class="card">
             <div class="info">
-                <h3>Patients</h3>
-                <div class="value">789</div>
+                <h3>Profile</h3>
+                <div class="value">See Profile</div>
             </div>
             <div class="icon">
                 <!-- Person Icon -->

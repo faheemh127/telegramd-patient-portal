@@ -2,7 +2,7 @@
 // $user
 
 $patient = [
-    'full_name' => $user->data->user_nicename,
+    'full_name' => $user->data->display_name,
     'gender' => 'Male',
     'dob' => '1990-05-15',
     'email' => $user->data->user_email,
