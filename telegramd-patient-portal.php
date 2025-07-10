@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: ! TelegraMD Patient Portal
+ * Plugin Name: TelegraMD Patient Portal
  * Description: Patient portal with TelegraMD API integration for prescriptions, labs, and subscriptions.
  * Version: 1.0
  * Author: Faheem
@@ -16,9 +16,10 @@
 // // Admin settings page
 // require_once plugin_dir_path(__FILE__) . 'admin-settings.php';
 
-
-
 include_once('api-keys.php');
+
+require_once __DIR__ . '/vendor/autoload.php';
+
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
@@ -31,38 +32,6 @@ add_shortcode('hld_orders', function () {
 });
 
 add_action('wp_enqueue_scripts', function () {
-
-
-
-    // Started adding stripe SDK
-    // Load Stripe.js from Stripe's CDN
-    wp_enqueue_script(
-        'stripe-js',
-        'https://js.stripe.com/v3/',
-        [],
-        null,
-        true
-    );
-
-    // Enqueue your own JavaScript file AFTER stripe.js
-    wp_enqueue_script(
-        'my-stripe-handler',
-        plugin_dir_url(__FILE__) . 'js/stripe-handler.js',
-        ['stripe-js'],
-        '1.0',
-        true
-    );
-
-    // // Pass Stripe Publishable Key to JS
-    // wp_localize_script('my-stripe-handler', 'MyStripeData', [
-    //     'publishableKey' => 'pk_test_YOUR_PUBLISHABLE_KEY',
-    // ]);
-    $your_generated_client_secret = "..";
-    wp_localize_script('my-stripe-handler', 'MyStripeData', [
-        'publishableKey' => STRIPE_PUBLISHABLE_KEY,
-        'clientSecret' => STRIPE_SECRET_KEY, // from Stripe API
-    ]);
-    // Ended stripe SDK 
 
     wp_enqueue_style(
         'hld-plugin-custom-css',
@@ -112,102 +81,35 @@ add_action('wp_enqueue_scripts', function () {
     ]);
 });
 
-require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
-new DashboardShortcode();
 
 
+add_action('wp_enqueue_scripts', function () {
+    wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/');
+    wp_enqueue_script('my-stripe-handler', plugin_dir_url(__FILE__) . 'js/stripe-handler.js', ['stripe-js'], '1.0', true);
 
+    wp_localize_script('my-stripe-handler', 'MyStripeData', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'publishableKey' => STRIPE_PUBLISHABLE_KEY,
+    ]);
+});
 
-
-
-
-// function create_dummy_patient_on_telegra_md()
-// {
-//     $api_url = 'https://dev-core-ias-rest.telegramd.com/patients';
-
-//     // Dummy patient payload
-//     $payload = [
-//         'name'      => 'John Doe',
-//         'firstName' => 'Chewbacca',
-//         'lastName'   => '',
-//         'email'     => 'johndoe@example.com',
-//         'phone'     => '',
-//         'dateOfBirth' => '',
-//         'gender'    => '',
-//         'genderBiological' => '',
-//         'affiliate' => TELEGRAMD_AFFLIATE_ID,
-//     ];
-//     $response = wp_remote_post($api_url, [
-//         'method'  => 'POST',
-//         'headers' => [
-//             'accept'        => 'application/json',
-//             'authorization' => 'Bearer ' . TELEGRAMD_BEARER_TOKEN,
-//             'content-type'  => 'application/json',
-//         ],
-//         'body' => json_encode($payload),
-//     ]);
-
-//     if (is_wp_error($response)) {
-//         error_log('TelegraMD API Error: ' . $response->get_error_message());
-//     } else {
-//         $body = wp_remote_retrieve_body($response);
-//         error_log('TelegraMD API Response: ' . $body);
-//     }
-// }
-
-
-
-
-// function debug_print_current_nsl_user_info()
-// {
-//     $user_id = get_current_user_id();
-//     $provider = 'google'; // You can change this to 'facebook', 'twitter', etc. if needed
-//     $current_user =  wp_get_current_user();
-//     echo "<pre>";
-//     print_r("user id is");
-//     print_r($user_id);
-//     print_r($current_user);
-//     echo "</pre>";
-
-//     if ($user_id) {
-//         $user_info = get_user_meta($user_id, 'nsl_user_data_' . $provider, true);
-//         echo "working32";
-//         print_r($user_info);
-//         var_dump($user_info);
-//         echo "okfjdsl";
-//         error_log("NSL User Info for logged-in user ID $user_id (provider: $provider):");
-//         error_log(print_r($user_info, true));
-//     } else {
-//         error_log("No user is currently logged in.");
-//     }
-// }
-
-// add_action('init', 'debug_print_current_nsl_user_info');
-
-
-
-
-function get_telegra_patient_id_for_current_user()
-{
-    if (!is_user_logged_in()) {
-        return null;
-    }
-
-    $user_id = get_current_user_id();
-    $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
-
-    $patient_id = get_user_meta($user_id, $meta_key, true);
-
-    return !empty($patient_id) ? $patient_id : null;
+// log payment success on server
+add_action('wp_ajax_log_payment_success', 'my_log_payment_success');
+function my_log_payment_success() {
+    $payment_id = sanitize_text_field($_POST['payment_id']);
+    // You can log to a file or store in DB
+    error_log("Stripe payment succeeded. ID: $payment_id");
+    wp_send_json_success();
 }
 
 
-// $telegra_id =   get_telegra_patient_id_for_current_user();
-// echo "telegraid";
-// print_r($telegra_id);
+require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
+new DashboardShortcode();
 
+include_once('includes/functions.php');
+include_once('includes/ajax.php');
 
-add_action('init', 'create_patient_if_not_exists_on_telegra_md');
+// add_action('init', 'create_patient_if_not_exists_on_telegra_md');
 
 function create_patient_if_not_exists_on_telegra_md()
 {
@@ -228,10 +130,10 @@ function create_patient_if_not_exists_on_telegra_md()
     $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
 
     // If already exists, skip API call
-    if (get_user_meta($user_id, $meta_key, true)) {
-        error_log("TelegraMD: Patient already exists for user $user_id");
-        return;
-    }
+    // if (get_user_meta($user_id, $meta_key, true)) {
+    //     error_log("TelegraMD: Patient already exists for user $user_id");
+    //     return;
+    // }
 
     // Prepare payload with available user data
     $first_name = $user->first_name ?: 'Chewbacca';
@@ -274,3 +176,293 @@ function create_patient_if_not_exists_on_telegra_md()
         }
     }
 }
+
+
+
+// New chatgpt code for stripe
+include_once('includes/shortcodes.php');
+
+add_action('init', function() {
+    if (isset($_GET['test_charge'])) {
+        $result = hld_charge_later(get_current_user_id(), 500); // $500
+        var_dump($result);
+        exit;
+    }
+});
+
+
+
+// Create PaymentIntent via AJAX
+add_action('wp_ajax_create_payment_intent', 'my_create_payment_intent');
+add_action('wp_ajax_nopriv_create_payment_intent', 'my_create_payment_intent');
+
+function my_create_payment_intent() {
+    require_once __DIR__ . '/vendor/autoload.php';
+    \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+    $intent = \Stripe\PaymentIntent::create([
+        'amount' => 1000, // $10.00 in cents
+        'currency' => 'usd',
+    ]);
+
+    wp_send_json_success([
+        'clientSecret' => $intent->client_secret,
+        'paymentIntentId' => $intent->id,
+    ]);
+}
+
+
+
+
+
+
+
+add_action('wp_ajax_create_setup_intent', 'my_create_setup_intent');
+add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
+
+function my_create_setup_intent() {
+    // Check if user is logged in
+    if (!is_user_logged_in()) {
+        wp_send_json_error([
+            'message' => 'You must be logged in to save a payment method.',
+        ]);
+    }
+
+    // Proceed only if logged in
+    require_once __DIR__ . '/vendor/autoload.php';
+    \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+    // Optionally: you could also store or reuse the Stripe customer ID from user meta
+    $customer = \Stripe\Customer::create([
+        'description' => 'Customer for Pay Later',
+    ]);
+
+    $setupIntent = \Stripe\SetupIntent::create([
+        'customer' => $customer->id,
+        'payment_method_types' => ['card'],
+    ]);
+
+    wp_send_json_success([
+        'clientSecret' => $setupIntent->client_secret,
+        'customerId' => $customer->id,
+    ]);
+}
+
+
+
+function hld_create_order_on_telegramd($telegra_patient_id)
+{
+    $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+    $endpoint = TELEGRA_BASE_URL . '/orders';
+
+    // 🔧 Prepare the request body based on CURL sample
+    $body = [
+        "data" => [
+            "someData" => "?"
+        ],
+        "patient" => $telegra_patient_id, // example: pat::f2b6ec7f-4b87-4988-9ebb-df663edaf872
+        "productVariations" => [
+            [
+                "productVariation" => "pvt::6e5a3b9c-26d9-46af-89bb-f0ab864ed027",
+                "quantity" => 1
+            ]
+        ],
+        "symptoms" => [
+            "symp::9d65e74b-caed-4b38-b343-d7f84946da60"
+        ],
+        "address" => [
+            "billing" => [
+                "address1" => "123 S Main St",
+                "address2" => null,
+                "city"     => "Kennewick",
+                "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
+                "zipcode"  => 99337
+            ],
+            "shipping" => [
+                "address1" => "123 S Main St",
+                "address2" => null,
+                "city"     => "Kennewick",
+                "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
+                "zipcode"  => 99337
+            ]
+        ]
+    ];
+
+    // 🛰 Send the POST request
+    $response = wp_remote_post($endpoint, [
+        'method'    => 'POST',
+        'headers'   => [
+            'Authorization' => $bearer_token,
+            'Content-Type'  => 'application/json',
+            'Accept'        => 'application/json',
+        ],
+        'body'      => json_encode($body),
+        'timeout'   => 20,
+    ]);
+
+    // 🛑 Check for transport-level WP error
+    if (is_wp_error($response)) {
+        error_log('[TelegraMD Error] cURL Error: ' . $response->get_error_message());
+        return new WP_Error('api_error', 'Failed to create order: ' . $response->get_error_message());
+    }
+
+    $status_code   = wp_remote_retrieve_response_code($response);
+    $response_body = wp_remote_retrieve_body($response);
+    $data          = json_decode($response_body, true);
+
+    // ❌ API returned non-200/201
+    if ($status_code !== 200 && $status_code !== 201) {
+        error_log('[TelegraMD Order Failed] HTTP ' . $status_code . ' → ' . $response_body);
+        return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
+    }
+
+
+
+    // store the order id
+
+     // 🧠 Save the order ID in user_meta
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        $meta_key = 'telegra_patient_orders_' . $user_id;
+
+        // Get existing order list
+        $existing_orders = get_user_meta($user_id, $meta_key, true);
+        if (!is_array($existing_orders)) {
+            $existing_orders = [];
+        }
+
+        // Add new order ID if it's not already in the list
+        if (!in_array($data['id'], $existing_orders, true)) {
+            $existing_orders[] = $data['id'];
+            update_user_meta($user_id, $meta_key, $existing_orders);
+            error_log("✅ Order ID saved in user meta [$meta_key]");
+        }
+    } else {
+        error_log("⚠️ User not logged in, cannot save order to user meta.");
+    }
+
+    // ✅ Success
+    error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
+    return $data;
+}
+
+
+
+
+
+
+
+// add_action('init', 'hld_handle_telegramd_order_on_init');
+
+// function hld_handle_telegramd_order_on_init() {
+//     // Optional: Only run for logged-in users (recommended)
+//     if (!is_user_logged_in()) {
+//         return;
+//     }
+
+//     // Get patient ID
+//     $telegra_patient_id = get_telegra_patient_id_for_current_user();
+    
+//     // Log the patient ID
+//     error_log("telegra_patient_id: " . $telegra_patient_id);
+
+//     // If patient ID is empty/null, stop here
+//     if (empty($telegra_patient_id)) {
+//         error_log("TelegraMD patient ID not found for current user.");
+//         return;
+//     }
+
+//     // Create order
+//     $result = hld_create_order_on_telegramd($telegra_patient_id);
+
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add_action('fluentform/before_insert_submission', function (&$insertData, $form) {
+    error_log("🔥 fluentform/before_insert_submission hook is called");
+
+    // Log all submitted data
+    error_log("Submitted Data: " . print_r($insertData, true));
+
+    // Log form object
+    error_log("Form Object: " . print_r($form, true));
+
+
+    //  Optional: Only run for logged-in users (recommended)
+    if (!is_user_logged_in()) {
+        return;
+    }
+
+
+
+    // Optional: check for a specific form ID
+    // if ($form->id != 14) return;
+
+    // Custom logic
+    create_patient_if_not_exists_on_telegra_md();
+    $telegra_patient_id = get_telegra_patient_id_for_current_user();
+
+
+     if (empty($telegra_patient_id)) {
+        error_log("TelegraMD patient ID not found for current user.");
+        return;
+    }
+
+
+
+    error_log("telegra_patient_id ". $telegra_patient_id);
+    // Create order in TelegraMD
+    hld_create_order_on_telegramd($telegra_patient_id);
+
+    // Optionally modify data before it's saved
+    // $insertData['custom_field'] = 'Modified before insert';
+
+    // Optional: Log the response (success or error)
+    // if (is_wp_error($result)) {
+    //     error_log("TelegraMD Order Error: " . $result->get_error_message());
+    // } else {
+    //     error_log("TelegraMD Order Response: " . print_r($result, true));
+    // }
+
+
+
+}, 10, 2);
+include_once("/includes/order-tracking-webhook.php");
+include_once("/includes/prescription-received-webhook.php");

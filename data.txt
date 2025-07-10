@@ -1,0 +1,22 @@
+telegrausera
+telegrausera@gmail.com
+12345
+
+
+
+telegrauserb@gmail.com
+12345
+
+
+https://healsend.com/glp-intake-form-4-testing/
+
+
+4242 4242 4242 4242
+
+
+
+create_setup_intent
+{"success":true,"data":{"clientSecret":"seti_1RiYeMAcgi1hKyLWsSMutaSx_secret_SdqLIA0tkjEIDmYywczltmLoAdnOGOd","customerId":"cus_SdqLbouqn812Ry"}}
+
+
+order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d

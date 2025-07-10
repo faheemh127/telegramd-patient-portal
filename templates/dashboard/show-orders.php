@@ -16,12 +16,52 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                                 </svg>';
 
 
+
+function hld_get_telegra_order_by_id($order_id)
+{
+    $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+    $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
+
+    $response = wp_remote_get($endpoint, [
+        'headers' => [
+            'Authorization' => $bearer_token,
+            'Accept'        => 'application/json',
+        ],
+        'timeout' => 15,
+    ]);
+
+    if (is_wp_error($response)) {
+        error_log('TelegraMD Order Fetch Error: ' . $response->get_error_message());
+        return new WP_Error('order_fetch_failed', 'Failed to retrieve order data.');
+    }
+
+    $status_code   = wp_remote_retrieve_response_code($response);
+    $response_body = wp_remote_retrieve_body($response);
+    $data          = json_decode($response_body, true);
+
+    if ($status_code !== 200 || !$data || !isset($data['id'])) {
+        error_log('TelegraMD Order Invalid Response: ' . $response_body);
+        return new WP_Error('order_invalid', 'Invalid order data.');
+    }
+
+    return $data;
+}
+
+
+
+$order_id = 'order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d'; // You can dynamically replace this
+$order = hld_get_telegra_order_by_id($order_id);
+
+if (!is_wp_error($order)) :
+
+    $product        = $order['productVariations'][0]['productVariation'] ?? [];
+    $keywords       = $product['keywords'][0] ?? 'No keyword';
+    $orderNumber    = $order['orderNumber'] ?? 'N/A';
+    $createdAt      = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
+    $testName       = 'LTV Test'; // You can replace this with dynamic value if available
+    $encoded_order_id = urlencode($order['id']);
 ?>
-
-<div class="container py-5 hld-orders">
-    <!-- <h2 class="mb-4 fw-bold text-dark">🧾 Patient Order History</h2> -->
-
-    <?php for ($i = 0; $i <= 7; $i++) { ?>
+    <div class="container py-5 hld-orders">
         <div class="card mb-3 shadow-sm p-4 hld-order-item">
             <div class="row align-items-center">
                 <!-- Left Section -->
@@ -30,19 +70,19 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                         <?php echo $icon_capsule_tablet; ?>
                     </div>
                     <div class="desc-wrap">
-                        <h5 class="fw-bold text-primary">B12 INJECTION</h5>
+                        <h5 class="fw-bold text-primary"><?php echo esc_html($keywords); ?></h5>
                         <div class="d-flex flex-wrap gap-3 small text-muted">
                             <div class="d-flex align-items-center gap-1">
                                 <?php echo $icon_tablets ?>
-                                10 Tablets
+                                <?php echo esc_html($product['form'] ?? 'Oral'); ?>
                             </div>
                             <div class="d-flex align-items-center gap-1">
                                 <?php echo $icon_calendar ?>
-                                24 May 2025
+                                <?php echo esc_html($createdAt); ?>
                             </div>
                             <div class="d-flex align-items-center gap-1">
                                 <?php echo $icon_file ?>
-                                LTV Test
+                                <?php echo esc_html($testName); ?>
                             </div>
                         </div>
                     </div>
@@ -50,13 +90,15 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 
                 <!-- Right Section -->
                 <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
-                    <!-- <a href="#"> -->
-                    <button class="btn btn-outline-primary">View Detail</button>
+                    <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
+                        <button class="btn btn-outline-primary">View Detail</button>
+                    </a>
                     <button class="btn btn-primary">Completed</button>
-                    <!-- </a> -->
                 </div>
-
             </div>
         </div>
-    <?php } ?>
-</div>
+    </div>
+
+<?php else : ?>
+    <p class="text-danger">❌ Failed to load order details.</p>
+<?php endif; ?>

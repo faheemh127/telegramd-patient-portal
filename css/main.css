@@ -60,6 +60,8 @@ section#hdlDashboard .container .tabs ul {
   margin-bottom: 10px;
   flex-wrap: wrap;
   align-items: center;
+  margin-right: auto !important;
+  margin-left: auto;
 }
 section#hdlDashboard .container .tabs ul li {
   flex: 1;

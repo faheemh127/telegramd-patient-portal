@@ -1,7 +1,9 @@
-# Ignore specific file
-api-keys.php
-.git
-.vscode
-
 #ignore the backup folder
 backup/
+vendor/
+
+
+# Ignore specific file
+.git
+.vscode
+api-keys.php

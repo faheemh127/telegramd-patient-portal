@@ -10,6 +10,7 @@
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   text-align: left !important;
   margin-bottom: 10px;
+  width: 100%;
 }
 .hld_form_wrap .ff-el-form-check-label span {
   padding-left: 5px;
@@ -19,6 +20,9 @@
   font-size: 26px;
   font-weight: 600;
   margin-bottom: 20px;
+}
+.hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
+  accent-color: #6d6ffc !important;
 }
 
 .hld_form_wrap .ff-float-right.ff-btn {
@@ -45,108 +49,142 @@
   gap: 7px;
 }
 
-.hld_form_wrap div.nsl-container.nsl-container-block .nsl-container-buttons{
+.hld_form_wrap div.nsl-container.nsl-container-block .nsl-container-buttons {
   width: 100%;
 }
-.hld_form_wrap .nsl-button-google{
-background: transparent !important;
-  border: 1px solid rgba(0,0,0,0.4) !important;
+.hld_form_wrap .nsl-button-google {
+  background: transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
   border-radius: 40px !important;
   justify-content: center;
 }
-.hld_form_wrap div.nsl-container .nsl-button-google[data-skin="dark"] .nsl-button-svg-container{
+.hld_form_wrap
+  div.nsl-container
+  .nsl-button-google[data-skin="dark"]
+  .nsl-button-svg-container {
   background-color: transparent !important;
-
 }
 .hld_form_wrap .nsl-button-label-container {
   color: black;
 }
-.hld_form_wrap div.nsl-container .nsl-button-default div.nsl-button-label-container{
+
+.hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
+  display: none;
+}
+.hld_form_wrap
+  div.nsl-container
+  .nsl-button-default
+  div.nsl-button-label-container {
   flex: initial !important;
 }
-.hld_rounded_input input{
+.hld_rounded_input input {
   border-radius: 50px !important;
   padding: 21px 16px !important;
-  border: 1px solid rgba(0,0,0,0.3) !important; 
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
-.hld_rounded_input label{
+.hld_rounded_input label {
   font-size: 16px !important;
   margin-bottom: 0 !important;
 }
-.hld_rounded_input{
+.hld_rounded_input {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.ff-el-group.ff-text-left.ff_submit_btn_wrapper.ff_submit_btn_wrapper_custom{
+/* .ff-el-group.ff-text-left.ff_submit_btn_wrapper.ff_submit_btn_wrapper_custom{
   display: none;
-}
-.hld_btn_continue_with_email{
+} */
+.hld_btn_continue_with_email {
   width: 100% !important;
   display: block !important;
   border-radius: 50px !important;
-  
+
   padding: 10px 10px !important;
 }
-.hdl_input_wrap label{
+.hdl_input_wrap label {
   font-size: 16px !important;
   font-weight: initial !important;
   margin-bottom: 0px !important;
 }
-.hdl_input_wrap input{
+.hdl_input_wrap input {
   border-radius: 7px !important;
-  border: 1px solid rgba(0,0,0,0.3) !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
 
-
-.hld_login_form_wrap{
+.hld_login_form_wrap {
   max-width: 450px !important;
 }
-.hld_login_form_wrap input{
+.hld_login_form_wrap input {
   border-radius: 50px !important;
-  border: 1px solid rgba(0,0,0,0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
   padding: 24px 22px !important;
 }
 
-.hld_login_form_wrap .nsl-button-google{
-background: transparent !important;
-  border: 1px solid rgba(0,0,0,0.3) !important;
+.hld_login_form_wrap .nsl-button-google {
+  background: transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
   border-radius: 40px !important;
   justify-content: center;
 }
 
-.hld_login_form_wrap div.nsl-container.nsl-container-block .nsl-container-buttons{
+.hld_login_form_wrap
+  div.nsl-container.nsl-container-block
+  .nsl-container-buttons {
   width: 100%;
 }
 
-.hld_login_form_wrap label{
+.hld_login_form_wrap label {
   font-weight: bold !important;
 }
-.hld_login_form_wrap .nsl-button-label-container{
-  flex: initial !important
+.hld_login_form_wrap .nsl-button-label-container {
+  flex: initial !important;
 }
 
 .hld_login_form_wrap {
   color: black;
 }
 
-.section#hdlDashboard .container .tabs{
+.section#hdlDashboard .container .tabs {
   padding-top: 1px !important;
 }
 
-
-.hld_form_wrap textarea{
-  border: 1px solid rgba(0,0,0,0.4) !important;
+.hld_form_wrap textarea {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
 }
 
-
-
-.hld_label_normal label{
+.hld_label_normal label {
   font-size: 15px !important;
   margin-bottom: 0 !important;
   font-weight: bold !important;
 }
 
-.hld_label_normal input{
-  border: 1px solid rgba(0,0,0,0.4) !important;
+.hld_label_normal input {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
   border-radius: 5px !important;
+}
+
+#stripe-container label {
+  font-size: 16px !important;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#card-element {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  background-color: white;
+}
+#hdlMakeStipePayment {
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.ff-summary-wrapper {
+  background-color: white;
+}
+
+.hld_form_main_submit_button {
+  display: none;
+}
+.dashboard-wrapper .hld-img-wrap img {
+  width: 100% !important;
 }
