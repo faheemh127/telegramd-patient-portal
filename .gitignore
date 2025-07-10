@@ -1,6 +1,6 @@
 #ignore the backup folder
 backup/
-vendor/
+/vendor/
 
 
 # Ignore specific file

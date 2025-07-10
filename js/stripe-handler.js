@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const elements = stripe.elements();
   const card = elements.create("card");
   card.mount("#card-element");
-
   const form = document.getElementById("fluentform_13");
   const errorDisplay = document.getElementById("card-errors");
   const hdlMakeStipePayment = document.getElementById("hdlMakeStipePayment");
@@ -85,88 +84,17 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      // // Step 3: Save payment method for later
-      // await fetch(MyStripeData.ajax_url, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      //   body: `action=save_later_payment_method&customer_id=${customerId}&payment_method=${paymentMethod}`,
-      // });
-
-      // Optional: Submit form
-      // form.submit();
-
-
-      const submitWrapper = document.querySelector('.hld_form_main_submit_button');
-if (submitWrapper) {
-  const submitButton = submitWrapper.querySelector('button[type="submit"]');
-  if (submitButton) {
-    submitButton.click();
-  }
-}
-
-
-
-
-
+      const submitWrapper = document.querySelector(
+        ".hld_form_main_submit_button"
+      );
+      if (submitWrapper) {
+        const submitButton = submitWrapper.querySelector(
+          'button[type="submit"]'
+        );
+        if (submitButton) {
+          submitButton.click();
+        }
+      }
     }
   });
 });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const stripe = Stripe(MyStripeData.publishableKey);
-//   const elements = stripe.elements();
-//   const card = elements.create("card");
-//   card.mount("#card-element");
-
-//   const form = document.getElementById("fluentform_14");
-//   const errorDisplay = document.getElementById("card-errors");
-//   const hdlMakeStipePayment = document.getElementById("hdlMakeStipePayment");
-
-//   if (!form || !hdlMakeStipePayment) return;
-
-//   hdlMakeStipePayment.addEventListener("click", async function (e) {
-//     e.preventDefault();
-//     console.log("Stripe button clicked");
-
-//     // Step 1: Create PaymentIntent via AJAX
-//     const paymentIntentRes = await fetch(MyStripeData.ajax_url, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded"
-//       },
-//       body: "action=create_payment_intent"
-//     });
-
-//     const data = await paymentIntentRes.json();
-
-//     if (!data.success) {
-//       errorDisplay.textContent = "Failed to create PaymentIntent";
-//       return;
-//     }
-
-//     const clientSecret = data.data.clientSecret;
-
-//     // Step 2: Confirm card payment
-//     const result = await stripe.confirmCardPayment(clientSecret, {
-//       payment_method: {
-//         card: card
-//       }
-//     });
-
-//     if (result.error) {
-//       errorDisplay.textContent = result.error.message;
-//     } else if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
-//       // Step 3: Optionally log success
-//       await fetch(MyStripeData.ajax_url, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/x-www-form-urlencoded"
-//         },
-//         body: `action=log_payment_success&payment_id=${result.paymentIntent.id}`
-//       });
-
-//       // Step 4: Submit the form manually
-//       // form.submit();
-//     }
-//   });
-// });
