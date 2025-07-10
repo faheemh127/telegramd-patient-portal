@@ -430,8 +430,6 @@ add_action('fluentform/before_insert_submission', function (&$insertData, $form)
         return;
     }
 
-
-
     // Optional: check for a specific form ID
     // if ($form->id != 14) return;
 

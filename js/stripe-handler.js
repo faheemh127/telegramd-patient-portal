@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("button clicked");
     e.preventDefault();
 
+    hdlMakeStipePayment.disabled = true;
+    hdlMakeStipePayment.textContent = "Processing...";
+
     const setupIntentRes = await fetch(MyStripeData.ajax_url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const message =
         setupIntentResult.data?.message ||
         "An error occurred while creating setup intent.";
-      alert(`⚠️ ${message}`);
+      alert(` ${message}`);
+      hdlMakeStipePayment.disabled = false;
+      hdlMakeStipePayment.textContent = "Save and Continue";
       return;
     }
 
@@ -67,16 +72,17 @@ document.addEventListener("DOMContentLoaded", function () {
             result.data?.message || "An error occurred. Please try again.";
 
           // Show a professional alert
-          alert(`⚠️ ${message}`);
-
+          alert(` ${message}`);
+          hdlMakeStipePayment.disabled = false;
+          hdlMakeStipePayment.textContent = "Save and Continue";
           // Or better: use a custom modal or toast library here (e.g. SweetAlert)
           return;
         }
 
-        // Success path
-        console.log("✅ Payment method saved successfully!");
+        // Success pat
+        console.log("Payment method saved successfully!");
         // Optional: Show success message
-        alert("Your Payment method saved successfully!");
+        // alert("Your Payment method saved successfully!");
       } catch (error) {
         console.error("AJAX error:", error);
         alert(

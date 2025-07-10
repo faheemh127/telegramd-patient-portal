@@ -29,6 +29,7 @@
   border-radius: 30px;
   padding: 10px 0;
   font-size: 16px;
+  margin-top: 15px;
 }
 .hld_form_wrap .ff-el-form-check-checkbox {
   opacity: 1 !important;
@@ -187,4 +188,86 @@
 }
 .dashboard-wrapper .hld-img-wrap img {
   width: 100% !important;
+}
+
+/* todo: uncomment this before publish because it will hide the next button on login step */
+/* .fluentform-step.active[data-name="form_step-13_1"] .ff-btn-next {
+  display: none !important;
+} */
+
+/* Style for packages */
+
+.hld_patient_packages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: Arial, sans-serif;
+}
+
+.hld_patient_packages .package-option {
+  display: block;
+  cursor: pointer;
+}
+
+.hld_patient_packages input[type="radio"] {
+  display: none;
+}
+
+.hld_patient_packages .package-box {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 15px;
+  transition: border-color 0.3s;
+  position: relative;
+  cursor: pointer;
+  background-color: white !important;
+}
+.hld_patient_packages .package-box:hover {
+  background: #f9f9f9;
+}
+.hld_patient_packages .save-label {
+  background-color: #d4f7d4;
+  color: #218838;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.hdl_primary_color {
+  color: #6d6ffc;
+}
+#hdlMakeStipePayment{
+  background-color: #6d6ffc;
+}
+
+.hld_patient_packages .package-price {
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
+}
+.hld_patient_packages .package-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+}
+.hld_patient_packages .package-price span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.hld_patient_packages .package-description {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #6b6b6b;
+}
+
+/* #6d6ffc border when selected */
+.hld_patient_packages input[type="radio"]:checked + .package-box {
+  border-color: #6d6ffc;
+}
+
+/*  Style the selected radio (entire label gets #6d6ffc border) */
+.hld_patient_packages input[type="radio"]:checked ~ .package-box {
+  border-color: #6d6ffc;
+  box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.3);
 }

@@ -1,0 +1,148 @@
+<p>
+  <style>
+    div.ff-summary-wrapper {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      max-width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    }
+
+    div.ff-summary-inner-wrapper {
+      padding: 10px 25px 0 25px;
+    }
+
+    h3.ff-summary-title {
+      margin-top: 0;
+      background: #f2f2f2;
+      padding: 20px 20px;
+
+      color: black;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    div.ff-summary-box {
+      border-radius: 8px;
+    }
+
+    p.ff-summary-section-title {
+      font-weight: bold;
+      font-size: 20px;
+      font-family: Helvetica;
+      margin-bottom: 30px;
+      margin-top: 0;
+    }
+
+    div.ff-summary-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      margin-top: 5px;
+    }
+
+    div.ff-summary-label {
+      flex: 1;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+      max-width: 70%;
+    }
+
+    div.ff-summary-value {
+      text-align: right;
+      min-width: 60px;
+      color: rgb(0, 0, 0);
+      font-size: 17px;
+    }
+
+    div.ff-summary-note {
+      margin-bottom: 10px;
+      color: gray;
+      font-size: 13px;
+    }
+
+    hr.ff-summary-divider {
+      margin: 15px 0;
+    }
+
+    div.ff-summary-row.ff-total-row {
+      font-size: 16px;
+    }
+
+    div.ff-summary-value.ff-free {
+      color: green;
+      font-weight: bold;
+    }
+
+    .ff-summary-label .ff-subtitle {
+      font-weight: normal;
+      font-size: 13px;
+      color: #6d6ffc;
+    }
+
+    .ff-summary-row.ff-total-row {
+      border-top: 2px dashed rgba(0, 0, 0, 0.4);
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    .ff-summary-total-wrap {
+      font-size: 20px !important;
+      font-weight: bold;
+      color: black !important;
+    }
+  </style>
+</p>
+<h2 style="font-size: 18px; margin-bottom: 10px">Order details</h2>
+<div class="ff-summary-wrapper">
+  <div class="ff-summary-inner-wrapper">
+    <div class="ff-summary-box">
+      <!-- Propranolol Row -->
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div>Phentermine (1 month supply)</div>
+        </div>
+        <div class="ff-summary-value">
+          <div>$299.00</div>
+        </div>
+      </div>
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div>Qty</div>
+        </div>
+        <div class="ff-summary-value">
+          <div>1</div>
+        </div>
+      </div>
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div>Medicine shipping fee</div>
+        </div>
+        <div class="ff-summary-value">
+          <div>$90.50</div>
+        </div>
+      </div>
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div>Doctor visit fee</div>
+        </div>
+        <div class="ff-summary-value">
+          <div style="color: #6d6ffc">Free</div>
+        </div>
+      </div>
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-total-row">
+        <div class="ff-summary-label"><strong>Total Amount</strong></div>
+        <div class="ff-summary-value ff-summary-total-wrap">
+          <div>$389.50</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
