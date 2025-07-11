@@ -14,6 +14,37 @@ function get_telegra_patient_id_for_current_user()
 }
 
 
+
+function get_user_id_by_telegra_patient_id($patient_id)
+{
+    if (empty($patient_id)) {
+        return null;
+    }
+
+    // Search for user meta where meta_value = $patient_id and meta_key LIKE 'hld_patient_%_telegra_id'
+    global $wpdb;
+
+    $meta_key_like = 'hld_patient_%_telegra_id';
+
+    $user_id = $wpdb->get_var($wpdb->prepare(
+        "
+        SELECT user_id
+        FROM $wpdb->usermeta
+        WHERE meta_key LIKE %s
+        AND meta_value = %s
+        LIMIT 1
+        ",
+        $meta_key_like,
+        $patient_id
+    ));
+
+    return $user_id ? intval($user_id) : null;
+}
+
+
+
+
+
 // $telegra_id =   get_telegra_patient_id_for_current_user();
 // echo "telegraid";
 // print_r($telegra_id);

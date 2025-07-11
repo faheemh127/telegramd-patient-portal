@@ -1,69 +1,76 @@
 <?php
-
 add_action('rest_api_init', function () {
     register_rest_route('telegramd/v1', '/prescription-approved', [
         'methods'  => 'POST',
-        'callback' => 'hld_telegra_prescription_approved_handler',
+        'callback' => 'hld_handle_prescription_approval',
         'permission_callback' => '__return_true',
     ]);
 });
 
-
-
-function hld_telegra_prescription_approved_handler(WP_REST_Request $request)
+function hld_handle_prescription_approval(WP_REST_Request $request)
 {
     $data = $request->get_json_params();
 
-    error_log('Prescription Approved Webhook Received: ' . print_r($data, true));
+    error_log('Prescription Approval Webhook Received: ' . print_r($data, true));
 
-    // Confirm it’s the correct event
+    // Validate event type
     if (!isset($data['eventType']) || $data['eventType'] !== 'EVENT_TYPES.PRESCRIPTION_APPROVED_BY_PRACTITIONER') {
-        return new WP_REST_Response(['message' => 'Not a prescription approval event.'], 200);
+        return new WP_REST_Response(['message' => 'Ignored. Not a prescription approval event.'], 200);
     }
 
-    $prescription_fulfillment_id = $data['targetEntity'] ?? null;
-    $performedBy = $data['eventData']['performedBy'] ?? [];
+    // Extract relevant data
+    $owner_entity         = $data['ownerEntity'] ?? null;
+    $owner_model          = $data['ownerEntityModel'] ?? null;
+    $target_entity        = $data['targetEntity'] ?? null;
+    $target_model         = $data['targetEntityModel'] ?? null;
+    $event_title          = $data['eventTitle'] ?? null;
+    $event_type           = $data['eventType'] ?? null;
 
-    if (!$prescription_fulfillment_id || empty($performedBy)) {
-        return new WP_REST_Response(['message' => 'Missing prescription or performer info'], 400);
+    $performed_by         = $data['eventData']['performedBy'] ?? [];
+
+    $practitioner_id      = $performed_by['id'] ?? null;
+    $practitioner_role    = $performed_by['role'] ?? null;
+    $practitioner_name    = $performed_by['name'] ?? null;
+    $prescription_id      = $performed_by['prescription'] ?? null;
+    $order_id             = $performed_by['order'] ?? null;
+
+    if (
+        !$owner_entity || !$target_entity ||
+        !$practitioner_id || !$prescription_id || !$order_id
+    ) {
+        return new WP_REST_Response(['message' => 'Missing required fields.'], 400);
     }
 
-    $approver_name = $performedBy['name'] ?? 'Unknown';
-    $prescription_id = $performedBy['prescription'] ?? 'Unknown';
-    $order_id = $performedBy['order'] ?? 'Unknown';
-
-    // Store the data (simple version using options)
-    $key = 'approved_prescription_' . sanitize_key(str_replace(['::'], '_', $prescription_fulfillment_id));
+    // Store for later processing
+    $key = 'prescription_approved_' . sanitize_key(str_replace(['::'], '_', $target_entity));
     $value = [
-        'approver' => $approver_name,
-        'prescription_id' => $prescription_id,
-        'order_id' => $order_id,
-        'approved_at' => current_time('mysql'),
+        'patient_id'         => $owner_entity,
+        'prescription_id'    => $prescription_id,
+        'order_id'           => $order_id,
+        'fulfillment_id'     => $target_entity,
+        'approver_id'        => $practitioner_id,
+        'approver_role'      => $practitioner_role,
+        'approver_name'      => $practitioner_name,
+        'event_title'        => $event_title,
+        'approved_at'        => current_time('mysql'),
+        'raw'                => $data, // for debug/logging
     ];
+
     update_option($key, $value);
 
-    error_log("Prescription approved saved under key: $key");
+    error_log("Prescription approval saved under key: $key");
 
-    return new WP_REST_Response(['message' => 'Prescription approval saved.'], 200);
+    error_log("Prescription Approved for" . $order_id . " and result is " . $result);
+
+    $patient_id = $owner_entity;
+    $user_id = get_user_id_by_telegra_patient_id($patient_id);
+
+    if ($user_id) {
+        echo "Matched WP User ID: " . $user_id;
+        $result = hld_charge_later($user_id, 167); // $500
+    } else {
+        echo "No user found for Telegra patient ID.";
+    }
+
+    return new WP_REST_Response(['message' => 'Prescription approved and saved.'], 200);
 }
-
-
-
-// $prfm_id = 'prfm::f75dc16c-5cea-4f4e-beb4-19516c7cab1a';
-// $key = 'approved_prescription_' . sanitize_key(str_replace(['::'], '_', $prfm_id));
-// $approval_data = get_option($key);
-
-// if ($approval_data) {
-//     echo '<strong>Approved By:</strong> ' . esc_html($approval_data['approver']) . '<br>';
-//     echo '<strong>Order ID:</strong> ' . esc_html($approval_data['order_id']) . '<br>';
-//     echo '<strong>Prescription ID:</strong> ' . esc_html($approval_data['prescription_id']) . '<br>';
-//     echo '<strong>Time:</strong> ' . esc_html($approval_data['approved_at']);
-// }
-
-
-
-// link need to add in telegra 
-// https://healsend.com/wp-json/telegramd/v1/prescription-approved
-
-
-error_log("Prescription approved saved under key");

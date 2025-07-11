@@ -20,6 +20,17 @@ include_once('api-keys.php');
 
 require_once __DIR__ . '/vendor/autoload.php';
 include_once("includes/class-hld-user-orders.php");
+// echo "code 101 is working";
+// if ( is_user_logged_in() ) {
+//     $user_id = get_current_user_id();
+//     print_r($orders = HLD_UserOrders::get_orders($user_id));
+//     echo 'User ID: ' . $user_id;
+// } else {
+//     echo 'User is not logged in.';
+// }
+
+
+
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
@@ -27,6 +38,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 add_shortcode('hld_orders', function () {
     ob_start();
+    include_once("includes/class-hld-user-orders.php");
     include_once('templates/show-orders.php');
     return ob_get_clean();
 });
@@ -346,6 +358,5 @@ add_action('fluentform/before_insert_submission', function (&$insertData, $form)
     hld_create_order_on_telegramd($telegra_patient_id);
 }, 10, 2);
 
-
-include_once("/includes/order-tracking-webhook.php");
-include_once("/includes/prescription-received-webhook.php");
+include_once(plugin_dir_path(__FILE__) . 'includes/order-tracking-webhook.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook.php');
