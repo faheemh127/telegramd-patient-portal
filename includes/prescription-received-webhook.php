@@ -14,7 +14,7 @@ function hld_telegra_prescription_approved_handler(WP_REST_Request $request)
 {
     $data = $request->get_json_params();
 
-    error_log('✅ Prescription Approved Webhook Received: ' . print_r($data, true));
+    error_log('Prescription Approved Webhook Received: ' . print_r($data, true));
 
     // Confirm it’s the correct event
     if (!isset($data['eventType']) || $data['eventType'] !== 'EVENT_TYPES.PRESCRIPTION_APPROVED_BY_PRACTITIONER') {
@@ -42,7 +42,7 @@ function hld_telegra_prescription_approved_handler(WP_REST_Request $request)
     ];
     update_option($key, $value);
 
-    error_log("📦 Prescription approved saved under key: $key");
+    error_log("Prescription approved saved under key: $key");
 
     return new WP_REST_Response(['message' => 'Prescription approval saved.'], 200);
 }
@@ -64,3 +64,6 @@ function hld_telegra_prescription_approved_handler(WP_REST_Request $request)
 
 // link need to add in telegra 
 // https://healsend.com/wp-json/telegramd/v1/prescription-approved
+
+
+error_log("Prescription approved saved under key");

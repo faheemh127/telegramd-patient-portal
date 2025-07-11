@@ -3,59 +3,106 @@ class HLD_UserOrders
 {
 
     /**
-     * Meta key used to store orders  
+     * Table name
      */
-    private static $meta_key = 'hld_orders';
+    private static $table_name = 'hld_orders';
 
     /**
-     * Add an order ID to the user's order list
-     *
-     * @param int $user_id
-     * @param int|string $order_id
-     * @return bool
+     * Hook to create table if not exists
+     */
+    public static function init()
+    {
+        add_action('init', [__CLASS__, 'create_table_if_not_exists']);
+    }
+
+    /**
+     * Create table if it doesn't exist
+     */
+    public static function create_table_if_not_exists()
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE IF NOT EXISTS $table (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) NOT NULL,
+            order_id VARCHAR(255) NOT NULL,
+            PRIMARY KEY (id),
+            UNIQUE KEY user_order_unique (user_id, order_id)
+        ) $charset_collate;";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta($sql);
+    }
+
+    /**
+     * Add a new order to the custom table
      */
     public static function add_order($user_id, $order_id)
     {
-        if (!is_user_logged_in() || empty($user_id) || empty($order_id)) {
+        if (empty($user_id) || empty($order_id)) {
             return false;
         }
 
-        $orders = get_user_meta($user_id, self::$meta_key, true);
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
 
-        if (!is_array($orders)) {
-            $orders = [];
+        // Prevent duplicates
+        if (self::has_order($user_id, $order_id)) {
+            return true;
         }
 
-        if (!in_array($order_id, $orders)) {
-            $orders[] = $order_id;
-            update_user_meta($user_id, self::$meta_key, $orders);
-        }
+        $result = $wpdb->insert(
+            $table,
+            [
+                'user_id'  => $user_id,
+                'order_id' => sanitize_text_field($order_id),
+            ],
+            ['%d', '%s']
+        );
 
-        return true;
+        return $result !== false;
     }
 
     /**
-     * Get all order IDs for a user
-     *
-     * @param int $user_id
-     * @return array
+     * Get all orders for a given user
      */
     public static function get_orders($user_id)
     {
-        $orders = get_user_meta($user_id, self::$meta_key, true);
-        return is_array($orders) ? $orders : [];
+        if (empty($user_id)) return [];
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        $results = $wpdb->get_col(
+            $wpdb->prepare("SELECT order_id FROM $table WHERE user_id = %d", $user_id)
+        );
+
+        return $results ?: [];
     }
 
     /**
-     * Check if a specific order ID exists for a user
-     *
-     * @param int $user_id
-     * @param int|string $order_id
-     * @return bool
+     * Check if a user already has a specific order
      */
     public static function has_order($user_id, $order_id)
     {
-        $orders = self::get_orders($user_id);
-        return in_array($order_id, $orders);
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        $exists = $wpdb->get_var(
+            $wpdb->prepare("SELECT COUNT(*) FROM $table WHERE user_id = %d AND order_id = %s", $user_id, $order_id)
+        );
+
+        return $exists > 0;
     }
 }
+
+// Call init once (e.g. in plugin main file)
+HLD_UserOrders::init();
+// Usage Guide
+// HLD_UserOrders::add_order(13, 'ORD-12345');
+// $orders = HLD_UserOrders::get_orders(13);
+// // returns: ['ORD-12345', 'ORD-12346', ...]=
+// $hasIt = HLD_UserOrders::has_order(13, 'ORD-12345');

@@ -19,7 +19,7 @@
 include_once('api-keys.php');
 
 require_once __DIR__ . '/vendor/autoload.php';
-
+include_once("includes/class-hld-user-orders.php");
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
@@ -95,7 +95,8 @@ add_action('wp_enqueue_scripts', function () {
 
 // log payment success on server
 add_action('wp_ajax_log_payment_success', 'my_log_payment_success');
-function my_log_payment_success() {
+function my_log_payment_success()
+{
     $payment_id = sanitize_text_field($_POST['payment_id']);
     // You can log to a file or store in DB
     error_log("Stripe payment succeeded. ID: $payment_id");
@@ -104,23 +105,18 @@ function my_log_payment_success() {
 
 
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
+
 new DashboardShortcode();
 
 include_once('includes/functions.php');
 include_once('includes/ajax.php');
 
-// add_action('init', 'create_patient_if_not_exists_on_telegra_md');
-
 function create_patient_if_not_exists_on_telegra_md()
 {
-
-
     if (!is_user_logged_in()) {
         return;
     }
-
     $user = wp_get_current_user();
-
     if (!in_array('subscriber', (array) $user->roles)) {
         return;
     }
@@ -129,7 +125,7 @@ function create_patient_if_not_exists_on_telegra_md()
     // don't change this key other developers are using this.
     $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
 
-    // If already exists, skip API call
+    // todo: If already exists, skip API call
     // if (get_user_meta($user_id, $meta_key, true)) {
     //     error_log("TelegraMD: Patient already exists for user $user_id");
     //     return;
@@ -182,7 +178,7 @@ function create_patient_if_not_exists_on_telegra_md()
 // New chatgpt code for stripe
 include_once('includes/shortcodes.php');
 
-add_action('init', function() {
+add_action('init', function () {
     if (isset($_GET['test_charge'])) {
         $result = hld_charge_later(get_current_user_id(), 500); // $500
         var_dump($result);
@@ -196,7 +192,8 @@ add_action('init', function() {
 add_action('wp_ajax_create_payment_intent', 'my_create_payment_intent');
 add_action('wp_ajax_nopriv_create_payment_intent', 'my_create_payment_intent');
 
-function my_create_payment_intent() {
+function my_create_payment_intent()
+{
     require_once __DIR__ . '/vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
@@ -212,15 +209,11 @@ function my_create_payment_intent() {
 }
 
 
-
-
-
-
-
 add_action('wp_ajax_create_setup_intent', 'my_create_setup_intent');
 add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
 
-function my_create_setup_intent() {
+function my_create_setup_intent()
+{
     // Check if user is logged in
     if (!is_user_logged_in()) {
         wp_send_json_error([
@@ -300,7 +293,7 @@ function hld_create_order_on_telegramd($telegra_patient_id)
         'timeout'   => 20,
     ]);
 
-    // 🛑 Check for transport-level WP error
+    // Check for transport-level WP error
     if (is_wp_error($response)) {
         error_log('[TelegraMD Error] cURL Error: ' . $response->get_error_message());
         return new WP_Error('api_error', 'Failed to create order: ' . $response->get_error_message());
@@ -310,157 +303,49 @@ function hld_create_order_on_telegramd($telegra_patient_id)
     $response_body = wp_remote_retrieve_body($response);
     $data          = json_decode($response_body, true);
 
-    // ❌ API returned non-200/201
+    // API returned non-200/201
     if ($status_code !== 200 && $status_code !== 201) {
         error_log('[TelegraMD Order Failed] HTTP ' . $status_code . ' → ' . $response_body);
         return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
     }
 
-
-
-    // store the order id
-
-     // 🧠 Save the order ID in user_meta
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
-        $meta_key = 'telegra_patient_orders_' . $user_id;
-
-        // Get existing order list
-        $existing_orders = get_user_meta($user_id, $meta_key, true);
-        if (!is_array($existing_orders)) {
-            $existing_orders = [];
-        }
-
-        // Add new order ID if it's not already in the list
-        if (!in_array($data['id'], $existing_orders, true)) {
-            $existing_orders[] = $data['id'];
-            update_user_meta($user_id, $meta_key, $existing_orders);
-            error_log("✅ Order ID saved in user meta [$meta_key]");
-        }
+        HLD_UserOrders::add_order($user_id, $data['id']);
     } else {
         error_log("⚠️ User not logged in, cannot save order to user meta.");
     }
 
-    // ✅ Success
+    // Success
     error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
     return $data;
 }
 
-
-
-
-
-
-
-// add_action('init', 'hld_handle_telegramd_order_on_init');
-
-// function hld_handle_telegramd_order_on_init() {
-//     // Optional: Only run for logged-in users (recommended)
-//     if (!is_user_logged_in()) {
-//         return;
-//     }
-
-//     // Get patient ID
-//     $telegra_patient_id = get_telegra_patient_id_for_current_user();
-    
-//     // Log the patient ID
-//     error_log("telegra_patient_id: " . $telegra_patient_id);
-
-//     // If patient ID is empty/null, stop here
-//     if (empty($telegra_patient_id)) {
-//         error_log("TelegraMD patient ID not found for current user.");
-//         return;
-//     }
-
-//     // Create order
-//     $result = hld_create_order_on_telegramd($telegra_patient_id);
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 add_action('fluentform/before_insert_submission', function (&$insertData, $form) {
     error_log("🔥 fluentform/before_insert_submission hook is called");
-
     // Log all submitted data
     error_log("Submitted Data: " . print_r($insertData, true));
-
     // Log form object
     error_log("Form Object: " . print_r($form, true));
-
-
     //  Optional: Only run for logged-in users (recommended)
     if (!is_user_logged_in()) {
         return;
     }
-
-    // Optional: check for a specific form ID
+    // todo: Optional: check for a specific form ID
     // if ($form->id != 14) return;
 
     // Custom logic
     create_patient_if_not_exists_on_telegra_md();
     $telegra_patient_id = get_telegra_patient_id_for_current_user();
-
-
-     if (empty($telegra_patient_id)) {
+    if (empty($telegra_patient_id)) {
         error_log("TelegraMD patient ID not found for current user.");
         return;
     }
-
-
-
-    error_log("telegra_patient_id ". $telegra_patient_id);
+    error_log("telegra_patient_id " . $telegra_patient_id);
     // Create order in TelegraMD
     hld_create_order_on_telegramd($telegra_patient_id);
-
-    // Optionally modify data before it's saved
-    // $insertData['custom_field'] = 'Modified before insert';
-
-    // Optional: Log the response (success or error)
-    // if (is_wp_error($result)) {
-    //     error_log("TelegraMD Order Error: " . $result->get_error_message());
-    // } else {
-    //     error_log("TelegraMD Order Response: " . print_r($result, true));
-    // }
-
-
-
 }, 10, 2);
+
+
 include_once("/includes/order-tracking-webhook.php");
 include_once("/includes/prescription-received-webhook.php");
