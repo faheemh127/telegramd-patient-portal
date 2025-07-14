@@ -19,16 +19,10 @@
 include_once('api-keys.php');
 
 require_once __DIR__ . '/vendor/autoload.php';
-include_once("includes/class-hld-user-orders.php");
-// echo "code 101 is working";
-// if ( is_user_logged_in() ) {
-//     $user_id = get_current_user_id();
-//     print_r($orders = HLD_UserOrders::get_orders($user_id));
-//     echo 'User ID: ' . $user_id;
-// } else {
-//     echo 'User is not logged in.';
-// }
 
+
+include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-orders.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php');
 
 
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
@@ -38,7 +32,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 add_shortcode('hld_orders', function () {
     ob_start();
-    include_once("includes/class-hld-user-orders.php");
+
     include_once('templates/show-orders.php');
     return ob_get_clean();
 });

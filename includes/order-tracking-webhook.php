@@ -74,7 +74,11 @@ function hld_telegra_webhook_handler(WP_REST_Request $request)
     update_option($key, $value);
     error_log("✅ Prescription approved saved under key: $key");
 
-    return new WP_REST_Response(['message' => 'Order Tracing Received faheem from your side.'], 200);
+    // pat::7f7b95c2-109b-48ed-a55d-5540e370292920
+    $user_id = get_user_id_by_telegra_patient_id($owner_entity);
+    $notification = $event_title . " " .   $event_description  . ". Shipping Company name is " . $shipping_company;
+    HLD_UserNotifications::add_notification($user_id, $notification);
+    return new WP_REST_Response(['message' => 'Order Tracing Received.'], 200);
 }
 
 

@@ -1,7 +1,17 @@
 <?php
 
 
-
+// echo "code 101 is working";
+// if ( is_user_logged_in() ) {
+//     $user_id = get_current_user_id();
+//     $orders = HLD_UserOrders::get_orders($user_id);
+//     echo "<pre>";
+//     print_r($orders);
+//     echo "</pre>";
+//     echo 'User ID: ' . $user_id;
+// } else {
+//     echo 'User is not logged in.';
+// }
 
 
 $icon_capsule_tablet = '<svg width="35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -54,56 +64,77 @@ function hld_get_telegra_order_by_id($order_id)
 
 
 
-$order_id = 'order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d'; // You can dynamically replace this
-$order = hld_get_telegra_order_by_id($order_id);
-
-if (!is_wp_error($order)) :
-
-    $product        = $order['productVariations'][0]['productVariation'] ?? [];
-    $keywords       = $product['keywords'][0] ?? 'No keyword';
-    $orderNumber    = $order['orderNumber'] ?? 'N/A';
-    $createdAt      = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
-    $testName       = 'LTV Test'; // You can replace this with dynamic value if available
-    $encoded_order_id = urlencode($order['id']);
+// echo "code 101 is working";
 ?>
-    <div class="container py-5 hld-orders">
-        <div class="card mb-3 shadow-sm p-4 hld-order-item">
-            <div class="row align-items-center">
-                <!-- Left Section -->
-                <div class="col-md-8 d-flex align-items-center gap-3">
-                    <div class="icon-wrap bg-light rounded-circle p-3 d-flex align-items-center justify-content-center">
-                        <?php echo $icon_capsule_tablet; ?>
-                    </div>
-                    <div class="desc-wrap">
-                        <h5 class="fw-bold text-primary"><?php echo esc_html($keywords); ?></h5>
-                        <div class="d-flex flex-wrap gap-3 small text-muted">
-                            <div class="d-flex align-items-center gap-1">
-                                <?php echo $icon_tablets ?>
-                                <?php echo esc_html($product['form'] ?? 'Oral'); ?>
+<div class="container py-5 hld-orders">
+    <h1><?php  get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  ?></h1>
+    <?php
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        $orders = HLD_UserOrders::get_orders($user_id);
+
+        if (!empty($orders) && is_array($orders)) {
+            foreach ($orders as $order_id) {
+
+                // Fetch order data from API
+                $order = hld_get_telegra_order_by_id($order_id);
+
+                if (!is_wp_error($order)) {
+                    $product = $order['productVariations'][0]['productVariation'] ?? [];
+                    $keywords = $product['keywords'][0] ?? 'No keyword';
+                    $orderNumber = $order['orderNumber'] ?? 'N/A';
+                    $createdAt = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
+                    $testName = 'LTV Test'; // Optional: replace with real data if available
+                    $encoded_order_id = urlencode($order['id']);
+    ?>
+
+                    <div class="card mb-3 shadow-sm p-4 hld-order-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 d-flex align-items-center gap-3">
+                                <div class="icon-wrap bg-light rounded-circle p-3 d-flex align-items-center justify-content-center">
+                                    <?php echo $icon_capsule_tablet; ?>
+                                </div>
+                                <div class="desc-wrap">
+                                    <h5 class="fw-bold text-primary"><?php echo esc_html($keywords); ?></h5>
+                                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                                        <div class="d-flex align-items-center gap-1">
+                                            <?php echo $icon_tablets ?>
+                                            <?php echo esc_html($product['form'] ?? 'Oral'); ?>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <?php echo $icon_calendar ?>
+                                            <?php echo esc_html($createdAt); ?>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <?php echo $icon_file ?>
+                                            <?php echo esc_html($testName); ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center gap-1">
-                                <?php echo $icon_calendar ?>
-                                <?php echo esc_html($createdAt); ?>
-                            </div>
-                            <div class="d-flex align-items-center gap-1">
-                                <?php echo $icon_file ?>
-                                <?php echo esc_html($testName); ?>
+                            <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
+                                <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
+                                    <button class="btn btn-outline-primary">View Detail</button>
+                                </a>
+                                <button class="btn btn-primary">Completed</button>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Right Section -->
-                <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
-                    <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
-                        <button class="btn btn-outline-primary">View Detail</button>
-                    </a>
-                    <button class="btn btn-primary">Completed</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <?php
+                } else {
+                    echo '<p class="text-danger">❌ Failed to load order: ' . esc_html($order_id) . '</p>';
+                }
+            }
+        } else {
+            echo '<p>No orders found.</p>';
+        }
 
-<?php else : ?>
-    <p class="text-danger">❌ Failed to load order details.</p>
-<?php endif; ?>
+        ?>
+</div>
+<?php
+
+
+    } else {
+        echo 'User is not logged in.';
+    }

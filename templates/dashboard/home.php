@@ -77,7 +77,11 @@ defined('ABSPATH') || exit;
         <div class="card">
             <div class="info">
                 <h3>Total Orders</h3>
-                <div class="value">2</div>
+                <?php
+                $orders = HLD_UserOrders::get_orders($user_id);
+                $order_count = is_array($orders) ? count($orders) : 0;
+                ?>
+                <div class="value"><?php echo $order_count; ?></div>
             </div>
             <div class="icon">
                 <!-- Shopping Cart Icon -->
@@ -137,26 +141,58 @@ defined('ABSPATH') || exit;
                 <table class="table">
                     <tbody>
 
-                        <!-- Notification Row 1 -->
-                        <tr class="align-middle">
-                            <td style="width: 30px;">
-                                <span class="d-inline-block rounded-circle text-warning bg-warning" style="width: 15px; height: 15px;"></span>
-                            </td>
-                            <td>
-                                <div>
-                                    <strong>Appointment Reminder</strong>
-                                    <div class="text-muted small">You have an upcoming appointment scheduled for July 5th.</div>
-                                </div>
-                            </td>
-                            <td class="text-end" style="white-space: nowrap;">
-                                <div>
-                                    <button class="btn btn-sm btn-outline-secondary border-0 p-0">
-                                        <i class="bi bi-x-lg"></i> <!-- Bootstrap Icons (optional) -->
-                                    </button>
-                                    <div class="text-muted small">3 days ago</div>
-                                </div>
-                            </td>
-                        </tr>
+
+
+
+
+
+
+
+                        <?php
+                        if (is_user_logged_in()) {
+                            $user_id = get_current_user_id();
+                            $notifications = HLD_UserNotifications::get_notifications($user_id);
+
+                            if (!empty($notifications)) {
+                                foreach ($notifications as $notification) {
+                                    $title = esc_html($notification['title']);
+                                    $message = esc_html($notification['message']);
+                                    $time = human_time_diff(strtotime($notification['date']), current_time('timestamp')) . ' ago';
+                        ?>
+
+                                    <tr class="align-middle">
+                                        <td style="width: 30px;">
+                                            <span class="d-inline-block rounded-circle text-warning bg-warning" style="width: 15px; height: 15px;"></span>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <strong><?php echo $title; ?></strong>
+                                                <div class="text-muted small"><?php echo $message; ?></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end" style="white-space: nowrap;">
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-secondary border-0 p-0">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                                <div class="text-muted small"><?php echo $time; ?></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                        <?php
+                                }
+                            } else {
+                                echo '<tr><td colspan="3" class="text-muted text-center">No notifications found.</td></tr>';
+                            }
+                        } else {
+                            echo '<tr><td colspan="3" class="text-muted text-center">Please log in to view notifications.</td></tr>';
+                        }
+                        ?>
+
+
+
+
 
                         <!-- Notification Row 2 -->
                         <tr class="align-middle">

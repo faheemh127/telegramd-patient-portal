@@ -106,3 +106,12 @@ HLD_UserOrders::init();
 // $orders = HLD_UserOrders::get_orders(13);
 // // returns: ['ORD-12345', 'ORD-12346', ...]=
 // $hasIt = HLD_UserOrders::has_order(13, 'ORD-12345');
+// echo "code 101 is working";
+// if ( is_user_logged_in() ) {
+//     $user_id = get_current_user_id();
+//     $orders = HLD_UserOrders::get_orders($user_id);
+//     print_r($orders);
+//     echo 'User ID: ' . $user_id;
+// } else {
+//     echo 'User is not logged in.';
+// }

@@ -23,9 +23,11 @@ class DashboardShortcode
 
         if (is_user_logged_in()) {
 
+
             // Check if user has only 'subscriber' role
             if (in_array('subscriber', (array) $user->roles)) {
                 ob_start();
+              
                 hdl_get_template('dashboard/wrapper', ['icons' => hdl_icons(), 'user' => $user]);
                 return ob_get_clean();
             } else {

@@ -66,10 +66,11 @@ function hld_handle_prescription_approval(WP_REST_Request $request)
     $user_id = get_user_id_by_telegra_patient_id($patient_id);
 
     if ($user_id) {
-        echo "Matched WP User ID: " . $user_id;
+        // echo "Matched WP User ID: " . $user_id;
         $result = hld_charge_later($user_id, 167); // $500
     } else {
-        echo "No user found for Telegra patient ID.";
+        // echo "No user found for Telegra patient ID.";
+        return new WP_REST_Response(['message' => 'No user found for Telegra patient ID.'], 200);
     }
 
     return new WP_REST_Response(['message' => 'Prescription approved and saved.'], 200);
