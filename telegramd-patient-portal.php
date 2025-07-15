@@ -65,14 +65,29 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
-    //Enqueue your custom JavaScript file
-    wp_enqueue_script(
-        'hld-custom-js',
-        plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
+    // //Enqueue your custom JavaScript file
+    // wp_enqueue_script(
+    //     'hld-custom-js',
+    //     plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
+    //     ['jquery'], // or [] if no dependency
+    //     '1.0',
+    //     true
+    // );
+
+
+    // Enqueue your custom JavaScript file
+wp_enqueue_script(
+    'hld-custom-js',
+    plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
+    ['jquery'], // or [] if no dependency
+    '1.0',
+    true
+);
+
+// Localize ajaxurl for use in custom-script.js
+wp_localize_script('hld-custom-js', 'ajaxurl', admin_url('admin-ajax.php'));
+
+
 
 
     // Get the current user
@@ -354,3 +369,46 @@ add_action('fluentform/before_insert_submission', function (&$insertData, $form)
 
 include_once(plugin_dir_path(__FILE__) . 'includes/order-tracking-webhook.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook.php');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add_action('wp_ajax_save_form_url', 'handle_save_form_url');
+add_action('wp_ajax_nopriv_save_form_url', 'handle_save_form_url');
+
+function handle_save_form_url()
+{
+    $form_id = isset($_POST['form_id']) ? intval($_POST['form_id']) : 0;
+    $form_url = isset($_POST['form_url']) ? esc_url_raw($_POST['form_url']) : '';
+
+    if (!$form_id || empty($form_url)) {
+        wp_send_json_error('Invalid data provided');
+    }
+
+    $meta_key = 'fluent_form_' . $form_id;
+
+    // Save to user meta instead of options
+    update_user_meta(get_current_user_id(), $meta_key, $form_url);
+    
+
+    wp_send_json_success('Form URL saved');
+}

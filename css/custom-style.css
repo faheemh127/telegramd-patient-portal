@@ -69,9 +69,14 @@
   color: black;
 }
 
-.hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
+
+
+/* .hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
   display: none;
-}
+} */
+
+
+
 .hld_form_wrap
   div.nsl-container
   .nsl-button-default
@@ -91,9 +96,23 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+/*  */
 /* .ff-el-group.ff-text-left.ff_submit_btn_wrapper.ff_submit_btn_wrapper_custom{
   display: none;
 } */
+ .hld-hidden{
+  display: none;
+ }
+ #\31 3_save_progress_msg {
+  display: none;
+ }
+ .ff-saved-state-input{
+  display: none !important;
+ }
+
+ .ff-message-success.ff-el-group{
+  display: none !important;
+ }
 .hld_btn_continue_with_email {
   width: 100% !important;
   display: block !important;
