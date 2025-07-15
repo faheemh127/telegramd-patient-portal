@@ -127,7 +127,7 @@ function hld_display_fluent_saved_forms_cards()
             <div class="content">
                 <section>
                     <h2>Home</h2>
-                    <?php hdl_get_template('dashboard/home', ['user' => $user]); ?>
+                    <?php hdl_get_template('dashboard/home'); ?>
 
                 </section>
 

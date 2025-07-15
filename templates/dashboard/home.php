@@ -2,6 +2,16 @@
 // File: templates/dashboard/home.php
 
 defined('ABSPATH') || exit;
+
+// $custom_logo_id = get_theme_mod('custom_logo');
+// $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+
+$logo_url = 'https://healsend.com/wp-content/uploads/2025/05/HealSend__1_-removebg-preview.png';
+
+$logo_html = $logo_url
+    ? sprintf('<img src="%s" alt="Site Logo" style="width: 120px">', esc_url($logo_url))
+    : 'Healsend.com';
+
 ?>
 <?php
 /**
@@ -70,7 +80,7 @@ defined('ABSPATH') || exit;
 
 
     <p class="hld_small_title">Healsend</p>
-    <h1 class="hld_dashboard_title">Welcome, Vineeth</h1>
+    <h1 class="hld_dashboard_title">Welcome, <span class="first-letter-cap"><?php echo $user->data->display_name ?></span></h1>
     <p class="hld_dashboard_subtitle">This is your personal dashboard on Healsend. Here, you'll find all the information regarding your medical consultations.</p>
     <!-- Cards Section -->
     <div class="card-wrapper">
@@ -226,9 +236,9 @@ defined('ABSPATH') || exit;
 
 
 
-    <h4>Recent Consultations</h4>
+    <!-- <h4>Recent Consultations</h4> -->
     <div class="table-wrapper hdl_recent_consultations_home">
-        <h4>Orders</h4>
+        <h4>Recent Consultations</h4>
         <table class="table align-middle">
             <tbody>
 
@@ -253,7 +263,7 @@ defined('ABSPATH') || exit;
 
                     <!-- Brand -->
                     <td class="text-end">
-                        <div class="fw-semibold fs-5">Healsend.com</div>
+                        <div class="fw-semibold fs-5"><?php echo $logo_html ?></div>
                     </td>
                 </tr>
 
@@ -273,7 +283,7 @@ defined('ABSPATH') || exit;
                         <div class="text-muted small">Medicine Date: 2025-06-20</div>
                     </td>
                     <td class="text-end">
-                        <div class="fw-semibold fs-5">Healsend.com</div>
+                        <div class="fw-semibold fs-5"><?php echo $logo_html ?></div>
                     </td>
                 </tr>
 
@@ -293,7 +303,7 @@ defined('ABSPATH') || exit;
                         <div class="text-muted small">Medicine Date: 2025-06-27</div>
                     </td>
                     <td class="text-end">
-                        <div class="fw-semibold fs-5">Healsend.com</div>
+                        <div class="fw-semibold fs-5"><?php echo $logo_html ?></div>
                     </td>
                 </tr>
 

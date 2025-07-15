@@ -76,16 +76,16 @@ add_action('wp_enqueue_scripts', function () {
 
 
     // Enqueue your custom JavaScript file
-wp_enqueue_script(
-    'hld-custom-js',
-    plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
-    ['jquery'], // or [] if no dependency
-    '1.0',
-    true
-);
+    wp_enqueue_script(
+        'hld-custom-js',
+        plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
+        ['jquery'], // or [] if no dependency
+        '1.0',
+        true
+    );
 
-// Localize ajaxurl for use in custom-script.js
-wp_localize_script('hld-custom-js', 'ajaxurl', admin_url('admin-ajax.php'));
+    // Localize ajaxurl for use in custom-script.js
+    wp_localize_script('hld-custom-js', 'ajaxurl', admin_url('admin-ajax.php'));
 
 
 
@@ -408,7 +408,7 @@ function handle_save_form_url()
 
     // Save to user meta instead of options
     update_user_meta(get_current_user_id(), $meta_key, $form_url);
-    
+
 
     wp_send_json_success('Form URL saved');
 }

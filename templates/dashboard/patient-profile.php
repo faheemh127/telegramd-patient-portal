@@ -1,12 +1,13 @@
 <?php
 // $user
 
+
 $patient = [
     'full_name' => $user->data->display_name,
     'gender' => 'Male',
-    'dob' => '1990-05-15',
+    'dob' => get_user_meta($user->ID, 'dob', true) ?: '1990-05-15',
     'email' => $user->data->user_email,
-    'phone' => '+1 234-567-8900',
+    'phone' => get_user_meta($user->ID, 'phone', true) ?: '+1 234-567-8900',
     'blood_group' => 'B+',
     'allergies' => 'Penicillin',
     'chronic_conditions' => 'Diabetes, Hypertension',
@@ -26,22 +27,77 @@ $patient['age'] = $dob->diff($now)->y;
 
     <div class="row g-4">
         <div class="col-md-12">
-            <!-- Basic Information -->
+
+            <!-- Editable Account Details -->
             <h3>Account Details</h3>
             <div class="card mb-4 shadow-sm">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-
-                    <!-- Name row with Edit button -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div><strong>Name:</strong> <span class="fw-bold"><?= $patient['full_name']; ?></span></div>
-                        <a href="#" class=" btn_edit_settings">Edit</a>
-                    </div>
-
-                    <div><strong>Email:</strong> <span class="fw-bold"><?= $patient['email']; ?></span></div>
-                    <div><strong>Phone:</strong> <span class="fw-bold"><?= $patient['phone']; ?></span></div>
-                    <div><strong>Birthday:</strong> <span class="fw-bold"><?= $patient['dob']; ?></span></div>
+                    <form id="hld-account-details-form">
+                        <div class="mb-3">
+                            <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
+                            <input type="text" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="hld_email" class="form-label"><strong>Email:</strong></label>
+                            <input type="email" class="form-control" id="hld_email" name="email" value="<?= esc_attr($patient['email']); ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="hld_phone" class="form-label"><strong>Phone:</strong></label>
+                            <input type="text" class="form-control" id="hld_phone" name="phone" value="<?= esc_attr($patient['phone']); ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="hld_dob" class="form-label"><strong>Birthday:</strong></label>
+                            <input type="date" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
+                        </div>
+                        <button type="button" id="hld_save_account_details" class="btn btn-primary">Save</button>
+                        <span id="hld_account_details_message" style="display:none; margin-left:15px;"></span>
+                    </form>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const saveBtn = document.getElementById('hld_save_account_details');
+                    const form = document.getElementById('hld-account-details-form');
+                    const msgSpan = document.getElementById('hld_account_details_message');
+                    saveBtn.addEventListener('click', function() {
+                        msgSpan.style.display = 'none';
+                        saveBtn.disabled = true;
+                        const data = {
+                            full_name: form.full_name.value,
+                            email: form.email.value,
+                            phone: form.phone.value,
+                            dob: form.dob.value
+                        };
+                        fetch('/wp-json/hld/v1/update-account-details', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest') ?>',
+                                },
+                                body: JSON.stringify(data)
+                            })
+                            .then(res => res.json())
+                            .then(res => {
+                                saveBtn.disabled = false;
+                                msgSpan.style.display = 'inline-block';
+                                if (res.success) {
+                                    msgSpan.textContent = 'Account Details updated successfully.';
+                                    msgSpan.style.color = 'green';
+                                } else {
+                                    msgSpan.textContent = res.message || 'Error updating details.';
+                                    msgSpan.style.color = 'red';
+                                }
+                            })
+                            .catch(() => {
+                                saveBtn.disabled = false;
+                                msgSpan.style.display = 'inline-block';
+                                msgSpan.textContent = 'Error updating details.';
+                                msgSpan.style.color = 'red';
+                            });
+                    });
+                });
+            </script>
 
             <h3>Payment Method</h3>
             <div class="card mb-4 shadow-sm">
