@@ -21,7 +21,12 @@ $patient = [
 $dob = new DateTime($patient['dob']);
 $now = new DateTime();
 $patient['age'] = $dob->diff($now)->y;
-?>
+
+if (isset($_GET['message'])) {  ?>
+    <div class="alert alert-success" role="alert">
+        <?= esc_html($_GET['message']); ?>
+    </div>
+<?php } ?>
 
 <div class="container my-5 profile-container">
 
@@ -121,7 +126,9 @@ $patient['age'] = $dob->diff($now)->y;
                 </div>
             </div>
 
-            <a href="" class="hld_btn_profile_logout">logout</a>
+            <!-- <a href="" class="hld_btn_profile_logout">logout</a> -->
+            <a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>" class="hld_btn_profile_logout">logout</a>
+
 
             <!-- Medical Information -->
             <!-- <div class="card mb-4 shadow-sm">

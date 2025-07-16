@@ -118,7 +118,7 @@ $logo_html = $logo_url
         <div class="card">
             <div class="info">
                 <h3>Profile</h3>
-                <div class="value">See Profile</div>
+                <div class="value" onclick="seeProfile()">See Profile</div>
             </div>
             <div class="icon">
                 <!-- Person Icon -->
@@ -315,3 +315,16 @@ $logo_html = $logo_url
 
 
 </div>
+
+
+<script>
+    function seeProfile() {
+        const tabAction = document.querySelector('label[for="tab3"]'); // Just one
+        if (tabAction) tabAction.click()
+        else {
+            console.log("Tab does not exist")
+            console.log(tabAction);
+
+        };
+    }
+</script>

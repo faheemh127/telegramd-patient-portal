@@ -99,29 +99,17 @@ function hld_display_fluent_saved_forms_cards()
             <input type="radio" id="tab5" name="tab-control" />
             <input type="radio" id="tab6" name="tab-control" />
 
-            <style>
-                #hdlDashboard ul {
-                    background: white;
-                    padding: 15px 0 !important;
-                    border-radius: 50px;
-                    margin-bottom: 0 !important;
-                    margin-right: auto !important;
-                    margin-left: auto !important overflow: hidden !important;
-                }
-            </style>
-            <ul class="container">
-                <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
-                <li><label for="tab1"><span class="pe-2"></span><span>Order History</span></label></li>
-                <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
-                <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile</span></label></li>
-                <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
-                <li><label for="tab5"><span class="pe-2"></span><span>Lab Order</span></label></li>
-                <li><label for="tab6"><span class="pe-2"></span><span>Action Items</span></label></li>
-
-            </ul>
-
-            <div class="slider">
-                <div class="indicator"></div>
+            <!-- Wrap the navigation in a scrollable container -->
+            <div class="tabs-nav-wrapper">
+                <ul class="container">
+                    <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
+                    <li><label for="tab1"><span class="pe-2"></span><span>Lab Order</span></label></li>
+                    <li><label for="tab2"><span class="pe-2"></span><span>Order History</span></label></li>
+                    <li><label for="tab3"><span class="pe-2"></span><span>Action Items</span></label></li>
+                    <li><label for="tab4"><span class="pe-2"></span><span>Message Center</span></label></li>
+                    <li><label for="tab5"><span class="pe-2"></span><span>Patient Profile</span></label></li>
+                    <li><label for="tab6"><span class="pe-2"></span><span>Visits</span></label></li>
+                </ul>
             </div>
 
             <div class="content">
@@ -187,3 +175,28 @@ function hld_display_fluent_saved_forms_cards()
         </div>
     </div>
 </section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabInputs = document.querySelectorAll('input[name="tab-control"]');
+        const tabLabels = document.querySelectorAll('.tabs-nav-wrapper label');
+
+        function updateActiveTab() {
+            tabLabels.forEach(label => label.classList.remove('active'));
+            tabInputs.forEach((input, index) => {
+                if (input.checked) {
+                    tabLabels[index].classList.add('active');
+                }
+            });
+        }
+
+        // Initialize on page load
+        updateActiveTab();
+
+        // Listen for changes to tab selection
+        tabInputs.forEach(input => {
+            input.addEventListener('change', updateActiveTab);
+        });
+    });
+</script>

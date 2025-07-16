@@ -51,6 +51,33 @@ section#hdlDashboard .container .tabs {
 section#hdlDashboard .container .tabs input[name=tab-control] {
   display: none;
 }
+section#hdlDashboard .container .tabs .tabs-nav-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs .tabs-nav-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  }
+  section#hdlDashboard .container .tabs .tabs-nav-wrapper::-webkit-scrollbar {
+    height: 4px;
+  }
+  section#hdlDashboard .container .tabs .tabs-nav-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+  section#hdlDashboard .container .tabs .tabs-nav-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+  }
+  section#hdlDashboard .container .tabs .tabs-nav-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
 section#hdlDashboard .container .tabs ul {
   list-style: none;
   padding: 0;
@@ -58,23 +85,57 @@ section#hdlDashboard .container .tabs ul {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   margin-right: auto !important;
   margin-left: auto;
+  background: white;
+  padding: 15px 0 !important;
+  border-radius: 50px;
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+}
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs ul {
+    min-width: -moz-max-content;
+    min-width: max-content;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 12px 20px !important;
+    border-radius: 25px;
+  }
 }
 section#hdlDashboard .container .tabs ul li {
-  flex: 1;
-  width: 14.2857142857%;
+  flex: 0 0 auto;
+  width: -moz-fit-content;
+  width: fit-content;
   text-align: center;
-  padding: 0 10px;
+  padding: 0 8px;
+}
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs ul li {
+    flex: 1;
+    width: 14.2857142857%;
+    padding: 0 10px;
+  }
+}
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs ul li {
+    padding: 0 6px;
+  }
+  section#hdlDashboard .container .tabs ul li:first-child {
+    padding-left: 0;
+  }
+  section#hdlDashboard .container .tabs ul li:last-child {
+    padding-right: 0;
+  }
 }
 section#hdlDashboard .container .tabs ul li label {
   color: #929daf;
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
   font-size: 16px;
-  padding: 5px auto;
+  padding: 8px 12px;
   display: block;
   cursor: pointer;
   white-space: nowrap;
@@ -83,24 +144,29 @@ section#hdlDashboard .container .tabs ul li label {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  transition: all 0.2s ease-in-out;
-  color: black !important;
+  transition: all 0.3s ease-in-out;
+  color: black;
+  border-radius: 25px;
+  border: 2px solid transparent;
+}
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs ul li label {
+    font-size: 14px;
+    padding: 8px 16px;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 480px) {
+  section#hdlDashboard .container .tabs ul li label {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
 }
 section#hdlDashboard .container .tabs ul li label:hover, section#hdlDashboard .container .tabs ul li label:focus, section#hdlDashboard .container .tabs ul li label:active {
-  color: #bec5cf;
+  background: rgba(0, 0, 0, 0.05);
 }
 section#hdlDashboard .container .tabs .slider {
-  position: relative;
-  width: 14.2857142857%;
-  transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
-}
-section#hdlDashboard .container .tabs .slider .indicator {
-  width: 70%;
-  max-width: 100%;
-  margin: 0 auto;
-  height: 4px;
-  background: #428bff;
-  border-radius: 1px;
+  display: none;
 }
 section#hdlDashboard .container .tabs .content {
   margin-top: 30px;
@@ -128,108 +194,315 @@ section#hdlDashboard .container .tabs .content section .inner-content {
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ .slider {
-  transform: translateX(0%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(1):checked ~ .content > section:nth-child(1) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ .slider {
-  transform: translateX(100%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(2):checked ~ .content > section:nth-child(2) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ .slider {
-  transform: translateX(200%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(3):checked ~ .content > section:nth-child(3) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ .slider {
-  transform: translateX(300%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(4):checked ~ .content > section:nth-child(4) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ .slider {
-  transform: translateX(400%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(5):checked ~ .content > section:nth-child(5) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ .slider {
-  transform: translateX(500%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(6):checked ~ .content > section:nth-child(6) {
   display: block;
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label {
   cursor: default;
-  color: #428bff;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid #0f6cff;
+  position: relative;
 }
-@media (max-width: 1050px) {
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
   section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label {
-    background: rgba(0, 0, 0, 0.08);
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid #0f6cff;
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label::after {
+    display: none;
   }
 }
-section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ .slider {
-  transform: translateX(600%);
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label {
+    background: #428bff;
+    color: white !important;
+  }
 }
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):checked ~ .content > section:nth-child(7) {
   display: block;
+}
+section#hdlDashboard .tabs-nav-wrapper label.active {
+  background-color: #6d6ffc !important;
+  color: white !important;
 }
 
 /* ---------------------------------------------
@@ -245,47 +518,182 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(7):che
     transform: translateY(0);
   }
 }
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.1;
+  }
+}
 /* ---------------------------------------------
   RESPONSIVE STYLES
 --------------------------------------------- */
-@media (max-width: 1750px) {
-  .tabs ul li label {
-    white-space: initial;
-  }
-  .tabs {
-    padding: 8px;
-  }
-}
-@media (max-width: 1050px) {
-  .tabs ul li label {
-    padding: 5px;
-    border-radius: 5px;
-  }
-  .tabs ul li label span {
-    display: none;
-  }
-  .tabs ul li label span:first-child {
-    display: inline-block;
-  }
-  .tabs {
-    padding: 1rem 4px 0.25rem 4px !important;
-  }
-  .tabs .slider {
-    display: none;
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs {
+    padding: 20px 15px 60px;
   }
   .tabs .content {
     margin-top: 20px;
   }
   .tabs .content section h2 {
     display: block;
+    margin-bottom: 20px;
   }
 }
+@media (max-width: 768px) and (max-width: 480px) {
+  .tabs .content section h2 {
+    font-size: 1.2em;
+  }
+}
+@media (max-width: 480px) {
+  section#hdlDashboard .container .tabs {
+    padding: 15px 10px 40px;
+  }
+}
+/* ---------------------------------------------
+  ADDITIONAL MOBILE ENHANCEMENTS
+--------------------------------------------- */
+@media (max-width: 768px) {
+  .tabs-nav-wrapper {
+    scroll-behavior: smooth;
+  }
+  .tabs ul {
+    touch-action: pan-x;
+  }
+  .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(1):checked ~ .content > section:nth-child(1) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(2):checked ~ .content > section:nth-child(2) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(3):checked ~ .content > section:nth-child(3) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(4):checked ~ .content > section:nth-child(4) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(5):checked ~ ul > li:nth-child(5) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(5):checked ~ .content > section:nth-child(5) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(6):checked ~ ul > li:nth-child(6) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(6):checked ~ .content > section:nth-child(6) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(7):checked ~ ul > li:nth-child(7) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(7):checked ~ .content > section:nth-child(7) {
+    display: block;
+  }
+}
+/* ---------------------------------------------
+  EXISTING STYLES (keeping your other components)
+--------------------------------------------- */
 .hld_payment_method_wrap label {
   display: block;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   padding: 20px 30px;
   border-radius: 10px;
   background: #f7f7f7;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   cursor: pointer;
 }
 

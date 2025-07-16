@@ -17,18 +17,18 @@ $secondary: $accent-inactive;
 
 /* Tab configuration */
 $tab-count: 7;
-$indicator-width: 70%;
+$indicator-width: 75%;
 $indicator-height: 4px;
 
 /* Responsive breakpoints */
 $breakpoints: (
-  medium: #{$tab-count * 250px},
-  small: #{$tab-count * 150px},
+  large: 1200px,
+  medium: 768px,
+  small: 480px,
 );
 
 /* Selectors related to radio tabs */
 $label-selector: "~ ul > li";
-$slider-selector: "~ .slider";
 $content-selector: "~ .content > section";
 
 /* ---------------------------------------------
@@ -46,17 +46,12 @@ $content-selector: "~ .content > section";
 --------------------------------------------- */
 @mixin tabs(
   $label-selector: $label-selector,
-  $slider-selector: $slider-selector,
   $content-selector: $content-selector
 ) {
   @for $i from 1 through $tab-count {
     &:nth-of-type(#{$i}):checked {
       #{$label-selector}:nth-child(#{$i}) {
         @content;
-      }
-
-      #{$slider-selector} {
-        transform: translateX(#{100% * ($i - 1)});
       }
 
       #{$content-selector}:nth-child(#{$i}) {
@@ -92,8 +87,8 @@ h1 {
 section#hdlDashboard {
   min-width: 100%;
   background-color: #f2f6f8;
+
   .container {
-    // background-color: #f2f6f8;
     .tabs {
       min-width: #{$tab-count * 60px};
       max-width: 100vw;
@@ -101,11 +96,41 @@ section#hdlDashboard {
       padding-bottom: 80px;
       height: auto;
       border-radius: 5px;
-      // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-      //   0 10px 10px rgba(0, 0, 0, 0.22);
 
       input[name="tab-control"] {
         display: none;
+      }
+
+      // Tabs navigation wrapper
+      .tabs-nav-wrapper {
+        position: relative;
+        overflow: hidden;
+
+        @media (max-width: map-get($breakpoints, medium)) {
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+
+          &::-webkit-scrollbar {
+            height: 4px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 2px;
+
+            &:hover {
+              background: rgba(0, 0, 0, 0.5);
+            }
+          }
+        }
       }
 
       ul {
@@ -115,54 +140,88 @@ section#hdlDashboard {
         flex-direction: row;
         justify-content: space-between;
         margin-bottom: 10px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         margin-right: auto !important;
         margin-left: auto;
+        background: white;
+        padding: 15px 0 !important;
+        border-radius: 50px;
+        margin-bottom: 0 !important;
+        overflow: hidden !important;
+
+        @media (max-width: map-get($breakpoints, medium)) {
+          min-width: max-content;
+          justify-content: flex-start;
+          gap: 8px;
+          padding: 12px 20px !important;
+          border-radius: 25px;
+        }
 
         li {
-          flex: 1;
-          width: #{100% / $tab-count};
+          flex: 0 0 auto;
+          width: fit-content;
           text-align: center;
-          padding: 0 10px;
+          padding: 0 8px;
+
+          @media (min-width: map-get($breakpoints, medium) + 1px) {
+            flex: 1;
+            width: #{100% / $tab-count};
+            padding: 0 10px;
+          }
+
+          @media (max-width: map-get($breakpoints, medium)) {
+            padding: 0 6px;
+
+            &:first-child {
+              padding-left: 0;
+            }
+
+            &:last-child {
+              padding-right: 0;
+            }
+          }
 
           label {
             color: $secondary;
             font-family: "Montserrat", sans-serif;
             font-weight: normal;
             font-size: 16px;
-            padding: 5px auto;
+            padding: 8px 12px;
             display: block;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             @include user-select(none);
-            transition: all 0.2s ease-in-out;
-            color: black !important;
+            transition: all 0.3s ease-in-out;
+            color: black;
+            border-radius: 25px;
+            border: 2px solid transparent;
+
+            @media (max-width: map-get($breakpoints, medium)) {
+              font-size: 14px;
+              padding: 8px 16px;
+              white-space: nowrap;
+            }
+
+            @media (max-width: map-get($breakpoints, small)) {
+              font-size: 13px;
+              padding: 6px 12px;
+            }
 
             &:hover,
             &:focus,
             &:active {
-              color: lighten($secondary, 15%);
+              // color: lighten($secondary, 15%);
+              background: rgba(0, 0, 0, 0.05);
             }
           }
         }
       }
 
       .slider {
-        position: relative;
-        width: #{100% / $tab-count};
-        transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
-
-        .indicator {
-          width: $indicator-width;
-          max-width: 100%;
-          margin: 0 auto;
-          height: $indicator-height;
-          background: $accent;
-          border-radius: 1px;
-        }
+        display: none;
       }
 
       .content {
@@ -198,17 +257,57 @@ section#hdlDashboard {
         @include tabs {
           > label {
             cursor: default;
-            color: $accent;
+            color: white !important;
+            background: $accent;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba($accent, 0.4);
+            transform: translateY(-2px);
+            border: 2px solid darken($accent, 10%);
+            position: relative;
 
-            @media (max-width: map-get($breakpoints, small)) {
-              background: rgba(0, 0, 0, 0.08);
+            // Add a subtle pulse animation to make it more noticeable
+            &::before {
+              content: "";
+              position: absolute;
+              top: -2px;
+              left: -2px;
+              right: -2px;
+              bottom: -2px;
+              background: $accent;
+              border-radius: 27px;
+              z-index: -1;
+              opacity: 0.3;
+              animation: pulse 2s infinite;
+            }
+
+            @media (max-width: map-get($breakpoints, medium)) {
+              background: $accent;
+              color: white !important;
+              box-shadow: 0 4px 12px rgba($accent, 0.4);
+              transform: translateY(-2px);
+              border: 2px solid darken($accent, 10%);
+
+              &::after {
+                display: none;
+              }
+            }
+
+            @media (min-width: map-get($breakpoints, medium) + 1px) {
+              background: $accent;
+              color: white !important;
             }
           }
         }
       }
     }
   }
+
+  .tabs-nav-wrapper label.active {
+    background-color: #6d6ffc !important;
+    color: white !important;
+  }
 }
+
 /* ---------------------------------------------
   ANIMATIONS
 --------------------------------------------- */
@@ -223,38 +322,24 @@ section#hdlDashboard {
   }
 }
 
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.1;
+  }
+}
+
 /* ---------------------------------------------
   RESPONSIVE STYLES
 --------------------------------------------- */
 @media (max-width: map-get($breakpoints, medium)) {
-  .tabs ul li label {
-    white-space: initial;
-  }
-
-  .tabs {
-    padding: 8px;
-  }
-}
-
-@media (max-width: map-get($breakpoints, small)) {
-  .tabs ul li label {
-    padding: 5px;
-    border-radius: 5px;
-    span {
-      display: none;
-
-      &:first-child {
-        display: inline-block;
-      }
-    }
-  }
-
-  .tabs {
-    padding: 1rem 4px 0.25rem 4px !important;
-  }
-
-  .tabs .slider {
-    display: none;
+  section#hdlDashboard .container .tabs {
+    padding: 20px 15px 60px;
   }
 
   .tabs .content {
@@ -262,18 +347,70 @@ section#hdlDashboard {
 
     section h2 {
       display: block;
+      margin-bottom: 20px;
+
+      @media (max-width: map-get($breakpoints, small)) {
+        font-size: 1.2em;
+      }
     }
   }
 }
 
+@media (max-width: map-get($breakpoints, small)) {
+  section#hdlDashboard .container .tabs {
+    padding: 15px 10px 40px;
+  }
+}
+
+/* ---------------------------------------------
+  ADDITIONAL MOBILE ENHANCEMENTS
+--------------------------------------------- */
+@media (max-width: map-get($breakpoints, medium)) {
+  // Add smooth scrolling behavior
+  .tabs-nav-wrapper {
+    scroll-behavior: smooth;
+  }
+
+  // Enhance touch scrolling
+  .tabs ul {
+    touch-action: pan-x;
+  }
+
+  // Add visual feedback for active tab on mobile
+  .tabs input[name="tab-control"] {
+    @include tabs {
+      > label {
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 2px;
+          background: $accent;
+          border-radius: 1px;
+        }
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------
+  EXISTING STYLES (keeping your other components)
+--------------------------------------------- */
 .hld_payment_method_wrap label {
   display: block;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   padding: 20px 30px;
   border-radius: 10px;
   background: #f7f7f7;
+  min-width: fit-content;
   cursor: pointer;
 }
+
 .hld_payment_method_wrap label div.hld_wrap {
   display: flex;
 }
@@ -307,16 +444,19 @@ section#hdlDashboard {
   flex-direction: column;
   justify-content: right;
 }
+
 .hld_stripe:hover {
   background: #ececec;
   transition: background-color;
 }
+
 .hld_payment_method_wrap .StripeElement {
   padding: 15px 10px !important;
   border: 1px solid rgba(0, 0, 0, 0.9) !important;
   border-radius: 10px !important;
   background: #f7f7f7 !important;
 }
+
 .btn_edit_settings {
   background: transparent;
   color: black;
@@ -329,6 +469,7 @@ section#hdlDashboard {
   font-weight: bold;
   text-decoration: none;
 }
+
 .hld_btn_profile_logout {
   text-align: center;
   margin: auto;
@@ -340,6 +481,7 @@ section#hdlDashboard {
   padding: 10px 0;
   border-radius: 50px;
 }
+
 @media only screen and (max-width: 768px) {
   div.ff-summary-inner-wrapper {
     padding: 10px 20px 0 20px;
