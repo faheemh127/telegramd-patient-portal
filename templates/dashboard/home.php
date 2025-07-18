@@ -205,7 +205,7 @@ $logo_html = $logo_url
 
 
                         <!-- Notification Row 2 -->
-                        <tr class="align-middle">
+                        <!-- <tr class="align-middle">
                             <td style="width: 30px;">
                                 <span class="d-inline-block rounded-circle text-warning bg-warning" style="width: 15px; height: 15px;"></span>
                             </td>
@@ -223,7 +223,7 @@ $logo_html = $logo_url
                                     <div class="text-muted small">1 week ago</div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>

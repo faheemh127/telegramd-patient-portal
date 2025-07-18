@@ -103,12 +103,12 @@ function hld_display_fluent_saved_forms_cards()
             <div class="tabs-nav-wrapper">
                 <ul class="container">
                     <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
-                    <li><label for="tab1"><span class="pe-2"></span><span>Lab Order</span></label></li>
-                    <li><label for="tab2"><span class="pe-2"></span><span>Order History</span></label></li>
-                    <li><label for="tab3"><span class="pe-2"></span><span>Action Items</span></label></li>
-                    <li><label for="tab4"><span class="pe-2"></span><span>Message Center</span></label></li>
-                    <li><label for="tab5"><span class="pe-2"></span><span>Patient Profile</span></label></li>
-                    <li><label for="tab6"><span class="pe-2"></span><span>Visits</span></label></li>
+                    <li><label for="tab1"><span class="pe-2"></span><span>Order History  </span></label></li>
+                    <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
+                    <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile </span></label></li>
+                    <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
+                    <li><label for="tab5"><span class="pe-2"></span><span>Lab Order</span></label></li>
+                    <li><label for="tab6"><span class="pe-2"></span><span>Action Items</span></label></li>
                 </ul>
             </div>
 

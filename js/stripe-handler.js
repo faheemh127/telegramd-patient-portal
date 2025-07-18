@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!form || !hdlMakeStipePayment) return;
 
   hdlMakeStipePayment.addEventListener("click", async function (e) {
-    console.log("button clicked");
+    console.log("hdlMakeStipePayment button clicked");
     e.preventDefault();
 
     hdlMakeStipePayment.disabled = true;

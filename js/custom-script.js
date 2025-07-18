@@ -1,3 +1,73 @@
+class hldFluentFormClass {
+  constructor() {
+    // Initialization logic here (if needed)
+  }
+
+
+
+    clickNextMultipleTimesToReachStep(currentStepDiv, nextButton) {
+    if (!currentStepDiv || !nextButton) {
+      console.warn("Missing required parameters.");
+      return;
+    }
+
+    let count = 0;
+    let sibling = currentStepDiv.previousElementSibling;
+
+    console
+
+    // Count all previous siblings with class 'fluentform-step'
+    while (sibling) {
+      if (sibling.classList.contains("fluentform-step")) {
+        count++;
+      }
+      sibling = sibling.previousElementSibling;
+    }
+
+    console.log(`Clicking next button ${count} time(s)`);
+
+    // Click the next button 'count' number of times
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < count) {
+        nextButton.click();
+        i++;
+      } else {
+        clearInterval(interval);
+        console.log("Finished clicking Next button");
+      }
+    }, 10); // Delay between clicks (adjust if needed)
+  }
+
+
+
+   getActiveStepNumber() {
+    const activeStepDiv = document.querySelector('.fluentform-step.active');
+    if (!activeStepDiv) return null;
+
+    const dataName = activeStepDiv.getAttribute('data-name');
+    const match = dataName.match(/_(\d+)$/); // extract number at the end after underscore
+
+    if (match && match[1]) {
+      return parseInt(match[1], 10);
+    }
+
+    return null;
+  }
+
+
+
+
+  // You can add your methods below
+} // Class ends
+
+const hldFluentFormHelper = new hldFluentFormClass();
+
+
+
+
+
+
 console.log("custom javascript 109 loaded");
 // This code is to hide radio buttons' next button
 document.addEventListener("DOMContentLoaded", function () {
@@ -121,7 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
 const saveProgressBtn = document.querySelector('button[name="save_progress_button"]');
 const formID = 13; // dummy form ID
 if (saveProgressBtn) {
-  saveProgressBtn.addEventListener("click", function () {
+  saveProgressBtn.addEventListener("click", function (e) {
+    e.preventDefault(); // This will stop form submission
     console.log("Button clicked, waiting 4 seconds...");
 
     setTimeout(() => {
@@ -133,9 +204,10 @@ if (saveProgressBtn) {
         const inputValue = input.value;
 
         console.log("Sending value to backend:", inputValue);
-
+const activeStep = hldFluentFormHelper.getActiveStepNumber();
+console.log("active step is", activeStep);
         // Send AJAX request to WordPress
-        fetch(ajaxurl, {
+        fetch(hldFormData.ajaxurl, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -144,6 +216,7 @@ if (saveProgressBtn) {
             action: "save_form_url",
             form_id: formID,
             form_url: inputValue,
+            active_step: activeStep,
           }),
         })
           .then((response) => response.json())
@@ -201,39 +274,21 @@ if (saveProgressBtn) {
       console.log("➡️ Fluent Form Next button clicked");
 
       // ✅ Your custom logic here
-      handleNextButtonClick(button);
+      hldHandleNextButtonClick(button);
     });
   });
 
-  function handleNextButtonClick(btn) {
+  function hldHandleNextButtonClick(btn) {
     // You can access the button DOM or trigger actions here
-    console.log("✅ Next button triggered:", btn);
+
+
+      console.log("✅ Next button triggered:", btn);
+      const saveProgressBtn = document.querySelector('button[name="save_progress_button"]');
+      saveProgressBtn.click();
 
 
 
-
-    
-      const button = document.querySelector('button[name="save_progress_button"]');
-      button.click();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }// handleNextButtonClick
+  }// hldHandleNextButtonClick
 
 
 
@@ -257,7 +312,74 @@ if (saveProgressBtn) {
 
 
 
+  // show the active form step
 
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const fluentState = urlParams.get("fluent_state");
+  console.log("working active form step code")
+
+  if (fluentState) {
+    const savedStep = hldFormData.activeStep; // Example: step saved previously
+
+    // Get form ID from the URL or your system
+    const formID = 13;
+    const currentStepName = `form_step-${formID}_${savedStep}`;
+
+    // Wait for Fluent Form DOM to fully render
+    setTimeout(() => {
+      // Find the step div with the current saved step
+      const targetStepDiv = document.querySelector(
+        `div.fluentform-step[data-name="${currentStepName}"]`
+      );
+
+      if (targetStepDiv) {
+        // Find the previous .fluentform-step element
+        const previousStepDiv = targetStepDiv.previousElementSibling;
+
+        if (
+          previousStepDiv &&
+          previousStepDiv.classList.contains("fluentform-step")
+        ) {
+          // Find the 'Next' button inside the previous step
+          const nextButton = previousStepDiv.querySelector(
+            'button[data-action="next"]'
+          );
+
+          if (nextButton) {
+
+
+
+            document.querySelectorAll('.fluentform-step.active').forEach(function (el) {
+              el.classList.remove('active');
+            });
+
+
+            if (previousStepDiv && previousStepDiv.classList.contains("fluentform-step")) {
+              previousStepDiv.classList.add("active");
+            }
+
+
+
+
+
+            console.log("previousStepDiv", previousStepDiv);
+            console.log(nextButton)
+            console.log("Clicking Next button to jump to step", savedStep);
+            hldFluentFormHelper.clickNextMultipleTimesToReachStep(previousStepDiv, nextButton);
+            // nextButton.click();
+            // nextButton.click();
+          } else {
+            console.warn("Next button not found in previous step.");
+          }
+        } else {
+          console.warn("Previous step element not found.");
+        }
+      } else {
+        console.warn("Target step div not found for step:", savedStep);
+      }
+    }, 3000); // Wait a second for Fluent Forms to render
+  }
 
 
 

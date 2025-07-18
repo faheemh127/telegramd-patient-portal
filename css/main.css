@@ -90,7 +90,7 @@ section#hdlDashboard .container .tabs ul {
   margin-right: auto !important;
   margin-left: auto;
   background: white;
-  padding: 15px 0 !important;
+  padding: 5px 0 !important;
   border-radius: 50px;
   margin-bottom: 0 !important;
   overflow: hidden !important;
@@ -1059,6 +1059,7 @@ section#hdlDashboard .tabs-nav-wrapper label.active {
   font-size: 1.8rem;
   font-weight: 700;
   color: #5b61fd;
+  cursor: pointer;
 }
 .dashboard-wrapper .card-wrapper .card .icon {
   width: 60px;
