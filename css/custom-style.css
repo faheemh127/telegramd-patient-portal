@@ -69,13 +69,9 @@
   color: black;
 }
 
-
-
 /* .hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
   display: none;
 } */
-
-
 
 .hld_form_wrap
   div.nsl-container
@@ -100,19 +96,19 @@
 /* .ff-el-group.ff-text-left.ff_submit_btn_wrapper.ff_submit_btn_wrapper_custom{
   display: none;
 } */
- .hld-hidden{
+.hld-hidden {
   display: none;
- }
- #\31 3_save_progress_msg {
+}
+#\31 3_save_progress_msg {
   display: none;
- }
- .ff-saved-state-input{
+}
+.ff-saved-state-input {
   display: none !important;
- }
+}
 
- .ff-message-success.ff-el-group{
+.ff-message-success.ff-el-group {
   display: none !important;
- }
+}
 .hld_btn_continue_with_email {
   width: 100% !important;
   display: block !important;
@@ -256,7 +252,7 @@
 .hdl_primary_color {
   color: #6d6ffc;
 }
-#hdlMakeStipePayment{
+#hdlMakeStipePayment {
   background-color: #6d6ffc;
 }
 
@@ -289,4 +285,76 @@
 .hld_patient_packages input[type="radio"]:checked ~ .package-box {
   border-color: #6d6ffc;
   box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.3);
+}
+
+/* Style for Patient Login form */
+.hld_login_wrapper {
+  max-width: 660px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  font-family: sans-serif;
+}
+.hld_login_form {
+  display: flex;
+  flex-direction: column;
+}
+.hld_login_form label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.hld_login_form input {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.hld_login_button {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  background: #0073aa;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.hld_login_button:hover {
+  background: #005f8d;
+}
+.hld_or_separator {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #888;
+}
+.hld_error_message {
+  color: #b32d2e;
+  background: #fbeaea;
+  padding: 10px;
+  border-left: 4px solid #b32d2e;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.hld_logged_in_notice {
+  padding: 20px;
+  background: #e6ffed;
+  border-left: 4px solid #46b450;
+  border-radius: 4px;
+}
+.hld_social_login {
+  text-align: center;
+}
+.hld_social_login .nsl-container {
+  display: inline-block;
+}
+.hld_patient_login_title {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
 }

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Or better: use a custom modal or toast library here (e.g. SweetAlert)
           return;
         }
-
+ 
         // Success pat
         console.log("Payment method saved successfully!");
         // Optional: Show success message

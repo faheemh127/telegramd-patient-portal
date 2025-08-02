@@ -36,7 +36,7 @@ class hldFluentFormClass {
         clearInterval(interval);
         console.log("Finished clicking Next button");
       }
-    }, 10); // Delay between clicks (adjust if needed)
+    }, 1200); // Delay between clicks (adjust if needed)
   }
 
 
@@ -192,7 +192,7 @@ const saveProgressBtn = document.querySelector('button[name="save_progress_butto
 const formID = 13; // dummy form ID
 if (saveProgressBtn) {
   saveProgressBtn.addEventListener("click", function (e) {
-    e.preventDefault(); // This will stop form submission
+    // e.preventDefault(); // This will stop form submission
     console.log("Button clicked, waiting 4 seconds...");
 
     setTimeout(() => {
@@ -239,7 +239,7 @@ console.log("active step is", activeStep);
   console.log("saveProgressBtn not found.");
 }
 
-
+ 
 
 
 
@@ -284,7 +284,7 @@ console.log("active step is", activeStep);
 
       console.log("✅ Next button triggered:", btn);
       const saveProgressBtn = document.querySelector('button[name="save_progress_button"]');
-      saveProgressBtn.click();
+      // saveProgressBtn.click();
 
 
 

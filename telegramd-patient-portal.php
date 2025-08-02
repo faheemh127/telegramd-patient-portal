@@ -428,3 +428,6 @@ function handle_save_form_url()
 
     wp_send_json_success('Form URL saved');
 }
+
+// patient Login Shortcode Script 
+include_once(plugin_dir_path(__FILE__) . 'includes/patient-login.php');
