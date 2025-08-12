@@ -1,7 +1,17 @@
 <?php
+add_filter('login_redirect', 'hld_force_login_redirect', 10, 3);
+function hld_force_login_redirect($redirect_to, $requested_redirect_to, $user) {
+    if (isset($user->roles) && in_array('subscriber', $user->roles)) {
+        return home_url('/my-account');
+    }
+    return $redirect_to;
+}
+
+
 add_shortcode('hld_custom_login_form', 'hld_render_custom_login_form');
 
-function hld_render_custom_login_form() {
+function hld_render_custom_login_form()
+{
     if (is_user_logged_in()) {
         return '<p class="hld_logged_in_notice">You are already logged in.</p>';
     }
@@ -15,6 +25,7 @@ function hld_render_custom_login_form() {
             'user_password' => $_POST['hld_password'],
             'remember'      => true,
         );
+        unset($_REQUEST['redirect_to']);
         $user = wp_signon($creds, false);
 
         if (is_wp_error($user)) {
@@ -22,15 +33,15 @@ function hld_render_custom_login_form() {
         } else {
             // Ensure user has subscriber role
             if (in_array('subscriber', (array)$user->roles)) {
-                wp_redirect(home_url('/my-account'));
-                exit;
+                wp_safe_redirect(home_url('/my-account'));
+                exit; // This is crucial
             } else {
                 wp_logout();
                 $error_message = 'Access denied. Only subscribers can log in here.';
             }
         }
     }
-    ?>
+?>
 
     <div class="hld_login_wrapper">
         <?php if (!empty($error_message)) : ?>
@@ -57,6 +68,6 @@ function hld_render_custom_login_form() {
         </div>
     </div>
 
-    <?php
+<?php
     return ob_get_clean();
 }

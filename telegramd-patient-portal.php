@@ -1,13 +1,12 @@
 <?php
-
 /**
  * Plugin Name: TelegraMD Patient Portal
  * Description: Patient portal with TelegraMD API integration for prescriptions, labs, and subscriptions.
  * Version: 1.0
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
- * Prefix: hld
  */
+
 
 // Include API
 // require_once plugin_dir_path(__FILE__) . 'telegramd-api.php';
@@ -85,19 +84,19 @@ add_action('wp_enqueue_scripts', function () {
     );
 
     $form_id = 13; // Or dynamically get this
-$active_step_key = 'active_step_fluent_form_' . $form_id;
-$active_step = get_user_meta(get_current_user_id(), $active_step_key, true);
+    $active_step_key = 'active_step_fluent_form_' . $form_id;
+    $active_step = get_user_meta(get_current_user_id(), $active_step_key, true);
 
     // Localize ajaxurl for use in custom-script.js
     // wp_localize_script('hld-custom-js', 'ajaxurl', admin_url('admin-ajax.php'));
 
 
- // Localize ajaxurl for use in custom-script.js
-   wp_localize_script('hld-custom-js', 'hldFormData', [
-    'ajaxurl'      => admin_url('admin-ajax.php'),
-    'formId'       => $form_id,
-    'activeStep'   => $active_step,
-]);
+    // Localize ajaxurl for use in custom-script.js
+    wp_localize_script('hld-custom-js', 'hldFormData', [
+        'ajaxurl'      => admin_url('admin-ajax.php'),
+        'formId'       => $form_id,
+        'activeStep'   => $active_step,
+    ]);
 
 
     // Get the current user
@@ -110,8 +109,6 @@ $active_step = get_user_meta(get_current_user_id(), $active_step_key, true);
     wp_localize_script('hld-custom-js', 'hldData', [
         'hldPatientEmail' => $user_email,
     ]);
-
-
 });
 
 
@@ -418,13 +415,13 @@ function handle_save_form_url()
     }
 
     $meta_key = 'fluent_form_' . $form_id;
-    $active_step_key = 'active_step_fluent_form_'. $form_id;
+    $active_step_key = 'active_step_fluent_form_' . $form_id;
     // Save to user meta instead of options
 
-    
+
     update_user_meta(get_current_user_id(), $meta_key, $form_url);
     update_user_meta(get_current_user_id(), $active_step_key, $active_step);
-    
+
 
     wp_send_json_success('Form URL saved');
 }

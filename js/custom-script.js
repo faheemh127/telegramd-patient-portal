@@ -3,9 +3,7 @@ class hldFluentFormClass {
     // Initialization logic here (if needed)
   }
 
-
-
-    clickNextMultipleTimesToReachStep(currentStepDiv, nextButton) {
+  clickNextMultipleTimesToReachStep(currentStepDiv, nextButton) {
     if (!currentStepDiv || !nextButton) {
       console.warn("Missing required parameters.");
       return;
@@ -14,7 +12,7 @@ class hldFluentFormClass {
     let count = 0;
     let sibling = currentStepDiv.previousElementSibling;
 
-    console
+    console;
 
     // Count all previous siblings with class 'fluentform-step'
     while (sibling) {
@@ -39,13 +37,11 @@ class hldFluentFormClass {
     }, 1200); // Delay between clicks (adjust if needed)
   }
 
-
-
-   getActiveStepNumber() {
-    const activeStepDiv = document.querySelector('.fluentform-step.active');
+  getActiveStepNumber() {
+    const activeStepDiv = document.querySelector(".fluentform-step.active");
     if (!activeStepDiv) return null;
 
-    const dataName = activeStepDiv.getAttribute('data-name');
+    const dataName = activeStepDiv.getAttribute("data-name");
     const match = dataName.match(/_(\d+)$/); // extract number at the end after underscore
 
     if (match && match[1]) {
@@ -55,18 +51,10 @@ class hldFluentFormClass {
     return null;
   }
 
-
-
-
   // You can add your methods below
 } // Class ends
 
 const hldFluentFormHelper = new hldFluentFormClass();
-
-
-
-
-
 
 console.log("custom javascript 109 loaded");
 // This code is to hide radio buttons' next button
@@ -120,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const nextBtn = document.querySelector(
         '.fluentform-step[data-name="step_start-13_50"] button[data-action="next"]'
       );
-      
 
       if (nextBtn) {
         console.log("✅ Auto-clicking Next button...");
@@ -133,139 +120,80 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // // button = document.querySelector('button[name="save_progress_button"]');
+  // const button = document.querySelector('button[name="save_progress_button"]');
 
+  // if (button) {
+  //   button.addEventListener('click', function () {
+  //     console.log('Button clicked, waiting 4 seconds...');
 
+  //     setTimeout(() => {
+  //       // Get the first matching input field
+  //       const input = document.querySelector('.ff-el-input--content .ff_input-group input');
 
+  //       if (input) {
+  //         console.log('Input value:', input.value);
+  //       } else {
+  //         console.log('Input field not found.');
+  //       }
+  //     }, 4000); // 4000 ms = 4 seconds
+  //   });
+  // } else {
+  //   console.log('Button not found.');
+  // }
 
+  const saveProgressBtn = document.querySelector(
+    'button[name="save_progress_button"]'
+  );
+  const formID = 13; // dummy form ID
+  if (saveProgressBtn) {
+    saveProgressBtn.addEventListener("click", function (e) {
+      // e.preventDefault(); // This will stop form submission
+      console.log("Button clicked, waiting 4 seconds...");
 
+      setTimeout(() => {
+        const input = document.querySelector(
+          ".ff-el-input--content .ff_input-group input"
+        );
 
+        if (input) {
+          const inputValue = input.value;
 
-
-
-// // button = document.querySelector('button[name="save_progress_button"]');
-// const button = document.querySelector('button[name="save_progress_button"]');
-
-// if (button) {
-//   button.addEventListener('click', function () {
-//     console.log('Button clicked, waiting 4 seconds...');
-    
-//     setTimeout(() => {
-//       // Get the first matching input field
-//       const input = document.querySelector('.ff-el-input--content .ff_input-group input');
-      
-//       if (input) {
-//         console.log('Input value:', input.value);
-//       } else {
-//         console.log('Input field not found.');
-//       }
-//     }, 4000); // 4000 ms = 4 seconds
-//   });
-// } else {
-//   console.log('Button not found.');
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const saveProgressBtn = document.querySelector('button[name="save_progress_button"]');
-const formID = 13; // dummy form ID
-if (saveProgressBtn) {
-  saveProgressBtn.addEventListener("click", function (e) {
-    // e.preventDefault(); // This will stop form submission
-    console.log("Button clicked, waiting 4 seconds...");
-
-    setTimeout(() => {
-      const input = document.querySelector(
-        ".ff-el-input--content .ff_input-group input"
-      );
-
-      if (input) {
-        const inputValue = input.value;
-
-        console.log("Sending value to backend:", inputValue);
-const activeStep = hldFluentFormHelper.getActiveStepNumber();
-console.log("active step is", activeStep);
-        // Send AJAX request to WordPress
-        fetch(hldFormData.ajaxurl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            action: "save_form_url",
-            form_id: formID,
-            form_url: inputValue,
-            active_step: activeStep,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              console.log("Form value saved successfully");
-            } else {
-              console.log("Error saving form value:", data.data);
-            }
+          console.log("Sending value to backend:", inputValue);
+          const activeStep = hldFluentFormHelper.getActiveStepNumber();
+          console.log("active step is", activeStep);
+          // Send AJAX request to WordPress
+          fetch(hldFormData.ajaxurl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              action: "save_form_url",
+              form_id: formID,
+              form_url: inputValue,
+              active_step: activeStep,
+            }),
           })
-          .catch((error) => {
-            console.error("AJAX error:", error);
-          });
-      } else {
-        console.log("Input field not found.");
-      }
-    }, 4000);
-  });
-} else {
-  console.log("saveProgressBtn not found.");
-}
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Form value saved successfully");
+              } else {
+                console.log("Error saving form value:", data.data);
+              }
+            })
+            .catch((error) => {
+              console.error("AJAX error:", error);
+            });
+        } else {
+          console.log("Input field not found.");
+        }
+      }, 4000);
+    });
+  } else {
+    console.log("saveProgressBtn not found.");
+  }
 
   const nextButtons = document.querySelectorAll(".ff-btn-next");
 
@@ -281,43 +209,18 @@ console.log("active step is", activeStep);
   function hldHandleNextButtonClick(btn) {
     // You can access the button DOM or trigger actions here
 
-
-      console.log("✅ Next button triggered:", btn);
-      const saveProgressBtn = document.querySelector('button[name="save_progress_button"]');
-      // saveProgressBtn.click();
-
-
-
-  }// hldHandleNextButtonClick
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    console.log("✅ Next button triggered:", btn);
+    const saveProgressBtn = document.querySelector(
+      'button[name="save_progress_button"]'
+    );
+    // saveProgressBtn.click();
+  } // hldHandleNextButtonClick
 
   // show the active form step
 
-
   const urlParams = new URLSearchParams(window.location.search);
   const fluentState = urlParams.get("fluent_state");
-  console.log("working active form step code")
+  console.log("working active form step code");
 
   if (fluentState) {
     const savedStep = hldFormData.activeStep; // Example: step saved previously
@@ -347,26 +250,26 @@ console.log("active step is", activeStep);
           );
 
           if (nextButton) {
+            document
+              .querySelectorAll(".fluentform-step.active")
+              .forEach(function (el) {
+                el.classList.remove("active");
+              });
 
-
-
-            document.querySelectorAll('.fluentform-step.active').forEach(function (el) {
-              el.classList.remove('active');
-            });
-
-
-            if (previousStepDiv && previousStepDiv.classList.contains("fluentform-step")) {
+            if (
+              previousStepDiv &&
+              previousStepDiv.classList.contains("fluentform-step")
+            ) {
               previousStepDiv.classList.add("active");
             }
 
-
-
-
-
             console.log("previousStepDiv", previousStepDiv);
-            console.log(nextButton)
+            console.log(nextButton);
             console.log("Clicking Next button to jump to step", savedStep);
-            hldFluentFormHelper.clickNextMultipleTimesToReachStep(previousStepDiv, nextButton);
+            hldFluentFormHelper.clickNextMultipleTimesToReachStep(
+              previousStepDiv,
+              nextButton
+            );
             // nextButton.click();
             // nextButton.click();
           } else {
@@ -380,18 +283,6 @@ console.log("active step is", activeStep);
       }
     }, 3000); // Wait a second for Fluent Forms to render
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }); // main document loaded container
 
 // set patient email as global so other dev can use this email
