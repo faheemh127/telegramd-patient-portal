@@ -66,8 +66,8 @@ function hld_get_telegra_order_by_id($order_id)
 
 // echo "code 101 is working";
 ?>
-<div class="container py-5 hld-orders">
-    <h1><?php  get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  ?></h1>
+<div class="container pb-5 hld-orders">
+    <!-- <h1><?php  // get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  ?></h1> -->
     <?php
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
@@ -112,11 +112,11 @@ function hld_get_telegra_order_by_id($order_id)
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row justify-content-center gap-2 ">
+                            <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row gap-2 ">
                                 <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
                                     <button class="btn btn-outline-primary">View Detail</button>
                                 </a>
-                                <button class="btn btn-primary">Completed</button>
+                                <button class="btn btn-primary hld_btn_order_status">Completed</button>
                             </div>
                         </div>
                     </div>

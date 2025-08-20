@@ -109,10 +109,13 @@ $logo_html = $logo_url
                 <div class="value">0</div>
             </div>
             <div class="icon">
-                <!-- Microscope Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
-                    <path d="M5.5 2a.5.5 0 0 1 .5.5V3h4v-.5a.5.5 0 0 1 1 0V3a2 2 0 0 1 2 2v5a2 2 0 1 1-4 0V5H7v5a2 2 0 1 1-4 0V5a2 2 0 0 1 2-2v-.5a.5.5 0 0 1 .5-.5z" />
+
+                <svg width="25px" class="hld_color_primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path fill="currentColor" d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z" />
                 </svg>
+
+
+
             </div>
         </div>
 
@@ -238,14 +241,13 @@ $logo_html = $logo_url
 
 
     <!-- <h4>Recent Consultations</h4> -->
-    <div class="table-wrapper hdl_recent_consultations_home">
+    <div class="table-wrapper hdl_recent_consultations_home" style="display: none;">
         <h4>Recent Consultations</h4>
         <table class="table align-middle">
             <tbody>
 
                 <!-- Row 1 -->
                 <tr>
-                    <!-- Profile image -->
                     <td style="width: 60px;" class="hld_td">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor" class="rounded-circle" width="50" height="50">
                     </td>
@@ -262,13 +264,11 @@ $logo_html = $logo_url
                         <div class="text-muted small">Medicine Date: 2025-06-14</div>
                     </td>
 
-                    <!-- Brand -->
                     <td class="text-end">
                         <div class="fw-semibold fs-5"><?php echo $logo_html ?></div>
                     </td>
                 </tr>
 
-                <!-- Row 2 -->
                 <tr>
                     <td>
                         <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Doctor" class="rounded-circle" width="50" height="50">
@@ -288,7 +288,6 @@ $logo_html = $logo_url
                     </td>
                 </tr>
 
-                <!-- Row 3 -->
                 <tr>
                     <td>
                         <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Doctor" class="rounded-circle" width="50" height="50">

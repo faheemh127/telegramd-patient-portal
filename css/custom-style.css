@@ -358,3 +358,18 @@
   font-weight: bold;
   margin-bottom: 30px;
 }
+
+.hld_lab_order_container h5{
+  color: #6d6ffc !important;
+}
+
+.hld_color_primary{
+  color: #6d6ffc;
+}
+.hld_btn_view_detail{
+background: #6d6ffc;
+  border: 1px solid #6d6ffc;
+}
+.hld_btn_order_status{
+  max-width: 120px;
+}
