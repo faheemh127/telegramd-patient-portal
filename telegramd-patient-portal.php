@@ -94,6 +94,14 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
+     wp_enqueue_script(
+        'hld-class-patient-login',
+        plugin_dir_url(__FILE__) . 'js/class-navigation.js', // Your JS file path
+        ['jquery'], // or [] if no dependency
+        '1.0',
+        true
+     );
+
 
     wp_localize_script(
     'hld-class-patient-login',

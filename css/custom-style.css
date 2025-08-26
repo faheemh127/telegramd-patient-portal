@@ -398,14 +398,14 @@ background: #6d6ffc;
 }
 
 .hld_email_field label,
-.hld-password label{
+.hld_pwd_wrap label{
   font-size: 20px !important;
   margin-bottom: 5px !important;
   color: rgba(0,0,0,0.8);
 }
 
 .hld_email_field input,
-.hld-password input{
+.hld_pwd_wrap input{
   border-radius: 50px !important;
   height: 50px;
   padding-left: 25px !important;
