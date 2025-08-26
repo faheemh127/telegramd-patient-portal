@@ -331,7 +331,7 @@ class hld_BMICalculator {
     this.bmiValue.textContent = bmi.toFixed(1);
 
     // Demo condition: change "25" to your real threshold later
-    if (bmi <= 25) {
+    if (bmi >= 25) {
       this.toggleNotifications("success");
     } else {
       this.toggleNotifications("warning");
@@ -339,15 +339,35 @@ class hld_BMICalculator {
   }
 
   toggleNotifications(type) {
-    this.successNotification.style.display = "none";
-    this.warningNotification.style.display = "none";
+  this.successNotification.style.display = "none";
+  this.warningNotification.style.display = "none";
 
-    if (type === "success") {
-      this.successNotification.style.display = "flex";
-    } else if (type === "warning") {
-      this.warningNotification.style.display = "flex";
-    }
+  // Select elements
+  const bmiLabel = document.querySelector(".hld_bmi-label");
+  const bmiValue = document.querySelector(".hld_bmi-value");
+  const bmiCircle = document.querySelector(".hld_bmi-circle");
+
+  // Reset styles first
+  if (bmiLabel) bmiLabel.style.color = "";
+  if (bmiValue) bmiValue.style.border = "";
+  if (bmiCircle) bmiCircle.style.border = "";
+
+  if (type === "success") {
+    this.successNotification.style.display = "flex";
+
+    if (bmiLabel) bmiLabel.style.color = "#2e7d32"; // green
+    if (bmiValue) bmiValue.style.color = "#2e7d32";
+    if (bmiCircle) bmiCircle.style.border = "6px solid #2e7d32";
+
+  } else if (type === "warning") {
+    this.warningNotification.style.display = "flex";
+
+    if (bmiLabel) bmiLabel.style.color = "#d32f2f"; // red/danger
+    if (bmiValue) bmiValue.style.color = "#d32f2f";
+    if (bmiCircle) bmiCircle.style.border = "6px solid #d32f2f";
   }
+}
+
 }
 
 // Init on page load
