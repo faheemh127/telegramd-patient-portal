@@ -15,6 +15,9 @@
 // // Admin settings page
 // require_once plugin_dir_path(__FILE__) . 'admin-settings.php';
 
+
+define( 'TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path( __FILE__ ) );
+
 include_once('api-keys.php');
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -84,12 +87,24 @@ add_action('wp_enqueue_scripts', function () {
     );
 
      wp_enqueue_script(
-        'hld-custom-js',
+        'hld-class-patient-login',
         plugin_dir_url(__FILE__) . 'js/class-patient-login.js', // Your JS file path
         ['jquery'], // or [] if no dependency
         '1.0',
         true
     );
+
+
+    wp_localize_script(
+    'hld-class-patient-login',
+    'hld_ajax_obj',
+    [
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('hld_patient_login_nonce')
+    ]
+);
+
+
 
     $form_id = 13; // Or dynamically get this
     $active_step_key = 'active_step_fluent_form_' . $form_id;
@@ -436,3 +451,6 @@ function handle_save_form_url()
 
 // patient Login Shortcode Script 
 include_once(plugin_dir_path(__FILE__) . 'includes/patient-login.php');
+
+
+require_once TELEGRA_PATIENT_PORTAL_PATH . 'ajax/patient-login.php';
