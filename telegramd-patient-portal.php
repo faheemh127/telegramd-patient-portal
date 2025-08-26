@@ -83,6 +83,14 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
+     wp_enqueue_script(
+        'hld-custom-js',
+        plugin_dir_url(__FILE__) . 'js/class-patient-login.js', // Your JS file path
+        ['jquery'], // or [] if no dependency
+        '1.0',
+        true
+    );
+
     $form_id = 13; // Or dynamically get this
     $active_step_key = 'active_step_fluent_form_' . $form_id;
     $active_step = get_user_meta(get_current_user_id(), $active_step_key, true);

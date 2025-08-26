@@ -287,3 +287,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // set patient email as global so other dev can use this email
 window.hldPatientEmail = hldData.hldPatientEmail || null;
+
+
+
+
+
+
+
+// Class for BMI calculation
+class hld_BMICalculator {
+  constructor() {
+    this.feetInput = document.querySelector(".hld_bmi-feet");
+    this.inchesInput = document.querySelector(".hld_bmi-inches");
+    this.weightInput = document.querySelector(".hld_bmi-weight");
+    this.bmiValue = document.querySelector(".hld_bmi-value");
+    this.successNotification = document.querySelector(".hld_bmi-notification.hld_success");
+    this.warningNotification = document.querySelector(".hld_bmi-notification.hld_warning");
+
+    this.init();
+  }
+
+  init() {
+    if (!this.feetInput || !this.inchesInput || !this.weightInput) return;
+    [this.feetInput, this.inchesInput, this.weightInput].forEach(input => {
+      input.addEventListener("input", () => this.calculateBMI());
+    });
+    this.calculateBMI(); // initial run
+  }
+ 
+  calculateBMI() {
+    const feet = parseFloat(this.feetInput.value) || 0;
+    const inches = parseFloat(this.inchesInput.value) || 0;
+    const weight = parseFloat(this.weightInput.value) || 0;
+
+    const heightInInches = (feet * 12) + inches;
+    if (heightInInches === 0 || weight === 0) {
+      this.bmiValue.textContent = "0";
+      this.toggleNotifications(null);
+      return;
+    }
+
+    const bmi = (weight / (heightInInches * heightInInches)) * 703;
+    this.bmiValue.textContent = bmi.toFixed(1);
+
+    // Demo condition: change "25" to your real threshold later
+    if (bmi <= 25) {
+      this.toggleNotifications("success");
+    } else {
+      this.toggleNotifications("warning");
+    }
+  }
+
+  toggleNotifications(type) {
+    this.successNotification.style.display = "none";
+    this.warningNotification.style.display = "none";
+
+    if (type === "success") {
+      this.successNotification.style.display = "flex";
+    } else if (type === "warning") {
+      this.warningNotification.style.display = "flex";
+    }
+  }
+}
+
+// Init on page load
+document.addEventListener("DOMContentLoaded", () => {
+  new hld_BMICalculator();
+});
