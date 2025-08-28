@@ -1,16 +1,26 @@
+:root {
+  --hld-color-primary: #6d6ffc;
+}
+
 .hld_form_wrap {
   max-width: 550px !important;
-  
 }
-.hld_form_wrap select{
+.hld_form_wrap select {
   height: 50px !important;
   border-radius: 50px !important;
   padding: 0 20px !important;
-  border: 1px solid rgba(0,0,0,0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
 }
-.hld_form_wrap input{
+.hld_form_wrap input {
   border-radius: 50px !important;
   height: 50px;
+}
+/* hide the element because we will display custom checkbox */
+.hld_gender_elem {
+  display: none;
+}
+.hld_medication_elem {
+  display: none !important;
 }
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
@@ -34,7 +44,7 @@
   margin-bottom: 20px;
 }
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
-  accent-color: #6d6ffc !important;
+  accent-color: var(--hld-color-primary) !important;
 }
 
 .hld_form_wrap .ff-float-right.ff-btn {
@@ -53,8 +63,8 @@
   .ff-el-input--content
   label:has(input[type="checkbox"]:checked) {
   background-color: white !important;
-  border: 1px solid #6d6ffc !important;
-  color: #6d6ffc;
+  border: 1px solid var(--hld-color-primary) !important;
+  color: var(--hld-color-primary);
 }
 .hld_form_wrap .fluentform .ff-el-form-check {
   margin-bottom: 5px !important;
@@ -87,7 +97,7 @@
   align-items: center;
 }
 
-.hld_form_wrap .nsl-button-label-container b{
+.hld_form_wrap .nsl-button-label-container b {
   margin-left: 3px;
 }
 /* .hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
@@ -221,9 +231,10 @@
   background-color: white;
 }
 
-.hld_form_main_submit_button {
+/* hide the button */
+/* .hld_form_main_submit_button {
   display: none;
-}
+} */
 .dashboard-wrapper .hld-img-wrap img {
   width: 100% !important;
 }
@@ -252,9 +263,10 @@
 }
 
 .hld_patient_packages .package-box {
+  text-align: left;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-  padding: 15px;
+  padding: 25px 20px;
   transition: border-color 0.3s;
   position: relative;
   cursor: pointer;
@@ -273,10 +285,10 @@
 }
 
 .hdl_primary_color {
-  color: #6d6ffc;
+  color: var(--hld-color-primary);
 }
 #hdlMakeStipePayment {
-  background-color: #6d6ffc;
+  background-color: var(--hld-color-primary);
 }
 
 .hld_patient_packages .package-price {
@@ -287,6 +299,7 @@
 .hld_patient_packages .package-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 10px;
+  font-size: 17px;
 }
 .hld_patient_packages .package-price span {
   font-size: 18px;
@@ -294,19 +307,19 @@
 }
 
 .hld_patient_packages .package-description {
-  font-size: 13px;
+  font-size: 16px;
   margin-top: 5px;
-  color: #6b6b6b;
+  color: rgba(0, 0, 0, 0.7);
 }
 
-/* #6d6ffc border when selected */
+/* var(--hld-color-primary) border when selected */
 .hld_patient_packages input[type="radio"]:checked + .package-box {
-  border-color: #6d6ffc;
+  border-color: var(--hld-color-primary);
 }
 
-/*  Style the selected radio (entire label gets #6d6ffc border) */
+/*  Style the selected radio (entire label gets var(--hld-color-primary) border) */
 .hld_patient_packages input[type="radio"]:checked ~ .package-box {
-  border-color: #6d6ffc;
+  border-color: var(--hld-color-primary);
   box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.3);
 }
 
@@ -382,36 +395,34 @@
   margin-bottom: 30px;
 }
 
-.hld_lab_order_container h5{
-  color: #6d6ffc !important;
+.hld_lab_order_container h5 {
+  color: var(--hld-color-primary) !important;
 }
 
-.hld_color_primary{
-  color: #6d6ffc;
+.hld_color_primary {
+  color: var(--hld-color-primary);
 }
-.hld_btn_view_detail{
-background: #6d6ffc;
-  border: 1px solid #6d6ffc;
+.hld_btn_view_detail {
+  background: var(--hld-color-primary);
+  border: 1px solid var(--hld-color-primary);
 }
-.hld_btn_order_status{
+.hld_btn_order_status {
   max-width: 120px;
 }
 
 .hld_email_field label,
-.hld_pwd_wrap label{
+.hld_pwd_wrap label {
   font-size: 20px !important;
   margin-bottom: 5px !important;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hld_email_field input,
-.hld_pwd_wrap input{
+.hld_pwd_wrap input {
   border-radius: 50px !important;
   height: 50px;
   padding-left: 25px !important;
 }
-
-
 
 /* Css start for testimonial section in glp prefunnel form */
 .hld_testimonial-section {
@@ -443,10 +454,10 @@ background: #6d6ffc;
 .hld_testimonial-image img {
   max-width: 100%;
   border-radius: 20px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
-.hld_testimonial-image{
+.hld_testimonial-image {
   width: 100%;
 }
 .hld_testimonial-content {
@@ -467,7 +478,7 @@ background: #6d6ffc;
 }
 
 .hld_badge {
- display: inline-block;
+  display: inline-block;
   background: #2e7d32;
   color: #fff;
   padding: 4px 19px;
@@ -482,9 +493,7 @@ background: #6d6ffc;
   color: #444;
 }
 
-
 /* section css ends */
-
 
 /* BMI section css starts */
 .hld_bmi-section {
@@ -512,7 +521,7 @@ background: #6d6ffc;
   justify-content: center;
   margin: 0 auto 20px auto;
   background: #f9f9f9;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .hld_bmi-label {
   font-size: 16px;
@@ -574,37 +583,184 @@ background: #6d6ffc;
 
 .hld_inches_wrap label,
 .hld_feet_wrap label,
-.hld_weight_wrap label{
-font-size: 18px !important;
+.hld_weight_wrap label {
+  font-size: 18px !important;
   margin-bottom: 0 !important;
 }
 
 .hld_inches_wrap input,
 .hld_feet_wrap input,
-.hld_weight_wrap input{
+.hld_weight_wrap input {
   border-radius: 50px !important;
   height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   padding-left: 20px !important;
   box-shadow: initial !important;
 }
-.hld_bmi-notification p{
+.hld_bmi-notification p {
   margin-bottom: 0 !important;
 }
 
 /* Section css ends */
 
-
 .hld_address_element label,
-.hld_email_input label{
+.hld_email_input label {
   font-size: 18px !important;
   margin-bottom: 0 !important;
 }
 
-
 .hld_address_element input,
-.hld_email_input input{
+.hld_email_input input {
   height: 50px !important;
   padding-left: 20px !important;
-  border: 1px solid rgba(0,0,0,0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Style for Male/Female Radio Custom */
+.hld-custom-checkbox-group {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.hld-custom-checkbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: border 0.3s ease, color 0.3s ease;
+  width: 120px;
+  text-align: center;
+  width: 100%;
+}
+
+.hld-custom-checkbox svg {
+  margin-bottom: 8px;
+  width: 70px;
+}
+
+.hld-custom-checkbox.active {
+  border: 3px solid var(--hld-color-primary); /* Selected state */
+  color: var(--hld-color-primary);
+}
+
+/* ✅ Only add border on active without breaking your existing design */
+.hld_patient_packages .hld-custom-checkbox.active .package-box {
+  border: 2px solid var(--hld-color-primary);
+  border-radius: 10px;
+}
+.package-option {
+  padding: 0;
+  border: none;
+}
+
+.hld_package {
+  display: none;
+}
+
+/* Medicines */
+/* .hld-custom-checkbox-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hld-custom-checkbox {
+  cursor: pointer;
+  flex: 1 1 45%;
+} */
+
+.med-box {
+  border-radius: 12px;
+  padding: 25px 20px;
+  background: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+  text-align: left;
+}
+/* 
+.hld-custom-checkbox.active .med-box {
+  border-color: purple;
+  box-shadow: 0 0 10px rgba(128, 0, 128, 0.3);
+} */
+
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.hld-badge {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 18px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.hld-badge-blue {
+  background: var(--hld-color-primary);
+}
+
+.hld-badge-pink {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  color: black;
+}
+
+.med-compounded {
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.med-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.med-title .star {
+  font-size: 14px;
+  color: gold;
+}
+
+.med-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--hld-color-primary);
+  margin-bottom: 8px;
+}
+
+.med-features {
+  margin: 0 !important;
+  padding-left: 18px !important;
+  font-size: 16px;
+  color: #444;
+}
+
+.hld-medicine {
+  padding: 0 !important;
+}
+.med-features ul li {
+  text-align: left;
+}
+
+/* Responsive****************************************************************************** */
+/* Mobile only (up to 767px) */
+@media screen and (max-width: 767px) {
+  /* mobile styles */
+  .hld-custom-checkbox-group {
+    flex-direction: column;
+  }
+}
+
+/* Tablet only (768px to 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* tablet styles */
 }

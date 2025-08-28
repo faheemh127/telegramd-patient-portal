@@ -20,7 +20,7 @@ class HldNavigation {
     console.log("function checkLoginAndNavigate is working");
     if (this.isUserLoggedIn()) {
       const stepElement = document.querySelector(
-        '[data-name="step_start-24_24"]'
+        '[data-name="step_start-24_27"]'
       );
       if (stepElement) {
         const nextButton = stepElement.querySelector(
@@ -34,7 +34,7 @@ class HldNavigation {
           setTimeout(() => {
             nextButton.click();
             console.log("Clicked FluentForm next button!");
-          }, 100); // 1000ms = 1 second
+          }, 10); // 1000ms = 1 second
         }
       }
     }

@@ -1,10 +1,9 @@
 <?php
-
-
 add_action('wp_ajax_save_later_payment_method', 'my_save_later_payment_method');
 add_action('wp_ajax_nopriv_save_later_payment_method', 'my_save_later_payment_method');
 
-function my_save_later_payment_method() {
+function my_save_later_payment_method()
+{
     if (!is_user_logged_in()) {
         wp_send_json_error([
             'message' => 'Please log in first to make payment and submit.',
