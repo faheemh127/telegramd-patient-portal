@@ -172,7 +172,9 @@ add_action('wp_enqueue_scripts', function () {
 
 
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
 new DashboardShortcode();
+
 include_once('includes/functions.php');
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
@@ -396,7 +398,8 @@ add_action('fluentform/before_insert_submission', function (&$insertData, $form)
 
     // Custom logic
     // create_patient_if_not_exists_on_telegra_md();
-    // $telegra_patient_id = get_telegra_patient_id_for_current_user();
+    // $telegra->create_patient();
+    // $telegra_patient_id = $telegra->get_patient_id();
     // if (empty($telegra_patient_id)) {
     //     error_log("TelegraMD patient ID not found for current user.");
     //     return;

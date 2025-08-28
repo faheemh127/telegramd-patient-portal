@@ -67,7 +67,8 @@ function hld_get_telegra_order_by_id($order_id)
 // echo "code 101 is working";
 ?>
 <div class="container pb-5 hld-orders">
-    <!-- <h1><?php  // get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  ?></h1> -->
+    <!-- <h1><?php  // get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  
+                ?></h1> -->
     <?php
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();

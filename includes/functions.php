@@ -1,17 +1,5 @@
 <?php
-function get_telegra_patient_id_for_current_user()
-{
-    if (!is_user_logged_in()) {
-        return null;
-    }
 
-    $user_id = get_current_user_id();
-    $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
-
-    $patient_id = get_user_meta($user_id, $meta_key, true);
-
-    return !empty($patient_id) ? $patient_id : null;
-}
 
 
 
@@ -45,13 +33,9 @@ function get_user_id_by_telegra_patient_id($patient_id)
 
 
 
-// $telegra_id =   get_telegra_patient_id_for_current_user();
-// echo "telegraid";
-// print_r($telegra_id);
 
-
-
-function hld_charge_later($user_id, $amount_in_dollars) {
+function hld_charge_later($user_id, $amount_in_dollars)
+{
     $customer_id = get_user_meta($user_id, 'stripe_customer_id', true);
     $payment_method = get_user_meta($user_id, 'stripe_payment_method', true);
 
