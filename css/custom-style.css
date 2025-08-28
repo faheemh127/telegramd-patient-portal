@@ -232,9 +232,9 @@
 }
 
 /* hide the button */
-/* .hld_form_main_submit_button {
+.hld_form_main_submit_button {
   display: none;
-} */
+}
 .dashboard-wrapper .hld-img-wrap img {
   width: 100% !important;
 }

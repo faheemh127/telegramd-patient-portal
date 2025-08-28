@@ -7,7 +7,7 @@ class DashboardShortcode
         add_shortcode('patient_dashboard', [$this, 'render_dashboard']);
         add_action('rest_api_init', [$this, 'register_rest_routes']);
     }
-
+ 
     public function render_dashboard()
     {
         $user = wp_get_current_user();

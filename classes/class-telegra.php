@@ -77,6 +77,90 @@ class hldTelegra
 
         return !empty($patient_id) ? $patient_id : null;
     }
+
+    
+
+
+function create_order($telegra_patient_id)
+{
+    $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+    $endpoint = TELEGRA_BASE_URL . '/orders';
+
+    // 🔧 Prepare the request body based on CURL sample
+    $body = [
+        "data" => [
+            "someData" => "?"
+        ],
+        "patient" => $telegra_patient_id, // example: pat::f2b6ec7f-4b87-4988-9ebb-df663edaf872
+        "productVariations" => [
+            [
+                "productVariation" => "pvt::6e5a3b9c-26d9-46af-89bb-f0ab864ed027",
+                "quantity" => 1
+            ]
+        ],
+        "symptoms" => [
+            "symp::9d65e74b-caed-4b38-b343-d7f84946da60"
+        ],
+        "address" => [
+            "billing" => [
+                "address1" => "123 S Main St",
+                "address2" => null,
+                "city"     => "Kennewick",
+                "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
+                "zipcode"  => 99337
+            ],
+            "shipping" => [
+                "address1" => "123 S Main St",
+                "address2" => null,
+                "city"     => "Kennewick",
+                "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
+                "zipcode"  => 99337
+            ]
+        ]
+    ];
+
+    // 🛰 Send the POST request
+    $response = wp_remote_post($endpoint, [
+        'method'    => 'POST',
+        'headers'   => [
+            'Authorization' => $bearer_token,
+            'Content-Type'  => 'application/json',
+            'Accept'        => 'application/json',
+        ],
+        'body'      => json_encode($body),
+        'timeout'   => 20,
+    ]);
+
+    // Check for transport-level WP error
+    if (is_wp_error($response)) {
+        error_log('[TelegraMD Error] cURL Error: ' . $response->get_error_message());
+        return new WP_Error('api_error', 'Failed to create order: ' . $response->get_error_message());
+    }
+
+    $status_code   = wp_remote_retrieve_response_code($response);
+    $response_body = wp_remote_retrieve_body($response);
+    $data          = json_decode($response_body, true);
+
+    // API returned non-200/201
+    if ($status_code !== 200 && $status_code !== 201) {
+        error_log('[TelegraMD Order Failed] HTTP ' . $status_code . ' → ' . $response_body);
+        return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
+    }
+
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        HLD_UserOrders::add_order($user_id, $data['id']);
+    } else {
+        error_log("⚠️ User not logged in, cannot save order to user meta.");
+    }
+
+    // Success
+    error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
+    return $data;
+}
+
+
+
 }
 
 // Create an object and call the method

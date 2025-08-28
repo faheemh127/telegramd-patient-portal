@@ -63,7 +63,9 @@ function hld_get_telegra_order_by_id($order_id)
 }
 
 
-
+echo "<pre>";
+print_r(hld_get_telegra_order_by_id("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d"));
+echo "</pre>";
 // echo "code 101 is working";
 ?>
 <div class="container pb-5 hld-orders">

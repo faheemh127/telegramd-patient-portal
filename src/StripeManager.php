@@ -14,3 +14,4 @@ class StripeManager {
         return $paymentIntent;
     }
 }
+ 
