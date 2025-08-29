@@ -31,7 +31,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                                 </svg>';
 
 
-
+if (!function_exists('hld_get_telegra_order_by_id')) {
 function hld_get_telegra_order_by_id($order_id)
 {
     $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
@@ -61,7 +61,7 @@ function hld_get_telegra_order_by_id($order_id)
 
     return $data;
 }
-
+}
 
 echo "<pre>";
 print_r(hld_get_telegra_order_by_id("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d"));
