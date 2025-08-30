@@ -98,20 +98,36 @@ class HLD_UserOrders
         return $exists > 0;
     }
 }
-
-// Call init once (e.g. in plugin main file)
 HLD_UserOrders::init();
-// Usage Guide
-// HLD_UserOrders::add_order(13, 'ORD-12345');
-// $orders = HLD_UserOrders::get_orders(13);
-// // returns: ['ORD-12345', 'ORD-12346', ...]=
-// $hasIt = HLD_UserOrders::has_order(13, 'ORD-12345');
-// echo "code 101 is working";
-// if ( is_user_logged_in() ) {
-//     $user_id = get_current_user_id();
-//     $orders = HLD_UserOrders::get_orders($user_id);
-//     print_r($orders);
-//     echo 'User ID: ' . $user_id;
-// } else {
-//     echo 'User is not logged in.';
-// }
+/**
+ * ============================
+ *   Usage Guide: HLD_UserOrders
+ * ============================
+ *
+ * Example 1: Add an order for a user
+ * ----------------------------------
+ * HLD_UserOrders::add_order(13, 'ORD-12345');
+ *
+ *
+ * Example 2: Retrieve all orders for a user
+ * -----------------------------------------
+ * $orders = HLD_UserOrders::get_orders(13);
+ * // Returns: ['ORD-12345', 'ORD-12346', ...]
+ *
+ *
+ * Example 3: Check if a specific order exists for a user
+ * ------------------------------------------------------
+ * $hasOrder = HLD_UserOrders::has_order(13, 'ORD-12345');
+ *
+ *
+ * Example 4: Working with the logged-in user
+ * ------------------------------------------
+ * if ( is_user_logged_in() ) {
+ *     $user_id = get_current_user_id();
+ *     $orders  = HLD_UserOrders::get_orders($user_id);
+ *     print_r($orders);
+ *     echo 'User ID: ' . $user_id;
+ * } else {
+ *     echo 'User is not logged in.';
+ * }
+ */

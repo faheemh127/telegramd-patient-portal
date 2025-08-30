@@ -85,3 +85,4 @@ class DashboardShortcode
         return new WP_REST_Response(['success' => true], 200);
     }
 }
+new DashboardShortcode();

@@ -9,246 +9,8 @@
  */
 
 
-// Include API
-// require_once plugin_dir_path(__FILE__) . 'telegramd-api.php';
-// // Register shortcodes
-// require_once plugin_dir_path(__FILE__) . 'shortcodes.php';
-// // Admin settings page
-// require_once plugin_dir_path(__FILE__) . 'admin-settings.php';
 
 
-define('TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path(__FILE__));
-include_once('api-keys.php');
-require_once __DIR__ . '/vendor/autoload.php';
-include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-orders.php');
-include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php');
-foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
-    require_once $file;
-}
-
-
-add_shortcode('hld_orders', function () {
-    ob_start();
-
-    include_once('templates/show-orders.php');
-    return ob_get_clean();
-});
-
-add_action('wp_enqueue_scripts', function () {
-
-    wp_enqueue_style(
-        'hld-plugin-custom-css',
-        plugin_dir_url(__FILE__) . 'css/custom-style.css',
-        [],
-        '1.0'
-    );
-    wp_enqueue_style(
-        'hld-plugin-scss',
-        plugin_dir_url(__FILE__) . 'css/main.css',
-        [],
-        '1.0'
-    );
-    wp_enqueue_style(
-        'hld-bootstrap',
-        plugin_dir_url(__FILE__) . 'libs/bootstrap.min.css',
-        [],
-        '1.0'
-    );
-    wp_enqueue_script(
-        'hld-bootstrap',
-        plugin_dir_url(__FILE__) . 'libs/bootstrap.min.js',
-        ['jquery'],
-        '1.0',
-        true
-    );
-
-    // //Enqueue your custom JavaScript file
-    // wp_enqueue_script(
-    //     'hld-custom-js',
-    //     plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
-    //     ['jquery'], // or [] if no dependency
-    //     '1.0',
-    //     true
-    // );
-
-
-    // Enqueue your custom JavaScript file
-    wp_enqueue_script(
-        'hld-custom-js',
-        plugin_dir_url(__FILE__) . 'js/custom-script.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
-
-    wp_enqueue_script(
-        'hld-class-patient-login',
-        plugin_dir_url(__FILE__) . 'js/class-patient-login.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
-
-    wp_enqueue_script(
-        'hld-class-navigation',
-        plugin_dir_url(__FILE__) . 'js/class-navigation.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
-
-    wp_enqueue_script(
-        'class-fluent-form-handler',
-        plugin_dir_url(__FILE__) . 'js/class-fluent-form-handler.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
-
-
-
-
-    wp_enqueue_script(
-        'hld-class-custom-checkbox',
-        plugin_dir_url(__FILE__) . 'js/class-custom-checkbox.js', // Your JS file path
-        ['jquery'], // or [] if no dependency
-        '1.0',
-        true
-    );
-
-
-    wp_localize_script(
-        'hld-class-patient-login',
-        'hld_ajax_obj',
-        [
-            'ajaxurl' => admin_url('admin-ajax.php'),
-            'nonce'   => wp_create_nonce('hld_patient_login_nonce')
-        ]
-    );
-
-
-
-    $form_id = 24; // Or dynamically get this
-    $active_step_key = 'active_step_fluent_form_' . $form_id;
-    $active_step = get_user_meta(get_current_user_id(), $active_step_key, true);
-
-    // Localize ajaxurl for use in custom-script.js
-    // wp_localize_script('hld-custom-js', 'ajaxurl', admin_url('admin-ajax.php'));
-
-
-    // Localize ajaxurl for use in custom-script.js
-    wp_localize_script('hld-custom-js', 'hldFormData', [
-        'ajaxurl'      => admin_url('admin-ajax.php'),
-        'formId'       => $form_id,
-        'activeStep'   => $active_step,
-    ]);
-
-
-    // Get the current user
-    $current_user = wp_get_current_user();
-
-    // Determine if the user is logged in and get their email, or set null
-    $user_email = is_user_logged_in() ? $current_user->user_email : null;
-
-    // Pass the email to the JavaScript file
-    wp_localize_script('hld-custom-js', 'hldData', [
-        'hldPatientEmail' => $user_email,
-    ]);
-});
-
-
-
-add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/');
-    wp_enqueue_script('my-stripe-handler', plugin_dir_url(__FILE__) . 'js/stripe-handler.js', ['stripe-js'], '1.0', true);
-
-    wp_localize_script('my-stripe-handler', 'MyStripeData', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'publishableKey' => STRIPE_PUBLISHABLE_KEY,
-    ]);
-});
-
-
-
-
-require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
-new DashboardShortcode();
-
-include_once('includes/functions.php');
-require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
-require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
-
-
-
-
-function create_patient_if_not_exists_on_telegra_md()
-{
-    if (!is_user_logged_in()) {
-        return;
-    }
-    $user = wp_get_current_user();
-    if (!in_array('subscriber', (array) $user->roles)) {
-        return;
-    }
-
-    $user_id = $user->ID;
-    // don't change this key other developers are using this.
-    $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
-
-    // todo: If already exists, skip API call
-    // if (get_user_meta($user_id, $meta_key, true)) {
-    //     error_log("TelegraMD: Patient already exists for user $user_id");
-    //     return;
-    // }
-
-    // Prepare payload with available user data
-    $first_name = $user->first_name ?: 'Chewbacca';
-    $last_name  = $user->last_name ?: 'Wookie';
-    $email      = $user->user_email ?: 'johndoe@example.com';
-
-    $payload = [
-        'name'             => $first_name . ' ' . $last_name,
-        'firstName'        => $first_name,
-        'lastName'         => $last_name,
-        'email'            => $email,
-        'phone'            => '1111111111', // Placeholder
-        'dateOfBirth'      => '1990-01-01', // Placeholder
-        'gender'           => 'male', // Placeholder
-        'genderBiological' => 'male', // Placeholder
-        'affiliate'        => TELEGRAMD_AFFLIATE_ID,
-    ];
-
-    $response = wp_remote_post('https://dev-core-ias-rest.telegramd.com/patients', [
-        'method'  => 'POST',
-        'headers' => [
-            'accept'        => 'application/json',
-            'authorization' => 'Bearer ' . TELEGRAMD_BEARER_TOKEN,
-            'content-type'  => 'application/json',
-        ],
-        'body' => json_encode($payload),
-    ]);
-
-    if (is_wp_error($response)) {
-        error_log('TelegraMD API Error: ' . $response->get_error_message());
-    } else {
-        $body = wp_remote_retrieve_body($response);
-        $data = json_decode($body, true);
-
-        if (!empty($data['id'])) {
-            update_user_meta($user_id, $meta_key, $data['id']);
-            error_log("TelegraMD: Patient created and saved for user $user_id with ID: {$data['id']}");
-        } else {
-            error_log("TelegraMD API Response missing ID: " . $body);
-        }
-    }
-}
-
-
-
-// New chatgpt code for stripe
-include_once('includes/shortcodes.php');
-// Create PaymentIntent via AJAX
 add_action('wp_ajax_create_payment_intent', 'my_create_payment_intent');
 add_action('wp_ajax_nopriv_create_payment_intent', 'my_create_payment_intent');
 
@@ -268,10 +30,8 @@ function my_create_payment_intent()
     ]);
 }
 
-
 add_action('wp_ajax_create_setup_intent', 'my_create_setup_intent');
 add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
-
 function my_create_setup_intent()
 {
     // Check if user is logged in
@@ -303,41 +63,25 @@ function my_create_setup_intent()
 
 
 
-add_action('fluentform/before_insert_submission', function (&$insertData, $form) {
-    error_log("🔥 fluentform/before_insert_submission hook is called");
-    // Log all submitted data
-    error_log("Submitted Data: " . print_r($insertData, true));
-    // Log form object
-    error_log("Form Object: " . print_r($form, true));
-    //  Optional: Only run for logged-in users (recommended)
-    if (!is_user_logged_in()) {
-        return;
-    }
-    // todo: Optional: check for a specific form ID
-    // if ($form->id != 14) return;
-
-    // Custom logic
-    // create_patient_if_not_exists_on_telegra_md();
-    // $telegra->create_patient();
-    // $telegra_patient_id = $telegra->get_patient_id();
-    // if (empty($telegra_patient_id)) {
-    //     error_log("TelegraMD patient ID not found for current user.");
-    //     return;
-    // }
-    // error_log("telegra_patient_id " . $telegra_patient_id);
-    // Create order in TelegraMD
-    // $telegra->create_order($telegra_patient_id);
-}, 10, 2);
-
+define('TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path(__FILE__));
+include_once('api-keys.php');
+require_once __DIR__ . '/vendor/autoload.php';
+include_once(plugin_dir_path(__FILE__) . 'classes/class-hld-user-orders.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php');
+foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
+    require_once $file;
+}
+require_once TELEGRA_PATIENT_PORTAL_PATH . 'classes/class-hld-assets.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
+include_once(plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php');
+include_once('includes/functions.php');
+require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
+include_once('includes/shortcodes.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/order-tracking-webhook.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/hooks.php');
 include_once(plugin_dir_path(__FILE__) . 'ajax/save-form-url.php');
-
-
-
-
-
-// patient Login Shortcode Script 
 include_once(plugin_dir_path(__FILE__) . 'includes/patient-login.php');
 require_once TELEGRA_PATIENT_PORTAL_PATH . 'ajax/patient-login.php';
