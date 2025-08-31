@@ -64,8 +64,8 @@ function my_create_setup_intent()
 
 
 define('TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path(__FILE__));
-include_once('api-keys.php');
 require_once __DIR__ . '/vendor/autoload.php';
+include_once(plugin_dir_path(__FILE__) . 'includes/api-keys.php');
 include_once(plugin_dir_path(__FILE__) . 'classes/class-hld-user-orders.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php');
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
