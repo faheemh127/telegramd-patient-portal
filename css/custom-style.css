@@ -17,7 +17,7 @@
 }
 /* hide the element because we will display custom checkbox */
 .hld_gender_elem {
-  display: none;
+  display: none !important;
 }
 .hld_medication_elem {
   display: none !important;
@@ -128,7 +128,7 @@
   display: none;
 } */
 .hld-hidden {
-  display: none;
+  display: none !important;
 }
 #\31 3_save_progress_msg {
   display: none;
@@ -264,7 +264,7 @@
 
 .hld_patient_packages .package-box {
   text-align: left;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   padding: 25px 20px;
   transition: border-color 0.3s;
@@ -275,13 +275,23 @@
 .hld_patient_packages .package-box:hover {
   background: #f9f9f9;
 }
+.package-description p{
+  margin-bottom: 0 !important;
+}
 .hld_patient_packages .save-label {
-  background-color: #d4f7d4;
-  color: #218838;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-left: 10px;
+    background-color: #d4f7d4;
+    color: #218838;
+    padding: 4px 15px;
+    font-size: 14px;
+    margin-left: 10px;
+    border-radius: 50px;
+}
+.hld_secure_evaluation{
+  border: 1px solid rgba(0, 0, 0, 0.4);
+
+}
+.ff-summary-wrapper{
+  border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .hdl_primary_color {
@@ -289,21 +299,23 @@
 }
 #hdlMakeStipePayment {
   background-color: var(--hld-color-primary);
+  border-radius: 40px;
 }
 
 .hld_patient_packages .package-price {
-  margin-top: 10px;
+ margin-top: 15px;
   color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
 }
 .hld_patient_packages .package-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 10px;
-  font-size: 17px;
+  font-size: 20px;
 }
 .hld_patient_packages .package-price span {
-  font-size: 18px;
-  font-weight: bold;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 2px;
 }
 
 .hld_patient_packages .package-description {
@@ -434,7 +446,7 @@
 }
 
 .hld_section-title {
-  font-size: 20px;
+  font-size: 26px;
   line-height: 1.5;
   margin-bottom: 40px;
   font-weight: 600;
@@ -505,7 +517,7 @@
 }
 
 .hld_bmi-title {
-  font-size: 20px;
+  font-size: 26px;
   margin-bottom: 25px;
   font-weight: 600;
 }
@@ -619,8 +631,9 @@
 /* Style for Male/Female Radio Custom */
 .hld-custom-checkbox-group {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   margin: 20px 0;
+  flex-direction: column;
 }
 
 .hld-custom-checkbox {
@@ -628,7 +641,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ccc;
+  border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
@@ -681,6 +694,7 @@
   transition: border-color 0.3s, box-shadow 0.3s;
   width: 100%;
   text-align: left;
+  height: 100%;
 }
 /* 
 .hld-custom-checkbox.active .med-box {

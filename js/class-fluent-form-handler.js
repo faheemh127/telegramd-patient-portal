@@ -1,6 +1,42 @@
 class HldFluentFormHandler {
   constructor() {
-    console.log("HldFluentFormHandler initialized");
+    
+    // @todo uncomment this on production
+    this.hideBmiNextBtn(); 
+    this.hldhideNext("hld_gender_wrap");
+    this.hldhideNext("hld_state_wrap");
+    this.hldhideNext("hld_medication_wrap");
+    this.hldhideNext("hld_packages_wrap");
+    
+    
+  }
+  hldhideNext(wrapperClass) {
+    const parent = document.querySelector(`.${wrapperClass}`);
+    if (parent) {
+      const btn = parent.querySelector("div .ff-btn-next");
+      if (btn) {
+        btn.classList.add("hld-hidden");
+      }
+    }
+  }
+
+  hideBmiNextBtn() {
+    const parent = document.querySelector(".hld_btn_next_bmi");
+    if (parent) {
+      const btn = parent.querySelector("div .ff-btn-next");
+      if (btn) {
+        btn.classList.add("hld-hidden");
+      }
+    }
+  }
+  showBmiNextBtn() {
+    const parent = document.querySelector(".hld_btn_next_bmi");
+    if (parent) {
+      const btn = parent.querySelector("div .ff-btn-next");
+      if (btn) {
+        btn.classList.remove("hld-hidden");
+      }
+    }
   }
 
   /**

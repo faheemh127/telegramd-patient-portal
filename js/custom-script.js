@@ -333,8 +333,10 @@ class hld_BMICalculator {
     // Demo condition: change "25" to your real threshold later
     if (bmi >= 25) {
       this.toggleNotifications("success");
+      hldFormHandler.showBmiNextBtn();
     } else {
       this.toggleNotifications("warning");
+      hldFormHandler.hideBmiNextBtn();
     }
   }
 
