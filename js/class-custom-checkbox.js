@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (value) => {
       console.log("Selected medicine:", value);
       hldFormHandler.setDropdownValue("dropdown_2", value);
+      hldFormHandler.setPackagePrice(value);
     }
   );
 
@@ -52,4 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_3", value);
     }
   );
+
+
 });

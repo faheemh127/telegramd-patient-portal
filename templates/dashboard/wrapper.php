@@ -98,35 +98,41 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             <input type="radio" id="tab4" name="tab-control" />
             <input type="radio" id="tab5" name="tab-control" />
             <input type="radio" id="tab6" name="tab-control" />
-
+            <input type="radio" id="tab7" name="tab-control" />
             <!-- Wrap the navigation in a scrollable container -->
             <div class="tabs-nav-wrapper">
                 <ul class="container">
-                    <li><label for="tab0"><span class="pe-2"></span><span>Home</span></label></li>
-                    <li><label for="tab1"><span class="pe-2"></span><span>Order History </span></label></li>
-                    <li><label for="tab2"><span class="pe-2"></span><span>Message Center</span></label></li>
-                    <li><label for="tab3"><span class="pe-2"></span><span>Patient Profile </span></label></li>
-                    <li><label for="tab4"><span class="pe-2"></span><span>Visits</span></label></li>
-                    <li><label for="tab5"><span class="pe-2"></span><span>Lab Order</span></label></li>
-                    <li><label for="tab6"><span class="pe-2"></span><span>Action Items</span></label></li>
+                    <li><label for="tab0"><span>Action Items</span></label></li>
+                    <li><label for="tab1"><span>Subscriptions</span></label></li>
+                    <li><label for="tab2"><span>Conversations</span></label></li>
+                    <li><label for="tab3"><span>Orders</span></label></li>
+                    <li><label for="tab4"><span>Visits</span></label></li>
+                    <li><label for="tab5"><span>Profile</span></label></li>
+                    <li><label for="tab6"><span>Support Tab</span></label></li>
+                    <li><label for="tab7"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
+
                 </ul>
             </div>
 
             <div class="content">
-                <section>
-                    <h2>Home</h2>
-                    <?php hdl_get_template('dashboard/home', ['user' => $user]); ?>
-
-                </section>
-
-                <section>
-                    <h2>Order History</h2>
-                    <div class="inner-content">
-                        <?php hdl_get_template('dashboard/show-orders'); ?>
-                    </div>
-                </section>
+                <!-- Section 1 -->
                 <section class="container">
-                    <h2>Lab Orders</h2>
+
+                    <?php hldNotFound("You have no action items"); ?>
+                    <!-- <h2>Home</h2> -->
+                    <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
+                    ?>
+
+                </section>
+                <!-- Section 2 -->
+                <section class="container">
+
+                    <?php hldNotFound("You have no subscriptions yet."); ?>
+                </section>
+
+                <!-- Section 3 -->
+                <section class="container">
+
                     <iframe
                         src="https://healsend.com/chat-app/"
                         width="100%"
@@ -136,13 +142,17 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
 
 
                 </section>
-                <section>
-                    <h2>Patient Profile</h2>
-                    <?php hdl_get_template('dashboard/patient-profile', ['user' => $user]); ?>
+                <!-- Section 4 -->
+                <section class="container">
+                    <h2>Order History</h2>
+                    <div class="inner-content">
+                        <?php hdl_get_template('dashboard/show-orders'); ?>
+                    </div>
                 </section>
-                <section>
-                    <h2>Visits</h2>
-                    <?php hdl_get_template('dashboard/returns'); ?>
+                <!-- Section 5 -->
+                <section class="container">
+                    <?php // hdl_get_template('dashboard/returns'); 
+                    ?>
                     <iframe
                         src="https://healsend.com/visit/"
                         width="100%"
@@ -151,25 +161,25 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                         loading="lazy"></iframe>
 
                 </section>
+                <section class="container">
+                    <h2>Patient Profile</h2>
+                    <?php hdl_get_template('dashboard/patient-profile', ['user' => $user]); ?>
+                </section>
+                <!-- Section 6 -->
 
 
-                <section>
-                    <h2>Lab Orders</h2>
-                    <?php hdl_get_template('dashboard/lab-orders'); ?>
+                <section class="container">
+                    <h1>Email us at info@healsend.com for any query</h1>
+                    <?php // hdl_get_template('dashboard/lab-orders'); 
+                    ?>
                 </section>
 
-                <section>
-                    <h2>Action Items</h2>
-
-
-                    <?php hld_display_fluent_saved_forms_cards(); ?>
-
-
-
-
-
-
-                </section>
+                <!-- Section 7 -->
+                <!-- <section> -->
+                <!-- <h2>Action Items</h2> -->
+                <?php // hld_display_fluent_saved_forms_cards();    
+                ?>
+                <!-- </section> -->
 
             </div>
         </div>

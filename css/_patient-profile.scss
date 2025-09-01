@@ -7,7 +7,7 @@ $box-shadow-sm: 0 10px 10px rgba(0, 0, 0, 0.05);
 
 .profile-container {
   .card {
-    border: 1px solid $card-border-color;
+    border: none !important;
     border-radius: $border-radius;
   }
 

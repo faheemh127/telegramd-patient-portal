@@ -275,22 +275,21 @@
 .hld_patient_packages .package-box:hover {
   background: #f9f9f9;
 }
-.package-description p{
+.package-description p {
   margin-bottom: 0 !important;
 }
 .hld_patient_packages .save-label {
-    background-color: #d4f7d4;
-    color: #218838;
-    padding: 4px 15px;
-    font-size: 14px;
-    margin-left: 10px;
-    border-radius: 50px;
+  background-color: #d4f7d4;
+  color: #218838;
+  padding: 4px 15px;
+  font-size: 14px;
+  margin-left: 10px;
+  border-radius: 50px;
 }
-.hld_secure_evaluation{
+.hld_secure_evaluation {
   border: 1px solid rgba(0, 0, 0, 0.4);
-
 }
-.ff-summary-wrapper{
+.ff-summary-wrapper {
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
@@ -303,7 +302,7 @@
 }
 
 .hld_patient_packages .package-price {
- margin-top: 15px;
+  margin-top: 15px;
   color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
 }
@@ -313,9 +312,9 @@
   font-size: 20px;
 }
 .hld_patient_packages .package-price span {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 2px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 2px;
 }
 
 .hld_patient_packages .package-description {
@@ -424,9 +423,10 @@
 
 .hld_email_field label,
 .hld_pwd_wrap label {
-  font-size: 20px !important;
-  margin-bottom: 5px !important;
+  font-size: 17px !important;
   color: rgba(0, 0, 0, 0.8);
+  font-weight: 400 !important;
+  margin-bottom: 0 !important;
 }
 
 .hld_email_field input,
@@ -764,7 +764,35 @@
 .med-features ul li {
   text-align: left;
 }
+.hld_no_found_wrap {
+  background: white;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 200px;
+  border-radius: 20px;
+  box-shadow: var(--bs-box-shadow-sm) !important;
+}
+.hld_no_found_wrap p {
+  font-size: 22px;
+  color: black;
+  margin-bottom: 15px;
+}
+.hld_no_found_wrap a {
+  padding: 10px 20px;
+  background: var(--hld-color-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+}
 
+
+.hld_btn_logout_main a{
+  text-decoration: none !important;
+  color: inherit !important;
+}
 /* Responsive****************************************************************************** */
 /* Mobile only (up to 767px) */
 @media screen and (max-width: 767px) {

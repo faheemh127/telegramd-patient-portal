@@ -16,7 +16,7 @@ $accent-inactive: desaturate($accent, 85%);
 $secondary: $accent-inactive;
 
 /* Tab configuration */
-$tab-count: 7;
+$tab-count: 8;
 $indicator-width: 75%;
 $indicator-height: 4px;
 
@@ -145,7 +145,7 @@ section#hdlDashboard {
         margin-right: auto !important;
         margin-left: auto;
         background: white;
-        padding: 5px 0 !important;
+        padding: 8px 0 !important;
         border-radius: 50px;
         margin-bottom: 0 !important;
         overflow: hidden !important;
@@ -478,7 +478,7 @@ section#hdlDashboard {
   color: white;
   display: block;
   max-width: 150px;
-  padding: 10px 0;
+  padding: 13px 0;
   border-radius: 50px;
 }
 

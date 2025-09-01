@@ -15,6 +15,17 @@ class HldPatientLogin {
     }
   }
 
+  postEmailToIframe() {
+    // Example: send hldPatientEmail to the iframe
+    const iframe = document.querySelector("iframe");
+    iframe.onload = () => {
+      iframe.contentWindow.postMessage(
+        { hldPatientEmail: window.hldPatientEmail },
+        "https://healsend.com" // target origin (must match iframe's origin)
+      );
+    };
+  }
+
   login() {
     const username = this.usernameField.value.trim();
     const password = this.passwordField.value.trim();

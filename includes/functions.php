@@ -1,6 +1,17 @@
 <?php
 
 
+function hldNotFound($msg)
+{
+?>
+    <div class="hld_no_found_wrap">
+        <p><?php echo $msg;  ?></p>
+        <a href="#">Find a Treatment</a>
+    </div>
+
+<?php
+}
+
 
 
 function get_user_id_by_telegra_patient_id($patient_id)

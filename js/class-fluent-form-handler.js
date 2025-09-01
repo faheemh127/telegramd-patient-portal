@@ -38,6 +38,9 @@ class HldFluentFormHandler {
       }
     }
   }
+  setPackagePrice(medicine){
+    console.log("medicine", medicine);
+  }
 
   /**
    * Set value for a select element by its name attribute

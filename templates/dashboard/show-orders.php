@@ -32,40 +32,40 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 
 
 if (!function_exists('hld_get_telegra_order_by_id')) {
-function hld_get_telegra_order_by_id($order_id)
-{
-    $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
-    $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
+    function hld_get_telegra_order_by_id($order_id)
+    {
+        $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+        $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
 
-    $response = wp_remote_get($endpoint, [
-        'headers' => [
-            'Authorization' => $bearer_token,
-            'Accept'        => 'application/json',
-        ],
-        'timeout' => 15,
-    ]);
+        $response = wp_remote_get($endpoint, [
+            'headers' => [
+                'Authorization' => $bearer_token,
+                'Accept'        => 'application/json',
+            ],
+            'timeout' => 15,
+        ]);
 
-    if (is_wp_error($response)) {
-        error_log('TelegraMD Order Fetch Error: ' . $response->get_error_message());
-        return new WP_Error('order_fetch_failed', 'Failed to retrieve order data.');
+        if (is_wp_error($response)) {
+            error_log('TelegraMD Order Fetch Error: ' . $response->get_error_message());
+            return new WP_Error('order_fetch_failed', 'Failed to retrieve order data.');
+        }
+
+        $status_code   = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+        $data          = json_decode($response_body, true);
+
+        if ($status_code !== 200 || !$data || !isset($data['id'])) {
+            error_log('TelegraMD Order Invalid Response: ' . $response_body);
+            return new WP_Error('order_invalid', 'Invalid order data.');
+        }
+
+        return $data;
     }
-
-    $status_code   = wp_remote_retrieve_response_code($response);
-    $response_body = wp_remote_retrieve_body($response);
-    $data          = json_decode($response_body, true);
-
-    if ($status_code !== 200 || !$data || !isset($data['id'])) {
-        error_log('TelegraMD Order Invalid Response: ' . $response_body);
-        return new WP_Error('order_invalid', 'Invalid order data.');
-    }
-
-    return $data;
-}
 }
 
-echo "<pre>";
-print_r(hld_get_telegra_order_by_id("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d"));
-echo "</pre>";
+// echo "<pre>";
+// print_r(hld_get_telegra_order_by_id("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d"));
+// echo "</pre>";
 // echo "code 101 is working";
 ?>
 <div class="container pb-5 hld-orders">
@@ -130,7 +130,7 @@ echo "</pre>";
                 }
             }
         } else {
-            echo '<p>No orders found.</p>';
+            hldNotFound("You have no orders.");
         }
 
         ?>
