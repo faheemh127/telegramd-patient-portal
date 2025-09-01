@@ -130,7 +130,7 @@ if (!function_exists('hld_get_telegra_order_by_id')) {
                 }
             }
         } else {
-            hldNotFound("You have no orders.");
+            hld_not_found("You have no orders.");
         }
 
         ?>

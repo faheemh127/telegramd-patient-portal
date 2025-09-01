@@ -117,9 +117,25 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             <div class="content">
                 <!-- Section 1 -->
                 <section class="container">
+                    <?php
+                    global $hld_fluent_handler;
+                    //  
+                    ?>
 
-                    <?php hldNotFound("You have no action items"); ?>
-                    <!-- <h2>Home</h2> -->
+                    <?php
+                    if ($hld_fluent_handler->is_action_item_active()) {
+                        hld_action_item(
+                            "Complete Your GLP-1 Weight Loss Visit",
+                            "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
+                            home_url('/glp-1-weight-loss-intake/')
+                        );
+                    } else {
+                        hld_not_found("You have no action items");
+                    }
+
+                    ?>
+
+
                     <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
                     ?>
 
@@ -127,7 +143,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 <!-- Section 2 -->
                 <section class="container">
 
-                    <?php hldNotFound("You have no subscriptions yet."); ?>
+                    <?php hld_not_found("You have no subscriptions yet."); ?>
                 </section>
 
                 <!-- Section 3 -->

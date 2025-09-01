@@ -4,6 +4,7 @@ if (! class_exists('hldFluentHandler')) {
     class hldFluentHandler
     {
         protected $telegra;
+        protected $glp_prefunnel_form_id = 24;
 
         /**
          * Only forms listed here will trigger Telegra order creation.
@@ -21,6 +22,18 @@ if (! class_exists('hldFluentHandler')) {
                 10,
                 2
             );
+        }
+
+        public function activate_action_item()
+        {
+            $option_name = 'hld_action_item_form_' . $this->glp_prefunnel_form_id;
+            update_option($option_name, true);
+        }
+
+        public function is_action_item_active()
+        {
+            $option_name = 'hld_action_item_form_' . $this->glp_prefunnel_form_id;
+            return (bool) get_option($option_name, false);
         }
 
         /**
@@ -52,6 +65,9 @@ if (! class_exists('hldFluentHandler')) {
 
 
             $form_id = $insertData['form_id'];
+            if ($form_id == $this->glp_prefunnel_form_id) {
+                $this->activate_action_item();
+            }
             if (! in_array($form_id, $this->telegra_forms)) {
                 return;
             }
@@ -75,4 +91,4 @@ if (! class_exists('hldFluentHandler')) {
 }
 
 // Create an object so the hook runs
-new hldFluentHandler($telegra);
+$hld_fluent_handler = new hldFluentHandler($telegra);

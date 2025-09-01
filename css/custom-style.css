@@ -764,23 +764,37 @@
 .med-features ul li {
   text-align: left;
 }
-.hld_no_found_wrap {
+.hld_no_found_wrap,
+.hld_action_item_wrap {
   background: white;
   padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 300px;
   border-radius: 20px;
   box-shadow: var(--bs-box-shadow-sm) !important;
+  margin-bottom: 15px;
 }
-.hld_no_found_wrap p {
-  font-size: 22px;
+.hld_no_found_wrap p,
+.hld_action_item_wrap p {
+  font-size: 24px;
   color: black;
   margin-bottom: 15px;
 }
-.hld_no_found_wrap a {
+.hld_action_item_wrap .desc {
+  color: black;
+  margin-bottom: 15px;
+  text-align: center;
+  max-width: 800px;
+  font-size: 19px;
+}
+.hld_action_item_wrap .title{
+  font-weight: bold !important;
+}
+.hld_no_found_wrap a,
+.hld_action_item_wrap a {
   padding: 10px 20px;
   background: var(--hld-color-primary);
   color: white;
@@ -788,8 +802,7 @@
   border-radius: 50px;
 }
 
-
-.hld_btn_logout_main a{
+.hld_btn_logout_main a {
   text-decoration: none !important;
   color: inherit !important;
 }

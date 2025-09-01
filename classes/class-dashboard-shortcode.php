@@ -1,6 +1,6 @@
 <?php
 
-class DashboardShortcode
+class hldDashboardShortcode
 {
     public function __construct()
     {
@@ -85,4 +85,4 @@ class DashboardShortcode
         return new WP_REST_Response(['success' => true], 200);
     }
 }
-new DashboardShortcode();
+$hld_dashboard_shortcode = new hldDashboardShortcode();

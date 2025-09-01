@@ -1,7 +1,16 @@
 <?php
 
-
-function hldNotFound($msg)
+function hld_action_item($title, $msg, $link)
+{
+?>
+    <div class="hld_action_item_wrap">
+        <p class="title"><?php echo  $title; ?></p>
+        <p class="desc"><?php echo $msg;  ?></p>
+        <a href="<?php echo  $link; ?>">Complete Visit</a>
+    </div>
+<?php
+}
+function hld_not_found($msg)
 {
 ?>
     <div class="hld_no_found_wrap">
