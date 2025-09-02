@@ -46,7 +46,30 @@
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
 }
-
+.hld_btn_edit_profile {
+  float: right;
+  margin-left: auto;
+  margin-right: 8px;
+}
+.hld-account-details-form p {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.hld-account-details-form .form-label {
+  margin-bottom: 0 !important;
+}
+.hld_order_status {
+  padding: 6px 26px !important;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-transform: capitalize;
+  background-color: var(--hld-color-primary) !important;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .hld_form_wrap .ff-float-right.ff-btn {
   border-radius: 30px;
   padding: 10px 0;
@@ -790,7 +813,7 @@
   max-width: 800px;
   font-size: 19px;
 }
-.hld_action_item_wrap .title{
+.hld_action_item_wrap .title {
   font-weight: bold !important;
 }
 .hld_no_found_wrap a,

@@ -91,4 +91,4 @@ if (! class_exists('hldFluentHandler')) {
 }
 
 // Create an object so the hook runs
-$hld_fluent_handler = new hldFluentHandler($telegra);
+$hld_fluent_handler = new hldFluentHandler($hld_telegra);

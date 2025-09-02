@@ -3,6 +3,41 @@
 class hldTelegra
 {
 
+    function get_order($order_id, $info)
+    {
+        $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+        $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
+
+        $response = wp_remote_get($endpoint, [
+            'headers' => [
+                'Authorization' => $bearer_token,
+                'Accept'        => 'application/json',
+            ],
+            'timeout' => 15,
+        ]);
+
+        if (is_wp_error($response)) {
+            error_log('TelegraMD Order Fetch Error: ' . $response->get_error_message());
+            return new WP_Error('order_fetch_failed', 'Failed to retrieve order data.');
+        }
+
+        $status_code   = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+        $data          = json_decode($response_body, true);
+
+        if ($status_code !== 200 || !$data || !isset($data['id'])) {
+            error_log('TelegraMD Order Invalid Response: ' . $response_body);
+            return new WP_Error('order_invalid', 'Invalid order data.');
+        }
+
+        if ($info == "") {
+            return $data;
+        }
+        return $data[$info];
+    }
+
+
+
     public function create_patient()
     {
         if (!is_user_logged_in()) {
@@ -161,4 +196,4 @@ class hldTelegra
 }
 
 // Create an object and call the method
-$telegra = new hldTelegra();
+$hld_telegra = new hldTelegra();

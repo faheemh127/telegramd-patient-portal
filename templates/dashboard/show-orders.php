@@ -1,6 +1,6 @@
 <?php
 
-
+global $hld_telegra;
 // echo "code 101 is working";
 // if ( is_user_logged_in() ) {
 //     $user_id = get_current_user_id();
@@ -31,46 +31,19 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                                 </svg>';
 
 
-if (!function_exists('hld_get_telegra_order_by_id')) {
-    function hld_get_telegra_order_by_id($order_id)
-    {
-        $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
-        $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
 
-        $response = wp_remote_get($endpoint, [
-            'headers' => [
-                'Authorization' => $bearer_token,
-                'Accept'        => 'application/json',
-            ],
-            'timeout' => 15,
-        ]);
 
-        if (is_wp_error($response)) {
-            error_log('TelegraMD Order Fetch Error: ' . $response->get_error_message());
-            return new WP_Error('order_fetch_failed', 'Failed to retrieve order data.');
-        }
 
-        $status_code   = wp_remote_retrieve_response_code($response);
-        $response_body = wp_remote_retrieve_body($response);
-        $data          = json_decode($response_body, true);
-
-        if ($status_code !== 200 || !$data || !isset($data['id'])) {
-            error_log('TelegraMD Order Invalid Response: ' . $response_body);
-            return new WP_Error('order_invalid', 'Invalid order data.');
-        }
-
-        return $data;
-    }
-}
-
+// print_r($hld_telegra->get_order("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d", "orderNumber"));
 // echo "<pre>";
-// print_r(hld_get_telegra_order_by_id("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d"));
+// $d = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "prescriptionFulfillments");
+
+// print_r($d[0]);
 // echo "</pre>";
 // echo "code 101 is working";
+
 ?>
 <div class="container pb-5 hld-orders">
-    <!-- <h1><?php  // get_user_id_by_telegra_patient_id("pat::fd0c1ad9-2b83-4be1-a5f0-73079b840262");  
-                ?></h1> -->
     <?php
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
@@ -79,26 +52,59 @@ if (!function_exists('hld_get_telegra_order_by_id')) {
         if (!empty($orders) && is_array($orders)) {
             foreach ($orders as $order_id) {
 
-                // Fetch order data from API
-                $order = hld_get_telegra_order_by_id($order_id);
+                $order = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "");
 
                 if (!is_wp_error($order)) {
                     $product = $order['productVariations'][0]['productVariation'] ?? [];
-                    $keywords = $product['keywords'][0] ?? 'No keyword';
+                    $keywords = $product['description'] ?? 'Medicine Not found';
                     $orderNumber = $order['orderNumber'] ?? 'N/A';
                     $createdAt = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
-                    $testName = 'LTV Test'; // Optional: replace with real data if available
+                    $testName = 'LTV Test';
                     $encoded_order_id = urlencode($order['id']);
+                    $prescriptionFulfillments = $order["prescriptionFulfillments"][0];
+
+                    // --- Extracted Details ---
+                    $fulfillmentStatus   = $prescriptionFulfillments['status'] ?? '';
+                    $pharmacyStatus      = $prescriptionFulfillments['pharmacyFulfillment']['pharmacyStatus'] ?? '';
+                    $lastStatusReceived  = $prescriptionFulfillments['pharmacyFulfillment']['lastStatusReceived'] ?? '';
+                    $approvalDate        = $prescriptionFulfillments['prescription']['approvalDate'] ?? '';
+
+                    $pharmacyName        = $prescriptionFulfillments['prescription']['pharmacy']['name'] ?? '';
+                    $pharmacyFax         = $prescriptionFulfillments['prescription']['pharmacy']['faxNumber'] ?? '';
+
+                    $providerName        = $prescriptionFulfillments['prescription']['provider']['fullName'] ?? '';
+                    $providerPicture     = $prescriptionFulfillments['prescription']['provider']['picture'] ?? '';
+
+                    $prescriptionNumber  = $prescriptionFulfillments['prescription']['prescriptionNumber'] ?? '';
+                    $productDescription  = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['description'] ?? '';
+                    $productStrength     = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['strength'] ?? '';
+                    $productForm         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['form'] ?? '';
+                    $productQuantity     = $prescriptionFulfillments['prescription']['productVariations'][0]['quantity'] ?? '';
+                    $productInstructions = $prescriptionFulfillments['prescription']['productVariations'][0]['customInstructions'] ?? '';
+                    $productName         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['product']['title'] ?? '';
+
+                    $visitPractitioner   = $prescriptionFulfillments['prescription']['visit']['practitioner']['firstName']
+                        . ' ' . $prescriptionFulfillments['prescription']['visit']['practitioner']['lastName'] ?? '';
+
+                    $pdfUrl              = $prescriptionFulfillments['pdfData']['key'] ?? '';
+                    $pdfName             = $prescriptionFulfillments['pdfData']['name'] ?? '';
+
+                    $latestEventTitle = '';
+                    if (!empty($prescriptionFulfillments['history'])) {
+                        $lastEvent = end($prescriptionFulfillments['history']);
+                        $latestEventTitle = $lastEvent['eventTitle'] ?? '';
+                    }
     ?>
 
-                    <div class="card mb-3 shadow-sm p-4 hld-order-item">
-                        <div class="row align-items-center">
+                    <div class="card mb-4 shadow-sm p-4 hld-order-item">
+                        <!-- Top Summary Row -->
+                        <div class="row mb-3 " style="align-items: flex-start;">
                             <div class="col-md-8 d-flex align-items-center gap-3">
                                 <div class="icon-wrap bg-light rounded-circle p-3 d-flex align-items-center justify-content-center">
                                     <?php echo $icon_capsule_tablet; ?>
                                 </div>
                                 <div class="desc-wrap">
-                                    <h5 class="fw-bold text-primary"><?php echo esc_html($keywords); ?></h5>
+                                    <h5 class="fw-bold text-primary mb-1"><?php echo esc_html($keywords); ?></h5>
                                     <div class="d-flex flex-wrap gap-3 small text-muted">
                                         <div class="d-flex align-items-center gap-1">
                                             <?php echo $icon_tablets ?>
@@ -115,26 +121,74 @@ if (!function_exists('hld_get_telegra_order_by_id')) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 btn-group-wrapper text-md-end mt-3 mt-md-0 d-flex flex-md-row gap-2 ">
-                                <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0 d-flex flex-md-row gap-2 justify-content-end">
+                                <!-- <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
                                     <button class="btn btn-outline-primary">View Detail</button>
-                                </a>
-                                <button class="btn btn-primary hld_btn_order_status">Completed</button>
+                                </a> -->
+
+                                <span class=" hld_order_status"><?php echo esc_html($fulfillmentStatus); ?></span>
                             </div>
                         </div>
+
+                        <!-- Order Detail Section -->
+                        <hr>
+                        <div class="row">
+                            <!-- Prescription Info -->
+                            <div class="col-md-6 mb-3">
+                                <h6 class="fw-bold">Prescription</h6>
+                                <p class="mb-1"><strong>Number:</strong> <?php echo esc_html($prescriptionNumber); ?></p>
+                                <p class="mb-1"><strong>Product:</strong> <?php echo esc_html($productDescription); ?> (<?php echo esc_html($productStrength); ?>, <?php echo esc_html($productForm); ?>)</p>
+                                <p class="mb-1"><strong>Quantity:</strong> <?php echo esc_html($productQuantity); ?></p>
+                                <p class="mb-1"><strong>Instructions:</strong> <?php echo esc_html($productInstructions); ?></p>
+                            </div>
+
+                            <!-- Provider & Pharmacy Info -->
+                            <div class="col-md-6 mb-3">
+                                <h6 class="fw-bold">Provider & Pharmacy</h6>
+                                <p class="mb-1"><strong>Provider:</strong> <?php echo esc_html($providerName); ?></p>
+                                <p class="mb-1"><strong>Pharmacy:</strong> <?php echo esc_html($pharmacyName); ?></p>
+                                <p class="mb-1"><strong>Fax:</strong> <?php echo esc_html($pharmacyFax); ?></p>
+                                <p class="mb-1"><strong>Pharmacy Status:</strong> <?php echo esc_html($pharmacyStatus); ?></p>
+                            </div>
+                        </div>
+
+                        <!-- Status & Dates -->
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Status</h6>
+                                <p class="mb-1"><strong>Fulfillment:</strong> <?php echo esc_html($fulfillmentStatus); ?></p>
+                                <p class="mb-1"><strong>Last Update:</strong> <?php echo esc_html($lastStatusReceived); ?></p>
+                                <p class="mb-1"><strong>Latest Event:</strong> <?php echo esc_html($latestEventTitle); ?></p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Dates</h6>
+                                <p class="mb-1"><strong>Approved:</strong> <?php echo esc_html($approvalDate); ?></p>
+                                <p class="mb-1"><strong>Ordered:</strong> <?php echo esc_html($createdAt); ?></p>
+                            </div>
+                        </div>
+
+                        <!-- PDF Download -->
+                        <?php if (!empty($pdfUrl)) : ?>
+                            <div class="mt-3">
+                                <a href="<?php echo esc_url($pdfUrl); ?>" target="_blank" class="btn btn-sm btn-outline-secondary w-100 rounded-pill py-2 fs-6">
+                                    Download Prescription (<?php echo esc_html($pdfName); ?>)
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
         <?php
                 } else {
                     echo '<p class="text-danger">❌ Failed to load order: ' . esc_html($order_id) . '</p>';
                 }
+                break;
             }
         } else {
             hld_not_found("You have no orders.");
         }
-
         ?>
 </div>
+
 <?php
 
 

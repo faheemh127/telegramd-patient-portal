@@ -471,15 +471,16 @@ section#hdlDashboard {
 }
 
 .hld_btn_profile_logout {
-  text-align: center;
-  margin: auto;
-  text-decoration: none;
-  background: #5b61fd;
-  color: white;
-  display: block;
-  max-width: 150px;
-  padding: 13px 0;
-  border-radius: 50px;
+     text-align: center;
+    margin: auto;
+    text-decoration: none;
+    background: #5b61fd;
+    color: white;
+    border-radius: 50px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 768px) {

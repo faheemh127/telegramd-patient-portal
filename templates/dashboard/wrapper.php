@@ -134,8 +134,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     }
 
                     ?>
-
-
+                    
                     <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
                     ?>
 
