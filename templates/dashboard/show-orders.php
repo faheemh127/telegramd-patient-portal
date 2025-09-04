@@ -1,6 +1,7 @@
 <?php
 
 global $hld_telegra;
+global $hld_fluent_handler;
 // echo "code 101 is working";
 // if ( is_user_logged_in() ) {
 //     $user_id = get_current_user_id();
@@ -42,17 +43,27 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 // echo "</pre>";
 // echo "code 101 is working";
 
+// echo "<pre>";
+// $get_patient_package = $hld_fluent_handler->get_patient_package();
+// print_r($get_patient_package);
+// var_dump($get_patient_package);
+// echo "</pre>";
+// print_r($hld_telegra->create_order("pat::34a45d85-2a0b-478b-a510-39477af1d579", "pvt::6e5a3b9c-26d9-46af-89bb-f0ab864ed027", "symp::9d65e74b-caed-4b38-b343-d7f84946da60"));
 ?>
 <div class="container pb-5 hld-orders">
     <?php
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
         $orders = HLD_UserOrders::get_orders($user_id);
-
+        // echo "<pre>";
+        // print_r($orders);
+        // echo "</pre>";
+array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
         if (!empty($orders) && is_array($orders)) {
             foreach ($orders as $order_id) {
 
-                $order = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "");
+                // $order = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "");
+                $order = $hld_telegra->get_order($order_id, "");
 
                 if (!is_wp_error($order)) {
                     $product = $order['productVariations'][0]['productVariation'] ?? [];
@@ -181,7 +192,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                 } else {
                     echo '<p class="text-danger">❌ Failed to load order: ' . esc_html($order_id) . '</p>';
                 }
-                break;
+               
             }
         } else {
             hld_not_found("You have no orders.");

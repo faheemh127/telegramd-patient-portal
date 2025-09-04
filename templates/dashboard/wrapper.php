@@ -134,7 +134,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     }
 
                     ?>
-                    
+
                     <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
                     ?>
 
@@ -142,7 +142,10 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 <!-- Section 2 -->
                 <section class="container">
 
-                    <?php hld_not_found("You have no subscriptions yet."); ?>
+
+                    <?php hdl_get_template('dashboard/subscription'); ?>
+
+
                 </section>
 
                 <!-- Section 3 -->
@@ -184,7 +187,8 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
 
 
                 <section class="container">
-                    <h1>Email us at info@healsend.com for any query</h1>
+                    <?php
+                    hld_not_found("Email us at info@healsend.com for any query"); ?>
                     <?php // hdl_get_template('dashboard/lab-orders'); 
                     ?>
                 </section>

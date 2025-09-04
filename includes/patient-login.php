@@ -48,7 +48,7 @@ function hld_render_custom_login_form()
             <div class="hld_error_message"><?php echo esc_html($error_message); ?></div>
         <?php endif; ?>
 
-        <h2 class="hld_patient_login_title">Healsend Patient Login</h2>
+        <h2 class="hld_patient_login_title">Welcome Back</h2>
         <form method="post" class="hld_login_form">
             <label for="hld_username">Username or Email</label>
             <input type="text" name="hld_username" id="hld_username" required />

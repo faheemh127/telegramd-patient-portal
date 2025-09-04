@@ -3,7 +3,23 @@
 class hldTelegra
 {
 
-    function get_order($order_id, $info)
+
+    public function get_medicine_code($medicine)
+    {
+        // Mapping of medicines to codes
+        $codes = [
+            "Semaglutide" => "pvt::fbfa6d41-773e-4724-b184-742c43d302d0",
+            "Tirzepatide"   => "pvt::2ae48408-228e-4706-a714-645f774b2f2a",
+        ];
+
+        // Return code if exists, otherwise null
+        return $codes[$medicine] ?? null;
+    }
+
+
+
+
+    public function get_order($order_id, $info)
     {
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
@@ -101,7 +117,7 @@ class hldTelegra
         }
     }
 
-    function get_patient_id()
+    public function get_patient_id()
     {
         if (!is_user_logged_in()) {
             return null;
@@ -116,7 +132,7 @@ class hldTelegra
 
 
 
-    function create_order($telegra_patient_id)
+    function create_order($telegra_patient_id, $medication_id, $symptoms = [])
     {
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint = TELEGRA_BASE_URL . '/orders';
@@ -129,13 +145,12 @@ class hldTelegra
             "patient" => $telegra_patient_id, // example: pat::f2b6ec7f-4b87-4988-9ebb-df663edaf872
             "productVariations" => [
                 [
+                    // "productVariation" => $medication_id,
                     "productVariation" => "pvt::6e5a3b9c-26d9-46af-89bb-f0ab864ed027",
                     "quantity" => 1
                 ]
             ],
-            "symptoms" => [
-                "symp::9d65e74b-caed-4b38-b343-d7f84946da60"
-            ],
+            "symptoms" => (array) $symptoms, // always array
             "address" => [
                 "billing" => [
                     "address1" => "123 S Main St",

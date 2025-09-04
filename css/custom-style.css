@@ -258,6 +258,10 @@
 .hld_form_main_submit_button {
   display: none;
 }
+.hld_form_main_submit_button_weight_loss{
+      border-radius: 50px !important;
+    height: 45px !important;
+}
 .dashboard-wrapper .hld-img-wrap img {
   width: 100% !important;
 }
@@ -300,6 +304,37 @@
 }
 .package-description p {
   margin-bottom: 0 !important;
+}
+.max-w-150 {
+  max-width: 150px;
+}
+.hld_btn_cancel {
+  max-width: auto !important;
+  background: #e74c3c !important;
+  color: white !important;
+  border: none !important;
+  display: inline-block;
+  width: auto !important;
+  padding: 0 20px !important;
+}
+.hld-subscription-title {
+  font-size: 24px;
+  color: black;
+  margin-bottom: 15px;
+}
+.hld-order-item {
+  padding: 30px 40px !important;
+}
+
+.hld-subscription-card {
+  background: white;
+  padding: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  border-radius: 20px;
+  box-shadow: var(--bs-box-shadow-sm) !important;
+  margin-bottom: 15px;
 }
 .hld_patient_packages .save-label {
   background-color: #d4f7d4;
@@ -359,13 +394,9 @@
 
 /* Style for Patient Login form */
 .hld_login_wrapper {
-  max-width: 660px;
-  margin: 40px auto;
+  max-width: 660px !important;
   padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   background: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   font-family: sans-serif;
 }
 .hld_login_form {
@@ -380,18 +411,22 @@
   padding: 10px;
   font-size: 16px;
   margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
+  height: 60px;
+  box-shadow: none;
 }
 .hld_login_button {
   margin-top: 20px;
   padding: 12px;
-  font-size: 16px;
-  background: #0073aa;
-  color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background: var(--hld-color-primary) !important;
+  font-size: 18px;
 }
 .hld_login_button:hover {
   background: #005f8d;
@@ -423,12 +458,28 @@
   display: inline-block;
 }
 .hld_patient_login_title {
-  font-size: 20px;
-  text-align: center;
+  font-size: 29px;
+  text-align: left;
   font-weight: bold;
   margin-bottom: 30px;
 }
-
+.hld_login_wrapper .nsl-button {
+  background: transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border-radius: 40px !important;
+  justify-content: center;
+  height: 50px;
+  box-shadow: initial !important;
+  color: black;
+  align-items: center;
+  width: 100%;
+}
+.hld_login_wrapper .nsl-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .hld_lab_order_container h5 {
   color: var(--hld-color-primary) !important;
 }

@@ -16,3 +16,14 @@ add_action('init', function () {
         exit;
     }
 });
+
+
+// let user not to access the limited access wp-admin even.
+function hld_restrict_subscriber_admin_access()
+{
+    if (is_admin() && ! defined('DOING_AJAX') && current_user_can('subscriber')) {
+        wp_redirect(home_url()); // redirect to homepage (or dashboard page)
+        exit;
+    }
+}
+add_action('admin_init', 'hld_restrict_subscriber_admin_access');

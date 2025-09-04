@@ -20,7 +20,7 @@ class HldNavigation {
     console.log("function checkLoginAndNavigate is working");
     if (this.isUserLoggedIn()) {
       const stepElement = document.querySelector(
-        '[data-name="step_start-24_27"]'
+        '[data-name="step_start-24_29"]'
       );
       if (stepElement) {
         const nextButton = stepElement.querySelector(
