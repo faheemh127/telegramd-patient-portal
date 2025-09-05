@@ -50,11 +50,11 @@ function hld_render_custom_login_form()
 
         <h2 class="hld_patient_login_title">Welcome Back</h2>
         <form method="post" class="hld_login_form">
-            <label for="hld_username">Username or Email</label>
-            <input type="text" name="hld_username" id="hld_username" required />
+            <!-- <label for="hld_username">Username or Email</label> -->
+            <input type="text" name="hld_username" id="hld_username" placeholder="Email" required />
 
-            <label for="hld_password">Password</label>
-            <input type="password" name="hld_password" id="hld_password" required />
+            <!-- <label for="hld_password">Password</label> -->
+            <input type="password" name="hld_password" id="hld_password" placeholder="password" required />
 
             <?php wp_nonce_field('hld_login_action', 'hld_login_nonce'); ?>
 
@@ -65,6 +65,9 @@ function hld_render_custom_login_form()
 
         <div class="hld_social_login">
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
+        </div>
+        <div class="hld_create_wrap">
+            <p>First time here? <a href="">Create an account</a></p>
         </div>
     </div>
 

@@ -258,9 +258,9 @@
 .hld_form_main_submit_button {
   display: none;
 }
-.hld_form_main_submit_button_weight_loss{
-      border-radius: 50px !important;
-    height: 45px !important;
+.hld_form_main_submit_button_weight_loss {
+  border-radius: 50px !important;
+  height: 45px !important;
 }
 .dashboard-wrapper .hld-img-wrap img {
   width: 100% !important;
@@ -394,10 +394,11 @@
 
 /* Style for Patient Login form */
 .hld_login_wrapper {
-  max-width: 660px !important;
-  padding: 30px;
+  max-width: 400px !important;
   background: #fff;
   font-family: sans-serif;
+  padding: 0 0 100px 0;
+  margin-top: 5rem;
 }
 .hld_login_form {
   display: flex;
@@ -408,25 +409,27 @@
   font-weight: bold;
 }
 .hld_login_form input {
-  padding: 10px;
+  padding: 15px 15px;
   font-size: 16px;
   margin-top: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 50px;
-  height: 60px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  height: 65px;
   box-shadow: none;
+  margin-bottom: 20px;
 }
 .hld_login_button {
   margin-top: 20px;
   padding: 12px;
   border: none;
-  height: 60px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  background: var(--hld-color-primary) !important;
-  font-size: 18px;
+  /* background: var(--hld-color-primary) !important; */
+  background: black;
+  font-size: 1rem;
 }
 .hld_login_button:hover {
   background: #005f8d;
@@ -434,7 +437,7 @@
 .hld_or_separator {
   text-align: center;
   margin: 20px 0;
-  font-size: 14px;
+  font-size: 1rem;
   color: #888;
 }
 .hld_error_message {
@@ -458,10 +461,10 @@
   display: inline-block;
 }
 .hld_patient_login_title {
-  font-size: 29px;
+  font-size: 1.7rem;
   text-align: left;
-  font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 .hld_login_wrapper .nsl-button {
   background: transparent !important;
@@ -879,6 +882,25 @@
 .hld_btn_logout_main a {
   text-decoration: none !important;
   color: inherit !important;
+}
+
+.hld_login_wrapper .nsl-container-buttons {
+  width: 100%;
+}
+
+.hld_login_wrapper .nsl-button-label-container {
+  flex: initial !important;
+  color: black;
+}
+.hld_login_wrapper .hld_create_wrap {
+  text-align: center;
+}
+.hld_login_wrapper .hld_create_wrap a {
+  font-weight: 700;
+  text-decoration: none;
+}
+.hld_create_wrap{
+  margin-top: 5px;
 }
 /* Responsive****************************************************************************** */
 /* Mobile only (up to 767px) */
