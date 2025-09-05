@@ -1,6 +1,7 @@
 <?php
 add_filter('login_redirect', 'hld_force_login_redirect', 10, 3);
-function hld_force_login_redirect($redirect_to, $requested_redirect_to, $user) {
+function hld_force_login_redirect($redirect_to, $requested_redirect_to, $user)
+{
     if (isset($user->roles) && in_array('subscriber', $user->roles)) {
         return home_url('/my-account');
     }
@@ -13,8 +14,10 @@ add_shortcode('hld_custom_login_form', 'hld_render_custom_login_form');
 function hld_render_custom_login_form()
 {
     if (is_user_logged_in()) {
-        return '<p class="hld_logged_in_notice">You are already logged in.</p>';
+        wp_safe_redirect(home_url('/my-account'));
+        exit;
     }
+
 
     ob_start();
 

@@ -34,9 +34,9 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 
 
 
-
-// print_r($hld_telegra->get_order("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d", "orderNumber"));
 // echo "<pre>";
+// print_r($hld_telegra->get_order("order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d", ""));
+// echo "</pre>";
 // $d = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "prescriptionFulfillments");
 
 // print_r($d[0]);
@@ -58,7 +58,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
         // echo "<pre>";
         // print_r($orders);
         // echo "</pre>";
-array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
+        array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
         if (!empty($orders) && is_array($orders)) {
             foreach ($orders as $order_id) {
 
@@ -72,39 +72,44 @@ array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
                     $createdAt = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
                     $testName = 'LTV Test';
                     $encoded_order_id = urlencode($order['id']);
-                    $prescriptionFulfillments = $order["prescriptionFulfillments"][0];
+                    if (!empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
+                        $prescriptionFulfillments = $order['prescriptionFulfillments'][0];
 
-                    // --- Extracted Details ---
-                    $fulfillmentStatus   = $prescriptionFulfillments['status'] ?? '';
-                    $pharmacyStatus      = $prescriptionFulfillments['pharmacyFulfillment']['pharmacyStatus'] ?? '';
-                    $lastStatusReceived  = $prescriptionFulfillments['pharmacyFulfillment']['lastStatusReceived'] ?? '';
-                    $approvalDate        = $prescriptionFulfillments['prescription']['approvalDate'] ?? '';
+                        // ✅ process prescriptionFulfillments here safely
+                        $fulfillmentStatus   = $prescriptionFulfillments['status'] ?? '';
+                        $pharmacyStatus      = $prescriptionFulfillments['pharmacyFulfillment']['pharmacyStatus'] ?? '';
+                        $lastStatusReceived  = $prescriptionFulfillments['pharmacyFulfillment']['lastStatusReceived'] ?? '';
+                        $approvalDate        = $prescriptionFulfillments['prescription']['approvalDate'] ?? '';
 
-                    $pharmacyName        = $prescriptionFulfillments['prescription']['pharmacy']['name'] ?? '';
-                    $pharmacyFax         = $prescriptionFulfillments['prescription']['pharmacy']['faxNumber'] ?? '';
+                        $pharmacyName        = $prescriptionFulfillments['prescription']['pharmacy']['name'] ?? '';
+                        $pharmacyFax         = $prescriptionFulfillments['prescription']['pharmacy']['faxNumber'] ?? '';
 
-                    $providerName        = $prescriptionFulfillments['prescription']['provider']['fullName'] ?? '';
-                    $providerPicture     = $prescriptionFulfillments['prescription']['provider']['picture'] ?? '';
+                        $providerName        = $prescriptionFulfillments['prescription']['provider']['fullName'] ?? '';
+                        $providerPicture     = $prescriptionFulfillments['prescription']['provider']['picture'] ?? '';
 
-                    $prescriptionNumber  = $prescriptionFulfillments['prescription']['prescriptionNumber'] ?? '';
-                    $productDescription  = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['description'] ?? '';
-                    $productStrength     = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['strength'] ?? '';
-                    $productForm         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['form'] ?? '';
-                    $productQuantity     = $prescriptionFulfillments['prescription']['productVariations'][0]['quantity'] ?? '';
-                    $productInstructions = $prescriptionFulfillments['prescription']['productVariations'][0]['customInstructions'] ?? '';
-                    $productName         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['product']['title'] ?? '';
+                        $prescriptionNumber  = $prescriptionFulfillments['prescription']['prescriptionNumber'] ?? '';
+                        $productDescription  = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['description'] ?? '';
+                        $productStrength     = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['strength'] ?? '';
+                        $productForm         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['form'] ?? '';
+                        $productQuantity     = $prescriptionFulfillments['prescription']['productVariations'][0]['quantity'] ?? '';
+                        $productInstructions = $prescriptionFulfillments['prescription']['productVariations'][0]['customInstructions'] ?? '';
+                        $productName         = $prescriptionFulfillments['prescription']['productVariations'][0]['productVariation']['product']['title'] ?? '';
 
-                    $visitPractitioner   = $prescriptionFulfillments['prescription']['visit']['practitioner']['firstName']
-                        . ' ' . $prescriptionFulfillments['prescription']['visit']['practitioner']['lastName'] ?? '';
+                        $visitPractitioner   = $prescriptionFulfillments['prescription']['visit']['practitioner']['firstName']
+                            . ' ' . $prescriptionFulfillments['prescription']['visit']['practitioner']['lastName'] ?? '';
 
-                    $pdfUrl              = $prescriptionFulfillments['pdfData']['key'] ?? '';
-                    $pdfName             = $prescriptionFulfillments['pdfData']['name'] ?? '';
+                        $pdfUrl              = $prescriptionFulfillments['pdfData']['key'] ?? '';
+                        $pdfName             = $prescriptionFulfillments['pdfData']['name'] ?? '';
 
-                    $latestEventTitle = '';
-                    if (!empty($prescriptionFulfillments['history'])) {
-                        $lastEvent = end($prescriptionFulfillments['history']);
-                        $latestEventTitle = $lastEvent['eventTitle'] ?? '';
+                        $latestEventTitle = '';
+                        if (!empty($prescriptionFulfillments['history'])) {
+                            $lastEvent = end($prescriptionFulfillments['history']);
+                            $latestEventTitle = $lastEvent['eventTitle'] ?? '';
+                        }
+
+                        // then render your HTML block...
                     }
+
     ?>
 
                     <div class="card mb-4 shadow-sm p-4 hld-order-item">
@@ -137,62 +142,73 @@ array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
                                     <button class="btn btn-outline-primary">View Detail</button>
                                 </a> -->
 
-                                <span class=" hld_order_status"><?php echo esc_html($fulfillmentStatus); ?></span>
+                                <?php if (!empty($fulfillmentStatus)) : ?>
+                                    <span class="hld_order_status"><?php echo esc_html($fulfillmentStatus); ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
 
                         <!-- Order Detail Section -->
-                        <hr>
-                        <div class="row">
-                            <!-- Prescription Info -->
-                            <div class="col-md-6 mb-3">
-                                <h6 class="fw-bold">Prescription</h6>
-                                <p class="mb-1"><strong>Number:</strong> <?php echo esc_html($prescriptionNumber); ?></p>
-                                <p class="mb-1"><strong>Product:</strong> <?php echo esc_html($productDescription); ?> (<?php echo esc_html($productStrength); ?>, <?php echo esc_html($productForm); ?>)</p>
-                                <p class="mb-1"><strong>Quantity:</strong> <?php echo esc_html($productQuantity); ?></p>
-                                <p class="mb-1"><strong>Instructions:</strong> <?php echo esc_html($productInstructions); ?></p>
+
+
+                        <?php
+                        if (!empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
+                        ?>
+                            <hr>
+                            <div class="hld_prescription_wrap">
+                                <div class="row">
+                                    <!-- Prescription Info -->
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="fw-bold">Prescription</h6>
+                                        <p class="mb-1"><strong>Number:</strong> <?php echo esc_html($prescriptionNumber); ?></p>
+                                        <p class="mb-1"><strong>Product:</strong> <?php echo esc_html($productDescription); ?> (<?php echo esc_html($productStrength); ?>, <?php echo esc_html($productForm); ?>)</p>
+                                        <p class="mb-1"><strong>Quantity:</strong> <?php echo esc_html($productQuantity); ?></p>
+                                        <p class="mb-1"><strong>Instructions:</strong> <?php echo esc_html($productInstructions); ?></p>
+                                    </div>
+
+                                    <!-- Provider & Pharmacy Info -->
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="fw-bold">Provider & Pharmacy</h6>
+                                        <p class="mb-1"><strong>Provider:</strong> <?php echo esc_html($providerName); ?></p>
+                                        <p class="mb-1"><strong>Pharmacy:</strong> <?php echo esc_html($pharmacyName); ?></p>
+                                        <p class="mb-1"><strong>Fax:</strong> <?php echo esc_html($pharmacyFax); ?></p>
+                                        <p class="mb-1"><strong>Pharmacy Status:</strong> <?php echo esc_html($pharmacyStatus); ?></p>
+                                    </div>
+                                </div>
+
+                                <!-- Status & Dates -->
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <h6 class="fw-bold">Status</h6>
+                                        <p class="mb-1"><strong>Fulfillment:</strong> <?php echo esc_html($fulfillmentStatus); ?></p>
+                                        <p class="mb-1"><strong>Last Update:</strong> <?php echo esc_html($lastStatusReceived); ?></p>
+                                        <p class="mb-1"><strong>Latest Event:</strong> <?php echo esc_html($latestEventTitle); ?></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="fw-bold">Dates</h6>
+                                        <p class="mb-1"><strong>Approved:</strong> <?php echo esc_html($approvalDate); ?></p>
+                                        <p class="mb-1"><strong>Ordered:</strong> <?php echo esc_html($createdAt); ?></p>
+                                    </div>
+                                </div>
+
+                                <!-- PDF Download -->
+                                <?php if (!empty($pdfUrl)) : ?>
+                                    <div class="mt-3">
+                                        <a href="<?php echo esc_url($pdfUrl); ?>" target="_blank" class="btn btn-sm btn-outline-secondary w-100 rounded-pill py-2 fs-6">
+                                            Download Prescription (<?php echo esc_html($pdfName); ?>)
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
 
-                            <!-- Provider & Pharmacy Info -->
-                            <div class="col-md-6 mb-3">
-                                <h6 class="fw-bold">Provider & Pharmacy</h6>
-                                <p class="mb-1"><strong>Provider:</strong> <?php echo esc_html($providerName); ?></p>
-                                <p class="mb-1"><strong>Pharmacy:</strong> <?php echo esc_html($pharmacyName); ?></p>
-                                <p class="mb-1"><strong>Fax:</strong> <?php echo esc_html($pharmacyFax); ?></p>
-                                <p class="mb-1"><strong>Pharmacy Status:</strong> <?php echo esc_html($pharmacyStatus); ?></p>
-                            </div>
-                        </div>
+                        <?php } ?>
 
-                        <!-- Status & Dates -->
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <h6 class="fw-bold">Status</h6>
-                                <p class="mb-1"><strong>Fulfillment:</strong> <?php echo esc_html($fulfillmentStatus); ?></p>
-                                <p class="mb-1"><strong>Last Update:</strong> <?php echo esc_html($lastStatusReceived); ?></p>
-                                <p class="mb-1"><strong>Latest Event:</strong> <?php echo esc_html($latestEventTitle); ?></p>
-                            </div>
-                            <div class="col-md-6">
-                                <h6 class="fw-bold">Dates</h6>
-                                <p class="mb-1"><strong>Approved:</strong> <?php echo esc_html($approvalDate); ?></p>
-                                <p class="mb-1"><strong>Ordered:</strong> <?php echo esc_html($createdAt); ?></p>
-                            </div>
-                        </div>
-
-                        <!-- PDF Download -->
-                        <?php if (!empty($pdfUrl)) : ?>
-                            <div class="mt-3">
-                                <a href="<?php echo esc_url($pdfUrl); ?>" target="_blank" class="btn btn-sm btn-outline-secondary w-100 rounded-pill py-2 fs-6">
-                                    Download Prescription (<?php echo esc_html($pdfName); ?>)
-                                </a>
-                            </div>
-                        <?php endif; ?>
                     </div>
 
         <?php
                 } else {
                     echo '<p class="text-danger">❌ Failed to load order: ' . esc_html($order_id) . '</p>';
                 }
-               
             }
         } else {
             hld_not_found("You have no orders.");

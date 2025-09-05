@@ -108,11 +108,12 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     <li><label for="tab3"><span>Orders</span></label></li>
                     <li><label for="tab4"><span>Visits</span></label></li>
                     <li><label for="tab5"><span>Profile</span></label></li>
-                    <li><label for="tab6"><span>Support Tab</span></label></li>
+                    <li><label for="tab6"><span>Support</span></label></li>
                     <li><label for="tab7"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
 
                 </ul>
             </div>
+            <p class="hld_tabs_hint">Scroll horizontally through the tabs to view and navigate all dashboard items.</p>
 
             <div class="content">
                 <!-- Section 1 -->

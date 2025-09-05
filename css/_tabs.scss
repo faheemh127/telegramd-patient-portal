@@ -87,10 +87,11 @@ h1 {
 section#hdlDashboard {
   min-width: 100%;
   background-color: #f2f6f8;
+  
 
   .container {
     .tabs {
-      min-width: #{$tab-count * 60px};
+      // min-width: #{$tab-count * 60px};
       max-width: 100vw;
       padding: 50px;
       padding-bottom: 80px;

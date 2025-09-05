@@ -431,6 +431,12 @@
   background: black;
   font-size: 1rem;
 }
+.hld_tabs_hint {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.875rem;
+  margin-top: 3px;
+  text-align: center;
+}
 .hld_login_button:hover {
   background: #005f8d;
 }
@@ -899,7 +905,7 @@
   font-weight: 700;
   text-decoration: none;
 }
-.hld_create_wrap{
+.hld_create_wrap {
   margin-top: 5px;
 }
 /* Responsive****************************************************************************** */
