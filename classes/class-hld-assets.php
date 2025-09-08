@@ -73,7 +73,7 @@ if (! class_exists('hldAssets')) {
                 '1.0',
                 true
             );
-
+ 
             wp_enqueue_script(
                 'hld-class-navigation',
                 plugin_dir_url(__FILE__) . '../js/class-navigation.js',

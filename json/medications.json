@@ -1,0 +1,44 @@
+[
+  {
+    "code": "TIRZ123",
+    "medication_name": "Tirzepatide (Most Popular)",
+    "packages": [
+      {
+        "duration": "1 Month",
+        "price": "$330/mo",
+        "desc": "15–22% avg weight loss • Weekly injection • Dual action GLP-1 + GIP"
+      },
+      {
+        "duration": "3 Months",
+        "price": "$300/mo",
+        "desc": "Discounted rate • Same benefits"
+      },
+      {
+        "duration": "6 Months",
+        "price": "$270/mo",
+        "desc": "Best value plan"
+      }
+    ]
+  },
+  {
+    "code": "SEMA456",
+    "medication_name": "Semaglutide (Alternative Option)",
+    "packages": [
+      {
+        "duration": "1 Month",
+        "price": "$240/mo",
+        "desc": "10–15% avg weight loss • Weekly injection • Proven GLP-1 pathway"
+      },
+      {
+        "duration": "3 Months",
+        "price": "$210/mo",
+        "desc": "Save more on 3-month plan"
+      },
+      {
+        "duration": "6 Months",
+        "price": "$190/mo",
+        "desc": "Lowest monthly rate"
+      }
+    ]
+  }
+]

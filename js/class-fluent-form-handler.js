@@ -6,7 +6,9 @@ class HldFluentFormHandler {
     this.hldhideNext("hld_state_wrap");
     this.hldhideNext("hld_medication_wrap");
     this.hldhideNext("hld_packages_wrap");
-    this.init_google_places();
+    // no need this function because its already built in available 
+    // this.init_google_places();24
+    console.log("fluentFormData", fluentFormData);
   }
   hldhideNext(wrapperClass) {
     const parent = document.querySelector(`.${wrapperClass}`);

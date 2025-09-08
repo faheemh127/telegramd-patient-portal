@@ -1,15 +1,51 @@
 <?php
-// Register Shortcode [stripe_payment_form]
-function my_stripe_payment_form_shortcode() {
-    ob_start();
-    ?>
-    <div id="stripe-form-container">
-        <div id="card-element"></div>
-        <div id="card-errors" style="color:red; margin-top:10px;"></div>
-        <input type="hidden" id="payment_intent_id" value="">
-        <button id="testStripePayment">Pay Now</button>
-    </div>
-    <?php
-    return ob_get_clean();
+if (! class_exists('hldShortcode')) {
+    class hldShortcode
+    {
+
+        public function __construct()
+        {
+            add_action('init', [$this, 'register_shortcodes']);
+        }
+
+        public function register_shortcodes()
+        {
+            add_shortcode('hld_glp_prefunnel', [$this, 'hld_glp_prefunnel_shortcode']);
+        }
+
+
+        /**
+         * Shortcode handler
+         * Usage: [hld_glp_prefunnel form_id="21" payment="later" medications='[...]']
+         */
+        public function hld_glp_prefunnel_shortcode($atts)
+        {
+            $atts = shortcode_atts([
+                'form_id'     => '',
+                'pay'         => '',
+                'medications' => '[]' // Default to an empty JSON array
+            ], $atts, 'hld_glp_prefunnel');
+
+
+            $decoded_json = base64_decode($atts['medications']);
+            $medications_data = json_decode($decoded_json, true); // object
+
+            wp_localize_script(
+                'class-fluent-form-handler',
+                'fluentFormData', // JS object name
+                [
+                    'medications' => $medications_data,
+                    'form_id'     => $atts['form_id'] ?? '',
+                    'pay'     => $atts['pay'] ?? '',
+                ]
+            );
+
+            ob_start();
+            echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
+            return ob_get_clean();
+        }
+    }
+
+    // instantiate on plugins loaded (or just instantiate now)
+    new hldShortcode();
 }
-add_shortcode('stripe_payment_form', 'my_stripe_payment_form_shortcode');
