@@ -114,7 +114,7 @@ section#hdlDashboard .container .tabs ul li {
 @media (min-width: 769px) {
   section#hdlDashboard .container .tabs ul li {
     flex: 1;
-    width: 12.5%;
+    width: 11.1111111111%;
     padding: 0 10px;
   }
 }
@@ -543,6 +543,50 @@ section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(8):che
 section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(8):checked ~ .content > section:nth-child(8) {
   display: block;
 }
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label {
+  cursor: default;
+  color: white !important;
+  background: #428bff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+  transform: translateY(-2px);
+  border: 2px solid rgb(15, 107.6984126984, 255);
+  position: relative;
+}
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #428bff;
+  border-radius: 27px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+@media (max-width: 768px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label {
+    background: #428bff;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(66, 139, 255, 0.4);
+    transform: translateY(-2px);
+    border: 2px solid rgb(15, 107.6984126984, 255);
+  }
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label::after {
+    display: none;
+  }
+}
+@media (min-width: 769px) {
+  section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label {
+    background: #428bff;
+    color: white !important;
+  }
+}
+section#hdlDashboard .container .tabs input[name=tab-control]:nth-of-type(9):checked ~ .content > section:nth-child(9) {
+  display: block;
+}
 section#hdlDashboard .tabs-nav-wrapper label.active {
   background-color: #6d6ffc !important;
   color: white !important;
@@ -740,6 +784,23 @@ section#hdlDashboard .tabs-nav-wrapper label.active {
     border-radius: 1px;
   }
   .tabs input[name=tab-control]:nth-of-type(8):checked ~ .content > section:nth-child(8) {
+    display: block;
+  }
+  .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label {
+    position: relative;
+  }
+  .tabs input[name=tab-control]:nth-of-type(9):checked ~ ul > li:nth-child(9) > label::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #428bff;
+    border-radius: 1px;
+  }
+  .tabs input[name=tab-control]:nth-of-type(9):checked ~ .content > section:nth-child(9) {
     display: block;
   }
 }

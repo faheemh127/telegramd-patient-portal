@@ -434,6 +434,7 @@
   height: 65px;
   box-shadow: none;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .hld_login_button {
   margin-top: 20px;
@@ -518,6 +519,7 @@
   background: var(--hld-color-primary);
   border: 1px solid var(--hld-color-primary);
 }
+
 .hld_btn_order_status {
   max-width: 120px;
 }
@@ -922,9 +924,19 @@
 .hld_login_wrapper .hld_create_wrap a {
   font-weight: 700;
   text-decoration: none;
+  color: var(--hld-color-primary);
 }
 .hld_create_wrap {
   margin-top: 5px;
+}
+
+.hld_login_wrapper .hld_forgot_password a {
+  text-align: right;
+  width: 100%;
+  display: block;
+  color: var(--hld-color-primary);
+  font-weight: 600;
+  text-decoration: none;
 }
 .hld_medication_wrap .ff-el-group {
   margin-bottom: 0;
@@ -993,7 +1005,61 @@
   overflow-y: auto;
   flex: 1;
 }
+.hld-sidebar .desc {
+  font-size: 1.1rem;
+}
+.hld-sidebar .title {
+  font-size: 1.3rem;
+  text-align: center;
+}
+.hld-sidebar h2 {
+  font-size: 1.5rem;
+  color: black;
+}
+.hld_lab_order_container button {
+  background: var(--hld-color-primary);
+  border-radius: 50px;
+  border: none;
+  font-size: 0.875rem;
+  padding: 8px 20px;
+}
 
+.hld-lab-order .hld_btn_view_detail_wrap {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.hld_login_wrapper .nsl-button-label-container b {
+  font-weight: 400;
+}
+.hld_login_wrapper .hld_login_button:hover {
+  background-color: var(--hld-color-primary);
+}
+
+.hld_login_wrapper input:hover {
+  border: 2px solid var(--hld-color-primary);
+}
+
+.hld_login_wrapper .hld_error {
+  font-size: 0.875rem;
+  color: red;
+}
+.hld_login_wrapper input:focus {
+  border: 2px solid var(--hld-color-primary);
+}
+.hld-lab-order .lab-icon-wrap {
+  border-radius: 50% !important;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hld_lab_order_container .card {
+  border: none;
+  border-radius: 10px;
+}
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .hld-sidebar {
@@ -1021,6 +1087,10 @@
   }
   .hld_tabs_hint {
     display: block;
+  }
+  .hld_no_found_wrap a,
+  .hld_action_item_wrap a {
+    font-size: 0.875rem;
   }
 }
 

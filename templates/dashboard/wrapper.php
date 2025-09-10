@@ -99,6 +99,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             <input type="radio" id="tab5" name="tab-control" />
             <input type="radio" id="tab6" name="tab-control" />
             <input type="radio" id="tab7" name="tab-control" />
+            <input type="radio" id="tab8" name="tab-control" />
             <!-- Wrap the navigation in a scrollable container -->
             <div class="tabs-nav-wrapper">
                 <ul class="container">
@@ -108,8 +109,9 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
                     <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
                     <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
-                    <li class="hld_nav_support"><label for="tab6"><span>Support</span></label></li>
-                    <li class="hld_nav_logout"><label for="tab7"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
+                    <li class="hld_nav_support"><label for="tab6"><span>Lab Orders</span></label></li>
+                    <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
+                    <li class="hld_nav_logout"><label for="tab8"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
                 </ul>
             </div>
 
@@ -186,12 +188,15 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 </section>
                 <!-- Section 6 -->
 
+                <section class="container">
+                    <?php hdl_get_template('dashboard/lab-orders');
+                    ?>
+                </section>
 
                 <section class="container">
                     <?php
                     hld_not_found("Email us at info@healsend.com for any query"); ?>
-                    <?php // hdl_get_template('dashboard/lab-orders'); 
-                    ?>
+
                 </section>
 
                 <!-- Section 7 -->

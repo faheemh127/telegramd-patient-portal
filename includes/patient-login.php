@@ -48,17 +48,32 @@ function hld_render_custom_login_form()
 
     <div class="hld_login_wrapper">
         <?php if (!empty($error_message)) : ?>
-            <div class="hld_error_message"><?php echo esc_html($error_message); ?></div>
+            <!-- <div class="hld_error_message"><?php echo esc_html($error_message); ?></div> -->
         <?php endif; ?>
 
         <h2 class="hld_patient_login_title">Welcome Back</h2>
         <form method="post" class="hld_login_form">
             <!-- <label for="hld_username">Username or Email</label> -->
-            <input type="text" name="hld_username" id="hld_username" placeholder="Email" required />
+            <!-- <input type="text" name="hld_username" id="hld_username" placeholder="Email" required /> -->
+            <input
+                type="text"
+                name="hld_username"
+                id="hld_username"
+                placeholder="Email"
+                required
+                <?php if (!empty($error_message)) : ?>
+                style="margin-bottom: 3px;"
+                <?php endif; ?> />
+            <?php if (!empty($error_message)) : ?>
 
+                <p class="hld_error">The email address or username you entered is incorrect. Please try again.</p>
+            <?php endif; ?>
             <!-- <label for="hld_password">Password</label> -->
-            <input type="password" name="hld_password" id="hld_password" placeholder="password" required />
-
+            <input type="password" name="hld_password" id="hld_password" placeholder="Password" style="margin-bottom: 5px;" required />
+            <!-- 🔗 Forgot Password Link -->
+            <div class="hld_forgot_password">
+                <a href="<?php echo wp_lostpassword_url(); ?>" style="font-size: 0.875rem">Forgot Password?</a>
+            </div>
             <?php wp_nonce_field('hld_login_action', 'hld_login_nonce'); ?>
 
             <button type="submit" class="hld_login_button">Login</button>
