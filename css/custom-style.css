@@ -1,19 +1,19 @@
 :root {
   --hld-color-primary: #6d6ffc;
 }
-
 .hld_form_wrap {
   max-width: 550px !important;
 }
 .hld_form_wrap select {
   height: 50px !important;
-  border-radius: 50px !important;
+  border-radius: 10px !important;
   padding: 0 20px !important;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
 }
 .hld_form_wrap input {
-  border-radius: 50px !important;
+  border-radius: 10px !important;
   height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
 }
 /* hide the element because we will display custom checkbox */
 .hld_gender_elem {
@@ -24,24 +24,35 @@
 }
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
-  padding: 3px 20px !important;
-  border-radius: 12px !important;
-  font-size: 17px !important;
-  font-weight: 600 !important;
+  padding: 0px 10px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   text-align: left !important;
-  margin-bottom: 10px;
   width: 100%;
   background: white;
+  height: 50px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 10px !important;
+  border-radius: 10px !important;
+}
+
+/* hide rounded circule in labels */
+.hld_form_wrap .survey-radio .ff-el-input--content label,
+.hld_form_wrap .ff-el-form-check-label input {
+  display: none !important;
 }
 .hld_form_wrap .ff-el-form-check-label span {
   padding-left: 5px;
+  font-weight: 600;
 }
 
 .hld_form_wrap .ff-default .ff-el-input--label label {
   font-size: 26px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
@@ -242,7 +253,7 @@
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   background-color: white;
   padding: 15px 19px !important;
-  border-radius: 40px !important;
+  border-radius: 10px !important;
 }
 #hdlMakeStipePayment {
   width: 100%;
@@ -291,19 +302,21 @@
 
 .hld_patient_packages .package-box {
   text-align: left;
-  border: 2px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   padding: 25px 20px;
   transition: border-color 0.3s;
   position: relative;
   cursor: pointer;
   background-color: white !important;
+  box-shadow: initial;
 }
 .hld_patient_packages .package-box:hover {
   background: #f9f9f9;
 }
 .package-description p {
   margin-bottom: 0 !important;
+  font-size: 0.875rem;
 }
 .max-w-150 {
   max-width: 150px;
@@ -364,13 +377,17 @@
   color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
 }
+.hld_name_container label {
+  font-size: 1rem !important;
+  margin-bottom: 0 !important;
+}
 .hld_patient_packages .package-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 10px;
-  font-size: 20px;
+  font-size: 1rem;
 }
 .hld_patient_packages .package-price span {
-  font-size: 22px;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-top: 2px;
 }
@@ -436,6 +453,7 @@
   font-size: 0.875rem;
   margin-top: 3px;
   text-align: center;
+  display: none;
 }
 .hld_login_button:hover {
   background: #005f8d;
@@ -514,7 +532,7 @@
 
 .hld_email_field input,
 .hld_pwd_wrap input {
-  border-radius: 50px !important;
+  border-radius: 10px !important;
   height: 50px;
   padding-left: 25px !important;
 }
@@ -523,7 +541,7 @@
 .hld_testimonial-section {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0px 20px;
+  padding: 0px 0px;
   text-align: center;
   font-family: Arial, sans-serif;
 }
@@ -548,7 +566,7 @@
 
 .hld_testimonial-image img {
   max-width: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
@@ -686,7 +704,7 @@
 .hld_inches_wrap input,
 .hld_feet_wrap input,
 .hld_weight_wrap input {
-  border-radius: 50px !important;
+  border-radius: 10px !important;
   height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   padding-left: 20px !important;
@@ -715,7 +733,7 @@
 .hld-custom-checkbox-group {
   display: flex;
   gap: 15px;
-  margin: 20px 0;
+  margin: 0px 0;
   flex-direction: column;
 }
 
@@ -724,7 +742,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
@@ -771,7 +789,7 @@
 } */
 
 .med-box {
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 25px 20px;
   background: #fff;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -908,12 +926,101 @@
 .hld_create_wrap {
   margin-top: 5px;
 }
-/* Responsive****************************************************************************** */
+.hld_medication_wrap .ff-el-group {
+  margin-bottom: 0;
+}
+
+/* *********************** css for action item sidebar *********************** starts */
+/* Overlay */
+.hld-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: flex-end;
+  z-index: 9999;
+}
+
+/* Sidebar */
+.hld-sidebar {
+  background: #fff;
+  width: 90%;
+  max-width: 450px !important;
+  height: 100%;
+  position: fixed;
+  right: -100%;
+  transition: right 0.4s ease-in-out;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar active */
+.hld-sidebar-overlay.active {
+  display: flex;
+}
+
+.hld-sidebar.active {
+  right: 0;
+}
+
+/* Close button */
+.hld-sidebar-close {
+  position: absolute;
+  top: 14px;
+  right: 12px;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer !important;
+  padding: 0px 12px;
+  color: black;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar content */
+.hld-sidebar-content {
+  padding: 20px 20px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hld-sidebar {
+    width: 90%;
+    max-width: 90%;
+  }
+}
+
+/* ***************** sidebar code ends for action item sidebar */
+/* Responsive mobile_device****************************************************************************** */
 /* Mobile only (up to 767px) */
 @media screen and (max-width: 767px) {
   /* mobile styles */
   .hld-custom-checkbox-group {
     flex-direction: column;
+  }
+  .hld_section-title {
+    font-size: 1.3rem;
+  }
+  .hld_bmi-title {
+    font-size: 1.5rem;
+  }
+  .med-features li {
+    margin-bottom: 0.875rem;
+  }
+  .hld_tabs_hint {
+    display: block;
   }
 }
 

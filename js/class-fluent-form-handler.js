@@ -6,10 +6,69 @@ class HldFluentFormHandler {
     this.hldhideNext("hld_state_wrap");
     this.hldhideNext("hld_medication_wrap");
     this.hldhideNext("hld_packages_wrap");
-    // no need this function because its already built in available 
-    // this.init_google_places();24
-    console.log("fluentFormData", fluentFormData);
+    this.initCustomizedData();
   }
+
+  initCustomizedData() {
+    this.initMedications();
+  }
+
+  initMedications() {
+    const wrap = document.getElementById("hldGlpMedicationWrap");
+    if (!wrap) return;
+
+    // clear previous dummy data
+    wrap.innerHTML = "";
+
+    let html = "";
+
+    fluentFormData.medications.forEach((med) => {
+      // extract name & "Most Popular" star if available
+      const nameParts = med.medication_name.split("(");
+      const medName = nameParts[0].trim();
+      const extraLabel = nameParts[1]
+        ? nameParts[1].replace(")", "").trim()
+        : "";
+
+      // take first package price & desc (fallback if needed)
+      const firstPackage = med.packages[0] || {};
+      const price = firstPackage.price || "$147 / Month";
+
+      // parse description (split into features if possible)
+      const descList = firstPackage.desc
+        ? firstPackage.desc.split("•").map((d) => d.trim())
+        : ["Weekly injection", "Compounded", "Feature not available"];
+
+      // build features list
+      const featuresHTML = descList.map((f) => `<li>${f}</li>`).join("");
+
+      // build medication block
+      html += `
+      <div class="hld-custom-checkbox hld-medicine" data-value="${medName}">
+        <div class="med-box">
+          <div class="badges">
+            <span class="hld-badge hld-badge-blue">Free Evaluation</span>
+            <span class="hld-badge hld-badge-pink">Weekly Injection</span>
+          </div>
+          <div class="med-compounded">Compounded</div>
+          <div class="med-title">
+            ${medName} ${
+        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+      }
+          </div>
+          <div class="med-price">${price}</div>
+          <ul class="med-features">
+            ${featuresHTML}
+          </ul>
+        </div>
+      </div>
+    `;
+    });
+
+    // insert built HTML inside wrapper
+    wrap.innerHTML = html;
+  }
+
   hldhideNext(wrapperClass) {
     const parent = document.querySelector(`.${wrapperClass}`);
     if (parent) {

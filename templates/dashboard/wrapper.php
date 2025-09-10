@@ -102,17 +102,17 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             <!-- Wrap the navigation in a scrollable container -->
             <div class="tabs-nav-wrapper">
                 <ul class="container">
-                    <li><label for="tab0"><span>Action Items</span></label></li>
-                    <li><label for="tab1"><span>Subscriptions</span></label></li>
-                    <li><label for="tab2"><span>Conversations</span></label></li>
-                    <li><label for="tab3"><span>Orders</span></label></li>
-                    <li><label for="tab4"><span>Visits</span></label></li>
-                    <li><label for="tab5"><span>Profile</span></label></li>
-                    <li><label for="tab6"><span>Support</span></label></li>
-                    <li><label for="tab7"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
-
+                    <li class="hld_nav_action_items"><label for="tab0"><span>Action Items</span></label></li>
+                    <li class="hld_nav_subscriptions"><label for="tab1"><span>Subscriptions</span></label></li>
+                    <li class="hld_nav_conversations"><label for="tab2"><span>Conversations</span></label></li>
+                    <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
+                    <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
+                    <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
+                    <li class="hld_nav_support"><label for="tab6"><span>Support</span></label></li>
+                    <li class="hld_nav_logout"><label for="tab7"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
                 </ul>
             </div>
+
             <p class="hld_tabs_hint">Scroll horizontally through the tabs to view and navigate all dashboard items.</p>
 
             <div class="content">
@@ -205,6 +205,24 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
         </div>
     </div>
 </section>
+
+
+
+<!-- Sidebar Wrapper -->
+<div class="hld-sidebar-overlay" id="hldSidebarOverlay">
+    <div class="hld-sidebar" id="hldSidebar">
+        <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
+        <div class="hld-sidebar-content">
+            <h2>Action Item</h2>
+            <?php hld_action_item(
+                "Complete Your GLP-1 Weight Loss Visit",
+                "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
+                home_url('/glp-1-weight-loss-intake/')
+            ); ?>
+        </div>
+    </div>
+</div>
+
 
 
 <script>

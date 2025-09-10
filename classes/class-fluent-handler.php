@@ -22,6 +22,8 @@ if (! class_exists('hldFluentHandler')) {
                 10,
                 2
             );
+            
+            add_action('wp_enqueue_scripts', [$this, 'pass_action_item_to_js']);
         }
 
         /**
@@ -39,6 +41,17 @@ if (! class_exists('hldFluentHandler')) {
          * @return array|null Array of submission objects on success, or null if no entries or not logged in.
          */
 
+
+        public function pass_action_item_to_js(){
+            
+            wp_localize_script(
+                'hld-class-navigation',
+                'hldActionItem',
+                [
+                    'glp1Prefunnel' => $this->is_action_item_active() ? true : false,
+                ]
+            );
+        }
 
 
         public function get_patient_entries()

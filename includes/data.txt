@@ -27,7 +27,8 @@ create_setup_intent
 order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d
 
 
-
+*** website that will convert to base64
+https://codebeautify.org/json-to-base64-converter#
 
 youcanserve81@gmail.com
 youcanserve81
@@ -37,3 +38,35 @@ Ga123!@#Da.
 youcanserve82@gmail.com
 youcanserve82
 Ga123!@#Da.
+
+
+
+// @todo: before publish
+0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
+1) hide the login button on the first step
+2) upload the api keys in wp-admin
+3) upload the medication div to the glp-1-prefunnel
+4) test by realtime charge when perscription recieved
+5) recurring charge functionality
+6) Add realtime URL's to telegra later for webhooks
+7) register system using email
+8) send real name from shipping address to telegra order while creating order get from fluent form
+9) display order information correctly
+10) in profile edit profile professionaly
+11) edit card professionaly
+12) add disqualify professionaly
+13) on long form submit get medications and send them to telegra
+14) Fix Date of birth mobile responsive and as vineeth asked
+15) Based on selected medication also display the true prices on subscriptions page
+16) Display Action items on dashboard
+18) success message in long form submit
+19) Back button in fluent forms
+20) make a PDF tutorial for vineeth how to change prices
+21) make the login form changes
+22) change the hover color of login button in glp-1-prefunnel login button display error messages correctly
+23) test login correctly
+24) select state which will be selected before
+25) hover text color fix on logout button
+
+
+

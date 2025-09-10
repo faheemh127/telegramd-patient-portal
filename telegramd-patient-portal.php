@@ -62,17 +62,14 @@ function my_create_setup_intent()
     ]);
 }
 
-
-
 require_once __DIR__ . '/vendor/autoload.php';
-
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
 
 // Include All Necessary files
-
-require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
+require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php'; 
+require_once plugin_dir_path(__FILE__) . 'classes/class-hld-settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-orders.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
