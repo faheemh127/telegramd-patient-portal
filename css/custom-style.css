@@ -42,7 +42,7 @@
 /* hide rounded circule in labels */
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label input {
-  display: none !important;
+  /* display: none !important; */
 }
 .hld_form_wrap .ff-el-form-check-label span {
   padding-left: 5px;
@@ -1060,6 +1060,63 @@
   border: none;
   border-radius: 10px;
 }
+
+/* css for disqualify page */
+
+.hld_disqualify_wrapper {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 35px 30px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.hld_disqualify_title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2c2c2c;
+  padding: 0;
+}
+
+.hld_disqualify_description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.hld_disqualify_message {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c62828;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.hld_disqualify_btn {
+  display: inline-block;
+  background: var(--hld-color-primary);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.hld_disqualify_btn:hover {
+  background: var(--hld-color-primary);
+  color: white;
+}
+
+/* css ends for disqualify page */
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .hld-sidebar {

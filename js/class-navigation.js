@@ -4,12 +4,25 @@ class HldNavigation {
   }
 
   // Initialize on page load
+  // use .hld_disqualify_step on each step that is fluent form step
   init() {
     this.checkLoginAndNavigate();
     console.log(hldActionItem);
     this.initActionItemSidebar();
     this.showActionItemSidebar();
     this.connectNavItemsWithActionItem();
+    this.hideNextBtnDisqualifyStep();
+  }
+
+  hideNextBtnDisqualifyStep() {
+    const disqualifySteps = document.querySelectorAll(".hld_disqualify_step");
+
+    disqualifySteps.forEach(function (step) {
+      const nextBtn = step.querySelector("button.ff-btn-next");
+      if (nextBtn) {
+        nextBtn.style.display = "none";
+      }
+    });
   }
 
   connectNavItemsWithActionItem() {

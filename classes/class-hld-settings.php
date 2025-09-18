@@ -118,7 +118,7 @@ class HLD_Admin_Settings
         ];
 
         foreach ($map as $const => $key) {
-            if (! defined($const)) {
+            if (! defined($const) && !HLD_DEVELOPER_ENVIRONMENT) {
                 $val = isset($this->options[$key]) ? $this->options[$key] : '';
                 define($const, $val);
             }

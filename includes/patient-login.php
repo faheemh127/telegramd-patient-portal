@@ -85,8 +85,11 @@ function hld_render_custom_login_form()
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
         </div>
         <div class="hld_create_wrap">
-            <p>First time here? <a href="">Create an account</a></p>
+            <p>First time here?
+                <a href="<?php echo esc_url(home_url('/patient-signup/')); ?>">Create an account</a>
+            </p>
         </div>
+
     </div>
 
 <?php

@@ -475,13 +475,16 @@ section#hdlDashboard {
      text-align: center;
     margin: auto;
     text-decoration: none;
-    background: #5b61fd;
+    background: var(--hld-color-primary);
     color: white;
     border-radius: 50px;
     height: 43px;
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+      color: white;
+    }
 }
 
 @media only screen and (max-width: 768px) {

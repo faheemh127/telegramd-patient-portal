@@ -11,9 +11,10 @@
 
 // Constants
 define('TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path(__FILE__));
-
+define("HLD_DEVELOPER_ENVIRONMENT", true);
 add_action('wp_ajax_create_payment_intent', 'my_create_payment_intent');
 add_action('wp_ajax_nopriv_create_payment_intent', 'my_create_payment_intent');
+
 
 function my_create_payment_intent()
 {
@@ -86,5 +87,6 @@ require_once plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook
 require_once plugin_dir_path(__FILE__) . 'includes/hooks.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
+require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 

@@ -7,6 +7,7 @@ class hldStripeHandler {
     this.errorElementId = config.errorElementId || "card-errors";
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";
     this.submitWrapperClass = config.submitWrapperClass || ".hld_form_main_submit_button";
+    this.prButtonId = config.prButtonId || "payment-request-button"; // NEW: container for Google Pay button
 
     this.stripe = null;
     this.elements = null;
@@ -17,7 +18,6 @@ class hldStripeHandler {
 
   init() {
     console.log("hldStripeHandler initialized 🚀");
-
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
@@ -27,8 +27,89 @@ class hldStripeHandler {
   setupStripe() {
     this.stripe = Stripe(this.publishableKey);
     this.elements = this.stripe.elements();
+
+    // ✅ Card Element (keep existing flow)
     this.card = this.elements.create("card");
     this.card.mount(`#${this.cardElementId}`);
+
+    // ✅ Google Pay / Apple Pay (Payment Request Button)
+    const paymentRequest = this.stripe.paymentRequest({
+      country: "US",          // <-- change to your country
+      currency: "usd",        // <-- change to your currency
+      total: {
+        label: "Prescription Payment",
+        amount: 0, // 0 for now since we’re only saving method, not charging
+      },
+      requestPayerName: true,
+      requestPayerEmail: true,
+    });
+
+    const prButton = this.elements.create("paymentRequestButton", {
+      paymentRequest,
+      style: {
+        paymentRequestButton: {
+          type: "default",
+          theme: "dark",
+          height: "40px",
+        },
+      },
+    });
+
+    // Check if Google/Apple Pay is available
+    paymentRequest.canMakePayment().then((result) => {
+      if (result) {
+        prButton.mount(`#${this.prButtonId}`);
+      } else {
+        console.log("Google Pay / Apple Pay not available on this device.");
+      }
+    });
+
+    // Handle payment method selection
+    paymentRequest.on("paymentmethod", async (ev) => {
+      try {
+        const setupIntent = await this.createSetupIntent();
+
+        if (!setupIntent.success) {
+          ev.complete("fail");
+          this.showError("Failed to create SetupIntent");
+          return;
+        }
+
+        const { clientSecret, customerId } = setupIntent.data;
+
+        // Confirm setup with Google Pay method
+        const { error, setupIntent: confirmedIntent } =
+          await this.stripe.confirmCardSetup(clientSecret, {
+            payment_method: ev.paymentMethod.id,
+          });
+
+        if (error) {
+          ev.complete("fail");
+          this.showError(error.message);
+          return;
+        }
+
+        ev.complete("success");
+
+        // Save method in backend
+        const saveResult = await this.savePaymentMethod(
+          customerId,
+          confirmedIntent.payment_method
+        );
+
+        if (!saveResult.success) {
+          this.showError("Failed to save Google Pay method.");
+          return;
+        }
+
+        console.log("Google Pay method saved successfully!");
+        this.submitForm();
+      } catch (err) {
+        console.error("Error in Google Pay flow:", err);
+        ev.complete("fail");
+        this.showError("Something went wrong with Google Pay.");
+      }
+    });
   }
 
   bindEvents() {
@@ -41,10 +122,11 @@ class hldStripeHandler {
       return;
     }
 
-    this.paymentButton.addEventListener("click", (e) => this.handlePayment(e));
+    this.paymentButton.addEventListener("click", (e) => this.handleCardPayment(e));
   }
 
-  async handlePayment(e) {
+  // ✅ Existing card flow
+  async handleCardPayment(e) {
     e.preventDefault();
     console.log("hdlMakeStipePayment button clicked");
 
@@ -54,10 +136,7 @@ class hldStripeHandler {
       const setupIntent = await this.createSetupIntent();
 
       if (!setupIntent.success) {
-        this.showError(
-          setupIntent.data?.message ||
-            "An error occurred while creating setup intent."
-        );
+        this.showError("Error creating SetupIntent.");
         this.toggleButtonState(false, "Save and Continue");
         return;
       }
@@ -68,7 +147,7 @@ class hldStripeHandler {
         payment_method: {
           card: this.card,
           billing_details: {
-            name: "John Doe", // TODO: replace with dynamic user name
+            name: "John Doe", // TODO: replace with dynamic user info
           },
         },
       });
@@ -80,22 +159,18 @@ class hldStripeHandler {
       }
 
       const paymentMethod = result.setupIntent.payment_method;
-
       const saveResult = await this.savePaymentMethod(customerId, paymentMethod);
 
       if (!saveResult.success) {
-        this.showError(
-          saveResult.data?.message || "An error occurred. Please try again."
-        );
+        this.showError("Error saving card.");
         this.toggleButtonState(false, "Save and Continue");
         return;
       }
 
-      console.log("Payment method saved successfully!");
-
+      console.log("Card saved successfully!");
       this.submitForm();
     } catch (error) {
-      console.error("Error during payment handling:", error);
+      console.error("Error during card payment handling:", error);
       this.showError("Something went wrong. Please try again.");
       this.toggleButtonState(false, "Save and Continue");
     }
@@ -154,4 +229,5 @@ const stripeHandler = new hldStripeHandler({
   errorElementId: "card-errors",
   paymentButtonId: "hdlMakeStipePayment",
   submitWrapperClass: ".hld_form_main_submit_button",
+  prButtonId: "payment-request-button", // NEW: add this container in HTML
 });
