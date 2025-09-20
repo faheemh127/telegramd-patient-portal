@@ -25,13 +25,13 @@
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
   padding: 0px 10px !important;
-  font-size: 1rem !important;
+  font-size: 1.1rem !important;
   font-weight: 500 !important;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   text-align: left !important;
   width: 100%;
   background: white;
-  height: 50px;
+  height: 55px;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -369,7 +369,9 @@
 }
 #hdlMakeStipePayment {
   background-color: var(--hld-color-primary);
-  border-radius: 40px;
+
+  border-radius: 10px;
+  margin-top: 26px;
 }
 
 .hld_patient_packages .package-price {
@@ -1072,6 +1074,7 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   font-family: Arial, sans-serif;
   text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .hld_disqualify_title {

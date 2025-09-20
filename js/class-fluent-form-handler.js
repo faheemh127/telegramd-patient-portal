@@ -56,7 +56,7 @@ class HldFluentFormHandler {
         extraLabel ? `<span class="star">${extraLabel}</span>` : ""
       }
           </div>
-          <div class="med-price">${price}</div>
+          <div class="med-price">$${price}/month</div>
           <ul class="med-features">
             ${featuresHTML}
           </ul>
@@ -79,6 +79,10 @@ class HldFluentFormHandler {
     }
   }
 
+  getAmount(){
+    return 130;
+  }
+
   hideBmiNextBtn() {
     const parent = document.querySelector(".hld_btn_next_bmi");
     if (parent) {
@@ -99,6 +103,27 @@ class HldFluentFormHandler {
   }
   setPackagePrice(medicine) {
     console.log("medicine", medicine);
+  }
+
+  getFullNameFromContainer() {
+    // Find the container
+    const container = document.querySelector(".hld_name_container");
+    if (!container) return ""; // return empty if not found
+
+    // Get first and last name inputs using the name attribute
+    const firstNameInput = container.querySelector(
+      'input[name="names[first_name]"]'
+    );
+    const lastNameInput = container.querySelector(
+      'input[name="names[last_name]"]'
+    );
+
+    // Get values safely
+    const firstName = firstNameInput ? firstNameInput.value.trim() : "";
+    const lastName = lastNameInput ? lastNameInput.value.trim() : "";
+
+    // Concatenate and return
+    return `${firstName} ${lastName}`.trim();
   }
 
   init_google_places() {
@@ -143,6 +168,4 @@ class HldFluentFormHandler {
   }
 }
 
-// Create an object of this class
 const hldFormHandler = new HldFluentFormHandler();
-// Example usage:

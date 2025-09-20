@@ -12,10 +12,14 @@ class HldNavigation {
     this.showActionItemSidebar();
     this.connectNavItemsWithActionItem();
     this.hideNextBtnDisqualifyStep();
+    this.hideNextBtnDisqualifyStep();
+    this.hideNextBtnLoginWrap();
   }
 
   hideNextBtnDisqualifyStep() {
     const disqualifySteps = document.querySelectorAll(".hld_disqualify_step");
+
+    console.log("disqualify step found", disqualifySteps);
 
     disqualifySteps.forEach(function (step) {
       const nextBtn = step.querySelector("button.ff-btn-next");
@@ -23,6 +27,23 @@ class HldNavigation {
         nextBtn.style.display = "none";
       }
     });
+  }
+
+  hideNextBtnLoginWrap() {
+    const loginWraps = document.querySelectorAll(".hld_login_wrap");
+
+    if (loginWraps.length > 0) {
+      console.log("Login wraps found:", loginWraps);
+
+      loginWraps.forEach(function (wrap) {
+        const nextBtn = wrap.querySelector("button.ff-btn-next");
+        if (nextBtn) {
+          nextBtn.style.display = "none";
+        }
+      });
+    } else {
+      console.log("No .hld_login_wrap found on this page.");
+    }
   }
 
   connectNavItemsWithActionItem() {
@@ -55,33 +76,43 @@ class HldNavigation {
   initActionItemSidebar() {
     if (!hldActionItem.glp1Prefunnel || hldActionItem.glp1Prefunnel == "0")
       return;
+
     const overlay = document.getElementById("hldSidebarOverlay");
     const sidebar = document.getElementById("hldSidebar");
     const closeBtn = document.getElementById("hldSidebarClose");
 
-    this.showActionItemSidebar();
+    // Show sidebar only if overlay & sidebar exist
+    if (overlay && sidebar) {
+      this.showActionItemSidebar();
 
-    // Close sidebar on button click
-    closeBtn.addEventListener("click", () => {
-      sidebar.classList.remove("active");
-      setTimeout(() => overlay.classList.remove("active"), 300);
-    });
-
-    // Close sidebar on overlay click (outside click)
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) {
-        sidebar.classList.remove("active");
-        setTimeout(() => overlay.classList.remove("active"), 300);
+      // Close sidebar on button click
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          sidebar.classList.remove("active");
+          setTimeout(() => overlay.classList.remove("active"), 300);
+        });
       }
-    });
+
+      // Close sidebar on overlay click (outside click)
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          sidebar.classList.remove("active");
+          setTimeout(() => overlay.classList.remove("active"), 300);
+        }
+      });
+    }
   }
 
   showActionItemSidebar() {
     const overlay = document.getElementById("hldSidebarOverlay");
     const sidebar = document.getElementById("hldSidebar");
 
-    overlay.classList.add("active");
-    sidebar.classList.add("active");
+    if (overlay) {
+      overlay.classList.add("active");
+    }
+    if (sidebar) {
+      sidebar.classList.add("active");
+    }
   }
 
   // Function to check if user is logged in (dummy example, replace with real logic)

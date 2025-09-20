@@ -95,8 +95,12 @@ function hld_render_custom_signup_form()
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
         </div>
         <div class="hld_create_wrap">
-            <p>Already have an account? <a href="<?php echo wp_login_url(); ?>">Login</a></p>
+            <p>Already have an account?
+                <a href="<?php echo esc_url(home_url('/patient-login/')); ?>">Login</a>
+            </p>
         </div>
+
+
     </div>
 
 <?php
