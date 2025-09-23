@@ -1,16 +1,16 @@
 [
   {
-    "code": "TIRZ123",
+    "code": "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",
     "medication_name": "Tirzepatide (Most Popular)",
     "packages": [
       {
         "duration": "1 Month",
-        "price": "330",
-        "desc": "15–22% avg weight loss • Weekly injection • Dual action GLP-1 + GIP"
+        "price": "310",
+        "desc": "22% avg weight loss • Weekly injection • Dual action GLP-1 + GIP"
       },
       {
         "duration": "3 Months",
-        "price": "420",
+        "price": "450",
         "desc": "Discounted rate • Same benefits"
       },
       {
@@ -21,13 +21,13 @@
     ]
   },
   {
-    "code": "SEMA456",
+    "code": "pvt::4332bc52-5f54-4c8f-bf5c-f1ef2bb95fa0",
     "medication_name": "Semaglutide (Alternative Option)",
     "packages": [
       {
         "duration": "1 Month",
         "price": "40",
-        "desc": "10–15% avg weight loss • Weekly injection • Proven GLP-1 pathway"
+        "desc": "15% avg weight loss • Weekly injection • Proven GLP-1 pathway"
       },
       {
         "duration": "3 Months",

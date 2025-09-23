@@ -27,3 +27,13 @@ function hld_restrict_subscriber_admin_access()
     }
 }
 add_action('admin_init', 'hld_restrict_subscriber_admin_access');
+
+
+// hook into nextend social so always it should redirect to the redirect attribute link in shortcode
+add_filter('nsl_redirect_url', function ($url, $provider) {
+    // If shortcode has redirect attribute, Nextend passes it in $_REQUEST['redirect']
+    if (isset($_REQUEST['redirect']) && !empty($_REQUEST['redirect'])) {
+        return esc_url_raw($_REQUEST['redirect']);
+    }
+    return $url; // fallback
+}, 20, 2);

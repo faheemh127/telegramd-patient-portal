@@ -4,7 +4,7 @@ if (! class_exists('hldFluentHandler')) {
     class hldFluentHandler
     {
         protected $telegra;
-        protected $glp_prefunnel_form_id = 24;
+        protected $glp_prefunnel_form_id = 45;
 
         /**
          * Only forms listed here will trigger Telegra order creation.

@@ -2,7 +2,7 @@ class hldStripeHandler {
   constructor(config) {
     this.publishableKey = config.publishableKey;
     this.ajaxUrl = config.ajaxUrl;
-    this.formId = config.formId || "fluentform_13";
+    this.formId = config.formId || "fluentform_45";
     this.cardElementId = config.cardElementId || "card-element";
     this.errorElementId = config.errorElementId || "card-errors";
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";

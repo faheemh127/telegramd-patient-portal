@@ -1118,7 +1118,9 @@
   background: var(--hld-color-primary);
   color: white;
 }
-
+.fluentform .ff-el-progress-bar{
+  background-color: var(--hld-color-primary);
+}
 /* css ends for disqualify page */
 /* Mobile adjustments */
 @media (max-width: 768px) {
