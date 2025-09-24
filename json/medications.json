@@ -8,18 +8,21 @@
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "310",
-        "desc": "A flexible plan to support your weight loss, onetime payment renew when you confident"
+        "monthly_price": "299",
+        "desc": "A flexible plan to support your weight loss, onetime payment renew when you confident",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "290",
-        "desc": "Discounted rate, Same benefits, some another benifit"
+        "monthly_price": "275",
+        "desc": "Discounted rate, Same benefits, some another benifit",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "6",
-        "monthly_price": "270",
-        "desc": "Best value plan"
+        "monthly_price": "250",
+        "desc": "Best value plan",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       }
     ]
   },
@@ -32,18 +35,21 @@
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "130",
-        "desc": "Best value for money and safty of your amount, another description for this package"
+        "monthly_price": "250",
+        "desc": "Best value for money and safty of your amount, another description for this package",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "105",
-        "desc": "Save more on 3-month plan, Paid monthly no total upfront payment"
+        "monthly_price": "199",
+        "desc": "Save more on 3-month plan, Paid monthly no total upfront payment",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "6",
-        "monthly_price": "95",
-        "desc": "Lowest monthly rate, some other description of this package"
+        "monthly_price": "175",
+        "desc": "Lowest monthly rate, some other description of this package",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       }
     ]
   }

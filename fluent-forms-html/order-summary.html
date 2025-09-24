@@ -1,4 +1,5 @@
-<p><style>
+<p>
+  <style>
     div.ff-summary-wrapper {
       font-family: Arial, sans-serif;
       background-color: white;
@@ -35,12 +36,12 @@
     }
 
     div.ff-summary-row {
-     width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        margin-top: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     div.ff-summary-label {
@@ -83,9 +84,9 @@
     }
 
     .ff-summary-row.ff-total-row {
-        padding-top: 0;
-        margin-top: 15px;
-        margin-bottom: 15px;
+      padding-top: 0;
+      margin-top: 15px;
+      margin-bottom: 15px;
     }
 
     .ff-summary-total-wrap {
@@ -93,26 +94,54 @@
       font-weight: bold;
       color: black !important;
     }
-  </style></p>
-<h2 style="font-size: 18px; margin-bottom: 10px;">Order Summary</h2>
+  </style>
+</p>
+<h2 style="font-size: 18px; margin-bottom: 10px">Order Summary</h2>
 <div class="ff-summary-wrapper">
-<div class="ff-summary-inner-wrapper">
-<div class="ff-summary-box"><!-- Total Row -->
-<div class="ff-summary-row ff-treatment-row">
-<div class="ff-summary-label">
-<div>Provider evaluation</div>
+  <div class="ff-summary-inner-wrapper">
+    <div class="ff-summary-box">
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div><strong>Medication</strong></div>
+        </div>
+        <div class="ff-summary-value">
+          <div id="hldSummaryMedication"></div>
+        </div>
+      </div>
+
+
+      <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div><strong>Your Plan</strong></div>
+        </div>
+        <div class="ff-summary-value">
+         <div id="hldSummaryMedication"><span id="hldSummaryPackageDuration"></div>
+        </div>
+      </div>
+
+         <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-label">
+          <div>Today’s Payment (includes 1st month medication + evaluation)</div>
+        </div>
+        <div class="ff-summary-value">
+         
+        </div>
+      </div>
+
+      <!-- Total Row -->
+      <div class="ff-summary-row ff-total-row">
+        <div class="ff-summary-label"><strong>Due today</strong></div>
+        <div class="ff-summary-value ff-summary-total-wrap">
+          <div>$<span id="hldSummaryTotalToday">0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="ff-summary-value">
-<div>Free</div>
-</div>
-</div>
-<!-- Total Row -->
-<div class="ff-summary-row ff-total-row">
-<div class="ff-summary-label"><strong>Due today</strong></div>
-<div class="ff-summary-value ff-summary-total-wrap">
-<div>$0</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<ul style="margin-top: 20px;">
+  <li>Licensed US medical providers & accredited pharmacies</li>
+  <li><strong>Free, expedited 2-day shipping</strong> in discreet packaging</li>
+  <li>Money-back guarantee if you’re not prescribed</li>
+</ul>

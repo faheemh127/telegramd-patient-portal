@@ -88,6 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
     (value) => {
       console.log("Selected package:", value);
       hldFormHandler.setDropdownValue("dropdown_3", value);
+      hldFormHandler.setStripeData();
+      hldFormHandler.getAmount();
     }
   );
 

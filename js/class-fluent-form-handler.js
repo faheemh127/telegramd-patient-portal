@@ -1,6 +1,7 @@
 class HldFluentFormHandler {
   constructor() {
     // @todo uncomment this on production
+
     this.hideBmiNextBtn();
     this.hldhideNext("hld_gender_wrap");
     this.hldhideNext("hld_state_wrap");
@@ -138,8 +139,94 @@ class HldFluentFormHandler {
     }
   }
 
+  setStripeData() {
+    const dropdown2 = document.querySelector('[name="dropdown_2"]');
+    const dropdown3 = document.querySelector('[name="dropdown_3"]');
+
+    const medication = dropdown2 ? dropdown2.value : null;
+    const value3 = dropdown3 ? dropdown3.value : null;
+
+    console.log("dropdown_2 selected value:", medication);
+    console.log("dropdown_3 selected value:", value3);
+
+    // ✅ Set medication text to the div
+    const summaryDiv = document.getElementById("hldSummaryMedication");
+    if (summaryDiv) {
+      summaryDiv.textContent = medication
+        ? medication
+        : "No medication selected";
+    }
+
+    // ✅ Set package duration and update stripeHandler.gl1Duration
+    const durationDiv = document.getElementById("hldSummaryPackageDuration");
+    if (durationDiv) {
+      if (value3 === "Monthly") {
+        durationDiv.textContent = "1 Month";
+        stripeHandler.gl1Duration = 1;
+      } else if (value3 === "3-Month") {
+        durationDiv.textContent = "3 Months";
+        stripeHandler.gl1Duration = 3;
+      } else if (value3 === "6-Month") {
+        durationDiv.textContent = "6 Months";
+        stripeHandler.gl1Duration = 6;
+      } else {
+        durationDiv.textContent = "No plan selected";
+        stripeHandler.gl1Duration = 1; // fallback default
+      }
+    }
+  }
+
   getAmount() {
-    return 130;
+    const dropdown2 = document.querySelector('[name="dropdown_2"]');
+    const dropdown3 = document.querySelector('[name="dropdown_3"]');
+
+    const medication = dropdown2 ? dropdown2.value : null;
+    const value3 = dropdown3 ? dropdown3.value : null;
+
+    console.log("Selected medication:", medication);
+    console.log("Selected plan:", value3);
+
+    let duration = 1; // default
+    if (value3 === "Monthly") {
+      duration = 1;
+    } else if (value3 === "3-Month") {
+      duration = 3;
+    } else if (value3 === "6-Month") {
+      duration = 6;
+    }
+
+    // ✅ Update stripeHandler.gl1Duration
+    stripeHandler.gl1Duration = duration;
+
+    let selectedPrice = 0;
+
+    // ✅ Find medication in fluentFormData
+    if (medication && fluentFormData.medications) {
+      const med = fluentFormData.medications.find((m) =>
+        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+      );
+      if (med) {
+        const pkg = med.packages.find(
+          (p) => parseInt(p.monthly_duration, 10) === duration
+        );
+
+        if (pkg) {
+          selectedPrice = parseInt(pkg.monthly_price, 10);
+
+          // ✅ Set stripeHandler.priceId
+          stripeHandler.stripePriceId = pkg.stripe_price_id;
+
+          // ✅ Update UI
+          const todayDiv = document.getElementById("hldSummaryTotalToday");
+          if (todayDiv) {
+            todayDiv.textContent = selectedPrice;
+          }
+        }
+      }
+    }
+
+    console.log("Amount to charge today:", selectedPrice);
+    return selectedPrice;
   }
 
   hideBmiNextBtn() {

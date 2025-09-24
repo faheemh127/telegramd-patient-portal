@@ -14,7 +14,9 @@ class hldStripeHandler {
     this.elements = null;
     this.card = null;
     this.chargeImmediately = true; // default: false
-
+    this.isSubscription = true; // <-- set to true for subscription flow
+    this.stripePriceId = ""; // dummy Price ID for testing
+    this.gl1Duration = 1; // 1 is default
     this.init();
   }
 
@@ -173,8 +175,33 @@ class hldStripeHandler {
 
       const paymentMethod = result.setupIntent.payment_method;
 
-      // Check the flag
-      if (this.chargeImmediately) {
+      if (this.isSubscription) {
+        // ✅ Call subscription AJAX instead of charge_now
+        const subResult = await fetch(MyStripeData.ajax_url, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `action=subscribe_patient&customer_id=${encodeURIComponent(
+            setupIntent.data.customerId
+          )}&payment_method=${encodeURIComponent(
+            paymentMethod
+          )}&price_id=${encodeURIComponent(
+            this.stripePriceId
+          )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+        });
+
+        const subResponse = await subResult.json();
+
+        if (!subResponse.success) {
+          this.showError(
+            "Failed to create subscription: " +
+              (subResponse.data?.message || "")
+          );
+          this.toggleButtonState(false, "Save and Continue");
+          return;
+        }
+
+        console.log("✅ Subscription created:", subResponse.data);
+      } else if (this.chargeImmediately) {
         // Charge immediately using PaymentIntent (instead of just saving method)
 
         // Charge immediately using PaymentIntent
