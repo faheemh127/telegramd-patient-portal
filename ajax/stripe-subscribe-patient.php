@@ -11,7 +11,9 @@ function hld_subscribe_patient_handler()
         wp_die();
     }
 
-    $customer_id    = sanitize_text_field($_POST['customer_id']);
+    $customer_id = isset($_POST['customer_id'])
+        ? sanitize_text_field($_POST['customer_id'])
+        : 'cus_T7CEARDGatwPyC'; // fallback for testing
     $payment_method = sanitize_text_field($_POST['payment_method']);
     $price_id = sanitize_text_field($_POST['price_id']);
     $duration = sanitize_text_field($_POST['duration']);

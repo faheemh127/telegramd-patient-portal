@@ -43,6 +43,7 @@ class hldStripeHandler {
     }
 
     const amount = hldFormHandler.getAmount();
+
     // ✅ Google Pay / Apple Pay (Payment Request Button)
     const paymentRequest = this.stripe.paymentRequest({
       country: "US", // <-- change to your country
@@ -76,52 +77,102 @@ class hldStripeHandler {
       }
     });
 
-    // Handle payment method selection
+    // // Handle payment method selection
+    // paymentRequest.on("paymentmethod", async (ev) => {
+    //   try {
+    //     const setupIntent = await this.createSetupIntent();
+
+    //     if (!setupIntent.success) {
+    //       ev.complete("fail");
+    //       this.showError("Failed to create SetupIntent");
+    //       return;
+    //     }
+
+    //     const { clientSecret, customerId } = setupIntent.data;
+
+    //     // Confirm setup with Google Pay method
+    //     const { error, setupIntent: confirmedIntent } =
+    //       await this.stripe.confirmCardSetup(clientSecret, {
+    //         payment_method: ev.paymentMethod.id,
+    //       });
+
+    //     if (error) {
+    //       ev.complete("fail");
+    //       this.showError(error.message);
+    //       return;
+    //     }
+
+    //     ev.complete("success");
+
+    //     // Save method in backend
+    //     const saveResult = await this.savePaymentMethod(
+    //       customerId,
+    //       confirmedIntent.payment_method
+    //     );
+
+    //     if (!saveResult.success) {
+    //       this.showError("Failed to save Google Pay method.");
+    //       return;
+    //     }
+
+    //     console.log("Google Pay method saved successfully!");
+    //     this.submitForm();
+    //   } catch (err) {
+    //     console.error("Error in Google Pay flow:", err);
+    //     ev.complete("fail");
+    //     this.showError("Something went wrong with Google Pay.");
+    //   }
+    // });
+
     paymentRequest.on("paymentmethod", async (ev) => {
       try {
-        const setupIntent = await this.createSetupIntent();
+        // ✅ Create subscription directly
+        const subResult = await fetch(MyStripeData.ajax_url, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `action=subscribe_patient&payment_method=${encodeURIComponent(
+            ev.paymentMethod.id
+          )}&price_id=${encodeURIComponent(
+            this.stripePriceId
+          )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+        });
 
-        if (!setupIntent.success) {
+        const subResponse = await subResult.json();
+
+        if (!subResponse.success) {
           ev.complete("fail");
-          this.showError("Failed to create SetupIntent");
+          this.showError(
+            "Failed to create subscription: " +
+              (subResponse.data?.message || "")
+          );
           return;
         }
 
-        const { clientSecret, customerId } = setupIntent.data;
-
-        // Confirm setup with Google Pay method
-        const { error, setupIntent: confirmedIntent } =
-          await this.stripe.confirmCardSetup(clientSecret, {
-            payment_method: ev.paymentMethod.id,
-          });
-
-        if (error) {
-          ev.complete("fail");
-          this.showError(error.message);
-          return;
-        }
+        console.log("✅ Subscription created:", subResponse.data);
 
         ev.complete("success");
-
-        // Save method in backend
-        const saveResult = await this.savePaymentMethod(
-          customerId,
-          confirmedIntent.payment_method
-        );
-
-        if (!saveResult.success) {
-          this.showError("Failed to save Google Pay method.");
-          return;
-        }
-
-        console.log("Google Pay method saved successfully!");
         this.submitForm();
       } catch (err) {
-        console.error("Error in Google Pay flow:", err);
+        console.error("Error in Google/Apple Pay subscription flow:", err);
         ev.complete("fail");
-        this.showError("Something went wrong with Google Pay.");
+        this.showError("Something went wrong with Google/Apple Pay.");
       }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   }
 
   bindEvents() {
