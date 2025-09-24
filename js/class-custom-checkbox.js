@@ -1,19 +1,53 @@
+// class hldCustomCheckbox {
+//   constructor(containerSelector, callback) {
+//     this.container = document.querySelector(containerSelector);
+//     this.callback = callback;
+//     if (!this.container) return;
+
+//     this.checkboxes = this.container.querySelectorAll(".hld-custom-checkbox");
+
+//     this.checkboxes.forEach((box) => {
+//       box.addEventListener("click", () => this.handleClick(box));
+//     });
+//   }
+
+//   handleClick(selectedBox) {
+//     // remove active from all
+//     this.checkboxes.forEach((box) => box.classList.remove("active"));
+
+//     // add active to clicked one
+//     selectedBox.classList.add("active");
+
+//     // get value
+//     const value = selectedBox.getAttribute("data-value");
+
+//     // call callback function with value
+//     if (this.callback) {
+//       this.callback(value);
+//     }
+//   }
+// }
+
+
 class hldCustomCheckbox {
   constructor(containerSelector, callback) {
     this.container = document.querySelector(containerSelector);
     this.callback = callback;
     if (!this.container) return;
 
-    this.checkboxes = this.container.querySelectorAll(".hld-custom-checkbox");
+    // Use event delegation
+    this.container.addEventListener("click", (e) => {
+      const box = e.target.closest(".hld-custom-checkbox");
+      if (!box || !this.container.contains(box)) return;
 
-    this.checkboxes.forEach((box) => {
-      box.addEventListener("click", () => this.handleClick(box));
+      this.handleClick(box);
     });
   }
 
   handleClick(selectedBox) {
     // remove active from all
-    this.checkboxes.forEach((box) => box.classList.remove("active"));
+    const boxes = this.container.querySelectorAll(".hld-custom-checkbox");
+    boxes.forEach((box) => box.classList.remove("active"));
 
     // add active to clicked one
     selectedBox.classList.add("active");
@@ -28,6 +62,9 @@ class hldCustomCheckbox {
   }
 }
 
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   window.genderCheckbox = new hldCustomCheckbox(
     ".hld-custom-checkbox-group",
@@ -36,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_1", value);
     }
   );
-
+ 
   window.hldMedicineOptions = new hldCustomCheckbox(
     ".hld-custom-checkbox-group[data-field='medicine']",
     (value) => {

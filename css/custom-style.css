@@ -57,6 +57,9 @@
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
 }
+.hld_glp_1_prefunnel_wrap .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input{
+  display: none;
+}
 .hld_btn_edit_profile {
   float: right;
   margin-left: auto;
@@ -1119,7 +1122,12 @@
   color: white;
 }
 .fluentform .ff-el-progress-bar{
-  background-color: var(--hld-color-primary);
+  background-color: var(--hld-color-primary) !important;
+  border-radius: 10px;
+    overflow: hidden;
+}
+.ff-el-progress{
+  border-radius: 25px !important;
 }
 /* css ends for disqualify page */
 /* Mobile adjustments */

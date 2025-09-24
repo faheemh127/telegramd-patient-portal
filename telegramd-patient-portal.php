@@ -33,17 +33,17 @@ function my_create_payment_intent()
 }
 
 add_action('wp_ajax_create_setup_intent', 'my_create_setup_intent');
-add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
+// add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
 function my_create_setup_intent()
 {
 
     // Check if user is logged in
-    if (!is_user_logged_in()) {
-        wp_send_json_error([
-            'message' => 'You must be logged in to save a payment method.',
-        ]);
-        wp_die(); // Stop execution
-    }
+    // if (!is_user_logged_in()) {
+    //     wp_send_json_error([
+    //         'message' => 'You must be logged in to save a payment method.',
+    //     ]);
+    //     wp_die(); // Stop execution
+    // }
 
 
 
@@ -54,13 +54,6 @@ function my_create_setup_intent()
 
     // Dynamic description
     $description = "Customer for GLP-1 Prefunnel: {$user_name} ({$user_email})";    // Check if user is logged in
-
-
-    if (!is_user_logged_in()) {
-        wp_send_json_error([
-            'message' => 'You must be logged in to save a payment method.',
-        ]);
-    }
 
     // Proceed only if logged in
     require_once __DIR__ . '/vendor/autoload.php';
@@ -83,86 +76,36 @@ function my_create_setup_intent()
 }
 
 
-// // Pay Upfront
-// add_action('wp_ajax_charge_now', 'hld_charge_now_handler');
-// add_action('wp_ajax_nopriv_charge_now', 'hld_charge_now_handler');
+// Pay Upfront
+add_action('wp_ajax_charge_now', 'hld_charge_now_handler');
+add_action('wp_ajax_nopriv_charge_now', 'hld_charge_now_handler');
 
-// function hld_charge_now_handler()
-// {
-//     if (!isset($_POST['customer_id']) || !isset($_POST['payment_method'])) {
-//         wp_send_json_error(['message' => 'Missing parameters']);
-//         wp_die();
-//     }
-
-//     $customer_id = sanitize_text_field($_POST['customer_id']);
-//     $payment_method = sanitize_text_field($_POST['payment_method']);
-//     $amount = sanitize_text_field($_POST['amount']);
-//     $amount_in_cents = $amount * 100;
-//     try {
-//         // Initialize Stripe with your secret key
-//         \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
-
-//         $paymentIntent = \Stripe\PaymentIntent::create([
-//             'amount' => $amount_in_cents, // Amount in cents, adjust as needed
-//             'currency' => 'usd',
-//             'customer' => $customer_id,
-//             'payment_method' => $payment_method,
-//             'off_session' => true,
-//             'confirm' => true,
-//         ]);
-
-//         wp_send_json_success([
-//             'payment_intent' => $paymentIntent->id
-//         ]);
-//     } catch (Exception $e) {
-//         wp_send_json_error(['message' => $e->getMessage()]);
-//     }
-
-//     wp_die();
-// }
-
-
-
-
-// Subscribe Patient (auto-cancel after 3 months)
-add_action('wp_ajax_subscribe_patient', 'hld_subscribe_patient_handler');
-add_action('wp_ajax_nopriv_subscribe_patient', 'hld_subscribe_patient_handler');
-
-function hld_subscribe_patient_handler()
+function hld_charge_now_handler()
 {
-    if (!isset($_POST['customer_id']) || !isset($_POST['payment_method']) || !isset($_POST['price_id'])) {
+    if (!isset($_POST['customer_id']) || !isset($_POST['payment_method'])) {
         wp_send_json_error(['message' => 'Missing parameters']);
         wp_die();
     }
 
-    $customer_id    = sanitize_text_field($_POST['customer_id']);
+    $customer_id = sanitize_text_field($_POST['customer_id']);
     $payment_method = sanitize_text_field($_POST['payment_method']);
-    $price_id       = sanitize_text_field($_POST['price_id']); // recurring price ID (price_xxx)
-
+    $amount = sanitize_text_field($_POST['amount']);
+    $amount_in_cents = $amount * 100;
     try {
+        // Initialize Stripe with your secret key
         \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
-        // Attach the payment method to the customer
-        \Stripe\PaymentMethod::attach($payment_method, ['customer' => $customer_id]);
-
-        // Set as default payment method
-        \Stripe\Customer::update($customer_id, [
-            'invoice_settings' => ['default_payment_method' => $payment_method]
-        ]);
-
-        // Create subscription (cancel after 3 months)
-        $subscription = \Stripe\Subscription::create([
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $amount_in_cents, // Amount in cents, adjust as needed
+            'currency' => 'usd',
             'customer' => $customer_id,
-            'items' => [[
-                'price' => $price_id,
-            ]],
-            'cancel_at' => strtotime("+3 months"), // auto cancel after 3 months
-            'expand' => ['latest_invoice.payment_intent'],
+            'payment_method' => $payment_method,
+            'off_session' => true,
+            'confirm' => true,
         ]);
 
         wp_send_json_success([
-            'subscription_id' => $subscription->id,
-            'status' => $subscription->status,
+            'payment_intent' => $paymentIntent->id
         ]);
     } catch (Exception $e) {
         wp_send_json_error(['message' => $e->getMessage()]);
@@ -170,6 +113,57 @@ function hld_subscribe_patient_handler()
 
     wp_die();
 }
+
+
+
+
+// // Subscribe Patient (auto-cancel after 3 months)
+// add_action('wp_ajax_subscribe_patient', 'hld_subscribe_patient_handler');
+// add_action('wp_ajax_nopriv_subscribe_patient', 'hld_subscribe_patient_handler');
+
+// function hld_subscribe_patient_handler()
+// {
+//     if (!isset($_POST['customer_id']) || !isset($_POST['payment_method']) || !isset($_POST['price_id'])) {
+//         wp_send_json_error(['message' => 'Missing parameters']);
+//         wp_die();
+//     }
+
+//     $customer_id    = sanitize_text_field($_POST['customer_id']);
+//     $payment_method = sanitize_text_field($_POST['payment_method']);
+//     // $price_id       = sanitize_text_field($_POST['price_id']); // recurring price ID (price_xxx)
+//     $price_id = "prod_T6gWAGad8vzvqU";
+
+//     try {
+//         \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+//         // Attach the payment method to the customer
+//         \Stripe\PaymentMethod::attach($payment_method, ['customer' => $customer_id]);
+
+//         // Set as default payment method
+//         \Stripe\Customer::update($customer_id, [
+//             'invoice_settings' => ['default_payment_method' => $payment_method]
+//         ]);
+
+//         // Create subscription (cancel after 3 months)
+//         $subscription = \Stripe\Subscription::create([
+//             'customer' => $customer_id,
+//             'items' => [[
+//                 'price' => $price_id,
+//             ]],
+//             'cancel_at' => strtotime("+3 months"), // auto cancel after 3 months
+//             'expand' => ['latest_invoice.payment_intent'],
+//         ]);
+
+//         wp_send_json_success([
+//             'subscription_id' => $subscription->id,
+//             'status' => $subscription->status,
+//         ]);
+//     } catch (Exception $e) {
+//         wp_send_json_error(['message' => $e->getMessage()]);
+//     }
+
+//     wp_die();
+// }
 
 
 

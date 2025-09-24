@@ -178,7 +178,7 @@ class hldStripeHandler {
         // Charge immediately using PaymentIntent (instead of just saving method)
 
         // Charge immediately using PaymentIntent
-
+        const amount = hldFormHandler.getAmount();
         const chargeResult = await fetch(MyStripeData.ajax_url, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
