@@ -1034,6 +1034,9 @@
   justify-content: end;
   align-items: center;
 }
+.hld-mt-0{
+  margin-top: 0 !important;
+}
 
 .hld_login_wrapper .nsl-button-label-container b {
   font-weight: 400;

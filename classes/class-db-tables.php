@@ -10,7 +10,7 @@ class HLD_DB_Tables {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
         $charset_collate = $wpdb->get_charset_collate();
-        $prefix = $wpdb->prefix . "hld_";
+        $prefix = $wpdb->prefix . "healsend_";
 
         self::$tables['patients'] = "{$prefix}patients";
         self::$tables['payments'] = "{$prefix}payments";
