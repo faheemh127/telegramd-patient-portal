@@ -1,4 +1,3 @@
-
 <?php
 add_action('wp_ajax_charge_now', 'hld_charge_now_handler');
 add_action('wp_ajax_nopriv_charge_now', 'hld_charge_now_handler');

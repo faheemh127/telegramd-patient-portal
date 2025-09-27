@@ -365,7 +365,7 @@ class hldStripeHandler {
 const stripeHandler = new hldStripeHandler({
   publishableKey: MyStripeData.publishableKey,
   ajaxUrl: MyStripeData.ajax_url,
-  formId: "fluentform_24",
+  formId: "fluentform_45",
   cardElementId: "card-element",
   errorElementId: "card-errors",
   paymentButtonId: "hdlMakeStipePayment",

@@ -1,4 +1,3 @@
-
 <?php
 // Subscribe Patient (auto-cancel after 3 months)
 add_action('wp_ajax_subscribe_patient', 'hld_subscribe_patient_handler');

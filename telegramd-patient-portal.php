@@ -34,6 +34,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-patient.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
@@ -44,3 +45,6 @@ require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
+
+
+register_activation_hook( __FILE__, [ 'HLD_DB_Tables', 'create_tables' ] );
