@@ -73,7 +73,7 @@ if (! class_exists('hldAssets')) {
                 '1.0',
                 true
             );
- 
+
             wp_enqueue_script(
                 'hld-class-navigation',
                 plugin_dir_url(__FILE__) . '../js/class-navigation.js',
@@ -143,6 +143,7 @@ if (! class_exists('hldAssets')) {
             wp_localize_script('my-stripe-handler', 'MyStripeData', [
                 'ajax_url'       => admin_url('admin-ajax.php'),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
+
             ]);
         }
     }

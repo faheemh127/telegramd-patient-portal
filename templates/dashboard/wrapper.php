@@ -90,124 +90,132 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
 
 <section id="hdlDashboard">
     <div class="container">
+
         <div class="tabs" style="padding-top: 1px;">
-            <input type="radio" id="tab0" name="tab-control" checked />
-            <input type="radio" id="tab1" name="tab-control" />
-            <input type="radio" id="tab2" name="tab-control" />
-            <input type="radio" id="tab3" name="tab-control" />
-            <input type="radio" id="tab4" name="tab-control" />
-            <input type="radio" id="tab5" name="tab-control" />
-            <input type="radio" id="tab6" name="tab-control" />
-            <input type="radio" id="tab7" name="tab-control" />
-            <input type="radio" id="tab8" name="tab-control" />
-            <!-- Wrap the navigation in a scrollable container -->
-            <div class="tabs-nav-wrapper">
-                <ul class="container">
-                    <li class="hld_nav_action_items"><label for="tab0"><span>Action Items</span></label></li>
-                    <li class="hld_nav_subscriptions"><label for="tab1"><span>Subscriptions</span></label></li>
-                    <li class="hld_nav_conversations"><label for="tab2"><span>Conversations</span></label></li>
-                    <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
-                    <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
-                    <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
-                    <li class="hld_nav_support"><label for="tab6"><span>Lab Orders</span></label></li>
-                    <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
-                    <li class="hld_nav_logout"><label for="tab8"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
-                </ul>
-            </div>
+            <?php if (hld_should_display_dashboard_nav()): ?>
+                <input type="radio" id="tab0" name="tab-control" checked />
+                <input type="radio" id="tab1" name="tab-control" />
+                <input type="radio" id="tab2" name="tab-control" />
+                <input type="radio" id="tab3" name="tab-control" />
+                <input type="radio" id="tab4" name="tab-control" />
+                <input type="radio" id="tab5" name="tab-control" />
+                <input type="radio" id="tab6" name="tab-control" />
+                <input type="radio" id="tab7" name="tab-control" />
+                <input type="radio" id="tab8" name="tab-control" />
+                <!-- Wrap the navigation in a scrollable container -->
+                <div class="tabs-nav-wrapper">
+                    <ul class="container">
+                        <li class="hld_nav_action_items"><label for="tab0"><span>Action Items</span></label></li>
+                        <li class="hld_nav_subscriptions"><label for="tab1"><span>Subscriptions</span></label></li>
+                        <li class="hld_nav_conversations"><label for="tab2"><span>Conversations</span></label></li>
+                        <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
+                        <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
+                        <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
+                        <li class="hld_nav_support"><label for="tab6"><span>Lab Orders</span></label></li>
+                        <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
+                        <li class="hld_nav_logout"><label for="tab8"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
+                    </ul>
+                </div>
 
-            <p class="hld_tabs_hint">Scroll horizontally through the tabs to view and navigate all dashboard items.</p>
+                <p class="hld_tabs_hint">Scroll horizontally through the tabs to view and navigate all dashboard items.</p>
+            <?php endif; ?>
+            <?php if (isset($_GET['upload-id'])) : ?>
+                <?php require_once HLD_PLUGIN_PATH . 'templates/upload-id.php'; ?>
+            <?php else : ?>
+                <div class="content">
+                    <!-- Section 1 -->
+                    <section class="container">
+                        <?php
+                        global $hld_fluent_handler;
+                        //  
+                        ?>
 
-            <div class="content">
-                <!-- Section 1 -->
-                <section class="container">
-                    <?php
-                    global $hld_fluent_handler;
-                    //  
+                        <?php
+                        if ($hld_fluent_handler->is_action_item_active()) {
+                            hld_action_item(
+                                "Complete Your GLP-1 Weight Loss Visit",
+                                "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
+                                home_url('/glp-1-weight-loss-intake/')
+                            );
+                        } else {
+                            hld_not_found("You have no action items");
+                        }
+
+                        ?>
+
+                        <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
+                        ?>
+
+                    </section>
+                    <!-- Section 2 -->
+                    <section class="container">
+
+
+                        <?php hdl_get_template('dashboard/subscription'); ?>
+
+
+                    </section>
+
+                    <!-- Section 3 -->
+                    <section class="container">
+
+                        <iframe
+                            src="https://healsend.com/chat-app/"
+                            width="100%"
+                            height="1000"
+                            style="border: none;"
+                            loading="lazy"></iframe>
+
+
+                    </section>
+                    <!-- Section 4 -->
+                    <section class="container">
+                        <h2>Order History</h2>
+                        <div class="inner-content">
+                            <?php hdl_get_template('dashboard/show-orders'); ?>
+                        </div>
+                    </section>
+                    <!-- Section 5 -->
+                    <section class="container">
+                        <?php // hdl_get_template('dashboard/returns'); 
+                        ?>
+                        <iframe
+                            src="https://healsend.com/visit/"
+                            width="100%"
+                            height="1000"
+                            style="border: none;"
+                            loading="lazy"></iframe>
+
+                    </section>
+                    <section class="container">
+                        <h2>Patient Profile</h2>
+                        <?php hdl_get_template('dashboard/patient-profile', ['user' => $user]); ?>
+                    </section>
+                    <!-- Section 6 -->
+
+                    <section class="container">
+                        <?php hdl_get_template('dashboard/lab-orders');
+                        ?>
+                    </section>
+
+                    <section class="container">
+                        <?php
+                        hld_not_found("Email us at info@healsend.com for any query"); ?>
+
+                    </section>
+
+                    <!-- Section 7 -->
+                    <!-- <section> -->
+                    <!-- <h2>Action Items</h2> -->
+                    <?php // hld_display_fluent_saved_forms_cards();    
                     ?>
+                    <!-- </section> -->
 
-                    <?php
-                    if ($hld_fluent_handler->is_action_item_active()) {
-                        hld_action_item(
-                            "Complete Your GLP-1 Weight Loss Visit",
-                            "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
-                            home_url('/glp-1-weight-loss-intake/')
-                        );
-                    } else {
-                        hld_not_found("You have no action items");
-                    }
+                </div>
+            <?php endif; ?>
 
-                    ?>
-
-                    <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
-                    ?>
-
-                </section>
-                <!-- Section 2 -->
-                <section class="container">
-
-
-                    <?php hdl_get_template('dashboard/subscription'); ?>
-
-
-                </section>
-
-                <!-- Section 3 -->
-                <section class="container">
-
-                    <iframe
-                        src="https://healsend.com/chat-app/"
-                        width="100%"
-                        height="1000"
-                        style="border: none;"
-                        loading="lazy"></iframe>
-
-
-                </section>
-                <!-- Section 4 -->
-                <section class="container">
-                    <h2>Order History</h2>
-                    <div class="inner-content">
-                        <?php hdl_get_template('dashboard/show-orders'); ?>
-                    </div>
-                </section>
-                <!-- Section 5 -->
-                <section class="container">
-                    <?php // hdl_get_template('dashboard/returns'); 
-                    ?>
-                    <iframe
-                        src="https://healsend.com/visit/"
-                        width="100%"
-                        height="1000"
-                        style="border: none;"
-                        loading="lazy"></iframe>
-
-                </section>
-                <section class="container">
-                    <h2>Patient Profile</h2>
-                    <?php hdl_get_template('dashboard/patient-profile', ['user' => $user]); ?>
-                </section>
-                <!-- Section 6 -->
-
-                <section class="container">
-                    <?php hdl_get_template('dashboard/lab-orders');
-                    ?>
-                </section>
-
-                <section class="container">
-                    <?php
-                    hld_not_found("Email us at info@healsend.com for any query"); ?>
-
-                </section>
-
-                <!-- Section 7 -->
-                <!-- <section> -->
-                <!-- <h2>Action Items</h2> -->
-                <?php // hld_display_fluent_saved_forms_cards();    
-                ?>
-                <!-- </section> -->
-
-            </div>
         </div>
+
     </div>
 </section>
 
@@ -219,6 +227,15 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
         <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
         <div class="hld-sidebar-content">
             <h2>Action Item</h2>
+            <?php
+            hld_action_item(
+                "ID Verification Pending",
+                "Your ID upload is still pending. Please upload a valid ID to continue with your visit.",
+                HLD_PATIENT_DASHBOARD_URL . "?upload-id" // replace with your actual ID upload page
+            );
+            ?>
+
+
             <?php hld_action_item(
                 "Complete Your GLP-1 Weight Loss Visit",
                 "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",

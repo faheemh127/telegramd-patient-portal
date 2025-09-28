@@ -90,6 +90,7 @@ if (! class_exists('hldFluentHandler')) {
 
         public function is_action_item_active()
         {
+            return true;
             $option_name = 'hld_action_item_form_' . $this->glp_prefunnel_form_id;
             return (bool) get_option($option_name, false);
         }

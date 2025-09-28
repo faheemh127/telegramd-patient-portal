@@ -158,21 +158,6 @@ class hldStripeHandler {
         this.showError("Something went wrong with Google/Apple Pay.");
       }
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
   }
 
   bindEvents() {
@@ -361,11 +346,25 @@ class hldStripeHandler {
   }
 }
 
+
+const isLocalhost =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1" ||
+  window.location.hostname === "::1";
+
+// Check if connection is secure (HTTPS)
+const isSecure = window.location.protocol === "https:";
 // Usage
+let glp1FormID;
+if (isLocalhost) {
+  glp1FormID = 24;
+} else {
+  glp1FormID = 45;
+}
 const stripeHandler = new hldStripeHandler({
   publishableKey: MyStripeData.publishableKey,
   ajaxUrl: MyStripeData.ajax_url,
-  formId: "fluentform_45",
+  formId: "fluentform_" + glp1FormID,
   cardElementId: "card-element",
   errorElementId: "card-errors",
   paymentButtonId: "hdlMakeStipePayment",

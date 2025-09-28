@@ -82,3 +82,15 @@ function hld_charge_later($user_id, $amount_in_dollars)
         return false;
     }
 }
+
+
+function hld_should_display_dashboard_nav()
+{
+    if (isset($_GET['upload-id'])) {
+        return false; // Show dashboard nav if both are not set
+    } elseif (isset($_GET['some-other-param'])) {
+        return false; // Example: handle another URL param
+    } else {
+        return true; // Default case
+    }
+}

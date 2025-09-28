@@ -23,11 +23,11 @@ class hldDashboardShortcode
                 hdl_get_template('dashboard/wrapper', ['icons' => hdl_icons(), 'user' => $user]);
                 return ob_get_clean();
             } else {
-                wp_redirect(home_url('/log-in-to-your-account?patient_login_required=true'));
+                wp_redirect(home_url('/patient-login?patient_login_required=true'));
                 exit;
             }
         } else {
-            wp_redirect(home_url('/log-in-to-your-account?patient_login_required=true'));
+            wp_redirect(home_url('/patient-login?patient_login_required=true'));
             exit;
         }
     }

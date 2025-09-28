@@ -9,7 +9,7 @@ class HldNavigation {
     this.checkLoginAndNavigate();
     console.log(hldActionItem);
     this.initActionItemSidebar();
-    this.showActionItemSidebar();
+    // this.showActionItemSidebar();
     this.connectNavItemsWithActionItem();
     this.hideNextBtnDisqualifyStep();
     this.hideNextBtnDisqualifyStep();
@@ -150,6 +150,7 @@ class HldNavigation {
   }
 
   initActionItemSidebar() {
+     console.log("reaching upto here 1223");
     if (!hldActionItem.glp1Prefunnel || hldActionItem.glp1Prefunnel == "0")
       return;
 
@@ -159,6 +160,7 @@ class HldNavigation {
 
     // Show sidebar only if overlay & sidebar exist
     if (overlay && sidebar) {
+     
       this.showActionItemSidebar();
 
       // Close sidebar on button click

@@ -10,9 +10,13 @@
 
 
 // constants
-define('TELEGRA_PATIENT_PORTAL_PATH', plugin_dir_path(__FILE__));
+
 define("HLD_DEVELOPER_ENVIRONMENT", true);
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
+
+
 
 // auto load
 require_once __DIR__ . '/vendor/autoload.php';
@@ -47,4 +51,4 @@ require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 
 
-register_activation_hook( __FILE__, [ 'HLD_DB_Tables', 'create_tables' ] );
+register_activation_hook(__FILE__, ['HLD_DB_Tables', 'create_tables']);
