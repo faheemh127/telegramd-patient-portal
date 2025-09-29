@@ -18,3 +18,10 @@ You also need the api-keys.php file inside the includes folder that will contain
 put this shortcode in a page and make sure to put the .hld_glp_1_prefunnel_wrap class to the gutenberg container or may be any elementor container
 
 Install ACF plugin and setup the keys with fluentform form submission so we can backup of each form entries and admin can see them easily
+
+
+
+Make sure to composer install after cloning the repo so you can get the required php packages
+
+
+Make sure to put api-keys.php file rightly so in dev environment you do not miss the files
