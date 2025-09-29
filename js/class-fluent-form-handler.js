@@ -1,3 +1,4 @@
+console.log("HldFluentFormHandler file loaded");
 class HldFluentFormHandler {
   constructor() {
     // @todo uncomment this on production
@@ -391,4 +392,4 @@ class HldFluentFormHandler {
   }
 }
 
-const hldFormHandler = new HldFluentFormHandler();
+var hldFormHandler = new HldFluentFormHandler();
