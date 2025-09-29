@@ -27,7 +27,7 @@ class HLD_UserSubscriptions
         $sql = "CREATE TABLE IF NOT EXISTS $table (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         user_id BIGINT(20) NOT NULL,
-        order_id VARCHAR(255) NOT NULL,
+        telegra_order_id VARCHAR(255) NOT NULL,
         
         patient_email VARCHAR(255) NOT NULL,
         subscription_duration VARCHAR(100) NOT NULL,
@@ -37,7 +37,7 @@ class HLD_UserSubscriptions
         subscription_monthly_amount DECIMAL(10,2) NOT NULL,
 
         PRIMARY KEY (id),
-        UNIQUE KEY user_order_unique (user_id, order_id)
+        UNIQUE KEY user_order_unique (user_id, telegra_order_id)
     ) $charset_collate;";
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -48,9 +48,9 @@ class HLD_UserSubscriptions
     /**
      * Add a new order to the custom table
      */
-    public static function add_order($user_id, $order_id)
+    public static function add_order($user_id, $telegra_order_id)
     {
-        if (empty($user_id) || empty($order_id)) {
+        if (empty($user_id) || empty($telegra_order_id)) {
             return false;
         }
 
@@ -58,7 +58,7 @@ class HLD_UserSubscriptions
         $table = $wpdb->prefix . self::$table_name;
 
         // Prevent duplicates
-        if (self::has_order($user_id, $order_id)) {
+        if (self::has_order($user_id, $telegra_order_id)) {
             return true;
         }
 
@@ -66,7 +66,7 @@ class HLD_UserSubscriptions
             $table,
             [
                 'user_id'  => $user_id,
-                'order_id' => sanitize_text_field($order_id),
+                'telegra_order_id' => sanitize_text_field($telegra_order_id),
             ],
             ['%d', '%s']
         );
@@ -85,7 +85,7 @@ class HLD_UserSubscriptions
         $table = $wpdb->prefix . self::$table_name;
 
         $results = $wpdb->get_col(
-            $wpdb->prepare("SELECT order_id FROM $table WHERE user_id = %d", $user_id)
+            $wpdb->prepare("SELECT telegra_order_id FROM $table WHERE user_id = %d", $user_id)
         );
 
         return $results ?: [];
@@ -94,13 +94,13 @@ class HLD_UserSubscriptions
     /**
      * Check if a user already has a specific order
      */
-    public static function has_order($user_id, $order_id)
+    public static function has_order($user_id, $telegra_order_id)
     {
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
         $exists = $wpdb->get_var(
-            $wpdb->prepare("SELECT COUNT(*) FROM $table WHERE user_id = %d AND order_id = %s", $user_id, $order_id)
+            $wpdb->prepare("SELECT COUNT(*) FROM $table WHERE user_id = %d AND telegra_order_id = %s", $user_id, $telegra_order_id)
         );
 
         return $exists > 0;
