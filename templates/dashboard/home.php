@@ -89,7 +89,7 @@ $logo_html = $logo_url
                 <h3>Total Orders</h3>
                 <?php
                 $user_id = get_current_user_id();
-                $orders = HLD_UserOrders::get_orders($user_id);
+                $orders = HLD_UserSubscriptions::get_orders($user_id);
                 $order_count = is_array($orders) ? count($orders) : 0;
                 ?>
                 <div class="value"><?php echo $order_count; ?></div>

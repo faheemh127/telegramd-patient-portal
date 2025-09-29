@@ -1,11 +1,13 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) exit;
 
-class HLD_DB_Tables {
+class HLD_DB_Tables
+{
 
     private static $tables = [];
 
-    public static function create_tables() {
+    public static function create_tables()
+    {
         global $wpdb;
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
@@ -27,6 +29,7 @@ class HLD_DB_Tables {
             last_name VARCHAR(100) NOT NULL,
             dob DATE NULL,
             contact_email VARCHAR(255),
+            patient_email VARCHAR(255) NOT NULL,
             phone VARCHAR(50),
             medical_history JSON,
             telegra_patient_id VARCHAR(255),
@@ -40,6 +43,7 @@ class HLD_DB_Tables {
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['payments'] . " (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             patient_id BIGINT UNSIGNED NOT NULL,
+            patient_email VARCHAR(255) NOT NULL,
             payment_token VARCHAR(255) NOT NULL,
             card_last4 VARCHAR(4),
             card_brand VARCHAR(50),
@@ -51,6 +55,7 @@ class HLD_DB_Tables {
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['patient_forms'] . " (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             patient_id BIGINT UNSIGNED NOT NULL,
+            patient_email VARCHAR(255) NOT NULL,
             form_name VARCHAR(100) NOT NULL,
             form_data JSON NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -61,13 +66,14 @@ class HLD_DB_Tables {
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['patient_form_answers'] . " (
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             submission_id BIGINT UNSIGNED NOT NULL,
+            patient_email VARCHAR(255) NOT NULL,
             question_key VARCHAR(100) NOT NULL,
             answer TEXT,
             FOREIGN KEY (submission_id) REFERENCES " . self::$tables['patient_forms'] . "(id)
         ) $charset_collate;";
 
-        foreach ( $sql as $query ) {
-            dbDelta( $query );
+        foreach ($sql as $query) {
+            dbDelta($query);
         }
     }
 }

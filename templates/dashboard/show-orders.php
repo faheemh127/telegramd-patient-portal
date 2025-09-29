@@ -5,7 +5,7 @@ global $hld_fluent_handler;
 // echo "code 101 is working";
 // if ( is_user_logged_in() ) {
 //     $user_id = get_current_user_id();
-//     $orders = HLD_UserOrders::get_orders($user_id);
+//     $orders = HLD_UserSubscriptions::get_orders($user_id);
 //     echo "<pre>";
 //     print_r($orders);
 //     echo "</pre>";
@@ -54,7 +54,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
     <?php
     if (is_user_logged_in()) {
         $user_id = get_current_user_id();
-        $orders = HLD_UserOrders::get_orders($user_id);
+        $orders = HLD_UserSubscriptions::get_orders($user_id);
         // echo "<pre>";
         // print_r($orders);
         // echo "</pre>";
