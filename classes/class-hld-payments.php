@@ -9,9 +9,9 @@ class HLD_Payments
     /**
      * Add a payment method for a patient
      */
-    public static function add_payment_method($patient_id, $patient_email, $payment_token, $card_last4 = null, $card_brand = null)
+    public static function add_payment_method($patient_email, $payment_token, $card_last4 = null, $card_brand = null)
     {
-        if (empty($patient_id) || empty($patient_email) || empty($payment_token)) {
+        if (empty($patient_email) || empty($payment_token)) {
             return false;
         }
 
@@ -21,16 +21,17 @@ class HLD_Payments
         $result = $wpdb->insert(
             $table,
             [
-                'patient_id'    => (int) $patient_id,
+
                 'patient_email' => sanitize_email($patient_email),
                 'payment_token' => sanitize_text_field($payment_token),
                 'card_last4'    => sanitize_text_field($card_last4),
                 'card_brand'    => sanitize_text_field($card_brand),
                 'created_at'    => current_time('mysql'),
             ],
-            ['%d', '%s', '%s', '%s', '%s', '%s']
+            ['%s', '%s', '%s', '%s', '%s']
         );
 
+        error_log("payment method saved in database 15" . $result);
         return $result !== false;
     }
 

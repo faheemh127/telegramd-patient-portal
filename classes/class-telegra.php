@@ -89,21 +89,40 @@ class HLD_Telegra
         $existing_id = HLD_Patient::get_telegra_patient_id($email);
         if ($existing_id) {
             // Return existing Telegra ID — do NOT create a new one
+            error_log("Patient already exists here is the patient id 16" .  $existing_id);
             return $existing_id;
         }
 
         // 2) Build payload for TelegraMD API
+        // $payload = [
+        //     'name'             => trim($first_name . ' ' . $last_name) ?: $email,
+        //     'firstName'        => $first_name ?: '',
+        //     'lastName'         => $last_name ?: '',
+        //     'email'            => $email,
+        //     'phone'            => '',            // leave blank or use placeholder
+        //     'dateOfBirth'      => '',            // optional
+        //     'gender'           => '',            // optional
+        //     'genderBiological' => '',            // optional
+        //     'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID') ? TELEGRAMD_AFFLIATE_ID : '',
+        // ];
+
+
         $payload = [
-            'name'             => trim($first_name . ' ' . $last_name) ?: $email,
-            'firstName'        => $first_name ?: '',
-            'lastName'         => $last_name ?: '',
-            'email'            => $email,
-            'phone'            => '',            // leave blank or use placeholder
-            'dateOfBirth'      => '',            // optional
-            'gender'           => '',            // optional
-            'genderBiological' => '',            // optional
-            'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID') ? TELEGRAMD_AFFLIATE_ID : '',
+            'name'             => trim($first_name . ' ' . $last_name) ?: ($email ?: 'John Doe'),
+            'firstName'        => $first_name ?: 'John',
+            'lastName'         => $last_name ?: 'Doe',
+            'email'            => $email ?: 'johndoe@example.com',
+            'phone'            => '000-000-0000', // dummy fallback
+            'dateOfBirth'      => '1970-01-01',     // default DOB
+            'gender'           => 'unknown',     // fallback
+            'genderBiological' => 'unknown',
+            'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID')
+                ? TELEGRAMD_AFFLIATE_ID
+                : 'AFFILIATE-123',
         ];
+
+
+
 
         $args = [
             'method'  => 'POST',

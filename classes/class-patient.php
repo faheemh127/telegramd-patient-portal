@@ -9,7 +9,7 @@ if (! class_exists('HLD_Patient')) {
         public static function get_table_name()
         {
             global $wpdb;
-            return $wpdb->prefix . 'patients';
+            return $wpdb->prefix . 'healsend_patients';
         }
 
         /**
@@ -112,6 +112,55 @@ if (! class_exists('HLD_Patient')) {
             );
 
             return $row ?: null;
+        }
+
+
+
+        /**
+         * Ensure a patient exists by email.
+         * If not found, insert a new row with only the email set.
+         * Does nothing if already exists.
+         * Returns the patient ID on success, or false on failure.
+         */
+        public static function ensure_patient_by_email($email)
+        {
+            if (empty($email) || !is_email($email)) {
+                return false;
+            }
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $email = sanitize_email($email);
+
+            // Check if patient already exists
+            $existing = $wpdb->get_var(
+                $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
+            );
+
+            if ($existing) {
+                return (int) $existing; // Already exists, return ID
+            }
+
+            // Insert new minimal row
+            $uuid = function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : uniqid('', true);
+
+            $inserted = $wpdb->insert(
+                $table,
+                [
+                    'patient_uuid'  => $uuid,
+                    'patient_email' => $email,
+                    'created_at'    => current_time('mysql'),
+                    'updated_at'    => current_time('mysql'),
+                ],
+                ['%s', '%s', '%s', '%s']
+            );
+
+            if ($inserted !== false) {
+                return (int) $wpdb->insert_id;
+            }
+
+            return false;
         }
     }
 }
