@@ -1,6 +1,11 @@
 <?php
 
-class hldTelegra
+/**
+ * HLD_Telegra: external API integration (create patient at TelegraMD).
+ * create_patient() checks local DB first via HLD_Patient, returns existing Telegra ID if present,
+ * otherwise creates via remote API, saves it locally, and returns the new Telegra ID.
+ */
+class HLD_Telegra
 {
 
 
@@ -54,66 +59,88 @@ class hldTelegra
 
 
 
-    public function create_patient()
+    /**
+     * Create patient at TelegraMD for current logged-in user (if not exists locally).
+     * Returns the Telegra patient ID string on success, or false on failure.
+     */
+    public static function create_patient()
     {
         if (!is_user_logged_in()) {
-            return;
+            return false;
         }
 
         $user = wp_get_current_user();
-        if (!in_array('subscriber', (array) $user->roles)) {
-            return;
+
+        // Optional: keep the same role check if you need it
+        // if (!in_array('subscriber', (array) $user->roles)) {
+        //     return false;
+        // }
+
+        $email      = $user->user_email ?: '';
+        $first_name = $user->first_name ?: '';
+        $last_name  = $user->last_name ?: '';
+
+        if (empty($email) || !is_email($email)) {
+            error_log('HLD_Telegra: invalid user email for create_patient');
+            return false;
         }
 
-        $user_id = $user->ID;
-        // Don't change this key other developers are using this.
-        $meta_key = 'hld_patient_' . $user_id . '_telegra_id';
-
-        // Skip if already exists
-        if (get_user_meta($user_id, $meta_key, true)) {
-            error_log("TelegraMD: Patient already exists for user $user_id");
-            return;
+        // 1) Check local DB for existing telegra_patient_id
+        $existing_id = HLD_Patient::get_telegra_patient_id($email);
+        if ($existing_id) {
+            // Return existing Telegra ID — do NOT create a new one
+            return $existing_id;
         }
 
-        // Prepare payload with available user data
-        $first_name = $user->first_name ?: 'Chewbacca';
-        $last_name  = $user->last_name ?: 'Wookie';
-        $email      = $user->user_email ?: 'johndoe@example.com';
-
+        // 2) Build payload for TelegraMD API
         $payload = [
-            'name'             => $first_name . ' ' . $last_name,
-            'firstName'        => $first_name,
-            'lastName'         => $last_name,
+            'name'             => trim($first_name . ' ' . $last_name) ?: $email,
+            'firstName'        => $first_name ?: '',
+            'lastName'         => $last_name ?: '',
             'email'            => $email,
-            'phone'            => '1111111111', // Placeholder
-            'dateOfBirth'      => '1990-01-01', // Placeholder
-            'gender'           => 'male',       // Placeholder
-            'genderBiological' => 'male',       // Placeholder
-            'affiliate'        => TELEGRAMD_AFFLIATE_ID,
+            'phone'            => '',            // leave blank or use placeholder
+            'dateOfBirth'      => '',            // optional
+            'gender'           => '',            // optional
+            'genderBiological' => '',            // optional
+            'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID') ? TELEGRAMD_AFFLIATE_ID : '',
         ];
 
-        $response = wp_remote_post('https://dev-core-ias-rest.telegramd.com/patients', [
+        $args = [
             'method'  => 'POST',
             'headers' => [
                 'accept'        => 'application/json',
-                'authorization' => 'Bearer ' . TELEGRAMD_BEARER_TOKEN,
+                'authorization' => defined('TELEGRAMD_BEARER_TOKEN') ? 'Bearer ' . TELEGRAMD_BEARER_TOKEN : '',
                 'content-type'  => 'application/json',
             ],
-            'body' => json_encode($payload),
-        ]);
+            'body' => wp_json_encode($payload),
+            'timeout' => 20,
+        ];
+
+        $endpoint = TELEGRA_BASE_URL . '/patients';
+
+
+        $response = wp_remote_post($endpoint, $args);
 
         if (is_wp_error($response)) {
-            error_log('TelegraMD API Error: ' . $response->get_error_message());
-        } else {
-            $body = wp_remote_retrieve_body($response);
-            $data = json_decode($body, true);
+            error_log('HLD_Telegra API Error: ' . $response->get_error_message());
+            return false;
+        }
 
-            if (!empty($data['id'])) {
-                update_user_meta($user_id, $meta_key, $data['id']);
-                error_log("TelegraMD: Patient created and saved for user $user_id with ID: {$data['id']}");
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        if (!empty($data['id'])) {
+            // Save into local patients table and return ID
+            $saved = HLD_Patient::set_telegra_patient_id($email, $data['id'], $first_name, $last_name);
+            if ($saved) {
+                return $data['id'];
             } else {
-                error_log("TelegraMD API Response missing ID: " . $body);
+                error_log('HLD_Telegra: saved to local DB failed for telegra_id=' . $data['id']);
+                return false;
             }
+        } else {
+            error_log('HLD_Telegra API Response missing ID: ' . $body);
+            return false;
         }
     }
 
@@ -211,4 +238,4 @@ class hldTelegra
 }
 
 // Create an object and call the method
-$hld_telegra = new hldTelegra();
+$hld_telegra = new HLD_Telegra();

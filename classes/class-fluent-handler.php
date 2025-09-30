@@ -244,7 +244,7 @@ if (! class_exists('hldFluentHandler')) {
 
         public function telegra()
         {
-            $this->telegra->create_patient();
+            HLD_Telegra::create_patient(); 
             $telegra_patient_id = $this->telegra->get_patient_id();
             if (empty($telegra_patient_id)) {
                 error_log("TelegraMD patient ID not found for current user.");

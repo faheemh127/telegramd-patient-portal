@@ -28,14 +28,12 @@ class HLD_UserSubscriptions
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         user_id BIGINT(20) NOT NULL,
         telegra_order_id VARCHAR(255) NOT NULL,
-        
         patient_email VARCHAR(255) NOT NULL,
         subscription_duration VARCHAR(100) NOT NULL,
         medication_telegra_id VARCHAR(255) NOT NULL,
         medication_name VARCHAR(255) NOT NULL,
         stripe_product_id VARCHAR(255) NOT NULL,
         subscription_monthly_amount DECIMAL(10,2) NOT NULL,
-
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (user_id, telegra_order_id)
     ) $charset_collate;";
@@ -73,6 +71,9 @@ class HLD_UserSubscriptions
 
         return $result !== false;
     }
+
+
+    
 
     /**
      * Get all orders for a given user

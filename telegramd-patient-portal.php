@@ -27,16 +27,17 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 // include all necessary files
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
-require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-subscriptions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-hld-payments.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-assets.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-patient.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-admin-menu.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
@@ -51,4 +52,6 @@ require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 
 
+// put the subscript patient in the last so it can use class hld-user-subscription class
+require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
 register_activation_hook(__FILE__, ['HLD_DB_Tables', 'create_tables']);

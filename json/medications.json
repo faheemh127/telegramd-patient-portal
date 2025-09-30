@@ -9,19 +9,19 @@
       {
         "monthly_duration": "1",
         "monthly_price": "299",
-        "desc": "A flexible plan to support your weight loss, onetime payment renew when you confident",
+        "desc": "A flexible plan to support your weight loss, Flexible commitment, Try before committing long-term,Pay as you go,Easy to renew anytime,Ideal for first-time patients",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "275",
-        "desc": "Discounted rate, Same benefits, some another benifit",
+        "desc": "Discounted monthly price,Balanced savings + flexibility,Stay consistent with treatment,No full upfront payment required,Great option for short-term results",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "6",
         "monthly_price": "250",
-        "desc": "Best value plan",
+        "desc": "Best value per month,Biggest overall savings,Long-term commitment for better results,Worry-free treatment continuity,Perfect for patients serious about weight loss",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       }
     ]
@@ -36,19 +36,19 @@
       {
         "monthly_duration": "1",
         "monthly_price": "250",
-        "desc": "Best value for money and safty of your amount, another description for this package",
+        "desc": "A flexible plan to support your weight loss, Flexible commitment, Try before committing long-term,Pay as you go,Easy to renew anytime,Ideal for first-time patients",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "199",
-        "desc": "Save more on 3-month plan, Paid monthly no total upfront payment",
+        "desc": "Discounted monthly price,Balanced savings + flexibility,Stay consistent with treatment,No full upfront payment required,Great option for short-term results",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "6",
         "monthly_price": "175",
-        "desc": "Lowest monthly rate, some other description of this package",
+        "desc": "Best value per month,Biggest overall savings,Long-term commitment for better results,Worry-free treatment continuity,Perfect for patients serious about weight loss",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       }
     ]

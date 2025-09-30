@@ -138,6 +138,7 @@ class hldStripeHandler {
         });
 
         const subResponse = await subResult.json();
+        console.log("subResponse141" , subResponse);
 
         if (!subResponse.success) {
           ev.complete("fail");
@@ -178,12 +179,13 @@ class hldStripeHandler {
   // ✅ Existing card flow
   async handleCardPayment(e) {
     e.preventDefault();
-    console.log("hdlMakeStipePayment button clicked");
+    console.log("handleCardPayment function called");
 
     this.toggleButtonState(true, "Processing...");
 
     try {
       const setupIntent = await this.createSetupIntent();
+      console.log("setupIntent188", setupIntent);
 
       if (!setupIntent.success) {
         this.showError("Error creating SetupIntent.");
@@ -209,6 +211,8 @@ class hldStripeHandler {
         return;
       }
 
+
+      console.log("result215", result);
       const paymentMethod = result.setupIntent.payment_method;
 
       if (this.isSubscription) {
@@ -357,7 +361,7 @@ const isSecure = window.location.protocol === "https:";
 // Usage
 let glp1FormID;
 if (isLocalhost) {
-  glp1FormID = 24;
+  glp1FormID = 45;
 } else {
   glp1FormID = 45;
 }
