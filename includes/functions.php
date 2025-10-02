@@ -1,5 +1,20 @@
 <?php
 
+if (!function_exists('hld_log')) {
+    function hld_log($message)
+    {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (is_array($message) || is_object($message)) {
+                error_log(print_r($message, true));
+            } else {
+                error_log($message);
+            }
+        }
+    }
+}
+
+
+
 function hld_action_item($title, $msg, $link)
 {
 ?>

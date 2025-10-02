@@ -11,7 +11,7 @@ if (! class_exists('hldFluentHandler')) {
          * Add form IDs to this array if they should create an order in Telegra.
          * If a form ID is not in this array, no Telegra order will be created.
          */
-        protected $telegra_forms = [17, 16];
+        protected $telegra_forms = [45];
         public function __construct($telegra)
         {
             // Register hook when class is instantiated
@@ -22,7 +22,7 @@ if (! class_exists('hldFluentHandler')) {
                 10,
                 2
             );
-            
+
             add_action('wp_enqueue_scripts', [$this, 'pass_action_item_to_js']);
         }
 
@@ -42,8 +42,9 @@ if (! class_exists('hldFluentHandler')) {
          */
 
 
-        public function pass_action_item_to_js(){
-            
+        public function pass_action_item_to_js()
+        {
+
             wp_localize_script(
                 'hld-class-navigation',
                 'hldActionItem',
@@ -244,13 +245,13 @@ if (! class_exists('hldFluentHandler')) {
 
         public function telegra()
         {
-            HLD_Telegra::create_patient(); 
-            $telegra_patient_id = $this->telegra->get_patient_id();
+            $telegra_patient_id = HLD_Telegra::create_patient();
+
             if (empty($telegra_patient_id)) {
                 error_log("TelegraMD patient ID not found for current user.");
                 return;
             }
-            error_log("telegra_patient_id " . $telegra_patient_id);
+            error_log("telegra_patient_id is:245" . $telegra_patient_id);
             $medication_id = $this->get_medication_id();
             $this->telegra->create_order(
                 $telegra_patient_id,
@@ -258,6 +259,101 @@ if (! class_exists('hldFluentHandler')) {
                 ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             );
         }
+
+        // public function prepare_questionare_for_telegra($form_data)
+        // {
+        //     // Hardcoded for testing — later you’ll pass real values
+        //     $order_id  = "order::a6807624-9c95-4819-ac61-a956784b02ed";
+        //     $quinst_id = "quinst::54188482-41ac-4866-afc8-9e498c645d05";
+
+        //     $answers = [];
+
+        //     foreach ($form_data as $key => $value) {
+        //         // Skip non-questionnaire fields
+        //         if (strpos($key, 'Glp_intakeform_') !== false) {
+        //             $answers[] = [
+        //                 'location' => 'loc::' . $key, // prepend loc::
+        //                 'value'    => $value
+        //             ];
+        //         }
+        //     }
+
+        //     // Debug log for safety
+        //     error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
+
+        //     // Now call your submit function (if you want to auto-send)
+        //     $result = $this->telegra->submit_questionnaire_answers($order_id, $quinst_id, $answers);
+
+        //     return $result;
+        // }
+
+
+        // public function prepare_questionare_for_telegra($form_data, $quinst_id, $order_id)
+        // {
+        //     $answers = [];
+
+        //     foreach ($form_data as $key => $value) {
+        //         if (strpos($key, 'Glp_intakeform_') === 0) {
+        //             // Convert Fluent form keys to Telegra location IDs
+        //             $loc_id = str_replace('_', '-', $key); // <-- critical fix
+        //             $answers[] = [
+        //                 'location' => "loc::{$loc_id}",
+        //                 'value'    => $value,
+        //             ];
+        //         }
+        //     }
+
+        //     error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
+
+        //     return [
+        //         'quinst_id' => $quinst_id,
+        //         'order_id'  => $order_id,
+        //         'answers'   => $answers,
+        //     ];
+        // }
+
+
+
+
+        public function prepare_questionare_for_telegra($form_data)
+        {
+            // Example — later pass these dynamically
+            $order_id  = "order::a6807624-9c95-4819-ac61-a956784b02ed";
+            $quinst_id = "quinst::54188482-41ac-4866-afc8-9e498c645d05";
+
+            $answers = [];
+
+            foreach ($form_data as $key => $value) {
+                // Only process keys starting with Glp_intakeform_
+                if (strpos($key, 'Glp_intakeform_') === 0) {
+                    // Convert underscores to hyphens (Telegra expects this format)
+                    $loc_id = str_replace('_', '-', $key);
+
+                    $answers[] = [
+                        'location' => "loc::{$loc_id}",
+                        'value'    => $value
+                    ];
+                }
+            }
+
+            // Figure out the last location dynamically (no hardcoding)
+            $last_location = null;
+            if (!empty($answers)) {
+                $last_location = end($answers)['location']; // last answered loc
+            }
+
+            // Debug log to confirm payload
+            error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
+            error_log("[TelegraMD] Last Location → " . $last_location);
+
+            // Call submit function
+            $result = $this->telegra->submit_questionnaire_answers($order_id, $quinst_id, $answers, $last_location);
+
+            return $result;
+        }
+
+
+
 
 
 
@@ -274,18 +370,16 @@ if (! class_exists('hldFluentHandler')) {
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
             // No need to do processing if user is not a patient
+
+
             if (! is_user_logged_in()) {
                 return;
             }
 
-            if (is_user_logged_in()) {
-                $user_id = get_current_user_id();
-                error_log("✅ Logged in User ID: " . $user_id);
-            } else {
-                error_log("❌ No user logged in.");
-                return;
-            }
 
+            if (true) {
+                $this->prepare_questionare_for_telegra($form);
+            }
 
             $form_id = $insertData['form_id'];
             if ($form_id == $this->glp_prefunnel_form_id) {

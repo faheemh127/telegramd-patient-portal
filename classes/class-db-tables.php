@@ -6,6 +6,11 @@ class HLD_DB_Tables
 
     private static $tables = [];
 
+    public static function get_table($name)
+    {
+        return isset(self::$tables[$name]) ? self::$tables[$name] : null;
+    }
+
     public static function create_tables()
     {
         global $wpdb;

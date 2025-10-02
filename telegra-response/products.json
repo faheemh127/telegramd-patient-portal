@@ -10,9 +10,7 @@
         "_id": "pro::eb331e23-516f-467d-b0fe-f9f34799ebfb",
         "isAvailable": true,
         "isActive": true,
-        "potentialConditions": [
-          "cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"
-        ],
+        "potentialConditions": ["cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"],
         "migratedToUnifiedProductLibrary": false,
         "minAge": 18,
         "deleted": false,
@@ -48,9 +46,7 @@
         "_id": "pro::b85c0525-957e-433d-86c2-f111ea059ad5",
         "isAvailable": true,
         "isActive": true,
-        "potentialConditions": [
-          "cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"
-        ],
+        "potentialConditions": ["cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"],
         "migratedToUnifiedProductLibrary": false,
         "minAge": 18,
         "deleted": false,
@@ -87,9 +83,7 @@
         "_id": "pro::65a3a357-ec0e-490d-8fa0-ad2e14cd3c25",
         "isAvailable": true,
         "isActive": true,
-        "potentialConditions": [
-          "cond::25066300-6392-47f8-9018-d9adade983db"
-        ],
+        "potentialConditions": ["cond::25066300-6392-47f8-9018-d9adade983db"],
         "deleted": false,
         "title": "Semaglutide",
         "description": "This is a test product.",
@@ -108,9 +102,7 @@
       "benefits": [],
       "productVariationWarnings": [],
       "isProviderAdjustmentRequired": false,
-      "tags": [
-        "prescription"
-      ],
+      "tags": ["prescription"],
       "processedByTelemdnow": false,
       "woocommerceIds": [],
       "overridingVisitType": null,
@@ -182,9 +174,7 @@
         "description": "Sermorelin",
         "isActive": true,
         "isAvailable": true,
-        "potentialConditions": [
-          "cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"
-        ],
+        "potentialConditions": ["cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"],
         "id": "pro::ddac5849-06b2-407a-822a-0265f8f70484"
       },
       "subscription": null,
@@ -196,9 +186,7 @@
       "isProviderAdjustmentRequired": false,
       "tags": [],
       "processedByTelemdnow": true,
-      "woocommerceIds": [
-        "6507"
-      ],
+      "woocommerceIds": ["6507"],
       "recurrenceSchedule": "never",
       "createdAt": "2021-10-06T14:18:20.447Z",
       "isActive": true,
@@ -225,9 +213,7 @@
         "createdAt": "2021-01-28T23:05:08.036Z",
         "updatedAt": "2023-03-27T14:17:36.838Z",
         "pretreatmentQuestionnaire": "quest::pre-treatment-plan-trimix",
-        "potentialConditions": [
-          "cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"
-        ],
+        "potentialConditions": ["cond::8c430d97-bc0a-4b26-89cd-ee98a2a9ce98"],
         "migratedToUnifiedProductLibrary": true,
         "id": "pro::3484f493-8be4-416c-a30c-a273746a962f"
       },
@@ -237,9 +223,7 @@
       "benefits": [],
       "productVariationWarnings": [],
       "isProviderAdjustmentRequired": false,
-      "tags": [
-        "prescription"
-      ],
+      "tags": ["prescription"],
       "processedByTelemdnow": false,
       "woocommerceIds": [],
       "createdAt": "2025-05-15T05:53:35.919Z",
@@ -257,9 +241,7 @@
         "_id": "pro::710d3869-c1aa-46bb-ad8c-5576782c2585",
         "isAvailable": true,
         "isActive": true,
-        "potentialConditions": [
-          "cond::25066300-6392-47f8-9018-d9adade983db"
-        ],
+        "potentialConditions": ["cond::25066300-6392-47f8-9018-d9adade983db"],
         "migratedToUnifiedProductLibrary": false,
         "minAge": 18,
         "deleted": false,
