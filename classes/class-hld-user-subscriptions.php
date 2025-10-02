@@ -34,6 +34,17 @@ class HLD_UserSubscriptions
         medication_name VARCHAR(255) NOT NULL,
         stripe_product_id VARCHAR(255) NOT NULL,
         subscription_monthly_amount DECIMAL(10,2) NOT NULL,
+
+        stripe_subscription_id VARCHAR(255) NOT NULL,
+        stripe_customer_id VARCHAR(255) NOT NULL,
+        stripe_invoice_id VARCHAR(255) NULL,
+        subscription_status VARCHAR(50) NOT NULL,
+        subscription_start BIGINT(20) NOT NULL,
+        subscription_end BIGINT(20) NULL,
+        cancel_at_period_end TINYINT(1) DEFAULT 0,
+        invoice_pdf_url TEXT NULL,
+        hosted_invoice_url TEXT NULL,
+
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (user_id, telegra_order_id)
     ) $charset_collate;";
@@ -41,6 +52,78 @@ class HLD_UserSubscriptions
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
     }
+
+
+
+    /**
+     * Insert Stripe subscription data into custom table
+     */
+    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData)
+    {
+        error_log("function add_subscription is called");
+        error_log("user_id" . $user_id);
+
+
+        if (empty($user_id) || empty($stripeData)) {
+            return false;
+        }
+        error_log("Nothing is empty and function called");
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Prevent duplicates
+        // if (self::has_order($user_id, $telegra_order_id)) {
+        //     return true;
+        // }
+
+        $invoice = $stripeData->latest_invoice ?? null;
+        $result = $wpdb->insert(
+            $table,
+            [
+                'user_id'                   => $user_id,
+                'telegra_order_id'          => "pending",
+                'patient_email'             => sanitize_email($patient_email),
+                'subscription_duration'     => sanitize_text_field($subscription_duration),
+                'medication_telegra_id'     => sanitize_text_field($medication_telegra_id),
+                'medication_name'           => sanitize_text_field($medication_name),
+                'stripe_product_id'         => sanitize_text_field($stripeData->plan->product ?? ''),
+                'subscription_monthly_amount' => ($stripeData->plan->amount ?? 0) / 100, // convert cents to dollars
+                'stripe_subscription_id'    => sanitize_text_field($stripeData->id),
+                'stripe_customer_id'        => sanitize_text_field($stripeData->customer),
+                'stripe_invoice_id'         => $invoice->id ?? null,
+                'subscription_status'       => sanitize_text_field($stripeData->status),
+                'subscription_start'        => intval($stripeData->start_date),
+                'subscription_end'          => intval($stripeData->cancel_at ?? 0),
+                'cancel_at_period_end'      => $stripeData->cancel_at_period_end ? 1 : 0,
+                'invoice_pdf_url'           => $invoice->invoice_pdf ?? null,
+                'hosted_invoice_url'        => $invoice->hosted_invoice_url ?? null,
+            ],
+            [
+                '%d',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%f',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%d',
+                '%d',
+                '%d',
+                '%s',
+                '%s'
+            ]
+        );
+
+        return $result !== false;
+    }
+
+
 
 
     /**
@@ -73,7 +156,7 @@ class HLD_UserSubscriptions
     }
 
 
-    
+
 
     /**
      * Get all orders for a given user
@@ -108,35 +191,3 @@ class HLD_UserSubscriptions
     }
 }
 HLD_UserSubscriptions::init();
-/**
- * ============================
- *   Usage Guide: HLD_UserSubscriptions
- * ============================
- *
- * Example 1: Add an order for a user
- * ----------------------------------
- * HLD_UserSubscriptions::add_order(13, 'ORD-12345');
- *
- *
- * Example 2: Retrieve all orders for a user
- * -----------------------------------------
- * $orders = HLD_UserSubscriptions::get_orders(13);
- * // Returns: ['ORD-12345', 'ORD-12346', ...]
- *
- *
- * Example 3: Check if a specific order exists for a user
- * ------------------------------------------------------
- * $hasOrder = HLD_UserSubscriptions::has_order(13, 'ORD-12345');
- *
- *
- * Example 4: Working with the logged-in user
- * ------------------------------------------
- * if ( is_user_logged_in() ) {
- *     $user_id = get_current_user_id();
- *     $orders  = HLD_UserSubscriptions::get_orders($user_id);
- *     print_r($orders);
- *     echo 'User ID: ' . $user_id;
- * } else {
- *     echo 'User is not logged in.';
- * }
- */

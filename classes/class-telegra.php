@@ -8,13 +8,12 @@
 class HLD_Telegra
 {
 
-
     public function get_medicine_code($medicine)
     {
         // Mapping of medicines to codes
         $codes = [
             "Semaglutide" => "pvt::fbfa6d41-773e-4724-b184-742c43d302d0",
-            "Tirzepatide"   => "pvt::2ae48408-228e-4706-a714-645f774b2f2a",
+            "Tirzepatide"   => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",
         ];
 
         // Return code if exists, otherwise null
@@ -112,17 +111,14 @@ class HLD_Telegra
             'firstName'        => $first_name ?: 'John',
             'lastName'         => $last_name ?: 'Doe',
             'email'            => $email ?: 'johndoe@example.com',
-            'phone'            => '000-000-0000', // dummy fallback
+            'phone'            => '18008291040', // dummy fallback
             'dateOfBirth'      => '1970-01-01',     // default DOB
-            'gender'           => 'unknown',     // fallback
-            'genderBiological' => 'unknown',
+            'gender'           => 'male',     // fallback
+            'genderBiological' => 'male',
             'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID')
                 ? TELEGRAMD_AFFLIATE_ID
                 : 'AFFILIATE-123',
         ];
-
-
-
 
         $args = [
             'method'  => 'POST',

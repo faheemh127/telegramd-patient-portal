@@ -9,6 +9,11 @@ telegrausera@gmail.com
 telegrausera
 Ga123!@#Da.
 
+
+
+test5@gmail.com
+12345
+
 // @todo: before publish
 0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
 1) hide the login button on the first step
@@ -56,3 +61,9 @@ https://healsend.com/glp-1-weight-loss-intake/
 
 todo upload shortcode to live
 make fluent form id in one place of all the plugin
+
+states
+do some conditional logic based on the state they select
+phone call 
+1 or 1 chat
+clinical difference form
