@@ -19,7 +19,10 @@ define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
 
 // FLUENT FORM Id's
 define("HLD_GLP_1_PREFUNNEL_FORM_ID", 45);
-define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 52);
+// define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 52);
+define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 54);
+define("QUINST_GLP_1_WEIGHT_LOSS", "quinst::54188482-41ac-4866-afc8-9e498c645d05");
+define("QUINST_CLINICAL_DIFFERENCE", "quinst::1feb5370-69ea-4455-a7a3-78fbe3257c3d");
 
 
 // auto load
