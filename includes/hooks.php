@@ -37,3 +37,38 @@ add_filter('nsl_redirect_url', function ($url, $provider) {
     }
     return $url; // fallback
 }, 20, 2);
+
+
+
+
+// Add sidebar overlay to every page
+add_action('wp_footer', 'hld_add_sidebar_overlay');
+
+function hld_add_sidebar_overlay()
+{
+?>
+    <div class="hld-sidebar-overlay" id="hldSidebarOverlay">
+        <div class="hld-sidebar" id="hldSidebar">
+            <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
+            <div class="hld-sidebar-content">
+                <h2>Action Item</h2>
+                <?php
+                // Action Item: ID Verification
+                hld_action_item(
+                    "ID Verification Pending",
+                    "Your ID upload is still pending. Please upload a valid ID to continue with your visit.",
+                    HLD_PATIENT_DASHBOARD_URL . "?upload-id" // replace with your actual ID upload page
+                );
+
+                // Action Item: GLP-1 Visit
+                hld_action_item(
+                    "Complete Your GLP-1 Weight Loss Visit",
+                    "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
+                    home_url('/glp-1-weight-loss-intake/')
+                );
+                ?>
+            </div>
+        </div>
+    </div>
+<?php
+}

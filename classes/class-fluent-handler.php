@@ -83,18 +83,75 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-        public function activate_action_item()
+
+
+
+        public function get_order_id()
         {
-            $option_name = 'hld_action_item_form_' . $this->glp_prefunnel_form_id;
-            update_option($option_name, true);
+            // Get current user email
+            $current_user = wp_get_current_user();
+            if (!$current_user || empty($current_user->user_email)) {
+                return false;
+            }
+
+            $email = $current_user->user_email;
+
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'healsend_subscriptions'; // adjust if your table name is different
+
+            // Query to check if row exists with non-empty telegra_order_id
+            $order_id = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT telegra_order_id 
+             FROM $table_name 
+             WHERE patient_email = %s 
+               AND telegra_order_id IS NOT NULL 
+               AND telegra_order_id != '' 
+               AND telegra_order_id LIKE 'order::%%'
+             LIMIT 1",
+                    $email
+                )
+            );
+
+            return $order_id;
         }
+
+
 
         public function is_action_item_active()
         {
+            // Get current user email
+            // temporarily simulate action item
             return true;
-            $option_name = 'hld_action_item_form_' . $this->glp_prefunnel_form_id;
-            return (bool) get_option($option_name, false);
+            $current_user = wp_get_current_user();
+            if (!$current_user || empty($current_user->user_email)) {
+                return false;
+            }
+
+            $email = $current_user->user_email;
+
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'healsend_subscriptions'; // adjust if your table name is different
+
+            // Query to check if row exists with non-empty telegra_order_id
+            $order_id = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT telegra_order_id 
+             FROM $table_name 
+             WHERE patient_email = %s 
+               AND telegra_order_id IS NOT NULL 
+               AND telegra_order_id != '' 
+               AND telegra_order_id LIKE 'order::%%'
+             LIMIT 1",
+                    $email
+                )
+            );
+
+
+
+            return !empty($order_id);
         }
+
 
         public function update_patient_name($insertData)
         {
@@ -368,10 +425,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-        public function get_order_id()
-        {
-            return "order::a6807624-9c95-4819-ac61-a956784b02ed";
-        }
+
         public function prepare_questionare_for_telegra($form_data)
         {
             // Example — later pass these dynamically
@@ -469,6 +523,8 @@ if (! class_exists('hldFluentHandler')) {
             if (! is_user_logged_in()) {
                 return;
             }
+
+
             $form_id = $insertData['form_id'];
 
             if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
@@ -476,8 +532,7 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
-            if ($form_id == $this->glp_prefunnel_form_id) {
-                $this->activate_action_item();
+            if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
                 $this->update_patient_name($insertData);
             }
 

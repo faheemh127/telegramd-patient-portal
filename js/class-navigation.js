@@ -35,9 +35,6 @@ class HldNavigation {
       document.querySelector(".dobDisqualifySection").style.display = "none";
     }
 
-
-
-
     dobSteps.forEach(function (step) {
       const nextBtn = step.querySelector("button.ff-btn-next");
       const dobField = step.querySelector(".hldDobField");
@@ -150,9 +147,21 @@ class HldNavigation {
   }
 
   initActionItemSidebar() {
-     console.log("reaching upto here 1223");
+    console.log("reaching upto here 1223");
     if (!hldActionItem.glp1Prefunnel || hldActionItem.glp1Prefunnel == "0")
       return;
+
+    const currentUrl = window.location.href;
+    const baseUrl = window.location.origin;
+
+    // If on specific pages or if ?upload-id is present in query string, stop
+    if (
+      currentUrl === baseUrl + "/glp-1-prefunnel/" ||
+      currentUrl === baseUrl + "/glp-1-weight-loss-intake/" ||
+      new URLSearchParams(window.location.search).has("upload-id")
+    ) {
+      return;
+    }
 
     const overlay = document.getElementById("hldSidebarOverlay");
     const sidebar = document.getElementById("hldSidebar");
@@ -160,7 +169,6 @@ class HldNavigation {
 
     // Show sidebar only if overlay & sidebar exist
     if (overlay && sidebar) {
-     
       this.showActionItemSidebar();
 
       // Close sidebar on button click

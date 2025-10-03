@@ -33,7 +33,10 @@
                         </div>
 
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-primary w-100 hld_color_primary">Submit</button>
+                        <button type="submit" class="btn btn-primary w-100 hld_color_primary" style="background-color: #7B68EE;
+    padding: 10px 10px;
+    border-radius: 50px;
+    border: none;">Submit</button>
                     </form>
                 </div>
             </div>

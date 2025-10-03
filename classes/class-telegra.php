@@ -363,8 +363,7 @@ class HLD_Telegra
         }
 
         if (is_user_logged_in()) {
-            $user_id = get_current_user_id();
-            HLD_UserSubscriptions::add_order($user_id, $data['id']);
+            HLD_UserSubscriptions::update_order($data['id']);
         } else {
             error_log("⚠️ User not logged in, cannot save order to user meta.");
         }

@@ -129,7 +129,7 @@ class HLD_UserSubscriptions
     /**
      * Add a new order to the custom table
      */
-    public static function add_order($user_id, $telegra_order_id)
+    public static function add_order($telegra_order_id)
     {
         if (empty($user_id) || empty($telegra_order_id)) {
             return false;
@@ -154,6 +154,44 @@ class HLD_UserSubscriptions
 
         return $result !== false;
     }
+
+    public static function update_order($telegra_order_id)
+    {
+        // Validate input
+        if (empty($telegra_order_id)) {
+            return false;
+        }
+
+        // Get current user
+        $current_user = wp_get_current_user();
+        if (!$current_user || empty($current_user->user_email)) {
+            return false;
+        }
+
+        $patient_email = $current_user->user_email;
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Update telegra_order_id for this patient
+        $result = $wpdb->update(
+            $table,
+            [
+                'telegra_order_id' => sanitize_text_field($telegra_order_id),
+            ],
+            [
+                'patient_email' => $patient_email, // condition
+            ],
+            ['%s'],
+            ['%s']
+        );
+
+        // If no row was updated (patient not found), return false
+        return $result !== false && $result > 0;
+    }
+
+
+
 
 
 

@@ -362,7 +362,6 @@ class HldFluentFormHandler {
       autocomplete.addListener("place_changed", function () {
         const place = autocomplete.getPlace();
         console.log("Selected place:", place);
-
         // ✅ You can extract more details if you want
         // Example: fill hidden fields for city/state/zip
         // place.address_components.forEach(component => {
