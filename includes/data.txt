@@ -11,7 +11,7 @@ Ga123!@#Da.
 
 
 ff-float-right ff-btn
-
+hld_disqualify_step
 
 
 test5@gmail.com
@@ -71,3 +71,11 @@ do some conditional logic based on the state they select
 phone call 
 1 or 1 chat
 clinical difference form
+
+
+Missing questions
+10.1.1) Do you have cholesterol greater than 240 or are you on a 
+cholesterol medication? 
+19.1) Are you currently taking any of the following medications? Select all that  apply. (Clinical protocol discourages taking GLPs to treat diabetes via telemedicine.  Patient should receive in-office care to treat diabetes with a GLP-1  medication. ) one option is missing in this question
+22.3.2) Do you have a PDF of your previous script, or a picture of your 
+current vial? (question is missing)

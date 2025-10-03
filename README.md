@@ -25,3 +25,5 @@ Make sure to composer install after cloning the repo so you can get the required
 
 
 Make sure to put api-keys.php file rightly so in dev environment you do not miss the files
+
+#use hld_disqualify_step class on the wrapper for fluent form on each step

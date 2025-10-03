@@ -57,7 +57,11 @@
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
 }
-.hld_glp_1_prefunnel_wrap .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input{
+.hld_glp_1_prefunnel_wrap
+  .hld_form_wrap
+  .fluentform
+  .ff-el-form-check-label
+  .ff-el-form-check-input {
   display: none;
 }
 .hld_btn_edit_profile {
@@ -1035,7 +1039,7 @@
   justify-content: end;
   align-items: center;
 }
-.hld-mt-0{
+.hld-mt-0 {
   margin-top: 0 !important;
 }
 
@@ -1078,10 +1082,10 @@
   padding: 35px 30px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-family: Arial, sans-serif;
   text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hld_disqualify_title {
@@ -1125,12 +1129,12 @@
   background: var(--hld-color-primary);
   color: white;
 }
-.fluentform .ff-el-progress-bar{
+.fluentform .ff-el-progress-bar {
   background-color: var(--hld-color-primary) !important;
   border-radius: 10px;
-    overflow: hidden;
+  overflow: hidden;
 }
-.ff-el-progress{
+.ff-el-progress {
   border-radius: 25px !important;
 }
 /* css ends for disqualify page */
@@ -1147,6 +1151,11 @@
 /* Mobile only (up to 767px) */
 @media screen and (max-width: 767px) {
   /* mobile styles */
+
+  .hld_disqualify_wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
   .hld-custom-checkbox-group {
     flex-direction: column;
   }

@@ -17,6 +17,10 @@ define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
 
 
+// FLUENT FORM Id's
+define("HLD_GLP_1_PREFUNNEL_FORM_ID", 45);
+define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 52);
+
 
 // auto load
 require_once __DIR__ . '/vendor/autoload.php';

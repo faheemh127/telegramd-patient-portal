@@ -5578,12 +5578,7 @@
         "benefits": [],
         "productVariationWarnings": [],
         "deleted": false,
-        "keywords": [
-          "month 1",
-          "injection",
-          "1",
-          "tirzepatide"
-        ],
+        "keywords": ["month 1", "injection", "1", "tirzepatide"],
         "description": "Tirzepatide",
         "strength": "Month 1",
         "form": "Injection",
@@ -5592,9 +5587,7 @@
           "_id": "pro::710d3869-c1aa-46bb-ad8c-5576782c2585",
           "isAvailable": true,
           "isActive": true,
-          "potentialConditions": [
-            "cond::25066300-6392-47f8-9018-d9adade983db"
-          ],
+          "potentialConditions": ["cond::25066300-6392-47f8-9018-d9adade983db"],
           "migratedToUnifiedProductLibrary": false,
           "minAge": 18,
           "deleted": false,
@@ -5726,9 +5719,7 @@
       "key": "fdsfs",
       "globalSymptom": false,
       "deleted": false,
-      "keywords": [
-        "fdsfs"
-      ],
+      "keywords": ["fdsfs"],
       "createdAt": "2025-10-02T10:26:32.990Z",
       "updatedAt": "2025-10-02T10:26:32.990Z",
       "id": "symp::8369f890-c136-4e08-a472-b02cc1b3e0ad"
