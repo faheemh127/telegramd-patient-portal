@@ -14,7 +14,7 @@ function hld_render_custom_signup_form()
     $success_message = '';
 
 
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hld_signup_nonce']) && wp_verify_nonce($_POST['hld_signup_nonce'], 'hld_signup_action')) {
 
         $username   = sanitize_user($_POST['hld_username']);

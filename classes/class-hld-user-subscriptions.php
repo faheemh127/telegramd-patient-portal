@@ -18,10 +18,7 @@ class HLD_UserSubscriptions
     /**
      * Runs only once on plugin activation
      */
-    public static function on_plugin_activate()
-    {
-        self::create_table_if_not_exists();
-    }
+  
 
 
     /**
@@ -141,7 +138,15 @@ class HLD_UserSubscriptions
      */
     public static function add_order($telegra_order_id)
     {
-        if (empty($user_id) || empty($telegra_order_id)) {
+        if (empty($telegra_order_id)) {
+            return false;
+        }
+
+        // ✅ Get logged-in user ID
+        $user_id = get_current_user_id();
+
+        if (empty($user_id)) {
+            error_log("TelegraMD Error: No logged-in user found when adding order.");
             return false;
         }
 
@@ -156,7 +161,7 @@ class HLD_UserSubscriptions
         $result = $wpdb->insert(
             $table,
             [
-                'user_id'  => $user_id,
+                'user_id'          => $user_id,
                 'telegra_order_id' => sanitize_text_field($telegra_order_id),
             ],
             ['%d', '%s']
@@ -243,6 +248,18 @@ class HLD_UserSubscriptions
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
+        // ✅ Check if table exists
+        $table_exists = $wpdb->get_var($wpdb->prepare(
+            "SHOW TABLES LIKE %s",
+            $table
+        ));
+
+        if ($table_exists !== $table) {
+            error_log("TelegraMD Error: Table '$table' does not exist.");
+            return [];
+        }
+
+        // ✅ Get orders starting with 'order::'
         $results = $wpdb->get_col(
             $wpdb->prepare(
                 "SELECT telegra_order_id 
@@ -256,6 +273,7 @@ class HLD_UserSubscriptions
 
         return $results ?: [];
     }
+
 
 
     /**
@@ -274,4 +292,3 @@ class HLD_UserSubscriptions
     }
 }
 HLD_UserSubscriptions::init();
-register_activation_hook(__FILE__, ['HLD_UserSubscriptions', 'on_plugin_activate']);

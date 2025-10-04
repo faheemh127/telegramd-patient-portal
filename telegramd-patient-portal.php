@@ -2,29 +2,19 @@
 
 /**
  * Plugin Name: TelegraMD Patient Portal
- * Description: Patient portal with TelegraMD API integration for prescriptions, labs, and subscriptions.
+ * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration, including prescriptions, lab results, and subscription management.
  * Version: 1.0
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
  */
 
 
-// constants
 
-define("HLD_DEVELOPER_ENVIRONMENT", true);
+
+
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
-
-
-// FLUENT FORM Id's
-define("HLD_GLP_1_PREFUNNEL_FORM_ID", 45);
-// define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 52);
-define("HLD_CLINICAL_DIFFERENCE_FORM_ID", 54);
-define("QUINST_GLP_1_WEIGHT_LOSS", "quinst::54188482-41ac-4866-afc8-9e498c645d05");
-define("QUINST_CLINICAL_DIFFERENCE", "quinst::1feb5370-69ea-4455-a7a3-78fbe3257c3d");
-
-
+require_once plugin_dir_path(__FILE__) . 'includes/constants.php';
 // auto load
 require_once __DIR__ . '/vendor/autoload.php';
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
@@ -32,6 +22,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 }
 
 // include all necessary files
+
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';

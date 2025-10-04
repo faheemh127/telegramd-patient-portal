@@ -8,9 +8,81 @@ if (! class_exists('HLD_Patient')) {
          */
         public static function get_table_name()
         {
-            global $wpdb;
-            return $wpdb->prefix . 'healsend_patients';
+            error_log("table name is 11" . HEALSEND_PATIENTS_TABLE);
+            return HEALSEND_PATIENTS_TABLE;
         }
+
+
+        public static function sync_user_to_patient($user)
+        {
+            if (!$user || empty($user->user_email)) {
+                return false;
+            }
+
+            global $wpdb;
+            $table = self::get_table_name();
+            $email = sanitize_email($user->user_email);
+
+            error_log("Syncing user: {$email} into patient table: {$table}");
+
+            error_log("Patient is logged in 23");
+
+
+            $email = sanitize_email($user->user_email);
+
+            // Check if patient already exists
+            $existing = $wpdb->get_var(
+                $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s AND is_deleted = 0 LIMIT 1", $email)
+            );
+
+            $first_name = sanitize_text_field($user->first_name ?: get_user_meta($user->ID, 'first_name', true));
+            $last_name  = sanitize_text_field($user->last_name  ?: get_user_meta($user->ID, 'last_name', true));
+
+            if ($existing) {
+                // Already exists → optionally update names if empty
+                $wpdb->update(
+                    $table,
+                    [
+                        'first_name' => $first_name,
+                        'last_name'  => $last_name,
+                        'contact_email' => $email,
+                        'updated_at' => current_time('mysql'),
+                    ],
+                    ['id' => (int) $existing],
+                    ['%s', '%s', '%s', '%s'],
+                    ['%d']
+                );
+
+                return (int) $existing;
+            }
+
+            // Insert new row
+            $uuid = function_exists('wp_generate_uuid4') ? wp_generate_uuid4() : uniqid('', true);
+
+            $inserted = $wpdb->insert(
+                $table,
+                [
+                    'patient_uuid'  => $uuid,
+                    'first_name'    => sanitize_text_field($user->first_name),
+                    'last_name'     => sanitize_text_field($user->last_name),
+                    'contact_email' => $email,
+                    'patient_email' => $email,
+                    'created_at'    => current_time('mysql'),
+                    'updated_at'    => current_time('mysql'),
+                    'is_deleted'    => 0,
+                ],
+                ['%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d']
+            );
+
+            if ($inserted !== false) {
+                return (int) $wpdb->insert_id;
+            }
+
+            return false;
+        }
+
+
+
 
         /**
          * Get telegra_patient_id by patient email

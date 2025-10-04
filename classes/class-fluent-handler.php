@@ -131,11 +131,9 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
-
         public function is_action_item_active()
         {
-
-            // to temporarily simulate action item make the return true below
+            // ✅ Get current user
             $current_user = wp_get_current_user();
             if (!$current_user || empty($current_user->user_email)) {
                 return false;
@@ -144,9 +142,19 @@ if (! class_exists('hldFluentHandler')) {
             $email = $current_user->user_email;
 
             global $wpdb;
-            $table_name = $wpdb->prefix . 'healsend_subscriptions'; // adjust if your table name is different
+            $table_name = $wpdb->prefix . 'healsend_subscriptions'; // adjust if needed
 
-            // Query to check if row exists with non-empty telegra_order_id
+            // ✅ Check if table exists
+            $table_exists = $wpdb->get_var(
+                $wpdb->prepare("SHOW TABLES LIKE %s", $table_name)
+            );
+
+            if ($table_exists !== $table_name) {
+                error_log("TelegraMD Error: Table '$table_name' does not exist.");
+                return false;
+            }
+
+            // ✅ Query to check if row exists with non-empty telegra_order_id
             $order_id = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT telegra_order_id 
@@ -154,16 +162,16 @@ if (! class_exists('hldFluentHandler')) {
              WHERE patient_email = %s 
                AND telegra_order_id IS NOT NULL 
                AND telegra_order_id != '' 
-               AND telegra_order_id LIKE 'order::%%'
+               AND telegra_order_id LIKE %s
              LIMIT 1",
-                    $email
+                    $email,
+                    $wpdb->esc_like('order::') . '%'
                 )
             );
 
-
-
             return !empty($order_id);
         }
+
 
 
         public function update_patient_name($insertData)

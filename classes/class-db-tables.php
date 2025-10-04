@@ -16,6 +16,8 @@ class HLD_DB_Tables
         global $wpdb;
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
+        HLD_UserSubscriptions::create_table_if_not_exists();
+
         $charset_collate = $wpdb->get_charset_collate();
         $prefix = $wpdb->prefix . "healsend_";
 
