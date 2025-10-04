@@ -123,7 +123,11 @@ if (isset($_GET['message'])) {  ?>
             <div class="card mb-4 shadow-sm">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="d-flex justify-content-between">
-                        <div><strong>Debit Card:</strong> <span class="fw-bold">**** **** **** 0000</span></div>
+                        <div><strong>Debit Card:</strong> <span class="fw-bold"><?php if (HLD_Payments::has_card()) {
+                                                                                    echo "**** **** ****" . HLD_Payments::get_last4();
+                                                                                } else {
+                                                                                    echo "No card provide yet";
+                                                                                } ?></span></div>
                         <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
                     </div>
 

@@ -526,6 +526,105 @@ if (! class_exists('hldFluentHandler')) {
             return $result;
         }
 
+
+
+
+        public function save_patient_form_submission($insertData)
+        {
+            global $wpdb;
+            $table = HEALSEND_PATIENT_FORMS_TABLE;
+
+            // Get current logged-in user
+            $current_user = wp_get_current_user();
+
+            if (!$current_user || empty($current_user->user_email)) {
+                error_log("No logged-in user found while saving patient form submission.");
+                return false;
+            }
+
+            // Decode form response
+            $responseData = json_decode($insertData['response'], true);
+
+            // Build form name as dummy + form_id
+            $formName = 'FluentForm_' . ($insertData['form_id'] ?? 'unknown');
+
+            // Prepare insert data
+            $formData = [
+                'patient_email' => sanitize_email($current_user->user_email),
+                'form_name'     => $formName, // dummy name with form_id
+                'form_data'     => wp_json_encode($responseData),
+                'created_at'    => current_time('mysql'),
+            ];
+
+            $formats = ['%s', '%s', '%s', '%s'];
+
+            $result = $wpdb->insert($table, $formData, $formats);
+
+            if ($result === false) {
+                error_log("Failed to save patient form submission: " . $wpdb->last_error);
+                return false;
+            }
+
+            error_log("Patient form submission saved successfully for {$current_user->user_email}");
+            return true;
+        }
+
+
+
+        // later we will use
+        public function save_patient_form_answers($submission_id, $form)
+        {
+            global $wpdb;
+            $table = HEALSEND_FORM_ANSWERS_TABLE;
+
+            // Get logged-in user
+            $current_user = wp_get_current_user();
+            if (!$current_user || empty($current_user->user_email)) {
+                error_log("No logged-in user found while saving patient form answers.");
+                return false;
+            }
+
+            $patient_email = sanitize_email($current_user->user_email);
+
+            // Loop through form data
+            foreach ($form as $key => $value) {
+                // Skip internal or hidden fields (like nonce, referer, etc.)
+                if (strpos($key, '_fluentform') === 0 || strpos($key, '__') === 0 || $key === '_wp_http_referer') {
+                    continue;
+                }
+
+                // If value is an array (like names or address), convert to JSON
+                if (is_array($value)) {
+                    $value = wp_json_encode($value);
+                }
+
+                // Insert each answer
+                $wpdb->insert(
+                    $table,
+                    [
+                        'submission_id' => (int) $submission_id,
+                        'patient_email' => $patient_email,
+                        'question_key'  => sanitize_text_field($key),
+                        'answer'        => sanitize_textarea_field($value),
+                    ],
+                    ['%d', '%s', '%s', '%s']
+                );
+
+                if ($wpdb->last_error) {
+                    error_log("Error saving form answer for {$key}: " . $wpdb->last_error);
+                }
+            }
+
+            error_log("Patient form answers saved successfully for {$patient_email}, submission_id: {$submission_id}");
+            return true;
+        }
+
+
+
+
+
+
+
         /**
          * Callback for FluentForm before insert submission
          *
@@ -546,7 +645,21 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
+
+
+            // First save main submission
+            // $this->save_patient_form_submission($insertData);
+            // $submission_id = $wpdb->insert_id; // get last inserted ID
+
+            // // Then save answers
+            // $form = json_decode($insertData['response'], true);
+            // $this->save_patient_form_answers($submission_id, $form);
+
+
+
+
             $form_id = $insertData['form_id'];
+            $this->save_patient_form_submission($insertData);
 
             if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
                 $this->prepare_questionare_for_telegra($form);

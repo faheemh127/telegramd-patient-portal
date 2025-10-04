@@ -25,12 +25,13 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-subscriptions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-hld-payments.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-payments.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-assets.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-patient.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';

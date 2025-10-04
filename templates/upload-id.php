@@ -1,46 +1,72 @@
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card shadow-sm rounded-3 w-100" style="max-width: 700px; border-radius: 20px;
+    overflow: hidden;">
+        <div class="card-body p-4">
+            <h5 class="card-title text-center mb-4">Upload Patient ID</h5>
 
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h4 class="card-title mb-3 text-center">Upload Your ID</h4>
-                    <p class="text-muted text-center mb-4">
-                        Please provide a valid government-issued ID to verify your identity.
-                    </p>
-
-                    <form action="upload-handler.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-
-                        <!-- Patient Name -->
-                        <div class="mb-3">
-                            <label for="patientName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="patientName" name="patient_name" required>
-                            <div class="invalid-feedback">
-                                Please enter your full name.
-                            </div>
-                        </div>
-
-                        <!-- Upload ID -->
-                        <div class="mb-3">
-                            <label for="patientID" class="form-label">Upload ID Document</label>
-                            <input class="form-control" type="file" id="patientID" name="patient_id" accept=".jpg,.jpeg,.png,.pdf" required>
-                            <div class="form-text">
-                                Accepted formats: JPG, PNG, or PDF. Max size: 5MB.
-                            </div>
-                            <div class="invalid-feedback">
-                                Please upload a valid ID document.
-                            </div>
-                        </div>
-
-                        <!-- Submit -->
-                        <button type="submit" class="btn btn-primary w-100 hld_color_primary" style="background-color: #7B68EE;
-    padding: 10px 10px;
-    border-radius: 50px;
-    border: none;">Submit</button>
-                    </form>
+            <form id="idUploadForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="patientName" class="form-label">Full Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="patientName"
+                        name="patient_name"
+                        required>
                 </div>
-            </div>
 
+                <div class="mb-3">
+                    <label for="patientID" class="form-label">Upload ID Document</label>
+                    <input
+                        class="form-control"
+                        type="file"
+                        id="patientID"
+                        name="patient_id"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" style="background-color: #7b68ee; border-radius: 50px; border: none;">
+                    Submit
+                </button>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    jQuery(document).ready(function($) {
+        $("#idUploadForm").on("submit", function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+            let button = form.find("button[type=submit]");
+            let formData = new FormData(this);
+            formData.append("action", "id_upload"); // WP AJAX action name
+
+            $.ajax({
+                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    console.log("Uploading...");
+                    // Disable button and show processing text
+                    button.prop("disabled", true).text("Processing...");
+                },
+                success: function(response) {
+                    console.log(response);
+                    alert("Your file has been uploaded successfully!");
+                },
+                error: function(err) {
+                    console.error(err);
+                    alert("Upload failed!");
+                },
+                complete: function() {
+                    // Re-enable button after request finishes
+                    button.prop("disabled", false).text("Submit");
+                }
+            });
+        });
+    });
+</script>

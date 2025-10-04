@@ -88,8 +88,17 @@ if (! class_exists('HLD_Patient')) {
          * Get telegra_patient_id by patient email
          * Returns string ID or null if not found
          */
-        public static function get_telegra_patient_id($email)
+        public static function get_telegra_patient_id($email = null)
         {
+            // If email is not passed, try to get current logged-in user email
+            if (empty($email)) {
+                $current_user = wp_get_current_user();
+                if ($current_user && !empty($current_user->user_email)) {
+                    $email = $current_user->user_email;
+                }
+            }
+
+            // Validate email
             if (empty($email) || !is_email($email)) {
                 return null;
             }
@@ -98,11 +107,19 @@ if (! class_exists('HLD_Patient')) {
             $table = self::get_table_name();
 
             $telegra_id = $wpdb->get_var(
-                $wpdb->prepare("SELECT telegra_patient_id FROM {$table} WHERE patient_email = %s AND is_deleted = 0 LIMIT 1", $email)
+                $wpdb->prepare(
+                    "SELECT telegra_patient_id 
+             FROM {$table} 
+             WHERE patient_email = %s 
+             AND is_deleted = 0 
+             LIMIT 1",
+                    $email
+                )
             );
 
-            return $telegra_id ? $telegra_id : null;
+            return $telegra_id ?: null;
         }
+
 
         /**
          * Insert or update telegra_patient_id for given email.
