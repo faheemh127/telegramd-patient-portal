@@ -1,44 +1,44 @@
 {
-  "id": "order::a6807624-9c95-4819-ac61-a956784b02ed",
-  "orderNumber": "172348",
+  "id": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
+  "orderNumber": "038645",
   "patient": {
-    "_id": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
-    "status": "active",
-    "role": "patient",
-    "consent": null,
-    "deleted": false,
-    "keywords": [
-      "test 5 gmail com",
-      "1233454566",
-      "pat c 88 fa 4 be 6886 4 e 7 e 9824 e 366 d 2 eb 5 ffd",
-      "2022 10 21",
-      "hassan",
-      "faheem",
-      "1998 12 12 t 00 00 00 000 z",
-      "hassan faheem"
-    ],
-    "email": "test5@gmail.com",
-    "phone": "1233454566",
-    "picture": "https://gravatar.com/avatar/e9149d57a451475d65638ef3b170c33e?d=identicon",
-    "firstName": "Hassan",
-    "lastName": "Faheem",
-    "facetedScores": [],
-    "createdAt": "2022-09-01T19:05:43.762Z",
-    "updatedAt": "2025-10-02T10:26:19.127Z",
-    "name": "tesdt5 test5`",
-    "user": "usr::a6103d61-5438-4780-9fa8-4d63b56416d8",
-    "medicationAllergies": [],
-    "patientMedications": [],
+    "_id": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
+    "email": "test15@gmail.com",
+    "phone": "18008291040",
+    "firstName": "John",
+    "lastName": "Doe",
     "affiliates": [
-      "aff::e40a9c53-556f-4713-9049-7f218d8ea85f",
       "aff::9378ca7a-2295-454c-a738-67b6d91a2f67"
     ],
-    "dateOfBirth": "1998-12-12T00:00:00.000Z",
+    "user": "usr::47e3440e-9213-4101-ad4e-421b33910738",
+    "status": "active",
+    "role": "patient",
+    "dateOfBirth": "1970-01-01T00:00:00.000Z",
+    "gender": "male",
     "genderBiological": "male",
+    "picture": "https://gravatar.com/avatar/61409aa1fd47d4a5332de23cbf59a36f?d=identicon",
+    "consent": null,
+    "patientMedications": [],
+    "medicationAllergies": [],
+    "deleted": false,
+    "keywords": [
+      "test 15 gmail com",
+      "18008291040",
+      "john",
+      "doe",
+      "1970 01 01",
+      "pat 17 f 2542 a f 032 4 ef 8 ba 9 b 83 bdaa 5860 e 1",
+      "john doe"
+    ],
+    "facetedScores": [],
+    "createdAt": "2025-10-04T12:23:59.144Z",
+    "updatedAt": "2025-10-04T12:23:59.522Z",
+    "name": "John Doe",
+    "isPhoneValid": false,
     "addresses": [
       {
-        "_id": "address::1d867f20-0688-494a-aabd-39b2bddb7152",
-        "owner": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+        "_id": "address::d3af2f92-98d0-4f36-959b-99abb5a01643",
+        "owner": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
         "defaultAddress": false,
         "billing": {
           "address1": "123 S Main St",
@@ -54,9 +54,9 @@
             "id": "state::07b1c554-5521-4bab-b65c-8436b72cfcb6"
           },
           "zipcode": "99337",
-          "createdAt": "2025-10-02T09:53:08.210Z",
-          "updatedAt": "2025-10-02T09:53:08.210Z",
-          "id": "68de4b843278bb3168554d46"
+          "createdAt": "2025-10-04T12:24:10.140Z",
+          "updatedAt": "2025-10-04T12:24:10.140Z",
+          "id": "68e111ea019a8dbbfa187007"
         },
         "shipping": {
           "address1": "123 S Main St",
@@ -72,17 +72,17 @@
             "id": "state::07b1c554-5521-4bab-b65c-8436b72cfcb6"
           },
           "zipcode": "99337",
-          "createdAt": "2025-10-02T09:53:08.210Z",
-          "updatedAt": "2025-10-02T09:53:08.210Z",
-          "id": "68de4b843278bb3168554d47"
+          "createdAt": "2025-10-04T12:24:10.140Z",
+          "updatedAt": "2025-10-04T12:24:10.140Z",
+          "id": "68e111ea019a8dbbfa187008"
         },
         "deleted": false,
-        "createdAt": "2025-10-02T09:53:08.211Z",
-        "updatedAt": "2025-10-02T09:53:08.213Z",
-        "id": "address::1d867f20-0688-494a-aabd-39b2bddb7152"
+        "createdAt": "2025-10-04T12:24:10.140Z",
+        "updatedAt": "2025-10-04T12:24:10.141Z",
+        "id": "address::d3af2f92-98d0-4f36-959b-99abb5a01643"
       }
     ],
-    "id": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd"
+    "id": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1"
   },
   "affiliate": {
     "id": "aff::9378ca7a-2295-454c-a738-67b6d91a2f67",
@@ -155,39 +155,26 @@
   "status": "started",
   "history": [
     {
-      "_id": "event::b20d10e9-aac9-4da2-9ccc-c4faf9747bb3",
-      "ownerEntity": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+      "_id": "event::9d8e7212-e7c4-442f-849a-3d8fc19ba022",
+      "ownerEntity": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
       "ownerEntityModel": "Patient",
-      "targetEntity": "order::a6807624-9c95-4819-ac61-a956784b02ed",
+      "targetEntity": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
       "targetEntityModel": "Order",
       "eventTitle": "Order Created.",
       "eventType": "order_created",
       "eventData": {
-        "orderId": "order::a6807624-9c95-4819-ac61-a956784b02ed"
+        "orderId": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3"
       },
       "deleted": false,
-      "createdAt": "2025-10-02T09:53:08.422Z",
-      "updatedAt": "2025-10-02T09:53:08.422Z",
-      "id": "event::b20d10e9-aac9-4da2-9ccc-c4faf9747bb3"
-    },
-    {
-      "_id": "event::aa923b7a-18c8-4636-b5e9-72e385f96441",
-      "ownerEntity": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
-      "ownerEntityModel": "Patient",
-      "targetEntity": "order::a6807624-9c95-4819-ac61-a956784b02ed",
-      "targetEntityModel": "Order",
-      "eventTitle": "The following symptoms were reported by the patient: Difficulty Sleeping - Shortness Of Breath - Skin Rashes - fdsfs",
-      "eventType": "order_submitted",
-      "deleted": false,
-      "createdAt": "2025-10-02T10:26:34.232Z",
-      "updatedAt": "2025-10-02T10:26:34.232Z",
-      "id": "event::aa923b7a-18c8-4636-b5e9-72e385f96441"
+      "createdAt": "2025-10-04T12:24:10.330Z",
+      "updatedAt": "2025-10-04T12:24:10.330Z",
+      "id": "event::9d8e7212-e7c4-442f-849a-3d8fc19ba022"
     }
   ],
   "prerequisiteInstances": [],
   "questionnaireInstances": [
     {
-      "_id": "quinst::54188482-41ac-4866-afc8-9e498c645d05",
+      "_id": "quinst::5d15df0d-6857-48f1-8682-d676c2e3eb2e",
       "questionnaire": {
         "_id": "quest::43e74574-a15f-4b7e-8e71-19376d75335b",
         "active": true,
@@ -3407,138 +3394,25 @@
         ],
         "id": "quest::43e74574-a15f-4b7e-8e71-19376d75335b"
       },
-      "patient": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+      "patient": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
       "patientModel": "Patient",
-      "originatingOrder": "order::a6807624-9c95-4819-ac61-a956784b02ed",
+      "originatingOrder": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
       "valid": false,
-      "expiresAt": "2026-10-01T09:53:08.348Z",
+      "expiresAt": "2026-10-03T12:24:10.262Z",
       "status": "inprogress",
       "affiliate": null,
       "questionnaireType": "standard",
       "validationDisabled": false,
       "deleted": false,
       "questionnaireResolvedVariables": [],
-      "createdAt": "2025-10-02T09:53:08.350Z",
-      "updatedAt": "2025-10-02T14:39:08.080Z",
-      "currentLocation": "loc::Glp-intakeform-3",
-      "responses": [
-        {
-          "_id": "fre::194691e0-3d53-442a-8c0f-58cf6cccf7fe",
-          "questionnaireInstance": "quinst::54188482-41ac-4866-afc8-9e498c645d05",
-          "location": {
-            "_id": "loc::Glp-intakeform-1",
-            "locationType": "question",
-            "locationAnswerHelpers": [],
-            "previous": null,
-            "next": null,
-            "questionnaire": "quest::43e74574-a15f-4b7e-8e71-19376d75335b",
-            "data": {
-              "label": "What is your primary goal for weight loss?",
-              "description": "",
-              "type": "select",
-              "mode": "single",
-              "props": {
-                "type": "text",
-                "options": [
-                  {
-                    "label": "Overall health improvement",
-                    "value": "A13BCAA0",
-                    "next": "loc::Glp-intakeform-2"
-                  },
-                  {
-                    "label": "Specific weight loss target",
-                    "value": "3157DD72",
-                    "next": "loc::Glp-intakeform-2"
-                  },
-                  {
-                    "label": "Increased energy",
-                    "value": "640AE94C",
-                    "next": "loc::Glp-intakeform-2"
-                  },
-                  {
-                    "label": "Improved body composition",
-                    "value": "401295B1",
-                    "next": "loc::Glp-intakeform-2"
-                  }
-                ]
-              }
-            },
-            "deleted": false,
-            "createdAt": "2025-09-24T20:23:18.805Z",
-            "updatedAt": "2025-09-24T20:23:18.805Z",
-            "id": "loc::Glp-intakeform-1"
-          },
-          "value": "640AE94C",
-          "deleted": false,
-          "createdAt": "2025-10-02T10:12:03.226Z",
-          "updatedAt": "2025-10-02T14:39:08.056Z",
-          "files": [],
-          "id": "fre::194691e0-3d53-442a-8c0f-58cf6cccf7fe"
-        },
-        {
-          "_id": "fre::49b0c3ab-3d8f-4683-b834-26c93c4b56f3",
-          "questionnaireInstance": "quinst::54188482-41ac-4866-afc8-9e498c645d05",
-          "location": {
-            "_id": "loc::Glp-intakeform-2",
-            "locationType": "question",
-            "locationAnswerHelpers": [],
-            "previous": "loc::Glp-intakeform-1",
-            "next": null,
-            "questionnaire": "quest::43e74574-a15f-4b7e-8e71-19376d75335b",
-            "data": {
-              "label": "How much weight would you like to lose?",
-              "description": "",
-              "type": "select",
-              "mode": "single",
-              "props": {
-                "type": "text",
-                "options": [
-                  {
-                    "label": "10-20 lbs",
-                    "value": "A8872547",
-                    "next": "loc::Glp-intakeform-3"
-                  },
-                  {
-                    "label": "20-30 lbs",
-                    "value": "EA91343D",
-                    "next": "loc::Glp-intakeform-3"
-                  },
-                  {
-                    "label": "30-40 lbs",
-                    "value": "QU324328",
-                    "next": "loc::Glp-intakeform-3"
-                  },
-                  {
-                    "label": "40-50 lbs",
-                    "value": "10B1517B",
-                    "next": "loc::Glp-intakeform-3"
-                  },
-                  {
-                    "label": "50+ lbs",
-                    "value": "B75477D4",
-                    "next": "loc::Glp-intakeform-3"
-                  }
-                ]
-              }
-            },
-            "deleted": false,
-            "createdAt": "2025-09-24T20:23:18.819Z",
-            "updatedAt": "2025-09-24T20:23:18.820Z",
-            "id": "loc::Glp-intakeform-2"
-          },
-          "value": "EA91343D",
-          "deleted": false,
-          "createdAt": "2025-10-02T14:20:06.076Z",
-          "updatedAt": "2025-10-02T14:39:08.056Z",
-          "files": [],
-          "id": "fre::49b0c3ab-3d8f-4683-b834-26c93c4b56f3"
-        }
-      ],
+      "createdAt": "2025-10-04T12:24:10.263Z",
+      "updatedAt": "2025-10-04T12:24:10.263Z",
+      "responses": [],
       "externalQuestionnaireMappings": [],
-      "id": "quinst::54188482-41ac-4866-afc8-9e498c645d05"
+      "id": "quinst::5d15df0d-6857-48f1-8682-d676c2e3eb2e"
     },
     {
-      "_id": "quinst::1feb5370-69ea-4455-a7a3-78fbe3257c3d",
+      "_id": "quinst::94362444-948d-4764-b092-bf3c9b184c34",
       "questionnaire": {
         "_id": "quest::de6cfd4f-d495-41e0-8eb0-f5a9b6bb4525",
         "active": true,
@@ -5284,65 +5158,25 @@
         ],
         "id": "quest::de6cfd4f-d495-41e0-8eb0-f5a9b6bb4525"
       },
-      "patient": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+      "patient": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
       "patientModel": "Patient",
-      "originatingOrder": "order::a6807624-9c95-4819-ac61-a956784b02ed",
+      "originatingOrder": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
       "valid": false,
-      "expiresAt": "2026-10-01T09:53:08.358Z",
+      "expiresAt": "2026-10-03T12:24:10.270Z",
       "status": "inprogress",
       "affiliate": null,
       "questionnaireType": "standard",
       "validationDisabled": false,
       "deleted": false,
       "questionnaireResolvedVariables": [],
-      "createdAt": "2025-10-02T09:53:08.359Z",
-      "updatedAt": "2025-10-02T10:12:17.813Z",
-      "currentLocation": "loc::glp-clinical-difference-intake:2",
-      "responses": [
-        {
-          "_id": "fre::3aeeb9ed-2ffb-4d6a-8844-9944785c563a",
-          "questionnaireInstance": "quinst::1feb5370-69ea-4455-a7a3-78fbe3257c3d",
-          "location": {
-            "_id": "loc::glp-clinical-difference-intake:1",
-            "deleted": false,
-            "locationType": "question",
-            "questionnaire": "quest::de6cfd4f-d495-41e0-8eb0-f5a9b6bb4525",
-            "previous": null,
-            "next": null,
-            "data": {
-              "label": "Please note that patients must meet specific criteria to qualify for compounded GLP medications. Eligibility requires demonstrating a clinical justification that commercially available medications are not appropriate based on the patient's individual needs.",
-              "description": "",
-              "type": "select",
-              "mode": "single",
-              "props": {
-                "type": "text",
-                "options": [
-                  {
-                    "label": "I understand",
-                    "value": "DHFSKJH1",
-                    "next": "loc::glp-clinical-difference-intake:2"
-                  }
-                ]
-              }
-            },
-            "locationAnswerHelpers": [],
-            "createdAt": "2025-04-03T15:46:45.227Z",
-            "updatedAt": "2025-04-03T15:46:45.228Z",
-            "id": "loc::glp-clinical-difference-intake:1"
-          },
-          "value": "DHFSKJH1",
-          "deleted": false,
-          "createdAt": "2025-10-02T10:12:17.803Z",
-          "updatedAt": "2025-10-02T10:12:17.803Z",
-          "files": [],
-          "id": "fre::3aeeb9ed-2ffb-4d6a-8844-9944785c563a"
-        }
-      ],
+      "createdAt": "2025-10-04T12:24:10.271Z",
+      "updatedAt": "2025-10-04T12:24:10.271Z",
+      "responses": [],
       "externalQuestionnaireMappings": [],
-      "id": "quinst::1feb5370-69ea-4455-a7a3-78fbe3257c3d"
+      "id": "quinst::94362444-948d-4764-b092-bf3c9b184c34"
     },
     {
-      "_id": "quinst::a2ef13da-5cd0-4163-a754-1db0afdbbaa8",
+      "_id": "quinst::0bf74f96-8683-435b-8e35-8703fa38e61e",
       "questionnaire": {
         "active": true,
         "substitutableQuestionnaires": [],
@@ -5373,20 +5207,19 @@
         ],
         "id": "identification-questionnaire"
       },
-      "patient": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+      "patient": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
       "patientModel": "Patient",
-      "originatingOrder": "order::a6807624-9c95-4819-ac61-a956784b02ed",
+      "originatingOrder": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
       "valid": false,
-      "expiresAt": "2026-10-01T09:53:08.367Z",
+      "expiresAt": "2026-10-03T12:24:10.278Z",
       "status": "inprogress",
       "affiliate": null,
       "questionnaireType": "standard",
       "validationDisabled": false,
       "deleted": false,
       "questionnaireResolvedVariables": [],
-      "createdAt": "2025-10-02T09:53:08.368Z",
-      "updatedAt": "2025-10-02T10:10:17.961Z",
-      "currentLocation": null,
+      "createdAt": "2025-10-04T12:24:10.279Z",
+      "updatedAt": "2025-10-04T12:24:10.279Z",
       "responses": [],
       "externalQuestionnaireMappings": [
         {
@@ -5453,10 +5286,10 @@
           "id": "eqm::43fa3954-a26e-4fef-be8a-de4ddevident"
         }
       ],
-      "id": "quinst::a2ef13da-5cd0-4163-a754-1db0afdbbaa8"
+      "id": "quinst::0bf74f96-8683-435b-8e35-8703fa38e61e"
     },
     {
-      "_id": "quinst::85b20eb4-6a40-4080-9680-485379ee7709",
+      "_id": "quinst::62b78b4c-c953-4940-aa43-d732bac24900",
       "questionnaire": {
         "substitutableQuestionnaires": [],
         "_id": "quest::d303341c-39cc-48b4-aa72-568920fbff6f",
@@ -5488,56 +5321,20 @@
         ],
         "id": "quest::d303341c-39cc-48b4-aa72-568920fbff6f"
       },
-      "patient": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+      "patient": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
       "patientModel": "Patient",
-      "originatingOrder": "order::a6807624-9c95-4819-ac61-a956784b02ed",
-      "valid": true,
-      "expiresAt": "2026-10-01T09:53:08.375Z",
+      "originatingOrder": "order::a4e266bb-b598-4b04-aaa3-29fc6cfb00a3",
+      "valid": false,
+      "expiresAt": "2026-10-03T12:24:10.285Z",
       "status": "inprogress",
       "affiliate": null,
       "questionnaireType": "standard",
       "validationDisabled": false,
       "deleted": false,
       "questionnaireResolvedVariables": [],
-      "createdAt": "2025-10-02T09:53:08.376Z",
-      "updatedAt": "2025-10-02T10:11:37.575Z",
-      "currentLocation": null,
-      "responses": [
-        {
-          "_id": "fre::dca38c4f-508e-4cd3-b391-42db14ee6dcc",
-          "questionnaireInstance": "quinst::85b20eb4-6a40-4080-9680-485379ee7709",
-          "location": {
-            "_id": "loc::informed-consent:1",
-            "deleted": false,
-            "locationType": "question",
-            "data": {
-              "label": "Agreement",
-              "type": "agreement",
-              "description": "Sign below to agree to the informed consent.",
-              "consentMessage": "I have read and agree to the informed consent agreement."
-            },
-            "next": null,
-            "questionnaire": "quest::d303341c-39cc-48b4-aa72-568920fbff6f",
-            "createdAt": "2024-06-02T23:12:31.839Z",
-            "updatedAt": "2024-06-02T23:13:14.026Z",
-            "previous": null,
-            "locationAnswerHelpers": [],
-            "id": "loc::informed-consent:1"
-          },
-          "data": {
-            "agreementData": {
-              "consent": true,
-              "consentDate": "2025-10-02T10:11:17.245Z",
-              "signature": "data:image/png;base64,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"
-            }
-          },
-          "deleted": false,
-          "createdAt": "2025-10-02T10:11:37.386Z",
-          "updatedAt": "2025-10-02T10:11:37.386Z",
-          "files": [],
-          "id": "fre::dca38c4f-508e-4cd3-b391-42db14ee6dcc"
-        }
-      ],
+      "createdAt": "2025-10-04T12:24:10.286Z",
+      "updatedAt": "2025-10-04T12:24:10.287Z",
+      "responses": [],
       "externalQuestionnaireMappings": [
         {
           "_id": "eqm::10ba905b-aae1-4d23-b8f5-0eeaebfff1b3",
@@ -5561,7 +5358,7 @@
           "id": "eqm::10ba905b-aae1-4d23-b8f5-0eeaebfff1b3"
         }
       ],
-      "id": "quinst::85b20eb4-6a40-4080-9680-485379ee7709"
+      "id": "quinst::62b78b4c-c953-4940-aa43-d732bac24900"
     }
   ],
   "productVariations": [
@@ -5578,7 +5375,12 @@
         "benefits": [],
         "productVariationWarnings": [],
         "deleted": false,
-        "keywords": ["month 1", "injection", "1", "tirzepatide"],
+        "keywords": [
+          "month 1",
+          "injection",
+          "1",
+          "tirzepatide"
+        ],
         "description": "Tirzepatide",
         "strength": "Month 1",
         "form": "Injection",
@@ -5587,7 +5389,9 @@
           "_id": "pro::710d3869-c1aa-46bb-ad8c-5576782c2585",
           "isAvailable": true,
           "isActive": true,
-          "potentialConditions": ["cond::25066300-6392-47f8-9018-d9adade983db"],
+          "potentialConditions": [
+            "cond::25066300-6392-47f8-9018-d9adade983db"
+          ],
           "migratedToUnifiedProductLibrary": false,
           "minAge": 18,
           "deleted": false,
@@ -5627,8 +5431,8 @@
     }
   ],
   "address": {
-    "_id": "address::1d867f20-0688-494a-aabd-39b2bddb7152",
-    "owner": "pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd",
+    "_id": "address::d3af2f92-98d0-4f36-959b-99abb5a01643",
+    "owner": "pat::17f2542a-f032-4ef8-ba9b-83bdaa5860e1",
     "defaultAddress": false,
     "billing": {
       "address1": "123 S Main St",
@@ -5644,9 +5448,9 @@
         "id": "state::07b1c554-5521-4bab-b65c-8436b72cfcb6"
       },
       "zipcode": "99337",
-      "createdAt": "2025-10-02T09:53:08.210Z",
-      "updatedAt": "2025-10-02T09:53:08.210Z",
-      "id": "68de4b843278bb3168554d46"
+      "createdAt": "2025-10-04T12:24:10.140Z",
+      "updatedAt": "2025-10-04T12:24:10.140Z",
+      "id": "68e111ea019a8dbbfa187007"
     },
     "shipping": {
       "address1": "123 S Main St",
@@ -5662,19 +5466,19 @@
         "id": "state::07b1c554-5521-4bab-b65c-8436b72cfcb6"
       },
       "zipcode": "99337",
-      "createdAt": "2025-10-02T09:53:08.210Z",
-      "updatedAt": "2025-10-02T09:53:08.210Z",
-      "id": "68de4b843278bb3168554d47"
+      "createdAt": "2025-10-04T12:24:10.140Z",
+      "updatedAt": "2025-10-04T12:24:10.140Z",
+      "id": "68e111ea019a8dbbfa187008"
     },
     "deleted": false,
-    "createdAt": "2025-10-02T09:53:08.211Z",
-    "updatedAt": "2025-10-02T09:53:08.213Z",
-    "id": "address::1d867f20-0688-494a-aabd-39b2bddb7152"
+    "createdAt": "2025-10-04T12:24:10.140Z",
+    "updatedAt": "2025-10-04T12:24:10.141Z",
+    "id": "address::d3af2f92-98d0-4f36-959b-99abb5a01643"
   },
   "prescriptionFulfillments": [],
   "errors": [],
-  "createdAt": "2025-10-02T09:53:08.276Z",
-  "updatedAt": "2025-10-02T10:26:34.195Z",
+  "createdAt": "2025-10-04T12:24:10.200Z",
+  "updatedAt": "2025-10-04T12:24:10.450Z",
   "symptoms": [
     {
       "globalSymptom": false,
@@ -5687,45 +5491,9 @@
       "updatedAt": "2022-11-16T08:49:05.571Z",
       "key": "difficulty_sleeping",
       "id": "symp::9d65e74b-caed-4b38-b343-d7f84946da60"
-    },
-    {
-      "globalSymptom": false,
-      "deleted": false,
-      "keywords": [],
-      "_id": "symp::680b4e28-ec16-4a62-9fb2-053f886cfe52",
-      "name": "Shortness Of Breath",
-      "description": "Shortness Of Breath",
-      "createdAt": "2022-11-16T08:49:07.180Z",
-      "updatedAt": "2022-11-16T08:49:07.180Z",
-      "key": "shortness_of_breath",
-      "id": "symp::680b4e28-ec16-4a62-9fb2-053f886cfe52"
-    },
-    {
-      "globalSymptom": false,
-      "deleted": false,
-      "keywords": [],
-      "_id": "symp::d1d673dc-23f8-4188-84fc-278a23b9d25f",
-      "name": "Skin Rashes",
-      "description": "Skin Rashes",
-      "createdAt": "2022-11-16T08:49:06.643Z",
-      "updatedAt": "2022-11-16T08:49:06.643Z",
-      "key": "skin_rashes",
-      "id": "symp::d1d673dc-23f8-4188-84fc-278a23b9d25f"
-    },
-    {
-      "_id": "symp::8369f890-c136-4e08-a472-b02cc1b3e0ad",
-      "name": "fdsfs",
-      "description": "fdsfs",
-      "key": "fdsfs",
-      "globalSymptom": false,
-      "deleted": false,
-      "keywords": ["fdsfs"],
-      "createdAt": "2025-10-02T10:26:32.990Z",
-      "updatedAt": "2025-10-02T10:26:32.990Z",
-      "id": "symp::8369f890-c136-4e08-a472-b02cc1b3e0ad"
     }
   ],
   "siblingLabOrders": [],
-  "reminderCreationDate": "2025-10-02T09:53:08.570Z",
+  "reminderCreationDate": "2025-10-04T12:24:10.449Z",
   "tags": []
 }

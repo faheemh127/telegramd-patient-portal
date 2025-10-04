@@ -8,20 +8,15 @@
  * Author URI: https://faheemhassan.dev
  */
 
-
-
-
-
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
+
 require_once plugin_dir_path(__FILE__) . 'includes/constants.php';
-// auto load
+
 require_once __DIR__ . '/vendor/autoload.php';
 foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
-
-// include all necessary files
 
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
@@ -49,8 +44,6 @@ require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
-
-
-// put the subscript patient in the last so it can use class hld-user-subscription class
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
+
 register_activation_hook(__FILE__, ['HLD_DB_Tables', 'create_tables']);
