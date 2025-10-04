@@ -11,8 +11,18 @@ class HLD_UserSubscriptions
      */
     public static function init()
     {
-        add_action('init', [__CLASS__, 'create_table_if_not_exists']);
+        // add_action('init', [__CLASS__, 'create_table_if_not_exists']);
     }
+
+
+    /**
+     * Runs only once on plugin activation
+     */
+    public static function on_plugin_activate()
+    {
+        self::create_table_if_not_exists();
+    }
+
 
     /**
      * Create table if it doesn't exist
@@ -264,3 +274,4 @@ class HLD_UserSubscriptions
     }
 }
 HLD_UserSubscriptions::init();
+register_activation_hook(__FILE__, ['HLD_UserSubscriptions', 'on_plugin_activate']);

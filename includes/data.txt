@@ -83,3 +83,9 @@ current vial? (question is missing)
 22.4) How long have you been taking the medication consecutively? (Less than one month is not available in PDF)
 loc::Glp-intakeform-22.16 this question is not available in PDF
 this is comming 2 times in response (     "_id": "loc::Glp-intakeform-22.18",)
+
+
+
+
+Quality Assurance
+1) Make 6 products on vineeth Stripe Dashboard  
