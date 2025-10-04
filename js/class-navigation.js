@@ -163,6 +163,11 @@ class HldNavigation {
       return;
     }
 
+
+    if(!hldActionItem.userInfo.logged_in){
+      return
+    }
+
     const overlay = document.getElementById("hldSidebarOverlay");
     const sidebar = document.getElementById("hldSidebar");
     const closeBtn = document.getElementById("hldSidebarClose");

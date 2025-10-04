@@ -19,9 +19,7 @@ $icon_capsule_tablet = '<svg width="35px" xmlns="http://www.w3.org/2000/svg" vie
                         <path d="M112 96c-26.5 0-48 21.5-48 48l0 112 96 0 0-112c0-26.5-21.5-48-48-48zM0 144C0 82.1 50.1 32 112 32s112 50.1 112 112l0 224c0 61.9-50.1 112-112 112S0 429.9 0 368L0 144zM554.9 399.4c-7.1 12.3-23.7 13.1-33.8 3.1L333.5 214.9c-10-10-9.3-26.7 3.1-33.8C360 167.7 387.1 160 416 160c88.4 0 160 71.6 160 160c0 28.9-7.7 56-21.1 79.4zm-59.5 59.5C472 472.3 444.9 480 416 480c-88.4 0-160-71.6-160-160c0-28.9 7.7-56 21.1-79.4c7.1-12.3 23.7-13.1 33.8-3.1L498.5 425.1c10 10 9.3 26.7-3.1 33.8z" />
                     </svg>';
 
-$icon_tablets = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                                    <path d="M614.3 247c-5.2 7.9-16.2 8.5-22.9 1.8L391.2 48.6c-6.7-6.7-6.2-17.8 1.8-22.9C418.1 9.4 447.9 0 480 0c88.4 0 160 71.6 160 160c0 32.1-9.4 61.9-25.7 87zM567 294.3c-25 16.3-54.9 25.7-87 25.7c-88.4 0-160-71.6-160-160c0-32.1 9.4-61.9 25.7-87c5.2-7.9 16.2-8.5 22.9-1.8L568.8 271.4c6.7 6.7 6.2 17.8-1.8 22.9zM301.5 368c9.5 0 16.9 8.2 15 17.5C301.1 457.8 236.9 512 160 512S18.9 457.8 3.5 385.5c-2-9.3 5.5-17.5 15-17.5l283.1 0zm0-32L18.5 336c-9.5 0-16.9-8.2-15-17.5C18.9 246.2 83.1 192 160 192s141.1 54.2 156.5 126.5c2 9.3-5.5 17.5-15 17.5z" />
-                                </svg>';
+$icon_tablets = '<svg width="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M128 176C128 149.5 149.5 128 176 128C202.5 128 224 149.5 224 176L224 288L128 288L128 176zM240 432C240 383.3 258.1 338.8 288 305L288 176C288 114.1 237.9 64 176 64C114.1 64 64 114.1 64 176L64 464C64 525.9 114.1 576 176 576C213.3 576 246.3 557.8 266.7 529.7C249.7 501.1 240 467.7 240 432zM304.7 499.4C309.3 508.1 321 509.1 328 502.1L502.1 328C509.1 321 508.1 309.3 499.4 304.7C479.3 294 456.4 288 432 288C352.5 288 288 352.5 288 432C288 456.3 294 479.3 304.7 499.4zM361.9 536C354.9 543 355.9 554.7 364.6 559.3C384.7 570 407.6 576 432 576C511.5 576 576 511.5 576 432C576 407.7 570 384.7 559.3 364.6C554.7 355.9 543 354.9 536 361.9L361.9 536z"/></svg>';
 
 $icon_calendar = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                     <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z" />
@@ -58,20 +56,23 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
         // echo "<pre>";
         // print_r($orders);
         // echo "</pre>";
-        array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
+        // array_push($orders, "order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78");
         if (!empty($orders) && is_array($orders)) {
             foreach ($orders as $order_id) {
 
                 // $order = $hld_telegra->get_order("order::433fd97b-c6a7-4564-9b2b-aaf7a39d7d78", "");
                 $order = $hld_telegra->get_order($order_id, "");
-
+                // echo "<pre>";
+                // print_r($order);
+                // echo "</pre>";
                 if (!is_wp_error($order)) {
                     $product = $order['productVariations'][0]['productVariation'] ?? [];
                     $keywords = $product['description'] ?? 'Medicine Not found';
                     $orderNumber = $order['orderNumber'] ?? 'N/A';
                     $createdAt = isset($order['createdAt']) ? date('d M Y', strtotime($order['createdAt'])) : 'Unknown';
-                    $testName = 'LTV Test';
+                    $testName = '';
                     $encoded_order_id = urlencode($order['id']);
+                    $order_status = $order["status"];
                     if (!empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
                         $prescriptionFulfillments = $order['prescriptionFulfillments'][0];
 
@@ -114,29 +115,34 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 
                     <div class="card mb-4 shadow-sm p-4 hld-order-item">
                         <!-- Top Summary Row -->
-                        <div class="row mb-3 " style="align-items: flex-start;">
+                        <div class="row" style="align-items: flex-start;">
                             <div class="col-md-8 d-flex align-items-center gap-3">
                                 <div class="icon-wrap bg-light rounded-circle p-3 d-flex align-items-center justify-content-center">
                                     <?php echo $icon_capsule_tablet; ?>
                                 </div>
                                 <div class="desc-wrap">
-                                    <h5 class="fw-bold text-primary mb-1"><?php echo esc_html($keywords); ?></h5>
+                                    <h5 class="fw-bold text-primary mb-1"><?php echo esc_html($keywords) . " <span class='hld-order-id'>#" . $order_id . "</span>"; ?></h5>
                                     <div class="d-flex flex-wrap gap-3 small text-muted">
-                                        <div class="d-flex align-items-center gap-1">
+                                        <div class="d-flex align-items-center gap-1 hld-sub-desc">
                                             <?php echo $icon_tablets ?>
                                             <?php echo esc_html($product['form'] ?? 'Oral'); ?>
                                         </div>
-                                        <div class="d-flex align-items-center gap-1">
+                                        <div class="d-flex align-items-center gap-1 hld-sub-desc">
                                             <?php echo $icon_calendar ?>
                                             <?php echo esc_html($createdAt); ?>
                                         </div>
-                                        <div class="d-flex align-items-center gap-1">
-                                            <?php echo $icon_file ?>
-                                            <?php echo esc_html($testName); ?>
+
+                                        <div class="d-flex align-items-center gap-1 hld-sub-desc">
+
+
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
+
+
                             <div class="col-md-4 text-md-end mt-3 mt-md-0 d-flex flex-md-row gap-2 justify-content-end">
                                 <!-- <a href="<?php echo esc_url(site_url('/telegra-order-detail?order_id=' . $encoded_order_id)); ?>" target="_blank">
                                     <button class="btn btn-outline-primary">View Detail</button>
@@ -148,6 +154,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                             </div>
                         </div>
 
+                       
                         <!-- Order Detail Section -->
 
 

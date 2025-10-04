@@ -41,18 +41,32 @@ if (! class_exists('hldFluentHandler')) {
          * @return array|null Array of submission objects on success, or null if no entries or not logged in.
          */
 
-
         public function pass_action_item_to_js()
         {
+            $user_info = [
+                'logged_in' => is_user_logged_in(),
+                'name'      => '',
+                'email'     => '',
+                'role'      => '',
+            ];
+
+            if (is_user_logged_in()) {
+                $current_user = wp_get_current_user();
+                $user_info['name']  = $current_user->display_name;
+                $user_info['email'] = $current_user->user_email;
+                $user_info['role']  = !empty($current_user->roles) ? $current_user->roles[0] : '';
+            }
 
             wp_localize_script(
                 'hld-class-navigation',
                 'hldActionItem',
                 [
                     'glp1Prefunnel' => $this->is_action_item_active() ? true : false,
+                    'userInfo'      => $user_info,
                 ]
             );
         }
+
 
 
         public function get_patient_entries()
@@ -120,9 +134,8 @@ if (! class_exists('hldFluentHandler')) {
 
         public function is_action_item_active()
         {
-            // Get current user email
-            // temporarily simulate action item
-            return true;
+
+            // to temporarily simulate action item make the return true below
             $current_user = wp_get_current_user();
             if (!$current_user || empty($current_user->user_email)) {
                 return false;

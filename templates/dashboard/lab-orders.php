@@ -1,7 +1,7 @@
 <div class="container py-4 hld_lab_order_container">
     <!-- <h1 class="hdl_tab_heading">Patient Order History</h1> -->
 
-    <?php for ($i = 0; $i <= 7; $i++) { ?>
+    <?php for ($i = 0; $i <= 2; $i++) { ?>
         <div class="card mb-3 shadow-sm">
             <div class="card-body row hld-lab-order">
                 <!-- Left Section -->

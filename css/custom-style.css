@@ -345,10 +345,26 @@
 .hld-order-item {
   padding: 30px 40px !important;
 }
+.hld-view-invoice {
+  border-radius: 50px;
+  background: var(--hld-color-primary);
+  padding: 9px 10px;
+  margin-top: 10px;
+  max-width: 100%;
+}
+.hld-order-id {
+  color: darkgray;
+}
+
+.hld-order-item .hld-sub-desc {
+  font-size: 17px;
+  font-weight: 600;
+  color: #737373;
+}
 
 .hld-subscription-card {
   background: white;
-  padding: 40px 40px;
+  padding: 25px 30px;
   display: flex;
   flex-direction: column;
   min-height: 300px;

@@ -155,6 +155,33 @@ class HLD_UserSubscriptions
         return $result !== false;
     }
 
+
+    public static function get_user_subscription($user_id)
+    {
+        if (empty($user_id)) return null;
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Fetch latest active subscription for user
+        $result = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * 
+             FROM $table 
+             WHERE user_id = %d 
+             ORDER BY subscription_start DESC 
+             LIMIT 1",
+                $user_id
+            ),
+            ARRAY_A
+        );
+
+        return $result ?: null;
+    }
+
+
+
+
     public static function update_order($telegra_order_id)
     {
         // Validate input
@@ -207,11 +234,19 @@ class HLD_UserSubscriptions
         $table = $wpdb->prefix . self::$table_name;
 
         $results = $wpdb->get_col(
-            $wpdb->prepare("SELECT telegra_order_id FROM $table WHERE user_id = %d", $user_id)
+            $wpdb->prepare(
+                "SELECT telegra_order_id 
+             FROM $table 
+             WHERE user_id = %d 
+               AND telegra_order_id LIKE %s",
+                $user_id,
+                $wpdb->esc_like('order::') . '%'
+            )
         );
 
         return $results ?: [];
     }
+
 
     /**
      * Check if a user already has a specific order
