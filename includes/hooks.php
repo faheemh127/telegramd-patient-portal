@@ -82,3 +82,6 @@ add_action('wp_login', function ($user_login, $user) {
         HLD_Patient::sync_user_to_patient($user); // Pass the user directly
     }
 }, 10, 2);
+
+
+

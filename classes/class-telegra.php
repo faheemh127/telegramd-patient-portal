@@ -61,6 +61,36 @@ class HLD_Telegra
         return $data[$info];
     }
 
+    public static function get_patient_name()
+    {
+        // Ensure user is logged in
+        if (!is_user_logged_in()) {
+            error_log('get_patient_name() called but user not logged in');
+            return 'Guest User';
+        }
+
+        $user = wp_get_current_user();
+
+        // Priority fallback chain for best name
+        $name = $user->first_name;
+
+        if (empty($name)) {
+            $name = $user->display_name;
+        }
+
+        if (empty($name)) {
+            $name = $user->user_nicename;
+        }
+
+        if (empty($name)) {
+            $name = $user->user_login;
+        }
+
+        // Final safety check
+        $name = trim($name) ?: 'Unnamed User';
+
+        return $name;
+    }
 
 
     /**
@@ -81,7 +111,7 @@ class HLD_Telegra
         // }
 
         $email      = $user->user_email ?: '';
-        $first_name = $user->first_name ?: '';
+        $first_name = HLD_Telegra::get_patient_name();
         $last_name  = $user->last_name ?: '';
 
         if (empty($email) || !is_email($email)) {
