@@ -117,7 +117,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     </ul>
                 </div>
 
-                <p class="hld_tabs_hint">Scroll horizontally through the tabs to view and navigate all dashboard items.</p>
+                <p class="hld_tabs_hint">Swipe to navigate.</p>
             <?php endif; ?>
             <?php if (isset($_GET['upload-id'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/upload-id.php'; ?>

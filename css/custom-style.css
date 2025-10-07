@@ -1174,6 +1174,9 @@
 .ff-el-progress {
   border-radius: 25px !important;
 }
+.btn_payment_method {
+  float: right;
+}
 /* css ends for disqualify page */
 /* Mobile adjustments */
 @media (max-width: 768px) {
@@ -1299,10 +1302,47 @@
     font-size: 1.125rem;
   }
   .profile-container .hld-patient-info {
-    padding-top: 15px;
+    padding-top: 0px;
   }
   .profile-container .hld-edit-wrap {
-    width: 35%;
+    width: 100%;
+    padding: 0;
+  }
+  .profile-container .hld-edit-wrap button {
+    width: 100%;
+    margin-top: 0rem;
+  }
+  .profile-container .card-body {
+    margin: 0 !important;
+  }
+  /* .profile-container .hld-personal-info */
+  .profile-container .hld-personal-info .col-md-9 {
+    margin-top: 0;
+  }
+  .hld-personal-info .hld-edit-wrap {
+    margin-top: 5px;
+  }
+  .btn_edit_settings {
+    width: 100%;
+  }
+
+  .profile-container .hld-personal-info .card-body {
+    padding: 1rem !important;
+  }
+  .hld-personal-info .col-md-9 {
+    padding: 0 !important;
+  }
+  .hld-payment-info .card-body,
+  .hld-shipping-info .card-body {
+    padding: 1rem !important;
+  }
+  .hld-payment-info .col-md-8 {
+    margin-top: 0 !important;
+  }
+
+  .hld-payment-info .col-md-8,
+  .hld-payment-info .col-md-4 {
+    padding: 0 !important;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

@@ -35,42 +35,41 @@ if (isset($_GET['message'])) {  ?>
 
             <!-- Editable Account Details -->
             <h3>Account Details</h3>
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-                    <div class="row">
-                        <div class="col-md-9 hld-patient-info">
-                            <form id="hld-account-details-form" class="hld-account-details-form">
-                                <div class="mb-3">
-                                    <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
-                                    <p><?= esc_html($patient['full_name']); ?></p>
-                                    <input type="hidden" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
-                                </div>
+            <div class="card mb-4 shadow-sm hld-personal-info">
+                <div class="card-body row g-3 p-4">
 
-                                <div class="mb-3">
-                                    <label for="hld_email" class="form-label"><strong>Email:</strong></label>
-                                    <p><?= esc_html($patient['email']); ?></p>
-                                    <input type="hidden" class="form-control" id="hld_email" name="email" value="<?= esc_attr($patient['email']); ?>">
-                                </div>
+                    <div class="col-md-9 hld-patient-info">
+                        <form id="hld-account-details-form" class="hld-account-details-form">
+                            <div class="mb-3">
+                                <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
+                                <p><?= esc_html($patient['full_name']); ?></p>
+                                <input type="hidden" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="hld_phone" class="form-label"><strong>Phone:</strong></label>
-                                    <p><?= esc_html($patient['phone']); ?></p>
-                                    <input type="hidden" class="form-control" id="hld_phone" name="phone" value="<?= esc_attr($patient['phone']); ?>">
-                                </div>
+                            <div class="mb-3">
+                                <label for="hld_email" class="form-label"><strong>Email:</strong></label>
+                                <p><?= esc_html($patient['email']); ?></p>
+                                <input type="hidden" class="form-control" id="hld_email" name="email" value="<?= esc_attr($patient['email']); ?>">
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="hld_dob" class="form-label"><strong>Date of birth:</strong></label>
-                                    <p><?= esc_html($patient['dob']); ?></p>
-                                    <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
-                                </div>
+                            <div class="mb-3">
+                                <label for="hld_phone" class="form-label"><strong>Phone:</strong></label>
+                                <p><?= esc_html($patient['phone']); ?></p>
+                                <input type="hidden" class="form-control" id="hld_phone" name="phone" value="<?= esc_attr($patient['phone']); ?>">
+                            </div>
 
-                                <button style="display: none;" type="button" id="hld_save_account_details" class="btn btn-primary">Save</button>
-                                <span id="hld_account_details_message" style="display:none; margin-left:15px;"></span>
-                            </form>
-                        </div>
-                        <div class="col-md-3 hld-edit-wrap">
-                            <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button>
-                        </div>
+                            <div class="mb-3">
+                                <label for="hld_dob" class="form-label"><strong>Date of birth:</strong></label>
+                                <p><?= esc_html($patient['dob']); ?></p>
+                                <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
+                            </div>
+
+                            <button style="display: none;" type="button" id="hld_save_account_details" class="btn btn-primary">Save</button>
+                            <span id="hld_account_details_message" style="display:none; margin-left:15px;"></span>
+                        </form>
+                    </div>
+                    <div class="col-md-3 hld-edit-wrap">
+                        <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button>
                     </div>
 
 
@@ -122,27 +121,32 @@ if (isset($_GET['message'])) {  ?>
             </script>
 
             <h3>Payment Method</h3>
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm hld-payment-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-                    <div class="d-flex justify-content-between">
+                    <div class="col-md-8">
                         <div><strong>Debit Card:</strong> <span class="fw-bold"><?php if (HLD_Payments::has_card()) {
                                                                                     echo "**** **** ****" . HLD_Payments::get_last4();
                                                                                 } else {
                                                                                     echo "No card provide yet";
                                                                                 } ?></span></div>
+                    </div>
+                    <div class="col-md-4">
                         <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
                     </div>
+
 
 
                 </div>
             </div>
             <h3>Shipping Address</h3>
 
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm hld-shipping-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-                    <div><strong>Orders:</strong> <span class="fw-bold">Need to change the address of an order that's in-progress? </span> <a href="#">Contact customer support</a></div>
-                    <div class="text-secondary">subscriptions</div>
-                    <div class="text-danger">Update your shipping address in your <a href="">subscriptions page</a></div>
+                    <div class="col-md-12">
+                        <div><strong>Orders:</strong> <span class="fw-bold">Need to change the address of an order that's in-progress? </span> <a href="#">Contact customer support</a></div>
+                        <div class="text-secondary">subscriptions</div>
+                        <div class="text-danger">Update your shipping address in your <a href="">subscriptions page</a></div>
+                    </div>
 
                 </div>
             </div>
