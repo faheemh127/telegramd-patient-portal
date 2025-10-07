@@ -73,16 +73,49 @@ phone call
 clinical difference form
 
 
+
+siteurl: http://localhost/server/healsend-new
+home: http://localhost/server/healsend-new
+
+
+
+product adding section in stripe for subscriptions
+display subsccription data professionally
+glp follow up questions setup
+fix dob in glp-1-prefunnel
+add medications for Me
+
+
+
+
+
+
+
+
+
+
+
 Missing questions
 10.1.1) Do you have cholesterol greater than 240 or are you on a 
 cholesterol medication? 
-19.1) Are you currently taking any of the following medications? Select all that  apply. (Clinical protocol discourages taking GLPs to treat diabetes via telemedicine.  Patient should receive in-office care to treat diabetes with a GLP-1  medication. ) one option is missing in this question
-22.3.2) Do you have a PDF of your previous script, or a picture of your 
-current vial? (question is missing)
 
-22.4) How long have you been taking the medication consecutively? (Less than one month is not available in PDF)
 loc::Glp-intakeform-22.16 this question is not available in PDF
+
+
+
+19.1) Are you currently taking any of the following medications? Select all that  apply. (Clinical protocol discourages taking GLPs to treat diabetes via telemedicine.  Patient should receive in-office care to treat diabetes with a GLP-1  medication. ) one option is missing in this question
+
 this is comming 2 times in response (     "_id": "loc::Glp-intakeform-22.18",)
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,10 @@
 .hld_form_wrap {
   max-width: 550px !important;
 }
+.container {
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
 .hld_form_wrap select {
   height: 50px !important;
   border-radius: 10px !important;
@@ -67,7 +71,7 @@
 .hld_btn_edit_profile {
   float: right;
   margin-left: auto;
-  margin-right: 8px;
+  margin-right: 0px;
 }
 .hld-account-details-form p {
   font-weight: 700;
@@ -352,6 +356,22 @@
   margin-top: 10px;
   max-width: 100%;
 }
+.hld_terms_consent a {
+  text-decoration: none;
+  color: var(--hld-color-primary);
+}
+.hld_terms_consent span {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.hld_terms_consent input[type="checkbox"] {
+  accent-color: var(--hld-color-primary);
+  height: auto;
+  margin-top: 4px;
+  transform: scale(1.3);
+  margin-right: 3px;
+  margin-left: 4px;
+}
 .hld-order-id {
   color: darkgray;
 }
@@ -454,7 +474,7 @@
   padding: 15px 15px;
   font-size: 16px;
   margin-top: 5px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.3);
   border-radius: 15px;
   height: 65px;
   box-shadow: none;
@@ -485,10 +505,11 @@
   background: #005f8d;
 }
 .hld_or_separator {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.6);
   text-align: center;
-  margin: 20px 0;
-  font-size: 1rem;
-  color: #888;
 }
 .hld_error_message {
   color: #b32d2e;
@@ -1163,10 +1184,30 @@
 }
 
 /* ***************** sidebar code ends for action item sidebar */
-/* Responsive mobile_device****************************************************************************** */
+
 /* Mobile only (up to 767px) */
 @media screen and (max-width: 767px) {
   /* mobile styles */
+
+  .hld_login_form input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem; /* 20px */
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 8px;
+    height: 56px;
+    outline: none;
+    box-shadow: none;
+    cursor: text;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .hld_login_form input:focus {
+    border-color: var(--hld-color-primary); /* Material Primary Blue */
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+  }
 
   .hld_disqualify_wrapper {
     width: 100%;
@@ -1191,7 +1232,79 @@
   .hld_action_item_wrap a {
     font-size: 0.875rem;
   }
-}
+  .hld_login_wrapper {
+    padding: 64px 24px;
+    margin-top: 0;
+  }
+  .hld_terms_consent span {
+    font-size: 0.875rem;
+  }
+  .hld_terms_consent input[type="checkbox"] {
+    margin-top: 5px;
+    transform: scale(1.2);
+    margin-right: 1px;
+    margin-left: 4px;
+  }
+  .hld_patient_login_title {
+    margin-bottom: 2rem;
+  }
+
+  /* checkbox style */
+  .hld_login_form input[type="checkbox"] {
+    all: unset;
+    appearance: none;
+    width: 20px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    border-radius: 0; /* 👈 make it fully square */
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 0rem;
+    margin-top: 0.2rem;
+  }
+
+  /* Checked */
+  .hld_login_form input[type="checkbox"]:checked {
+    background-color: var(--hld-color-primary);
+    border-color: var(--hld-color-primary);
+  }
+
+  /* Checkmark */
+  .hld_login_form input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  /* Hover / Focus */
+  .hld_login_form input[type="checkbox"]:hover {
+    border-color: var(--hld-color-primary);
+  }
+
+  .hld_login_form input[type="checkbox"]:focus {
+    outline: 2px solid rgba(25, 118, 210, 0.3);
+    outline-offset: 2px;
+  }
+  .hld_no_found_wrap p,
+  .hld_action_item_wrap p {
+    font-size: 1.125rem;
+  }
+  .profile-container .hld-patient-info {
+    padding-top: 15px;
+  }
+  .profile-container .hld-edit-wrap {
+    width: 35%;
+  }
+} /* Responsive mobile_device****************************************************************************** */
 
 /* Tablet only (768px to 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {

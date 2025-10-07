@@ -87,7 +87,7 @@ h1 {
 section#hdlDashboard {
   min-width: 100%;
   background-color: #f2f6f8;
-  
+  padding: 16px 16px;
 
   .container {
     .tabs {
@@ -165,7 +165,7 @@ section#hdlDashboard {
           text-align: center;
           padding: 0 8px;
 
-          @media (min-width: map-get($breakpoints, medium) + 1px) {
+          @media (min-width: #{map-get($breakpoints, medium) + 1px}) {
             flex: 1;
             width: #{100% / $tab-count};
             padding: 0 10px;
@@ -293,7 +293,7 @@ section#hdlDashboard {
               }
             }
 
-            @media (min-width: map-get($breakpoints, medium) + 1px) {
+            @media (min-width: #{map-get($breakpoints, medium) + 1px}) {
               background: $accent;
               color: white !important;
             }
@@ -359,7 +359,7 @@ section#hdlDashboard {
 
 @media (max-width: map-get($breakpoints, small)) {
   section#hdlDashboard .container .tabs {
-    padding: 15px 10px 40px;
+    padding: 0;
   }
 }
 
@@ -464,7 +464,7 @@ section#hdlDashboard {
   border: 1px solid black;
   border-radius: 40px;
   padding: 4px 17px;
-  height: 30px;
+  min-height: 30px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
@@ -472,19 +472,19 @@ section#hdlDashboard {
 }
 
 .hld_btn_profile_logout {
-     text-align: center;
-    margin: auto;
-    text-decoration: none;
-    background: var(--hld-color-primary);
+  text-align: center;
+  margin: auto;
+  text-decoration: none;
+  background: var(--hld-color-primary);
+  color: white;
+  border-radius: 50px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
     color: white;
-    border-radius: 50px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover {
-      color: white;
-    }
+  }
 }
 
 @media only screen and (max-width: 768px) {

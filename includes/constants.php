@@ -14,7 +14,7 @@ if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
 }
 
 if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
-    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', 54);
+    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', 52);
 }
 
 // Questionnaires

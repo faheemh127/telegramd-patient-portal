@@ -37,8 +37,8 @@ if (isset($_GET['message'])) {  ?>
             <h3>Account Details</h3>
             <div class="card mb-4 shadow-sm">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
-                    <div class="d-flex justify-between">
-                        <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-9 hld-patient-info">
                             <form id="hld-account-details-form" class="hld-account-details-form">
                                 <div class="mb-3">
                                     <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
@@ -68,7 +68,9 @@ if (isset($_GET['message'])) {  ?>
                                 <span id="hld_account_details_message" style="display:none; margin-left:15px;"></span>
                             </form>
                         </div>
-                        <div class="col-md-3"><button class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button></div>
+                        <div class="col-md-3 hld-edit-wrap">
+                            <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button>
+                        </div>
                     </div>
 
 
