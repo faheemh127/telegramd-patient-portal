@@ -1344,6 +1344,9 @@
   .hld-payment-info .col-md-4 {
     padding: 0 !important;
   }
+  .hld-chat-container {
+    padding: 0 !important;
+  }
 } /* Responsive mobile_device****************************************************************************** */
 
 /* Tablet only (768px to 1024px) */

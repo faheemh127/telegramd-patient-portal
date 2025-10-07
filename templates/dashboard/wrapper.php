@@ -163,7 +163,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     </section>
 
                     <!-- Section 3 -->
-                    <section class="container">
+                    <section class="container hld-chat-container" >
 
                         <iframe
                             src="https://healsend.com/chat-app/"

@@ -79,11 +79,35 @@ home: http://localhost/server/healsend-new
 
 
 
+
+
+
 product adding section in stripe for subscriptions
+fix dob in glp-1-prefunnel
+phone number in prefunnel
+the sms system tab in the prefunnel
+apple and google pay should work
+add images for medications 
+remove from dob that box
+address auto suggestion 
+black border in success story
+purple border around male and female in prefunnel
+update patient on create order on telegra with ture information
+
+
+
 display subsccription data professionally
 glp follow up questions setup
-fix dob in glp-1-prefunnel
-add medications for Me
+add medications for metabolic
+add packages for metabolic
+conditioanl logic in action items
+ID upload to the correct route 
+design ID upload correctly
+also the last one like ID upload make that 
+once action item done stop displaying that action item
+Edit profile information (personal, credit card, shipping information)
+order detail professional and orders responsive and professional
+conditional logic completion for action item for clinical difference form and glp 
 
 
 
@@ -106,18 +130,6 @@ loc::Glp-intakeform-22.16 this question is not available in PDF
 19.1) Are you currently taking any of the following medications? Select all that  apply. (Clinical protocol discourages taking GLPs to treat diabetes via telemedicine.  Patient should receive in-office care to treat diabetes with a GLP-1  medication. ) one option is missing in this question
 
 this is comming 2 times in response (     "_id": "loc::Glp-intakeform-22.18",)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Quality Assurance
