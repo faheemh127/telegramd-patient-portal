@@ -412,9 +412,8 @@
 }
 #hdlMakeStipePayment {
   background-color: var(--hld-color-primary);
-
   border-radius: 10px;
-  margin-top: 26px;
+  margin-top: 0px;
 }
 
 .hld_patient_packages .package-price {
@@ -622,7 +621,7 @@
   width: 100%;
 }
 .hld_testimonial-content {
-  max-width: 500px;
+  max-width: 550px;
   text-align: left;
 }
 
@@ -790,7 +789,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
@@ -798,11 +797,21 @@
   width: 120px;
   text-align: center;
   width: 100%;
+  background-color: white;
 }
-
+.hld-cb-male-female {
+  color: var(--hld-color-primary);
+  font-weight: 600;
+  transition: all 0.3s ease; /* 👈 Smooth transition */
+}
+.hld-cb-male-female:hover {
+  border: 1px solid #6d6ffc;
+  box-shadow: 0 3px 12px rgba(109, 111, 252, 0.35);
+}
 .hld-custom-checkbox svg {
   margin-bottom: 8px;
   width: 70px;
+  color: var(--hld-color-primary);
 }
 
 .hld-custom-checkbox.active {
@@ -1139,6 +1148,9 @@
   line-height: 1.6;
   margin-bottom: 25px;
 }
+.dobDisqualifySection {
+  display: none;
+}
 
 .hld_disqualify_message {
   font-size: 1.1rem;
@@ -1161,6 +1173,13 @@
   font-size: 0.95rem;
   transition: background 0.3s ease;
 }
+.iti__selected-country-primary {
+  padding: 0 12px;
+}
+.hld-shipping-wrap label {
+  font-size: 18px !important;
+  margin-bottom: 0 !important;
+}
 
 .hld_disqualify_btn:hover {
   background: var(--hld-color-primary);
@@ -1177,6 +1196,13 @@
 .btn_payment_method {
   float: right;
 }
+
+.hld-success-story-wrap .ff-el-group.ff-custom_html {
+  outline: none !important;
+}
+.hld-checkout .fluentform .ff-el-group {
+  margin-bottom: 0 !important;
+}
 /* css ends for disqualify page */
 /* Mobile adjustments */
 @media (max-width: 768px) {
@@ -1184,6 +1210,47 @@
     width: 90%;
     max-width: 90%;
   }
+}
+
+/* *************** Optin Section Css ********************/
+.hld_optin_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+.hld_optin_box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hld_optin_box:hover {
+  border-color: var(--hld-color-primary);
+  box-shadow: 0 4px 14px rgba(109, 111, 252, 0.25);
+  transform: translateY(-2px);
+}
+
+.hld_optin_icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  color: var(--hld-color-primary);
+}
+
+.hld_optin_text {
+  flex: 1;
 }
 
 /* ***************** sidebar code ends for action item sidebar */

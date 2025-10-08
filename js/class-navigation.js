@@ -29,6 +29,7 @@ class HldNavigation {
   // }
 
   disqualifyLessThan18() {
+  
     const dobSteps = document.querySelectorAll(".hld_dob_wrap");
 
     if (document.querySelector(".dobDisqualifySection")) {
@@ -81,7 +82,7 @@ class HldNavigation {
           } else {
             nextBtn.style.display = "none"; // keep hidden if < 18
             if (disqualifySection) {
-              disqualifySection.style.display = "block"; // Show the section
+              // disqualifySection.style.display = "block"; // Show the section
             }
           }
         });

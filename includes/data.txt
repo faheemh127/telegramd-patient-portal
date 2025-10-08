@@ -83,15 +83,11 @@ home: http://localhost/server/healsend-new
 
 
 product adding section in stripe for subscriptions
-fix dob in glp-1-prefunnel
 phone number in prefunnel
 the sms system tab in the prefunnel
 apple and google pay should work
 add images for medications 
-remove from dob that box
-address auto suggestion 
-black border in success story
-purple border around male and female in prefunnel
+address auto suggestion
 update patient on create order on telegra with ture information
 
 
