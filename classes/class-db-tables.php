@@ -25,6 +25,8 @@ class HLD_DB_Tables
         self::$tables['payments'] = "{$prefix}payments";
         self::$tables['patient_forms'] = "{$prefix}patient_forms";
         self::$tables['patient_form_answers'] = "{$prefix}patient_form_answers";
+        self::$tables['action_items'] = "{$prefix}action_items";
+        self::$tables['user_actions'] = "{$prefix}user_actions";
 
         $sql = [];
 
@@ -77,6 +79,38 @@ class HLD_DB_Tables
     FOREIGN KEY (submission_id) REFERENCES " . self::$tables['patient_forms'] . "(id),
     FOREIGN KEY (patient_email) REFERENCES " . self::$tables['patients'] . "(patient_email)
 ) $charset_collate;";
+
+
+
+
+
+        // Action Items Table
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['action_items'] . " (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    plan_slug VARCHAR(100) NOT NULL,               -- e.g. 'glp_1_prefunnel', 'metabolic'
+    action_key VARCHAR(100) NOT NULL,              -- e.g. 'id_upload', 'clinical_diff', 'agreement'
+    label VARCHAR(255) NOT NULL,                   -- Human readable name
+    description TEXT NULL,                         -- Optional detailed description
+    item_slug VARCHAR(255) NOT NULL,               -- e.g. 'glp_1_weight_loss_intake'
+    sort_order INT DEFAULT 0,
+    required TINYINT(1) DEFAULT 1,
+    UNIQUE KEY unique_plan_action (plan_slug, action_key)
+) $charset_collate;";
+
+        // User Actions Table
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['user_actions'] . " (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    plan_slug VARCHAR(100) NOT NULL,
+    action_key VARCHAR(100) NOT NULL,
+    status ENUM('pending', 'completed') DEFAULT 'pending',
+    completed_at DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES {$wpdb->users}(ID) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_action (user_id, plan_slug, action_key)
+) $charset_collate;";
+
+
 
         foreach ($sql as $query) {
             dbDelta($query);

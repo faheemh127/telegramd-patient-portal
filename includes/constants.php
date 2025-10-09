@@ -46,3 +46,12 @@ if (! defined('HEALSEND_PATIENT_FORMS_TABLE')) {
 if (! defined('HEALSEND_FORM_ANSWERS_TABLE')) {
     define('HEALSEND_FORM_ANSWERS_TABLE', $prefix . "patient_form_answers");
 }
+
+if (! defined('HEALSEND_ACTION_ITEMS_TABLE')) {
+    define('HEALSEND_ACTION_ITEMS_TABLE', $prefix . "action_items");
+}
+
+if (! defined('HEALSEND_USER_ACTIONS_TABLE')) {
+    define('HEALSEND_USER_ACTIONS_TABLE', $prefix . "user_actions");
+}
+
