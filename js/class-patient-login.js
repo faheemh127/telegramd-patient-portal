@@ -17,6 +17,7 @@ class HldPatientLogin {
 
     // Automatically send email to iframes if available
     this.postEmailToIframes();
+    this.setUpPatientTypeListeners();
   }
 
   postEmailToIframe() {
@@ -28,6 +29,26 @@ class HldPatientLogin {
         "https://healsend.com" // target origin (must match iframe's origin)
       );
     };
+  }
+
+  setUpPatientTypeListeners() {
+    const mapping = {
+      hld_nav_conversations: "clinical",
+      hld_nav_support: "support",
+      hld_nav_billing: "billing",
+    };
+
+    document.querySelectorAll("ul.container li").forEach((li) => {
+      li.addEventListener("click", () => {
+        for (const [className, value] of Object.entries(mapping)) {
+          if (li.classList.contains(className)) {
+            window.hldPatientType = value;
+            console.log(`Patient type set to: ${value}`);
+            break;
+          }
+        }
+      });
+    });
   }
 
   postEmailToIframes() {
