@@ -2,7 +2,7 @@
   {
     "telegra_code": "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",
     "medication_name": "Tirzepatide (Most Popular)",
-    "description": "22% avg weight loss, Weekly injection , Dual action GLP-1 + GIP",
+    "description": "Most effective, Higher % weight loss, Higher cost ,  Injection • Drops • Tablets",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
     "labels": "Free Evaluation, Weekly Injection",
     "packages": [
@@ -29,7 +29,7 @@
   {
     "telegra_code": "pvt::4332bc52-5f54-4c8f-bf5c-f1ef2bb95fa0",
     "medication_name": "Semaglutide (Alternative Option)",
-    "description": "15% avg weight loss , Weekly injection , Proven GLP-1 pathway",
+    "description": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
     "labels": "Free Evaluation, Weekly Injection",
     "packages": [

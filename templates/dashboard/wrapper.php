@@ -102,6 +102,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 <input type="radio" id="tab6" name="tab-control" />
                 <input type="radio" id="tab7" name="tab-control" />
                 <input type="radio" id="tab8" name="tab-control" />
+                <input type="radio" id="tab9" name="tab-control" />
                 <!-- Wrap the navigation in a scrollable container -->
                 <div class="tabs-nav-wrapper">
                     <ul class="container">
@@ -113,7 +114,8 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                         <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
                         <li class="hld_nav_support"><label for="tab6"><span>Lab Orders</span></label></li>
                         <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
-                        <li class="hld_nav_logout"><label for="tab8"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
+                        <li class="hld_nav_support"><label for="tab8"><span>Billing</span></label></li>
+                        <li class="hld_nav_logout"><label for="tab9"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
                     </ul>
                 </div>
 
@@ -163,9 +165,10 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                     </section>
 
                     <!-- Section 3 -->
-                    <section class="container hld-chat-container" >
+                    <section class="container hld-chat-container">
 
                         <iframe
+                            id="chat-clinical"
                             src="https://healsend.com/chat-app/"
                             width="100%"
                             height="1000"
@@ -204,11 +207,31 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                         ?>
                     </section>
 
-                    <section class="container">
-                        <?php
-                        hld_not_found("Email us at info@healsend.com for any query"); ?>
+                    <section class="container hld-chat-container">
+
+                        <iframe
+                            id="chat-support"
+                            src="https://healsend.com/chat-app/"
+                            width="100%"
+                            height="1000"
+                            style="border: none;"
+                            loading="lazy"></iframe>
+
 
                     </section>
+
+
+                    <section class="container hld-chat-container">
+                        <iframe
+                            id="chat-billing"
+                            src="https://healsend.com/chat-app/"
+                            width="100%"
+                            height="1000"
+                            style="border: none;"
+                            loading="lazy"></iframe>
+                    </section>
+
+
 
                     <!-- Section 7 -->
                     <!-- <section> -->

@@ -147,6 +147,22 @@ class HLD_Stripe
         }
     }
 
+    public static function get_all_products($limit = 100)
+    {
+        self::init();
+
+
+        try {
+            $products = \Stripe\Product::all(['limit' => $limit]);
+            return $products->data ?? [];
+        } catch (\Exception $e) {
+            error_log('Stripe Product Fetch Error: ' . $e->getMessage());
+            return [];
+        }
+    }
+
+
+
     /**
      * Delete a price (Note: Stripe doesn’t fully delete prices; it deactivates them)
      *
@@ -188,3 +204,60 @@ class HLD_Stripe
 
 // // 5. Delete product
 // HLD_Stripe::delete_product($product->id);
+
+
+
+add_action('init', function () {
+
+    // return;
+    // Prevent running this code on every page load — only for testing or setup
+    // if (!is_admin() || !current_user_can('manage_options')) {
+    //     return;
+    // }
+
+    error_log(("funtion init called 101"));
+
+
+
+    // // Include Stripe setup (make sure your class and constants are defined)
+    // require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
+    // \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+    // // // 1. Create product
+    // // $product = HLD_Stripe::create_product('Premium Plan', 'Access to all premium features');
+    // $product = HLD_Stripe::create_product(
+    //     'Tirzepatide',
+    //     'Most effective, Higher % weight loss, Higher cost ,  Injection • Drops • Tablets',
+    //     [
+    //         'telegra_product_id' => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",                // custom key
+    //         'period' => 3 // another custom key
+    //     ]
+    // );
+    // if ($product) {
+    //     echo 'Product ID: ' . esc_html($product->id) . '<br>';
+    // }
+
+    // // 2. Create price
+    // if ($product && isset($product->id)) {
+    //     $price = HLD_Stripe::create_price($product->id, 29.99, 'usd', 'month');
+    //     if ($price) {
+    //         echo 'Price ID: ' . esc_html($price->id);
+    //     }
+    // }
+
+
+
+    // $products = \Stripe\Product::search([
+    //     'query' => 'metadata["telegra_product_id"]:"pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb" AND metadata["period"]:"1"',
+    // ]);
+
+
+    // error_log(print_r($products, true));
+
+    // $products = HLD_Stripe::get_all_products();
+
+    // foreach ($products as $p) {
+    //     $data =  $p->id . ' - ' . $p->name . '<br>';
+    //     error_log(print_r($p, true));
+    // }
+});

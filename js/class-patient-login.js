@@ -13,6 +13,10 @@ class HldPatientLogin {
         this.login();
       });
     }
+    console.log("n8n");
+
+    // Automatically send email to iframes if available
+    this.postEmailToIframes();
   }
 
   postEmailToIframe() {
@@ -24,6 +28,43 @@ class HldPatientLogin {
         "https://healsend.com" // target origin (must match iframe's origin)
       );
     };
+  }
+
+  postEmailToIframes() {
+    // Ensure we have patient email available
+    console.log("function postEmail.... is called");
+    if (!window.hldPatientEmail) {
+      console.warn("⚠️ hldPatientEmail is not defined.");
+      return;
+    }
+
+    // Define iframe configurations
+    const iframes = [
+      { id: "chat-clinical", type: "clinical" },
+      { id: "chat-support", type: "support" },
+      { id: "chat-billing", type: "billing" },
+    ];
+
+    console.log("iframes", iframes);
+    iframes.forEach(({ id, type }) => {
+      const iframe = document.getElementById(id);
+
+      if (!iframe) {
+        console.warn(`⚠️ iframe with id="${id}" not found.`);
+        return;
+      }
+      console.log(window);
+      // Send message when iframe is loaded
+      iframe.addEventListener("load", () => {
+        const message = {
+          hldPatientEmail: window.hldPatientEmail,
+          hldPatientType: type,
+        };
+
+        iframe.contentWindow.postMessage(message, "https://healsend.com");
+        console.log(`✅ Sent to ${id}:`, message);
+      });
+    });
   }
 
   login() {
