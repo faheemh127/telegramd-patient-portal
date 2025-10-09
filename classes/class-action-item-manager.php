@@ -1,12 +1,14 @@
 <?php
 if (! defined('ABSPATH')) exit;
 
-class HLD_ActionItems_Manager {
+class HLD_ActionItems_Manager
+{
 
     /**
      * Seed default action items if not already existing
      */
-    public static function seed_default_items() {
+    public static function seed_default_items()
+    {
         global $wpdb;
 
         $table = HEALSEND_ACTION_ITEMS_TABLE;
@@ -15,18 +17,18 @@ class HLD_ActionItems_Manager {
             [
                 'plan_slug'   => 'glp_1_prefunnel',
                 'action_key'  => 'id_upload',
-                'label'       => 'ID Upload',
-                'description' => 'Upload your identification document to verify your profile.',
-                'item_slug'   => 'glp_1_id_upload',
+                'label'       => 'ID Verification Pending',
+                'description' => 'Your ID upload is still pending. Please upload a valid ID to continue with your visit.',
+                'item_slug'   => 'my-account?upload-id',
                 'sort_order'  => 1,
                 'required'    => 1
             ],
             [
                 'plan_slug'   => 'glp_1_prefunnel',
                 'action_key'  => 'clinical_diff',
-                'label'       => 'Clinical Difference Questionnaire',
-                'description' => 'Complete a short questionnaire to help us understand your clinical details.',
-                'item_slug'   => 'glp_1_clinical_difference',
+                'label'       => 'Complete Your GLP-1 Weight Loss Visit',
+                'description' => 'You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.',
+                'item_slug'   => 'glp-1-weight-loss-intake',
                 'sort_order'  => 2,
                 'required'    => 1
             ],
@@ -76,4 +78,119 @@ class HLD_ActionItems_Manager {
             }
         }
     }
-}
+
+
+    /**
+     * Assign all pending action items for a given plan to the currently logged-in user's email.
+     *
+     * @param string $plan_slug e.g. 'glp_1_prefunnel'
+     */
+    public static function assign_pending_actions_for_plan($plan_slug)
+    {
+        if (!is_user_logged_in()) {
+            return; // no user logged in
+        }
+
+        $current_user = wp_get_current_user();
+        $user_email = $current_user->user_email;
+
+        if (empty($user_email)) {
+            return;
+        }
+
+        global $wpdb;
+        $action_items_table = HEALSEND_ACTION_ITEMS_TABLE;
+        $user_actions_table = HEALSEND_USER_ACTIONS_TABLE;
+
+        // Get all action keys for this plan
+        $actions = $wpdb->get_results(
+            $wpdb->prepare("SELECT action_key FROM {$action_items_table} WHERE plan_slug = %s", $plan_slug)
+        );
+
+        if (empty($actions)) {
+            return;
+        }
+
+        // Insert all as pending if not already existing
+        foreach ($actions as $action) {
+            $exists = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$user_actions_table} WHERE patient_email = %s AND plan_slug = %s AND action_key = %s",
+                    $user_email,
+                    $plan_slug,
+                    $action->action_key
+                )
+            );
+
+            if (! $exists) {
+                $wpdb->insert(
+                    $user_actions_table,
+                    [
+                        'patient_email' => $user_email,
+                        'plan_slug'     => $plan_slug,
+                        'action_key'    => $action->action_key,
+                        'status'        => 'pending'
+                    ],
+                    ['%s', '%s', '%s', '%s']
+                );
+            }
+        }
+    } // function ends
+
+
+    /**
+     * Get all pending action items for the currently logged-in user.
+     *
+     * @return array|false  Array of pending actions with label, description, and item_url, or false if none.
+     */
+    public static function get_user_pending_action_items()
+    {
+        if (!is_user_logged_in()) {
+            return false;
+        }
+
+        $current_user = wp_get_current_user();
+        $user_email   = $current_user->user_email;
+
+        if (empty($user_email)) {
+            return false;
+        }
+
+        global $wpdb;
+        $user_actions_table = HEALSEND_USER_ACTIONS_TABLE;
+        $action_items_table = HEALSEND_ACTION_ITEMS_TABLE;
+
+        // Get all pending user actions joined with action item info
+        $results = $wpdb->get_results(
+            $wpdb->prepare("
+                SELECT ai.label, ai.description, ai.item_slug, ua.plan_slug, ua.action_key
+                FROM {$user_actions_table} AS ua
+                INNER JOIN {$action_items_table} AS ai
+                    ON ua.plan_slug = ai.plan_slug
+                    AND ua.action_key = ai.action_key
+                WHERE ua.patient_email = %s
+                AND ua.status = 'pending'
+                ORDER BY ai.sort_order ASC
+            ", $user_email)
+        );
+
+        if (empty($results)) {
+            return false;
+        }
+
+        // Format for display
+        $pending_items = [];
+        foreach ($results as $row) {
+            $pending_items[] = [
+                'label'       => $row->label,
+                'description' => $row->description,
+                'url'         => home_url('/' . ltrim($row->item_slug, '/')),
+            ];
+        }
+
+        return $pending_items;
+    } // function ends
+
+
+
+} //class ends

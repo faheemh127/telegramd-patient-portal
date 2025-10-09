@@ -45,12 +45,27 @@ function hld_subscribe_patient_handler()
          * STEP 2: Attach payment method to customer
          */
         $pm = \Stripe\PaymentMethod::retrieve($payment_method);
-        $pm->attach(['customer' => $customer_id]);
 
-        // Set as default payment method
+        // Check if already attached
+        if (empty($pm->customer)) {
+            // Not attached — safe to attach
+            $pm->attach(['customer' => $customer_id]);
+        } else {
+            // Already attached to some customer
+            // Optional: check if it's attached to the same one
+            if ($pm->customer !== $customer_id) {
+                wp_send_json_error([
+                    'message' => 'This payment method is already attached to another customer. Please use a new card.'
+                ]);
+                wp_die();
+            }
+        }
+
+        // Always set as default
         \Stripe\Customer::update($customer_id, [
             'invoice_settings' => ['default_payment_method' => $payment_method]
         ]);
+
 
         /**
          * STEP 3: Create subscription that cancels automatically after N months
@@ -92,6 +107,8 @@ function hld_subscribe_patient_handler()
                 'Tirzepatide',        // Example: Medication name
                 $subscription
             );
+
+            HLD_ActionItems_Manager::assign_pending_actions_for_plan('glp_1_prefunnel');
         }
 
         /**

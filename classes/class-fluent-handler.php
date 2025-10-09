@@ -133,6 +133,16 @@ if (! class_exists('hldFluentHandler')) {
 
         public function is_action_item_active()
         {
+            global $wpdb;
+
+            // ✅ Ensure constant is defined
+            if (!defined('HEALSEND_USER_ACTIONS_TABLE')) {
+                error_log('HEALSEND_USER_ACTIONS_TABLE constant is not defined.');
+                return false;
+            }
+
+            $table_name = HEALSEND_USER_ACTIONS_TABLE;
+
             // ✅ Get current user
             $current_user = wp_get_current_user();
             if (!$current_user || empty($current_user->user_email)) {
@@ -141,36 +151,30 @@ if (! class_exists('hldFluentHandler')) {
 
             $email = $current_user->user_email;
 
-            global $wpdb;
-            $table_name = $wpdb->prefix . 'healsend_subscriptions'; // adjust if needed
-
             // ✅ Check if table exists
             $table_exists = $wpdb->get_var(
                 $wpdb->prepare("SHOW TABLES LIKE %s", $table_name)
             );
 
             if ($table_exists !== $table_name) {
-                error_log("TelegraMD Error: Table '$table_name' does not exist.");
+                error_log("Healsend Error: Table '$table_name' does not exist.");
                 return false;
             }
 
-            // ✅ Query to check if row exists with non-empty telegra_order_id
-            $order_id = $wpdb->get_var(
+            // ✅ Check if any pending action exists for this user
+            $has_pending_action = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT telegra_order_id 
-             FROM $table_name 
+                    "SELECT COUNT(*) FROM $table_name 
              WHERE patient_email = %s 
-               AND telegra_order_id IS NOT NULL 
-               AND telegra_order_id != '' 
-               AND telegra_order_id LIKE %s
+             AND status = 'pending'
              LIMIT 1",
-                    $email,
-                    $wpdb->esc_like('order::') . '%'
+                    $email
                 )
             );
 
-            return !empty($order_id);
+            return (bool) $has_pending_action;
         }
+
 
 
 

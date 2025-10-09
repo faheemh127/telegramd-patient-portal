@@ -127,31 +127,15 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 <div class="content">
                     <!-- Section 1 -->
                     <section class="container">
-                        <?php
-                        global $hld_fluent_handler;
-                        //  
-                        ?>
+
+
+
+
+
 
                         <?php
-                        if ($hld_fluent_handler->is_action_item_active()) {
-                            hld_action_item(
-                                "ID Verification Pending",
-                                "Your ID upload is still pending. Please upload a valid ID to continue with your visit.",
-                                HLD_PATIENT_DASHBOARD_URL . "?upload-id" // replace with your actual ID upload page
-                            );
-
-                            hld_action_item(
-                                "Complete Your GLP-1 Weight Loss Visit",
-                                "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
-                                home_url('/glp-1-weight-loss-intake/')
-                            );
-                        } else {
-                            hld_not_found("You have no action items");
-                        }
-
-                        ?>
-
-                        <?php // hdl_get_template('dashboard/home', ['user' => $user]); 
+                        include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php';
+                        // hdl_get_template('dashboard/home', ['user' => $user]); 
                         ?>
 
                     </section>
@@ -256,20 +240,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
         <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
         <div class="hld-sidebar-content">
             <h2>Action Item</h2>
-            <?php
-            hld_action_item(
-                "ID Verification Pending",
-                "Your ID upload is still pending. Please upload a valid ID to continue with your visit.",
-                HLD_PATIENT_DASHBOARD_URL . "?upload-id" // replace with your actual ID upload page
-            );
-            ?>
-
-
-            <?php hld_action_item(
-                "Complete Your GLP-1 Weight Loss Visit",
-                "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
-                home_url('/glp-1-weight-loss-intake/')
-            ); ?>
+            <?php include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; ?>
         </div>
     </div>
 </div>

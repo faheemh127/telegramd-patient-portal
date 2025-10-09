@@ -4,28 +4,51 @@ add_action('wp_ajax_nopriv_create_setup_intent', 'my_create_setup_intent');
 
 function my_create_setup_intent()
 {
-    // Get current user info
-    $current_user = wp_get_current_user();
-    $user_name = $current_user->display_name ?: $current_user->user_login;
-    $user_email = $current_user->user_email;
-    $description = "Customer for GLP-1 Prefunnel: {$user_name} ({$user_email})";    // Check if user is logged in
+    // Ensure user is logged in
+    if (!is_user_logged_in()) {
+        wp_send_json_error(['message' => 'You must be logged in to continue.']);
+        wp_die();
+    }
 
-    // Proceed only if logged in
+    // Load dependencies
     require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
-    // Optionally: you could also store or reuse the Stripe customer ID from user meta
-    $customer = \Stripe\Customer::create([
-        'description' => $description,
-    ]);
+    // Get current user info
+    $current_user = wp_get_current_user();
+    $user_email   = $current_user->user_email;
+    $first_name   = $current_user->first_name ?? '';
+    $last_name    = $current_user->last_name ?? '';
+    $user_name    = trim("$first_name $last_name");
+    $description  = "Customer for GLP-1 Prefunnel: {$user_name} ({$user_email})";
 
-    $setupIntent = \Stripe\SetupIntent::create([
-        'customer' => $customer->id,
-        'payment_method_types' => ['card'],
-    ]);
+    // ✅ Use your helper to get or create Stripe Customer properly
+    $customer_id = HLD_Stripe::get_or_create_stripe_customer($user_email, $first_name, $last_name);
 
-    wp_send_json_success([
-        'clientSecret' => $setupIntent->client_secret,
-        'customerId' => $customer->id,
-    ]);
+    if (empty($customer_id)) {
+        wp_send_json_error(['message' => 'Unable to create or retrieve Stripe customer.']);
+        wp_die();
+    }
+
+    try {
+        // Create SetupIntent for this customer
+        $setupIntent = \Stripe\SetupIntent::create([
+            'customer' => $customer_id,
+            'payment_method_types' => ['card'],
+            'metadata' => [
+                'plan' => 'glp_1_prefunnel',
+                'source' => 'Healsend WordPress',
+            ],
+        ]);
+
+        // ✅ Send client secret back to frontend
+        wp_send_json_success([
+            'clientSecret' => $setupIntent->client_secret,
+            'customerId'   => $customer_id,
+        ]);
+    } catch (Exception $e) {
+        wp_send_json_error(['message' => $e->getMessage()]);
+    }
+
+    wp_die();
 }

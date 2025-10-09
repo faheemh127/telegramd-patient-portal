@@ -100,15 +100,15 @@ class HLD_DB_Tables
         // User Actions Table
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['user_actions'] . " (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL,
+    patient_email VARCHAR(255) NOT NULL,
     plan_slug VARCHAR(100) NOT NULL,
     action_key VARCHAR(100) NOT NULL,
     status ENUM('pending', 'completed') DEFAULT 'pending',
     completed_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES {$wpdb->users}(ID) ON DELETE CASCADE,
-    UNIQUE KEY unique_user_action (user_id, plan_slug, action_key)
+    UNIQUE KEY unique_user_action (patient_email, plan_slug, action_key)
 ) $charset_collate;";
+
 
 
 

@@ -29,6 +29,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-subscriptions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-payments.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-hld-db-backup-manager.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-assets.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-patient.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
