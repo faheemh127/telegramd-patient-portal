@@ -47,5 +47,6 @@ require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/stripe-get-subscription-price.php';
 
 register_activation_hook(__FILE__, ['HLD_DB_Tables', 'create_tables']);

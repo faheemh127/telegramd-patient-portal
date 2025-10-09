@@ -82,4 +82,46 @@ class HLD_DB_Tables
             dbDelta($query);
         }
     }
+
+
+
+
+
+
+
+    /**
+     * Add stripe_customer_id column to the patients table if it does not exist.
+     * i think this function is not required anymore because the code for
+     * --create column already written in class-stripe when we create and update stripe_id in patients tabel
+     */
+    public static function hld_add_stripe_customer_id_column()
+    {
+        global $wpdb;
+
+        $table_name = HEALSEND_PATIENTS_TABLE;
+        $column_name = 'stripe_customer_id';
+
+        // Check if column already exists
+        $column_exists = $wpdb->get_results(
+            $wpdb->prepare(
+                "SHOW COLUMNS FROM `$table_name` LIKE %s",
+                $column_name
+            )
+        );
+
+        if (empty($column_exists)) {
+            // Column does not exist — add it
+            $alter_query = "ALTER TABLE `$table_name` ADD `$column_name` VARCHAR(255) DEFAULT NULL AFTER `telegra_patient_id`;";
+            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+            $wpdb->query($alter_query);
+
+            error_log("✅ Added column `$column_name` to `$table_name` successfully.");
+        } else {
+            error_log("ℹ️ Column `$column_name` already exists in `$table_name`.");
+        }
+    }
 }
+
+
+
+// HLD_DB_Tables::hld_add_stripe_customer_id_column();

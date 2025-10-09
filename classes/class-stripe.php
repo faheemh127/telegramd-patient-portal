@@ -163,6 +163,101 @@ class HLD_Stripe
 
 
 
+
+
+
+    /**
+     * Get or create Stripe Customer ID for a patient
+     *
+     * @param string $email
+     * @param string $first_name
+     * @param string $last_name
+     * @return string|null Stripe Customer ID or null on failure
+     */
+    public static function get_or_create_stripe_customer($email, $first_name = '', $last_name = '')
+    {
+        global $wpdb;
+
+        self::init();
+
+        $table = HEALSEND_PATIENTS_TABLE;
+
+        // 1. Ensure stripe_customer_id column exists
+        $column_exists = $wpdb->get_results(
+            $wpdb->prepare(
+                "SHOW COLUMNS FROM $table LIKE %s",
+                'stripe_customer_id'
+            )
+        );
+
+        if (empty($column_exists)) {
+            $wpdb->query("ALTER TABLE $table ADD COLUMN stripe_customer_id VARCHAR(255) NULL AFTER telegra_patient_id");
+        }
+
+        // 2. Check if patient already exists
+        $patient = $wpdb->get_row(
+            $wpdb->prepare("SELECT id, stripe_customer_id FROM $table WHERE patient_email = %s", $email)
+        );
+
+        // 3. If patient exists and has Stripe ID → return it
+        if ($patient && !empty($patient->stripe_customer_id)) {
+            return $patient->stripe_customer_id;
+        }
+
+        // 4. Create Stripe Customer
+        try {
+            $customer = \Stripe\Customer::create([
+                'email' => $email,
+                'name'  => trim("$first_name $last_name"),
+                'metadata' => [
+                    'source' => 'Healsend',
+                ],
+            ]);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            error_log('Stripe Create Customer Error: ' . $e->getMessage());
+            return null;
+        }
+
+        if (empty($customer->id)) {
+            return null;
+        }
+
+        // 5. If patient exists, update record — otherwise insert new
+        if ($patient) {
+            $wpdb->update(
+                $table,
+                ['stripe_customer_id' => $customer->id],
+                ['id' => $patient->id],
+                ['%s'],
+                ['%d']
+            );
+        } else {
+            $wpdb->insert(
+                $table,
+                [
+                    'patient_uuid'       => wp_generate_uuid4(),
+                    'first_name'         => $first_name,
+                    'last_name'          => $last_name,
+                    'patient_email'      => $email,
+                    'stripe_customer_id' => $customer->id,
+                    'created_at'         => current_time('mysql'),
+                    'updated_at'         => current_time('mysql'),
+                ],
+                ['%s', '%s', '%s', '%s', '%s', '%s', '%s']
+            );
+        }
+
+        return $customer->id;
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Delete a price (Note: Stripe doesn’t fully delete prices; it deactivates them)
      *
@@ -207,7 +302,7 @@ class HLD_Stripe
 
 
 
-add_action('init', function () {
+// add_action('init', function () {
 
     // return;
     // Prevent running this code on every page load — only for testing or setup
@@ -215,7 +310,7 @@ add_action('init', function () {
     //     return;
     // }
 
-    error_log(("funtion init called 101"));
+    // error_log(("funtion init called 101"));
 
 
 
@@ -260,4 +355,4 @@ add_action('init', function () {
     //     $data =  $p->id . ' - ' . $p->name . '<br>';
     //     error_log(print_r($p, true));
     // }
-});
+// });

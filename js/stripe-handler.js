@@ -28,7 +28,37 @@ class hldStripeHandler {
     });
   }
 
-  setupStripe() {
+  async fetchStripePrice() {
+    if (!this.stripePriceId) {
+      console.warn("Stripe Price ID is missing.");
+      return null;
+    }
+
+    try {
+      const response = await fetch(this.ajaxUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          action: "hld_get_stripe_price",
+          price_id: this.stripePriceId,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success && result.data) {
+        console.log("✅ Stripe price fetched:", result.data);
+        return result.data; // { amount, currency, interval }
+      } else {
+        console.error("❌ Error fetching Stripe price:", result.data?.message);
+        return null;
+      }
+    } catch (err) {
+      console.error("Error fetching Stripe price:", err);
+      return null;
+    }
+  }
+
+  async setupStripe() {
     this.stripe = Stripe(this.publishableKey);
     this.elements = this.stripe.elements();
 
@@ -42,15 +72,22 @@ class hldStripeHandler {
       console.warn(`Card element with ID "${this.cardElementId}" not found.`);
     }
 
-    const amount = hldFormHandler.getAmount();
+    // const amount = hldFormHandler.getAmount();
 
-    // ✅ Google Pay / Apple Pay (Payment Request Button)
+    const priceData = await this.fetchStripePrice();
+    if (!priceData) {
+      console.warn("Using fallback amount 0 since price fetch failed.");
+    }
+
+    const amount = priceData?.amount || 0;
+    const currency = priceData?.currency?.toLowerCase() || "usd";
+
     const paymentRequest = this.stripe.paymentRequest({
-      country: "US", // <-- change to your country
-      currency: "usd", // <-- change to your currency
+      country: "US",
+      currency: currency,
       total: {
-        label: "Prescription Payment",
-        amount: amount * 100, // 0 for now since we’re only saving method, not charging
+        label: "Prescription Subscription",
+        amount: amount * 100,
       },
       requestPayerName: true,
       requestPayerEmail: true,
@@ -124,6 +161,7 @@ class hldStripeHandler {
     //   }
     // });
 
+    // Google Pay / Apple Pay Charge
     paymentRequest.on("paymentmethod", async (ev) => {
       try {
         // ✅ Create subscription directly
@@ -138,7 +176,7 @@ class hldStripeHandler {
         });
 
         const subResponse = await subResult.json();
-        console.log("subResponse141" , subResponse);
+        console.log("subResponse141", subResponse);
 
         if (!subResponse.success) {
           ev.complete("fail");
@@ -210,7 +248,6 @@ class hldStripeHandler {
         this.toggleButtonState(false, "Save and Continue");
         return;
       }
-
 
       console.log("result215", result);
       const paymentMethod = result.setupIntent.payment_method;
@@ -349,7 +386,6 @@ class hldStripeHandler {
     }
   }
 }
-
 
 const isLocalhost =
   window.location.hostname === "localhost" ||

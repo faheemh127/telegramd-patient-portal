@@ -5,90 +5,102 @@ add_action('wp_ajax_nopriv_subscribe_patient', 'hld_subscribe_patient_handler');
 
 function hld_subscribe_patient_handler()
 {
-    if (!isset($_POST['customer_id']) || !isset($_POST['payment_method'])) {
+    if (!isset($_POST['payment_method']) || !isset($_POST['price_id']) || !isset($_POST['duration'])) {
         wp_send_json_error(['message' => 'Missing parameters']);
         wp_die();
     }
 
-    $customer_id     = !empty($_POST['customer_id'])
-        ? sanitize_text_field($_POST['customer_id'])
-        : 'cus_T7CEARDGatwPyC'; // fallback for testing
+    require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
+    \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
     $payment_method  = sanitize_text_field($_POST['payment_method']);
     $price_id        = sanitize_text_field($_POST['price_id']);
-    $duration        = sanitize_text_field($_POST['duration']);
-    $months          = (int) $duration;
+    $duration        = (int) sanitize_text_field($_POST['duration']);
+    $months          = max(1, $duration); // ensure positive integer
 
     try {
-        require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
-        \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+        /**
+         * STEP 1: Get or Create Stripe Customer
+         */
+        if (is_user_logged_in()) {
+            $user_id   = get_current_user_id();
+            $user_info = get_userdata($user_id);
+            $patient_email = $user_info->user_email;
+            $first_name    = $user_info->first_name ?? '';
+            $last_name     = $user_info->last_name ?? '';
 
-        // Attach the payment method to the customer
+            // Automatically fetch or create Stripe customer
+            $customer_id = HLD_Stripe::get_or_create_stripe_customer($patient_email, $first_name, $last_name);
+        } else {
+            // Fallback if not logged in (or from frontend)
+            if (!empty($_POST['customer_id'])) {
+                $customer_id = sanitize_text_field($_POST['customer_id']);
+            } else {
+                wp_send_json_error(['message' => 'Customer not logged in or customer_id missing.']);
+                wp_die();
+            }
+        }
+
+        /**
+         * STEP 2: Attach payment method to customer
+         */
         $pm = \Stripe\PaymentMethod::retrieve($payment_method);
         $pm->attach(['customer' => $customer_id]);
-        error_log("stripe payment method 12" . $pm);
 
         // Set as default payment method
         \Stripe\Customer::update($customer_id, [
             'invoice_settings' => ['default_payment_method' => $payment_method]
         ]);
 
-        // Create subscription (cancel after N months)
+        /**
+         * STEP 3: Create subscription that cancels automatically after N months
+         */
         $subscription = \Stripe\Subscription::create([
             'customer' => $customer_id,
-            'items' => [[
-                'price' => $price_id,
-            ]],
+            'items' => [['price' => $price_id]],
             'cancel_at' => strtotime("+{$months} months"),
             'expand' => ['latest_invoice.payment_intent'],
         ]);
 
-        error_log("subscription 13" . $subscription);
-
         /**
-         * Store payment method in custom table
+         * STEP 4: Store locally in custom tables
          */
         if (is_user_logged_in()) {
-
-            $user_id    = get_current_user_id();
-            $user_info  = get_userdata($user_id);
-            $patient_email = $user_info->user_email;
-
-            // Example: you should replace with real values
-            $telegra_order_id      = uniqid('order_'); // you may have this from Telegra
-            $subscription_duration = $duration; // "3" or "6"
-            $medication_telegra_id = 'med_123'; // replace with real medication id
-            $medication_name       = 'Tirzepatide'; // replace with actual product name
-
+            // Make sure the patient exists
             HLD_Patient::ensure_patient_by_email($patient_email);
 
             // Extract card details
-            $card_last4  = isset($pm->card->last4) ? $pm->card->last4 : null;
-            $card_brand  = isset($pm->card->brand) ? $pm->card->brand : null;
+            $card_last4 = $pm->card->last4 ?? null;
+            $card_brand = $pm->card->brand ?? null;
 
-            // Save into custom payments table
-
+            // Save into payments table
             HLD_Payments::add_payment_method(
                 $patient_email,
-                $payment_method, // store Stripe PaymentMethod ID
+                $payment_method,
                 $card_last4,
                 $card_brand
             );
 
+            // Optional custom actions
             HLD_Telegra::create_patient();
 
             HLD_UserSubscriptions::add_subscription(
                 $user_id,
                 $patient_email,
-                $subscription_duration,
-                $medication_telegra_id,
-                $medication_name,
-                $subscription // Stripe $subscription object
+                $months,
+                'med_123',            // Example: Telegra med ID
+                'Tirzepatide',        // Example: Medication name
+                $subscription
             );
         }
 
+        /**
+         * STEP 5: Return success response
+         */
         wp_send_json_success([
             'subscription_id' => $subscription->id,
             'status' => $subscription->status,
+            'customer_id' => $customer_id,
         ]);
     } catch (Exception $e) {
         wp_send_json_error(['message' => $e->getMessage()]);
