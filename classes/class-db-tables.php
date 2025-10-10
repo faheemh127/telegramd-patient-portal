@@ -11,6 +11,9 @@ class HLD_DB_Tables
         return isset(self::$tables[$name]) ? self::$tables[$name] : null;
     }
 
+
+
+
     public static function create_tables()
     {
         global $wpdb;
@@ -130,6 +133,48 @@ class HLD_DB_Tables
 
 
     /**
+     * todo delete this function after go to production
+     * Dangrous Table this will delete all the tables related to this plugin
+     * This method will be use to delete all the tables
+     */
+    public static function drop_all_tables()
+    {
+        error_log("Alert function drop_all_tables called for healsend tables. this will delete 6 tables related to healsend telegra patient portal plugin");
+        return;
+        global $wpdb;
+
+        // Disable foreign key checks to avoid constraint issues
+        $wpdb->query('SET FOREIGN_KEY_CHECKS = 0;');
+
+        // List of all plugin tables (use constants for consistency)
+        $tables = [
+            HEALSEND_USER_ACTIONS_TABLE,
+            HEALSEND_ACTION_ITEMS_TABLE,
+            HEALSEND_FORM_ANSWERS_TABLE,
+            HEALSEND_PATIENT_FORMS_TABLE,
+            HEALSEND_PAYMENTS_TABLE,
+            HEALSEND_PATIENTS_TABLE,
+            HEALSEND_SUBSCRIPTIONS_TABLE,
+        ];
+
+        // Drop each table safely
+        foreach ($tables as $table) {
+            $wpdb->query("DROP TABLE IF EXISTS `$table`;");
+            error_log("🗑️ Dropped table: $table");
+        }
+
+        // Re-enable foreign key checks
+        $wpdb->query('SET FOREIGN_KEY_CHECKS = 1;');
+
+        error_log("✅ All Healsend tables have been deleted successfully.");
+    }
+
+
+
+
+
+
+    /**
      * Add stripe_customer_id column to the patients table if it does not exist.
      * i think this function is not required anymore because the code for
      * --create column already written in class-stripe when we create and update stripe_id in patients tabel
@@ -165,3 +210,4 @@ class HLD_DB_Tables
 
 
 // HLD_DB_Tables::hld_add_stripe_customer_id_column();
+// HLD_DB_Tables::drop_all_tables();

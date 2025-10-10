@@ -54,4 +54,6 @@ if (! defined('HEALSEND_ACTION_ITEMS_TABLE')) {
 if (! defined('HEALSEND_USER_ACTIONS_TABLE')) {
     define('HEALSEND_USER_ACTIONS_TABLE', $prefix . "user_actions");
 }
-
+if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
+    define('HEALSEND_SUBSCRIPTIONS_TABLE', $wpdb->prefix . "healsend_subscriptions");
+}

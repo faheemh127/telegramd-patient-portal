@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column justify-content-center  mt-5 hld-upload-id">
-    <p class="hld-heading">As required by law, you must upload a form of personal identification. This can be a driver\'s license, a state-issued ID, or a passport.</p>
+    <p class="hld-heading">As required by law, you must upload a form of personal identification. This can be a driver's license, a state-issued ID, or a passport.</p>
     <div class="card shadow-sm rounded-3 w-100" style="max-width: 700px; border-radius: 20px;
     overflow: hidden;">
         <div class="card-body p-4">
