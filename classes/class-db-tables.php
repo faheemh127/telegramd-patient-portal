@@ -40,6 +40,11 @@ class HLD_DB_Tables
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     dob DATE NULL,
+    gender ENUM('male', 'female', 'other') DEFAULT NULL,
+    feet TINYINT UNSIGNED NULL,
+    inches TINYINT UNSIGNED NULL,
+    weight DECIMAL(5,2) NULL,
+    state VARCHAR(100) NULL,
     contact_email VARCHAR(255),
     patient_email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(50),
@@ -50,6 +55,7 @@ class HLD_DB_Tables
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_deleted TINYINT(1) DEFAULT 0
 ) $charset_collate;";
+
 
         // Payments Table
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['payments'] . " (
@@ -168,10 +174,6 @@ class HLD_DB_Tables
 
         error_log("✅ All Healsend tables have been deleted successfully.");
     }
-
-
-
-
 
 
     /**

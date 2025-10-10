@@ -97,7 +97,7 @@ function hld_subscribe_patient_handler()
             );
 
             // Optional custom actions
-            HLD_Telegra::create_patient();
+            // HLD_Telegra::create_patient();
 
             HLD_UserSubscriptions::add_subscription(
                 $user_id,

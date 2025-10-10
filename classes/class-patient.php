@@ -8,9 +8,306 @@ if (! class_exists('HLD_Patient')) {
          */
         public static function get_table_name()
         {
-            error_log("table name is 11" . HEALSEND_PATIENTS_TABLE);
+
             return HEALSEND_PATIENTS_TABLE;
         }
+
+
+
+
+        /**
+         * Update patient DOB for logged-in user
+         */
+        public static function update_dob($dob)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_dob() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                ['dob' => sanitize_text_field($dob), 'updated_at' => current_time('mysql')],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update patient first and/or last name
+         */
+        public static function update_name($first_name = '', $last_name = '')
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_name() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            $data = [];
+            $format = [];
+
+            if (!empty($first_name)) {
+                $data['first_name'] = sanitize_text_field($first_name);
+                $format[] = '%s';
+            }
+            if (!empty($last_name)) {
+                $data['last_name'] = sanitize_text_field($last_name);
+                $format[] = '%s';
+            }
+
+            if (empty($data)) {
+                return false;
+            }
+
+            $data['updated_at'] = current_time('mysql');
+            $format[] = '%s';
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                $data,
+                ['patient_email' => $patient_email],
+                $format,
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update patient gender
+         */
+        public static function update_gender($gender)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_gender() called but patient not logged in.');
+                return false;
+            }
+
+            $allowed = ['male', 'female', 'other'];
+            if (!in_array(strtolower($gender), $allowed)) {
+                error_log('HLD_Patient Error: Invalid gender value provided.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                ['gender' => strtolower($gender), 'updated_at' => current_time('mysql')],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update height (feet, inches) and weight
+         */
+        public static function update_physical_metrics($feet = null, $inches = null, $weight = null)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_physical_metrics() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            $data = [];
+            $format = [];
+
+            if (!is_null($feet)) {
+                $data['feet'] = (int) $feet;
+                $format[] = '%d';
+            }
+            if (!is_null($inches)) {
+                $data['inches'] = (int) $inches;
+                $format[] = '%d';
+            }
+            if (!is_null($weight)) {
+                $data['weight'] = (float) $weight;
+                $format[] = '%f';
+            }
+
+            if (empty($data)) {
+                return false;
+            }
+
+            $data['updated_at'] = current_time('mysql');
+            $format[] = '%s';
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                $data,
+                ['patient_email' => $patient_email],
+                $format,
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update patient state
+         */
+        public static function update_state($state)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_state() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                ['state' => sanitize_text_field($state), 'updated_at' => current_time('mysql')],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update patient phone
+         */
+        public static function update_phone($phone)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_phone() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                ['phone' => sanitize_text_field($phone), 'updated_at' => current_time('mysql')],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        /**
+         * Update patient notes
+         */
+        public static function update_notes($notes)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_notes() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                ['notes' => wp_kses_post($notes), 'updated_at' => current_time('mysql')],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+
+
+        public static function get_patient_info()
+        {
+            // Check if user is logged in
+            if (! is_user_logged_in()) {
+                error_log('HLD_Patient Error: Patient should be logged in to fetch info.');
+                return [];
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = HEALSEND_PATIENTS_TABLE;
+
+            // Fetch patient record by email
+            $patient_row = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM {$table} WHERE patient_email = %s AND is_deleted = 0", $patient_email)
+            );
+
+            // If no patient found, log it
+            if (! $patient_row) {
+                error_log("HLD_Patient Warning: No patient found in patients table for email {$patient_email}");
+                return [];
+            }
+
+            // Build return array
+            $patient = [
+                'first_name' => $patient_row->first_name,
+                'last_name'  => $patient_row->last_name,
+                'full_name'  => trim($patient_row->first_name . ' ' . $patient_row->last_name),
+                'gender'     => $patient_row->gender ?: 'unknown',
+                'dob'        => $patient_row->dob ?: null,
+                'email'      => $patient_row->patient_email,
+                'phone'      => $patient_row->phone ?: '',
+                'contact_email' => $patient_row->contact_email,
+                'telegra_patient_id' => $patient_row->telegra_patient_id,
+                'notes'      => $patient_row->notes,
+                'medical_history' => $patient_row->medical_history ? json_decode($patient_row->medical_history, true) : [],
+                'created_at' => $patient_row->created_at,
+                'updated_at' => $patient_row->updated_at,
+            ];
+
+            return $patient;
+        }
+
+
+
 
 
         public static function sync_user_to_patient($user)

@@ -22,6 +22,12 @@ test5@gmail.com
 12345
 pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd
 
+
+
+healsend1@gmail.com
+healsend2@gmail.com
+
+
 // @todo: before publish
 0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
 1) hide the login button on the first step

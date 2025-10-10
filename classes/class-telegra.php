@@ -97,6 +97,90 @@ class HLD_Telegra
      * Create patient at TelegraMD for current logged-in user (if not exists locally).
      * Returns the Telegra patient ID string on success, or false on failure.
      */
+    // public static function create_patient()
+    // {
+    //     if (!is_user_logged_in()) {
+    //         return false;
+    //     }
+
+    //     $user = wp_get_current_user();
+
+    //     // Optional: keep the same role check if you need it
+    //     if (!in_array('subscriber', (array) $user->roles)) {
+    //         return false;
+    //     }
+
+    //     $email      = $user->user_email ?: '';
+    //     $first_name = HLD_Telegra::get_patient_name();
+    //     $last_name  = $user->last_name ?: '';
+
+    //     if (empty($email) || !is_email($email)) {
+    //         error_log('HLD_Telegra: invalid user email for create_patient');
+    //         return false;
+    //     }
+    //     // 1) Check local DB for existing telegra_patient_id
+    //     $existing_id = HLD_Patient::get_telegra_patient_id($email);
+    //     if ($existing_id) {
+    //         error_log("Patient already exists here is the patient id 16" .  $existing_id);
+    //         return $existing_id;
+    //     }
+
+    //     $payload = [
+    //         'name'             => trim($first_name . ' ' . $last_name) ?: ($email ?: 'John Doe'),
+    //         'firstName'        => $first_name ?: 'John',
+    //         'lastName'         => $last_name ?: 'Doe',
+    //         'email'            => $email ?: 'johndoe@example.com',
+    //         'phone'            => '18008291040', // dummy fallback
+    //         'dateOfBirth'      => '1970-01-01',     // default DOB
+    //         'gender'           => 'male',     // fallback
+    //         'genderBiological' => 'male',
+    //         'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID')
+    //             ? TELEGRAMD_AFFLIATE_ID
+    //             : 'AFFILIATE-123',
+    //     ];
+
+    //     $args = [
+    //         'method'  => 'POST',
+    //         'headers' => [
+    //             'accept'        => 'application/json',
+    //             'authorization' => defined('TELEGRAMD_BEARER_TOKEN') ? 'Bearer ' . TELEGRAMD_BEARER_TOKEN : '',
+    //             'content-type'  => 'application/json',
+    //         ],
+    //         'body' => wp_json_encode($payload),
+    //         'timeout' => 20,
+    //     ];
+
+    //     $endpoint = TELEGRA_BASE_URL . '/patients';
+
+
+    //     $response = wp_remote_post($endpoint, $args);
+
+    //     if (is_wp_error($response)) {
+    //         error_log('HLD_Telegra API Error: ' . $response->get_error_message());
+    //         return false;
+    //     }
+
+    //     $body = wp_remote_retrieve_body($response);
+    //     $data = json_decode($body, true);
+
+    //     if (!empty($data['id'])) {
+    //         // Save into local patients table and return ID
+    //         $saved = HLD_Patient::set_telegra_patient_id($email, $data['id'], $first_name, $last_name);
+    //         if ($saved) {
+    //             return $data['id'];
+    //         } else {
+    //             error_log('HLD_Telegra: saved to local DB failed for telegra_id=' . $data['id']);
+    //             return false;
+    //         }
+    //     } else {
+    //         error_log('HLD_Telegra API Response missing ID: ' . $body);
+    //         return false;
+    //     }
+    // }
+
+
+
+
     public static function create_patient()
     {
         if (!is_user_logged_in()) {
@@ -105,51 +189,50 @@ class HLD_Telegra
 
         $user = wp_get_current_user();
 
-        // Optional: keep the same role check if you need it
-        // if (!in_array('subscriber', (array) $user->roles)) {
-        //     return false;
-        // }
-
-        $email      = $user->user_email ?: '';
-        $first_name = HLD_Telegra::get_patient_name();
-        $last_name  = $user->last_name ?: '';
-
-        if (empty($email) || !is_email($email)) {
-            error_log('HLD_Telegra: invalid user email for create_patient');
+        // Optional: only allow certain roles (if needed)
+        if (!in_array('subscriber', (array) $user->roles)) {
             return false;
         }
 
-        // 1) Check local DB for existing telegra_patient_id
+        global $wpdb;
+
+        $email = $user->user_email;
+        if (empty($email) || !is_email($email)) {
+            error_log('HLD_Telegra: Invalid user email for create_patient');
+            return false;
+        }
+
+        // Check if patient already has Telegra ID
         $existing_id = HLD_Patient::get_telegra_patient_id($email);
         if ($existing_id) {
-            // Return existing Telegra ID — do NOT create a new one
-            error_log("Patient already exists here is the patient id 16" .  $existing_id);
+            error_log("Patient already exists, Telegra ID: " . $existing_id);
             return $existing_id;
         }
 
-        // 2) Build payload for TelegraMD API
-        // $payload = [
-        //     'name'             => trim($first_name . ' ' . $last_name) ?: $email,
-        //     'firstName'        => $first_name ?: '',
-        //     'lastName'         => $last_name ?: '',
-        //     'email'            => $email,
-        //     'phone'            => '',            // leave blank or use placeholder
-        //     'dateOfBirth'      => '',            // optional
-        //     'gender'           => '',            // optional
-        //     'genderBiological' => '',            // optional
-        //     'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID') ? TELEGRAMD_AFFLIATE_ID : '',
-        // ];
+        // Fetch patient info from local table
+        $patient_table = HEALSEND_PATIENTS_TABLE;
+        $patient = $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM {$patient_table} WHERE patient_email = %s", $email),
+            ARRAY_A
+        );
 
+        // Extract info or use fallback values
+        $first_name = $patient['first_name'] ?? ($user->first_name ?: 'John');
+        $last_name  = $patient['last_name'] ?? ($user->last_name ?: 'Doe');
+        $dob        = $patient['dob'] ?? '1970-01-01';
+        $gender     = $patient['gender'] ?? 'male';
+        $phone      = $patient['phone'] ?? '18008291040';
 
+        // Build payload for API
         $payload = [
-            'name'             => trim($first_name . ' ' . $last_name) ?: ($email ?: 'John Doe'),
-            'firstName'        => $first_name ?: 'John',
-            'lastName'         => $last_name ?: 'Doe',
-            'email'            => $email ?: 'johndoe@example.com',
-            'phone'            => '18008291040', // dummy fallback
-            'dateOfBirth'      => '1970-01-01',     // default DOB
-            'gender'           => 'male',     // fallback
-            'genderBiological' => 'male',
+            'name'             => trim($first_name . ' ' . $last_name) ?: $email,
+            'firstName'        => $first_name,
+            'lastName'         => $last_name,
+            'email'            => $email,
+            'phone'            => $phone,
+            'dateOfBirth'      => $dob,
+            'gender'           => $gender,
+            'genderBiological' => $gender,
             'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID')
                 ? TELEGRAMD_AFFLIATE_ID
                 : 'AFFILIATE-123',
@@ -162,13 +245,11 @@ class HLD_Telegra
                 'authorization' => defined('TELEGRAMD_BEARER_TOKEN') ? 'Bearer ' . TELEGRAMD_BEARER_TOKEN : '',
                 'content-type'  => 'application/json',
             ],
-            'body' => wp_json_encode($payload),
+            'body'    => wp_json_encode($payload),
             'timeout' => 20,
         ];
 
         $endpoint = TELEGRA_BASE_URL . '/patients';
-
-
         $response = wp_remote_post($endpoint, $args);
 
         if (is_wp_error($response)) {
@@ -180,19 +261,27 @@ class HLD_Telegra
         $data = json_decode($body, true);
 
         if (!empty($data['id'])) {
-            // Save into local patients table and return ID
-            $saved = HLD_Patient::set_telegra_patient_id($email, $data['id'], $first_name, $last_name);
+            // Save to local patients table
+            $saved = HLD_Patient::set_telegra_patient_id(
+                $email,
+                $data['id'],
+                $first_name,
+                $last_name
+            );
+
             if ($saved) {
                 return $data['id'];
             } else {
-                error_log('HLD_Telegra: saved to local DB failed for telegra_id=' . $data['id']);
+                error_log('HLD_Telegra: Failed to save patient ID locally for ' . $email);
                 return false;
             }
         } else {
-            error_log('HLD_Telegra API Response missing ID: ' . $body);
+            error_log('HLD_Telegra API Response Missing ID: ' . $body);
             return false;
         }
     }
+
+
 
 
 

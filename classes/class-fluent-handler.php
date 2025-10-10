@@ -336,7 +336,7 @@ if (! class_exists('hldFluentHandler')) {
             error_log("telegra_patient_id is:245" . $telegra_patient_id);
             $medication_id = $this->get_medication_id();
 
-           $order_id = $this->telegra->create_order(
+            $order_id = $this->telegra->create_order(
                 $telegra_patient_id,
                 $medication_id,
                 ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
@@ -627,6 +627,66 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
+        public function update_patient_info($prefunnel_form_data)
+        {
+            if (!is_user_logged_in()) {
+                error_log('❌ update_patient_info: patient must be logged in.');
+                return;
+            }
+
+            // Extract data safely from the form
+            $first_name = isset($prefunnel_form_data['names']['first_name']) ? sanitize_text_field($prefunnel_form_data['names']['first_name']) : '';
+            $last_name  = isset($prefunnel_form_data['names']['last_name']) ? sanitize_text_field($prefunnel_form_data['names']['last_name']) : '';
+            $gender     = isset($prefunnel_form_data['dropdown_1']) ? strtolower(sanitize_text_field($prefunnel_form_data['dropdown_1'])) : '';
+            $dob        = isset($prefunnel_form_data['datetime']) ? sanitize_text_field($prefunnel_form_data['datetime']) : '';
+            $state      = isset($prefunnel_form_data['dropdown']) ? sanitize_text_field($prefunnel_form_data['dropdown']) : '';
+            $phone      = isset($prefunnel_form_data['phone']) ? sanitize_text_field($prefunnel_form_data['phone']) : '';
+
+            // Physical metrics
+            $height_feet  = isset($prefunnel_form_data['input_text_2']) ? floatval($prefunnel_form_data['input_text_2']) : 0;
+            $height_inches = isset($prefunnel_form_data['input_text_4']) ? floatval($prefunnel_form_data['input_text_4']) : 0;
+            $weight_lbs   = isset($prefunnel_form_data['input_text_3']) ? floatval($prefunnel_form_data['input_text_3']) : 0;
+
+            // ✅ Convert DOB to proper format if needed (Fluent Form might return dd-MMM-yy)
+            $formatted_dob = date('Y-m-d', strtotime($dob));
+
+            // Log extracted data for debugging
+            error_log("🧾 update_patient_info extracted data: " . print_r([
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'gender' => $gender,
+                'dob' => $formatted_dob,
+                'state' => $state,
+                'phone' => $phone,
+                'height_feet' => $height_feet,
+                'height_inches' => $height_inches,
+                'weight_lbs' => $weight_lbs,
+            ], true));
+
+            // Update patient data using your existing methods
+            if ($first_name || $last_name) {
+                HLD_Patient::update_name($first_name, $last_name);
+            }
+            if ($gender) {
+                HLD_Patient::update_gender($gender);
+            }
+            if ($formatted_dob) {
+                HLD_Patient::update_dob($formatted_dob);
+            }
+            if ($height_feet || $height_inches || $weight_lbs) {
+                HLD_Patient::update_physical_metrics($height_feet, $height_inches, $weight_lbs);
+            }
+            if ($state) {
+                HLD_Patient::update_state($state);
+            }
+            if ($phone) {
+                HLD_Patient::update_phone($phone);
+            }
+
+            error_log("✅ Patient info updated successfully for logged-in user.");
+        }
+
+
 
 
 
@@ -652,7 +712,7 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
-
+            $this->update_patient_info($form);
 
             // First save main submission
             // $this->save_patient_form_submission($insertData);
@@ -680,6 +740,7 @@ if (! class_exists('hldFluentHandler')) {
 
             // if not form can create patient create telegra order return
             if (in_array($form_id, $this->telegra_forms)) {
+                HLD_Telegra::create_patient();
                 error_log("form_id is allowed");
                 $this->telegra();
             }
