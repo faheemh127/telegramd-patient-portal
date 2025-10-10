@@ -52,20 +52,7 @@ function hld_add_sidebar_overlay()
             <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
             <div class="hld-sidebar-content">
                 <h2>Action Item</h2>
-                <?php
-                // Action Item: ID Verification
-                hld_action_item(
-                    "ID Verification Pending",
-                    "Your ID upload is still pending. Please upload a valid ID to continue with your visit.",
-                    HLD_PATIENT_DASHBOARD_URL . "?upload-id" // replace with your actual ID upload page
-                );
-
-                // Action Item: GLP-1 Visit
-                hld_action_item(
-                    "Complete Your GLP-1 Weight Loss Visit",
-                    "You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.",
-                    home_url('/glp-1-weight-loss-intake/')
-                );
+                <?php  include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; 
                 ?>
             </div>
         </div>
@@ -79,9 +66,7 @@ add_action('wp_login', function ($user_login, $user) {
 
     if (class_exists('HLD_Patient')) {
         error_log("class HLD_Patient exists 81");
+        error_log(print_r($user, true));
         HLD_Patient::sync_user_to_patient($user); // Pass the user directly
     }
 }, 10, 2);
-
-
-

@@ -221,8 +221,7 @@ class HLD_Telegra
         $last_name  = $patient['last_name'] ?? ($user->last_name ?: 'Doe');
         $dob        = $patient['dob'] ?? '1970-01-01';
         $gender     = $patient['gender'] ?? 'male';
-        $phone      = $patient['phone'] ?? '18008291040';
-
+        $phone = isset($patient['phone']) ? preg_replace('/\D/', '', $patient['phone']) : '18008291040';
         // Build payload for API
         $payload = [
             'name'             => trim($first_name . ' ' . $last_name) ?: $email,

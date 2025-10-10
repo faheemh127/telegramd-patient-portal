@@ -26,6 +26,9 @@ pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd
 
 healsend1@gmail.com
 healsend2@gmail.com
+healsend3@gmail.com
+healsend4@gmail.com
+healsend5@gmail.com
 
 
 // @todo: before publish

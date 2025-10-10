@@ -19,7 +19,7 @@ function hld_render_custom_signup_form()
         $email      = sanitize_email($_POST['hld_email']);
         $password   = $_POST['hld_password'];
         $agreed     = isset($_POST['hld_agree_terms']); // ✅ Checkbox validation
-
+       
         if (username_exists($username) || email_exists($email)) {
             $error_message = 'Username or email already exists.';
         } elseif (empty($username) || empty($email) || empty($password)) {

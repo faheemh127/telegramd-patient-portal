@@ -29,7 +29,7 @@ if (isset($_GET['message'])) {  ?>
                         <form id="hld-account-details-form" class="hld-account-details-form">
                             <div class="mb-3">
                                 <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
-                                <p><?= esc_html($patient['full_name']); ?></p>
+                                <p><?= !empty($patient['full_name']) ? esc_html($patient['full_name']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
                             </div>
 
@@ -41,13 +41,13 @@ if (isset($_GET['message'])) {  ?>
 
                             <div class="mb-3">
                                 <label for="hld_phone" class="form-label"><strong>Phone:</strong></label>
-                                <p><?= esc_html($patient['phone']); ?></p>
+                                <p><?= !empty($patient['phone']) ? esc_html($patient['phone']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_phone" name="phone" value="<?= esc_attr($patient['phone']); ?>">
                             </div>
 
                             <div class="mb-3">
                                 <label for="hld_dob" class="form-label"><strong>Date of birth:</strong></label>
-                                <p><?= esc_html($patient['dob']); ?></p>
+                                <p><?= !empty($patient['dob']) ? esc_html($patient['dob']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
                             </div>
 
@@ -114,7 +114,7 @@ if (isset($_GET['message'])) {  ?>
                         <div><strong>Debit Card:</strong> <span class="fw-bold"><?php if (HLD_Payments::has_card()) {
                                                                                     echo "**** **** ****" . HLD_Payments::get_last4();
                                                                                 } else {
-                                                                                    echo "No card provide yet";
+                                                                                    echo "No payment method on file.";
                                                                                 } ?></span></div>
                     </div>
                     <div class="col-md-4">
@@ -142,7 +142,7 @@ if (isset($_GET['message'])) {  ?>
             <a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>" class="hld_btn_profile_logout">logout</a>
 
 
-            
+
         </div>
     </div>
 </div>
