@@ -83,7 +83,6 @@ class HLD_DB_Tables
 
 
 
-
         // Action Items Table
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['action_items'] . " (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -92,10 +91,15 @@ class HLD_DB_Tables
     label VARCHAR(255) NOT NULL,                   -- Human readable name
     description TEXT NULL,                         -- Optional detailed description
     item_slug VARCHAR(255) NOT NULL,               -- e.g. 'glp_1_weight_loss_intake'
+    quinst_array_index VARCHAR(50) DEFAULT NULL,   -- Comma-separated index values like '4,5'
     sort_order INT DEFAULT 0,
     required TINYINT(1) DEFAULT 1,
     UNIQUE KEY unique_plan_action (plan_slug, action_key)
 ) $charset_collate;";
+
+
+
+
 
         // User Actions Table
         $sql[] = "CREATE TABLE IF NOT EXISTS " . self::$tables['user_actions'] . " (
@@ -103,11 +107,13 @@ class HLD_DB_Tables
     patient_email VARCHAR(255) NOT NULL,
     plan_slug VARCHAR(100) NOT NULL,
     action_key VARCHAR(100) NOT NULL,
+    telegra_order_id VARCHAR(255) DEFAULT NULL,
     status ENUM('pending', 'completed') DEFAULT 'pending',
     completed_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY unique_user_action (patient_email, plan_slug, action_key)
 ) $charset_collate;";
+
 
 
 

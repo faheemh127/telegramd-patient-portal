@@ -1119,6 +1119,17 @@
   border: none;
   border-radius: 10px;
 }
+.hld-upload-id .hld-heading {
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+.hld-upload-id .card {
+  margin: auto;
+}
 
 /* css for disqualify page */
 

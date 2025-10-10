@@ -112,9 +112,9 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                         <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
                         <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
                         <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
-                        <li class="hld_nav_support"><label for="tab6"><span>Lab Orders</span></label></li>
+                        <li class="hld_nav_lab_orders"><label for="tab6"><span>Lab Orders</span></label></li>
                         <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
-                        <li class="hld_nav_support"><label for="tab8"><span>Billing</span></label></li>
+                        <li class="hld_nav_billing"><label for="tab8"><span>Billing</span></label></li>
                         <li class="hld_nav_logout"><label for="tab9"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
                     </ul>
                 </div>

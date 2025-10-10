@@ -15,41 +15,45 @@ class HLD_ActionItems_Manager
 
         $default_items = [
             [
-                'plan_slug'   => 'glp_1_prefunnel',
-                'action_key'  => 'id_upload',
-                'label'       => 'ID Verification Pending',
-                'description' => 'Your ID upload is still pending. Please upload a valid ID to continue with your visit.',
-                'item_slug'   => 'my-account?upload-id',
-                'sort_order'  => 1,
-                'required'    => 1
+                'plan_slug'          => 'glp_1_prefunnel',
+                'action_key'         => 'id_upload',
+                'label'              => 'ID Verification Pending',
+                'description'        => 'As required by law, you must upload a form of personal identification. This can be a driver\'s license, a state-issued ID, or a passport.',
+                'item_slug'          => 'my-account?upload-id',
+                'quinst_array_index' => '3',
+                'sort_order'         => 1,
+                'required'           => 1,
             ],
             [
-                'plan_slug'   => 'glp_1_prefunnel',
-                'action_key'  => 'clinical_diff',
-                'label'       => 'Complete Your GLP-1 Weight Loss Visit',
-                'description' => 'You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.',
-                'item_slug'   => 'glp-1-weight-loss-intake',
-                'sort_order'  => 2,
-                'required'    => 1
+                'plan_slug'          => 'glp_1_prefunnel',
+                'action_key'         => 'clinical_diff',
+                'label'              => 'Complete Your GLP-1 Weight Loss Visit',
+                'description'        => 'You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.',
+                'item_slug'          => 'glp-1-weight-loss-intake',
+                'quinst_array_index' => '1,2',
+                'sort_order'         => 2,
+                'required'           => 1,
             ],
             [
-                'plan_slug'   => 'glp_1_prefunnel',
-                'action_key'  => 'agreement',
-                'label'       => 'Agreement Form',
-                'description' => 'Review and accept our treatment agreement to proceed.',
-                'item_slug'   => 'glp_1_agreement_form',
-                'sort_order'  => 3,
-                'required'    => 1
+                'plan_slug'          => 'glp_1_prefunnel',
+                'action_key'         => 'agreement',
+                'label'              => 'Agreement Form',
+                'description'        => 'Review and accept our treatment agreement to proceed.',
+                'item_slug'          => 'glp_1_agreement_form',
+                'quinst_array_index' => '4',
+                'sort_order'         => 3,
+                'required'           => 1,
             ],
             [
-                'plan_slug'   => 'metabolic',
-                'action_key'  => 'agreement',
-                'label'       => 'Agreement Form',
-                'description' => 'Please review and sign the agreement to continue your metabolic plan.',
-                'item_slug'   => 'metabolic_agreement_form',
-                'sort_order'  => 1,
-                'required'    => 1
-            ]
+                'plan_slug'          => 'metabolic',
+                'action_key'         => 'agreement',
+                'label'              => 'Agreement Form',
+                'description'        => 'Please review and sign the agreement to continue your metabolic plan.',
+                'item_slug'          => 'metabolic_agreement_form',
+                'quinst_array_index' => '1',
+                'sort_order'         => 1,
+                'required'           => 1,
+            ],
         ];
 
         foreach ($default_items as $item) {
@@ -61,23 +65,25 @@ class HLD_ActionItems_Manager
                 )
             );
 
-            if (! $exists) {
+            if (!$exists) {
                 $wpdb->insert(
                     $table,
                     [
-                        'plan_slug'   => $item['plan_slug'],
-                        'action_key'  => $item['action_key'],
-                        'label'       => $item['label'],
-                        'description' => $item['description'],
-                        'item_slug'   => $item['item_slug'],
-                        'sort_order'  => $item['sort_order'],
-                        'required'    => $item['required']
+                        'plan_slug'          => $item['plan_slug'],
+                        'action_key'         => $item['action_key'],
+                        'label'              => $item['label'],
+                        'description'        => $item['description'],
+                        'item_slug'          => $item['item_slug'],
+                        'quinst_array_index' => $item['quinst_array_index'],
+                        'sort_order'         => $item['sort_order'],
+                        'required'           => $item['required'],
                     ],
-                    ['%s', '%s', '%s', '%s', '%s', '%d', '%d']
+                    ['%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d']
                 );
             }
         }
     }
+
 
 
     /**
@@ -85,7 +91,7 @@ class HLD_ActionItems_Manager
      *
      * @param string $plan_slug e.g. 'glp_1_prefunnel'
      */
-    public static function assign_pending_actions_for_plan($plan_slug)
+    public static function assign_pending_actions_for_plan($plan_slug, $order_id = null)
     {
         if (!is_user_logged_in()) {
             return; // no user logged in
@@ -122,20 +128,21 @@ class HLD_ActionItems_Manager
                 )
             );
 
-            if (! $exists) {
+            if (!$exists) {
                 $wpdb->insert(
                     $user_actions_table,
                     [
-                        'patient_email' => $user_email,
-                        'plan_slug'     => $plan_slug,
-                        'action_key'    => $action->action_key,
-                        'status'        => 'pending'
+                        'patient_email'     => $user_email,
+                        'plan_slug'         => $plan_slug,
+                        'action_key'        => $action->action_key,
+                        'status'            => 'pending',
+                        'telegra_order_id'  => $order_id, // ✅ new field added here
                     ],
-                    ['%s', '%s', '%s', '%s']
+                    ['%s', '%s', '%s', '%s', '%s']
                 );
             }
         }
-    } // function ends
+    }
 
 
     /**

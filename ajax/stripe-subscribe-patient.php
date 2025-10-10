@@ -107,8 +107,6 @@ function hld_subscribe_patient_handler()
                 'Tirzepatide',        // Example: Medication name
                 $subscription
             );
-
-            HLD_ActionItems_Manager::assign_pending_actions_for_plan('glp_1_prefunnel');
         }
 
         /**

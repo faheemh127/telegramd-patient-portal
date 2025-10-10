@@ -3,7 +3,7 @@
 /**
  * Plugin Name: TelegraMD Patient Portal
  * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration, including prescriptions, lab results, and subscription management.
- * Version: 1.1
+ * Version: 1.2
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
  */
@@ -20,6 +20,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';

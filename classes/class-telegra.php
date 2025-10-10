@@ -400,7 +400,7 @@ class HLD_Telegra
 
         // Success
         error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
-        return $data;
+        return $data['id'];
     }
 }
 

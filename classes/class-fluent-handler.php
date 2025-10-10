@@ -335,11 +335,14 @@ if (! class_exists('hldFluentHandler')) {
             }
             error_log("telegra_patient_id is:245" . $telegra_patient_id);
             $medication_id = $this->get_medication_id();
-            $this->telegra->create_order(
+
+           $order_id = $this->telegra->create_order(
                 $telegra_patient_id,
                 $medication_id,
                 ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             );
+
+            HLD_ActionItems_Manager::assign_pending_actions_for_plan('glp_1_prefunnel', $order_id);
         }
 
         // public function prepare_questionare_for_telegra($form_data)
