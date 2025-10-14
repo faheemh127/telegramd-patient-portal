@@ -1,0 +1,56 @@
+[
+  {
+    "telegra_code": "pvt::50553d4f-e36f-41f3-9f1c-e9fec3860248",
+    "medication_name": "Sermorelin Injection (9mg)",
+    "description": "A growth hormone–releasing peptide used to improve metabolism, support lean muscle, and enhance recovery. Ideal for wellness and anti-aging programs.",
+    "stripe_product_id": "prod_T6gWAGad8vzvqU",
+    "labels": "Free Evaluation, Weekly Injection",
+    "packages": [
+      {
+        "monthly_duration": "1",
+        "monthly_price": "299",
+        "desc": "Perfect for first-time users. Try Sermorelin therapy for one month with no long-term commitment.",
+        "stripe_price_id": "price_dummy_1M"
+      },
+      {
+        "monthly_duration": "3",
+        "monthly_price": "275",
+        "desc": "Three-month treatment plan offering moderate savings and consistent progress tracking.",
+        "stripe_price_id": "price_dummy_3M"
+      },
+      {
+        "monthly_duration": "6",
+        "monthly_price": "250",
+        "desc": "Best value plan — long-term six-month commitment with maximum results and biggest savings.",
+        "stripe_price_id": "price_dummy_6M"
+      }
+    ]
+  },
+  {
+    "telegra_code": "pvt::4332bc52-5f54-4c8f-bf5c-f1ef2bb95fa0",
+    "medication_name": "Sermorelin Tablets",
+    "description": "An oral alternative to injections designed to support natural growth hormone release, improve metabolism, and enhance overall energy levels.",
+    "stripe_product_id": "prod_T6gWAGad8vzvqU",
+    "labels": "Free Evaluation, Daily Tablets",
+    "packages": [
+      {
+        "monthly_duration": "1",
+        "monthly_price": "250",
+        "desc": "Ideal for newcomers. One-month supply to experience the benefits of Sermorelin tablets without a long-term commitment.",
+        "stripe_price_id": "price_dummy_tab_1M"
+      },
+      {
+        "monthly_duration": "3",
+        "monthly_price": "199",
+        "desc": "Three-month package offering better savings while maintaining consistent daily dosing and visible results.",
+        "stripe_price_id": "price_dummy_tab_3M"
+      },
+      {
+        "monthly_duration": "6",
+        "monthly_price": "175",
+        "desc": "Best value plan — six-month supply designed for patients dedicated to sustained hormone support and long-term improvement.",
+        "stripe_price_id": "price_dummy_tab_6M"
+      }
+    ]
+  }
+]

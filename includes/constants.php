@@ -17,6 +17,12 @@ if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
     define('HLD_CLINICAL_DIFFERENCE_FORM_ID', 52);
 }
 
+if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
+    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', 53);
+}
+
+
+
 // Questionnaires
 if (! defined('QUINST_GLP_1_WEIGHT_LOSS')) {
     define('QUINST_GLP_1_WEIGHT_LOSS', 'quinst::54188482-41ac-4866-afc8-9e498c645d05');

@@ -1,5 +1,5 @@
 <?php
-
+if (! defined('ABSPATH')) exit; // Exit if accessed directly
 
 
 
@@ -52,7 +52,7 @@ function hld_add_sidebar_overlay()
             <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
             <div class="hld-sidebar-content">
                 <h2>Action Item</h2>
-                <?php  include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; 
+                <?php include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php';
                 ?>
             </div>
         </div>
@@ -70,3 +70,29 @@ add_action('wp_login', function ($user_login, $user) {
         HLD_Patient::sync_user_to_patient($user); // Pass the user directly
     }
 }, 10, 2);
+
+
+
+
+
+// Shortcode: [hld_login_button]
+function hld_login_button_shortcode()
+{
+
+    // If user is logged in
+    if (is_user_logged_in()) {
+        $url  = home_url('/my-account');
+        $text = 'My Account';
+        $class = 'hld-btn hld-login-btn-nav';
+    } else {
+        $url  = home_url('/patient-login');
+        $text = 'Login';
+        $class = 'hld-btn hld-login-btn-nav';
+    }
+
+    // Return HTML for button
+    $html = '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '">' . esc_html($text) . '</a>';
+
+    return $html;
+}
+add_shortcode('hld_login_button', 'hld_login_button_shortcode');

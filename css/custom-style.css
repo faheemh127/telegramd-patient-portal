@@ -1264,6 +1264,37 @@
   flex: 1;
 }
 
+/* ***********Login/ My Account button style */
+
+.hld-btn {
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+}
+
+.hld-login-btn-nav {
+  background-color: white !important;
+  color: #000 !important;
+}
+
+.hld-login-btn-nav:hover {
+  background-color: #005f8a;
+}
+
+.hld-account-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.hld-account-btn:hover {
+  background-color: #218838;
+}
+
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
