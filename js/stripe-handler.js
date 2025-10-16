@@ -400,7 +400,7 @@ if (isLocalhost) {
 const cardElement = document.querySelector("#card-element");
 
 if (cardElement) {
-  new hldStripeHandler({
+  window.stripeHandler = new hldStripeHandler({
     publishableKey: MyStripeData.publishableKey,
     ajaxUrl: MyStripeData.ajax_url,
     formId: "fluentform_" + glp1FormID,

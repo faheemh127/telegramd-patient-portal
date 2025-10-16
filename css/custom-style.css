@@ -18,6 +18,11 @@
   border-radius: 10px !important;
   height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.5s ease-in-out;
+}
+.hld_form_wrap input:focus,
+.hld_form_wrap input:hover {
+  border: 1px solid var(--hld-color-primary) !important;
 }
 /* hide the element because we will display custom checkbox */
 .hld_gender_elem {
@@ -80,6 +85,25 @@
   float: right;
   margin-left: auto;
   margin-right: 0px;
+}
+.hld_btn_next_bmi .ff-column-container.ff_columns_total_2 {
+  display: flex;
+  gap: 15px;
+}
+.hld_glp_1_prefunnel input:hover,
+.hld_glp_1_prefunnel input:focus {
+  border-color: var(
+    --hld-color-primary
+  ); /* change this to your desired color */
+  box-shadow: 0 0 5px var(--hld-color-primary); /* optional: adds a glow effect */
+  outline: none; /* removes the default blue outline */
+}
+.page-id-9200 footer {
+  display: none;
+}
+.page-id-9200 .ast-container {
+  min-height: 100vh;
+  background: #f7f5f5;
 }
 .hld-account-details-form p {
   font-weight: 700;
@@ -806,6 +830,12 @@
   text-align: center;
   width: 100%;
   background-color: white;
+  transition: all 0.3 ease-in-out;
+}
+.hld-custom-checkbox:hover{
+  border-color: var(--hld-color-primary);
+  box-shadow: 0 4px 14px rgba(109, 111, 252, 0.25);
+  transform: translateY(-2px);
 }
 .hld-cb-male-female {
   color: var(--hld-color-primary);
@@ -1303,6 +1333,22 @@
   background-color: #218838;
 }
 
+.optin_cb_container input[type="checkbox"] {
+  display: block !important;
+}
+.optin_cb_container label {
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  display: flex;
+  gap: 10px;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+}
+.optin_cb_container input {
+  height: auto !important;
+}
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */

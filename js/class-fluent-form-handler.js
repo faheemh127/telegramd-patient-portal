@@ -8,6 +8,7 @@ class HldFluentFormHandler {
     this.hldhideNext("hld_medication_wrap");
     this.hldhideNext("hld_packages_wrap");
     this.initCustomizedData();
+    this.removeOptinLabelBorder();
   }
 
   initCustomizedData() {
@@ -107,23 +108,40 @@ class HldFluentFormHandler {
         : "No medication selected";
     }
 
-    // ✅ Set package duration and update stripeHandler.gl1Duration
+    // ✅ Set package duration and update window.stripeHandler.gl1Duration
     const durationDiv = document.getElementById("hldSummaryPackageDuration");
     if (durationDiv) {
       if (value3 === "Monthly") {
         durationDiv.textContent = "1 Month";
-        stripeHandler.gl1Duration = 1;
+        window.stripeHandler.gl1Duration = 1;
       } else if (value3 === "3-Month") {
         durationDiv.textContent = "3 Months";
-        stripeHandler.gl1Duration = 3;
+        window.stripeHandler.gl1Duration = 3;
       } else if (value3 === "6-Month") {
         durationDiv.textContent = "6 Months";
-        stripeHandler.gl1Duration = 6;
+        window.stripeHandler.gl1Duration = 6;
       } else {
         durationDiv.textContent = "No plan selected";
-        stripeHandler.gl1Duration = 1; // fallback default
+        window.stripeHandler.gl1Duration = 1; // fallback default
       }
     }
+  }
+
+  
+  removeOptinLabelBorder() {
+    // Find all elements with the class "optin_cb_container"
+    const containers = document.querySelectorAll(".optin_cb_container");
+
+    containers.forEach((container) => {
+      // Apply border none with !important
+      container.style.setProperty("border", "none", "important");
+
+      // Find label inside the container
+      const label = container.querySelector("label");
+      if (label) {
+        label.style.setProperty("border", "none", "important");
+      }
+    });
   }
 
   getAmount() {
@@ -145,8 +163,8 @@ class HldFluentFormHandler {
       duration = 6;
     }
 
-    // ✅ Update stripeHandler.gl1Duration
-    stripeHandler.gl1Duration = duration;
+    // ✅ Update window.stripeHandler.gl1Duration
+    window.stripeHandler.gl1Duration = duration;
 
     let selectedPrice = 0;
 
@@ -163,8 +181,8 @@ class HldFluentFormHandler {
         if (pkg) {
           selectedPrice = parseInt(pkg.monthly_price, 10);
 
-          // ✅ Set stripeHandler.priceId
-          stripeHandler.stripePriceId = pkg.stripe_price_id;
+          // ✅ Set window.stripeHandler.priceId
+          window.stripeHandler.stripePriceId = pkg.stripe_price_id;
 
           // ✅ Update UI
           const todayDiv = document.getElementById("hldSummaryTotalToday");
