@@ -8,8 +8,13 @@
  * Author URI: https://faheemhassan.dev
  */
 
+
+if (!defined('HLD_PLUGIN_VERSION')) {
+    define('HLD_PLUGIN_VERSION', '1.3');
+}
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
+
 
 require_once plugin_dir_path(__FILE__) . 'includes/constants.php';
 

@@ -28,7 +28,6 @@
 //   }
 // }
 
-
 class hldCustomCheckbox {
   constructor(containerSelector, callback) {
     this.container = document.querySelector(containerSelector);
@@ -62,9 +61,6 @@ class hldCustomCheckbox {
   }
 }
 
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   window.genderCheckbox = new hldCustomCheckbox(
     ".hld-custom-checkbox-group",
@@ -73,12 +69,22 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_1", value);
     }
   );
- 
+
+  window.hldMedicineOptions = new hldCustomCheckbox(
+    ".hld-custom-checkbox-group[data-field='pre_medicine']",
+    (value) => {
+      console.log("Selected medicine:", value);
+      hldFormHandler.setDropdownValue("dropdown_2", value);
+      hldFormHandler.setPackagePrice(value);
+      hldFormHandler.initMedications(value);
+    }
+  );
+
   window.hldMedicineOptions = new hldCustomCheckbox(
     ".hld-custom-checkbox-group[data-field='medicine']",
     (value) => {
       console.log("Selected medicine:", value);
-      hldFormHandler.setDropdownValue("dropdown_2", value);
+      hldFormHandler.setDropdownValue("dropdown_4", value);
       hldFormHandler.setPackagePrice(value);
     }
   );
@@ -92,6 +98,4 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.getAmount();
     }
   );
-
-
 });

@@ -6,10 +6,7 @@ class hldStripeHandler {
     this.cardElementId = config.cardElementId || "card-element";
     this.errorElementId = config.errorElementId || "card-errors";
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";
-    this.submitWrapperClass =
-      config.submitWrapperClass || ".hld_form_main_submit_button";
     this.prButtonId = config.prButtonId || "payment-request-button"; // NEW: container for Google Pay button
-
     this.stripe = null;
     this.elements = null;
     this.card = null;
@@ -18,10 +15,11 @@ class hldStripeHandler {
     this.stripePriceId = ""; // dummy Price ID for testing
     this.gl1Duration = 1; // 1 is default
     this.init();
+    this.submitWrapperClass =
+      config.submitWrapperClass || ".hld_form_main_submit_button";
   }
 
   init() {
-    console.log("hldStripeHandler initialized 🚀");
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
@@ -46,10 +44,10 @@ class hldStripeHandler {
 
       const result = await response.json();
       if (result.success && result.data) {
-        console.log("✅ Stripe price fetched:", result.data);
+        console.log(" Stripe price fetched:", result.data);
         return result.data; // { amount, currency, interval }
       } else {
-        console.error("❌ Error fetching Stripe price:", result.data?.message);
+        console.error("Error fetching Stripe price:", result.data?.message);
         return null;
       }
     } catch (err) {
@@ -62,7 +60,7 @@ class hldStripeHandler {
     this.stripe = Stripe(this.publishableKey);
     this.elements = this.stripe.elements();
 
-    // ✅ Card Element (keep existing flow)
+    //  Card Element (keep existing flow)
     this.card = this.elements.create("card");
 
     const cardElement = document.getElementById(this.cardElementId);
@@ -108,7 +106,7 @@ class hldStripeHandler {
     paymentRequest.canMakePayment().then((result) => {
       if (result) {
         prButton.mount(`#${this.prButtonId}`);
-        console.log("Google Pay / Apple Pay is available");
+        // console.log("Google Pay / Apple Pay is available");
       } else {
         console.log("Google Pay / Apple Pay not available on this device.");
       }
@@ -164,7 +162,7 @@ class hldStripeHandler {
     // Google Pay / Apple Pay Charge
     paymentRequest.on("paymentmethod", async (ev) => {
       try {
-        // ✅ Create subscription directly
+        //  Create subscription directly
         const subResult = await fetch(MyStripeData.ajax_url, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -176,7 +174,6 @@ class hldStripeHandler {
         });
 
         const subResponse = await subResult.json();
-        console.log("subResponse141", subResponse);
 
         if (!subResponse.success) {
           ev.complete("fail");
@@ -187,7 +184,7 @@ class hldStripeHandler {
           return;
         }
 
-        console.log("✅ Subscription created:", subResponse.data);
+        console.log(" Subscription created:", subResponse.data);
 
         ev.complete("success");
         this.submitForm();
@@ -214,16 +211,15 @@ class hldStripeHandler {
     );
   }
 
-  // ✅ Existing card flow
+  //  Existing card flow
   async handleCardPayment(e) {
     e.preventDefault();
-    console.log("handleCardPayment function called");
+    
 
     this.toggleButtonState(true, "Processing...");
 
     try {
       const setupIntent = await this.createSetupIntent();
-      console.log("setupIntent188", setupIntent);
 
       if (!setupIntent.success) {
         this.showError("Error creating SetupIntent.");
@@ -249,11 +245,10 @@ class hldStripeHandler {
         return;
       }
 
-      console.log("result215", result);
       const paymentMethod = result.setupIntent.payment_method;
 
       if (this.isSubscription) {
-        // ✅ Call subscription AJAX instead of charge_now
+        // Call subscription AJAX instead of charge_now
         const subResult = await fetch(MyStripeData.ajax_url, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -277,7 +272,7 @@ class hldStripeHandler {
           return;
         }
 
-        console.log("✅ Subscription created:", subResponse.data);
+        console.log(" Subscription created:", subResponse.data);
       } else if (this.chargeImmediately) {
         // Charge immediately using PaymentIntent (instead of just saving method)
 
@@ -320,7 +315,7 @@ class hldStripeHandler {
           return;
         }
 
-        console.log("Card saved for later!");
+        
       }
 
       // const saveResult = await this.savePaymentMethod(
@@ -401,17 +396,21 @@ if (isLocalhost) {
 } else {
   glp1FormID = 45;
 }
-const stripeHandler = new hldStripeHandler({
-  publishableKey: MyStripeData.publishableKey,
-  ajaxUrl: MyStripeData.ajax_url,
-  formId: "fluentform_" + glp1FormID,
-  cardElementId: "card-element",
-  errorElementId: "card-errors",
-  paymentButtonId: "hdlMakeStipePayment",
-  submitWrapperClass: ".hld_form_main_submit_button",
-  prButtonId: "payment-request-button", // NEW: add this container in HTML
-});
 
-// customer name
-// payment description
-// {"success":true,"data":{"payment_intent":"pi_3S9TwZAcgi1hKyLW1pgH2X4Y"}} show payment_id in customer detail
+const cardElement = document.querySelector("#card-element");
+
+if (cardElement) {
+  new hldStripeHandler({
+    publishableKey: MyStripeData.publishableKey,
+    ajaxUrl: MyStripeData.ajax_url,
+    formId: "fluentform_" + glp1FormID,
+    cardElementId: "card-element",
+    errorElementId: "card-errors",
+    paymentButtonId: "hdlMakeStipePayment",
+    submitWrapperClass: ".hld_form_main_submit_button",
+    prButtonId: "payment-request-button", // NEW: add this container in HTML
+  });
+  // console.log(" hldStripeHandler initialized!");
+} else {
+  // console.log("#card-element not found. Stripe handler not initialized.");
+}

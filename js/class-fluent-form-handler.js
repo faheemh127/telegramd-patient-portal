@@ -1,4 +1,3 @@
-console.log("HldFluentFormHandler file loaded");
 class HldFluentFormHandler {
   constructor() {
     // @todo uncomment this on production
@@ -12,65 +11,11 @@ class HldFluentFormHandler {
   }
 
   initCustomizedData() {
-    this.initMedications();
+    // this.initMedications();
   }
 
-  // initMedications() {
-  //   const wrap = document.getElementById("hldGlpMedicationWrap");
-  //   if (!wrap) return;
-
-  //   // clear previous dummy data
-  //   wrap.innerHTML = "";
-
-  //   let html = "";
-
-  //   fluentFormData.medications.forEach((med) => {
-  //     // extract name & "Most Popular" star if available
-  //     const nameParts = med.medication_name.split("(");
-  //     const medName = nameParts[0].trim();
-  //     const extraLabel = nameParts[1]
-  //       ? nameParts[1].replace(")", "").trim()
-  //       : "";
-
-  //     // take first package price & desc (fallback if needed)
-  //     const firstPackage = med.packages[0] || {};
-  //     const price = firstPackage.price || "$147 / Month";
-
-  //     // parse description (split into features if possible)
-  //     const descList = firstPackage.desc
-  //       ? firstPackage.desc.split("•").map((d) => d.trim())
-  //       : ["Weekly injection", "Compounded", "Feature not available"];
-
-  //     // build features list
-  //     const featuresHTML = descList.map((f) => `<li>${f}</li>`).join("");
-
-  //     // build medication block
-  //     html += `
-  //     <div class="hld-custom-checkbox hld-medicine" data-value="${medName}">
-  //       <div class="med-box">
-  //         <div class="badges">
-  //           <span class="hld-badge hld-badge-blue">Free Evaluation</span>
-  //           <span class="hld-badge hld-badge-pink">Weekly Injection</span>
-  //         </div>
-  //         <div class="med-compounded">Compounded</div>
-  //         <div class="med-title">
-  //           ${medName} ${
-  //       extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-  //     }
-  //         </div>
-  //         <div class="med-price">$${price}/month</div>
-  //         <ul class="med-features">
-  //           ${featuresHTML}
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   `;
-  //   });
-
-  //   // insert built HTML inside wrapper
-  //   wrap.innerHTML = html;
-  // }
-  initMedications() {
+  initMedications(selectedMedication = "") {
+    console.log("initMedications function recieve value", selectedMedication);
     const wrap = document.getElementById("hldGlpMedicationWrap");
     if (!wrap) return;
 
@@ -78,7 +23,11 @@ class HldFluentFormHandler {
 
     let html = "";
 
-    fluentFormData.medications.forEach((med) => {
+    const filteredMeds = fluentFormData.medications.filter(
+      (med) => med.medication.toLowerCase() === selectedMedication.toLowerCase()
+    );
+
+    filteredMeds.forEach((med) => {
       // extract name & optional label (like Most Popular)
       const nameParts = med.medication_name.split("(");
       const medName = nameParts[0].trim();
@@ -141,7 +90,7 @@ class HldFluentFormHandler {
   }
 
   setStripeData() {
-    const dropdown2 = document.querySelector('[name="dropdown_2"]');
+    const dropdown2 = document.querySelector('[name="dropdown_4"]');
     const dropdown3 = document.querySelector('[name="dropdown_3"]');
 
     const medication = dropdown2 ? dropdown2.value : null;

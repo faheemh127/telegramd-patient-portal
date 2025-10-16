@@ -26,6 +26,9 @@
 .hld_medication_elem {
   display: none !important;
 }
+.hld_pre_medication_elem {
+  display: none !important;
+}
 .hld_form_wrap .survey-radio .ff-el-input--content label,
 .hld_form_wrap .ff-el-form-check-label {
   padding: 0px 10px !important;
@@ -41,6 +44,11 @@
   align-items: center;
   margin-bottom: 10px !important;
   border-radius: 10px !important;
+}
+
+/* Hide the Asterick of red color in prefunnel forms */
+.fluentform .ff-el-input--label.ff-el-is-required.asterisk-right label:after {
+  color: transparent !important;
 }
 
 /* hide rounded circule in labels */

@@ -13,10 +13,12 @@ class HldPatientLogin {
         this.login();
       });
     }
-    console.log("n8n");
 
     // Automatically send email to iframes if available
-    this.postEmailToIframes();
+    if (window.location.href.includes("my-account")) {
+      this.postEmailToIframes();
+    }
+
     this.setUpPatientTypeListeners();
   }
 

@@ -56,7 +56,6 @@ class hldFluentFormClass {
 
 const hldFluentFormHelper = new hldFluentFormClass();
 
-console.log("custom javascript 109 loaded");
 // This code is to hide radio buttons' next button
 document.addEventListener("DOMContentLoaded", function () {
   const steps = document.querySelectorAll(".fluentform-step");
@@ -119,104 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("❌ Patient email not set. Skipping auto-step.");
     }
   }
-
-  // // button = document.querySelector('button[name="save_progress_button"]');
-  // const button = document.querySelector('button[name="save_progress_button"]');
-
-  // if (button) {
-  //   button.addEventListener('click', function () {
-  //     console.log('Button clicked, waiting 4 seconds...');
-
-  //     setTimeout(() => {
-  //       // Get the first matching input field
-  //       const input = document.querySelector('.ff-el-input--content .ff_input-group input');
-
-  //       if (input) {
-  //         console.log('Input value:', input.value);
-  //       } else {
-  //         console.log('Input field not found.');
-  //       }
-  //     }, 4000); // 4000 ms = 4 seconds
-  //   });
-  // } else {
-  //   console.log('Button not found.');
-  // }
-
-  const saveProgressBtn = document.querySelector(
-    'button[name="save_progress_button"]'
-  );
-  const formID = 13; // dummy form ID
-  if (saveProgressBtn) {
-    saveProgressBtn.addEventListener("click", function (e) {
-      // e.preventDefault(); // This will stop form submission
-      console.log("Button clicked, waiting 4 seconds...");
-
-      setTimeout(() => {
-        const input = document.querySelector(
-          ".ff-el-input--content .ff_input-group input"
-        );
-
-        if (input) {
-          const inputValue = input.value;
-
-          console.log("Sending value to backend:", inputValue);
-          const activeStep = hldFluentFormHelper.getActiveStepNumber();
-          console.log("active step is", activeStep);
-          // Send AJAX request to WordPress
-          fetch(hldFormData.ajaxurl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-              action: "save_form_url",
-              form_id: formID,
-              form_url: inputValue,
-              active_step: activeStep,
-            }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                console.log("Form value saved successfully");
-              } else {
-                console.log("Error saving form value:", data.data);
-              }
-            })
-            .catch((error) => {
-              console.error("AJAX error:", error);
-            });
-        } else {
-          console.log("Input field not found.");
-        }
-      }, 4000);
-    });
-  } else {
-    console.log("saveProgressBtn not found.");
-  }
-
-  const nextButtons = document.querySelectorAll(".ff-btn-next");
-
-  nextButtons.forEach(function (button) {
-    button.addEventListener("click", function (e) {
-      console.log("➡️ Fluent Form Next button clicked");
-
-      // ✅ Your custom logic here
-      hldHandleNextButtonClick(button);
-    });
-  });
-
-  function hldHandleNextButtonClick(btn) {
-    // You can access the button DOM or trigger actions here
-
-    console.log("✅ Next button triggered:", btn);
-    const saveProgressBtn = document.querySelector(
-      'button[name="save_progress_button"]'
-    );
-    // saveProgressBtn.click();
-  } // hldHandleNextButtonClick
-
-  // show the active form step
 
   const urlParams = new URLSearchParams(window.location.search);
   const fluentState = urlParams.get("fluent_state");
@@ -288,12 +189,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // set patient email as global so other dev can use this email
 window.hldPatientEmail = hldData.hldPatientEmail || null;
 
-
-
-
-
-
-
 // Class for BMI calculation
 class hld_BMICalculator {
   constructor() {
@@ -301,26 +196,30 @@ class hld_BMICalculator {
     this.inchesInput = document.querySelector(".hld_bmi-inches");
     this.weightInput = document.querySelector(".hld_bmi-weight");
     this.bmiValue = document.querySelector(".hld_bmi-value");
-    this.successNotification = document.querySelector(".hld_bmi-notification.hld_success");
-    this.warningNotification = document.querySelector(".hld_bmi-notification.hld_warning");
+    this.successNotification = document.querySelector(
+      ".hld_bmi-notification.hld_success"
+    );
+    this.warningNotification = document.querySelector(
+      ".hld_bmi-notification.hld_warning"
+    );
 
     this.init();
   }
 
   init() {
     if (!this.feetInput || !this.inchesInput || !this.weightInput) return;
-    [this.feetInput, this.inchesInput, this.weightInput].forEach(input => {
+    [this.feetInput, this.inchesInput, this.weightInput].forEach((input) => {
       input.addEventListener("input", () => this.calculateBMI());
     });
     this.calculateBMI(); // initial run
   }
- 
+
   calculateBMI() {
     const feet = parseFloat(this.feetInput.value) || 0;
     const inches = parseFloat(this.inchesInput.value) || 0;
     const weight = parseFloat(this.weightInput.value) || 0;
 
-    const heightInInches = (feet * 12) + inches;
+    const heightInInches = feet * 12 + inches;
     if (heightInInches === 0 || weight === 0) {
       this.bmiValue.textContent = "0";
       this.toggleNotifications(null);
@@ -341,35 +240,33 @@ class hld_BMICalculator {
   }
 
   toggleNotifications(type) {
-  this.successNotification.style.display = "none";
-  this.warningNotification.style.display = "none";
+    this.successNotification.style.display = "none";
+    this.warningNotification.style.display = "none";
 
-  // Select elements
-  const bmiLabel = document.querySelector(".hld_bmi-label");
-  const bmiValue = document.querySelector(".hld_bmi-value");
-  const bmiCircle = document.querySelector(".hld_bmi-circle");
+    // Select elements
+    const bmiLabel = document.querySelector(".hld_bmi-label");
+    const bmiValue = document.querySelector(".hld_bmi-value");
+    const bmiCircle = document.querySelector(".hld_bmi-circle");
 
-  // Reset styles first
-  if (bmiLabel) bmiLabel.style.color = "";
-  if (bmiValue) bmiValue.style.border = "";
-  if (bmiCircle) bmiCircle.style.border = "";
+    // Reset styles first
+    if (bmiLabel) bmiLabel.style.color = "";
+    if (bmiValue) bmiValue.style.border = "";
+    if (bmiCircle) bmiCircle.style.border = "";
 
-  if (type === "success") {
-    this.successNotification.style.display = "flex";
+    if (type === "success") {
+      this.successNotification.style.display = "flex";
 
-    if (bmiLabel) bmiLabel.style.color = "#2e7d32"; // green
-    if (bmiValue) bmiValue.style.color = "#2e7d32";
-    if (bmiCircle) bmiCircle.style.border = "6px solid #2e7d32";
+      if (bmiLabel) bmiLabel.style.color = "#2e7d32"; // green
+      if (bmiValue) bmiValue.style.color = "#2e7d32";
+      if (bmiCircle) bmiCircle.style.border = "6px solid #2e7d32";
+    } else if (type === "warning") {
+      this.warningNotification.style.display = "flex";
 
-  } else if (type === "warning") {
-    this.warningNotification.style.display = "flex";
-
-    if (bmiLabel) bmiLabel.style.color = "#d32f2f"; // red/danger
-    if (bmiValue) bmiValue.style.color = "#d32f2f";
-    if (bmiCircle) bmiCircle.style.border = "6px solid #d32f2f";
+      if (bmiLabel) bmiLabel.style.color = "#d32f2f"; // red/danger
+      if (bmiValue) bmiValue.style.color = "#d32f2f";
+      if (bmiCircle) bmiCircle.style.border = "6px solid #d32f2f";
+    }
   }
-}
-
 }
 
 // Init on page load
