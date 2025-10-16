@@ -9,6 +9,9 @@ class HldFluentFormHandler {
     this.hldhideNext("hld_packages_wrap");
     this.initCustomizedData();
     this.removeOptinLabelBorder();
+    // on page refresh or on nextendsocial login its importalt to call this function so it can pass price to strip handler class and show data on summary page
+    // hldFormHandler.getAmount();
+    // hldFormHandler.setStripeData();
   }
 
   initCustomizedData() {
@@ -90,44 +93,95 @@ class HldFluentFormHandler {
     }
   }
 
+  // setStripeData() {
+  //   const dropdown2 = document.querySelector('[name="dropdown_4"]');
+  //   const dropdown3 = document.querySelector('[name="dropdown_3"]');
+
+  //   const medication = dropdown2 ? dropdown2.value : null;
+  //   const value3 = dropdown3 ? dropdown3.value : null;
+
+  //   console.log("Function setStripeData");
+  //   console.log("dropdown_2 selected value:", medication);
+  //   console.log("dropdown_3 selected value:", value3);
+
+  //   // ✅ Set medication text to the div
+  //   const summaryDiv = document.getElementById("hldSummaryMedication");
+  //   if (summaryDiv) {
+  //     summaryDiv.textContent = medication
+  //       ? medication
+  //       : "No medication selected";
+  //   }
+
+  //   // ✅ Set package duration and update window.stripeHandler.gl1Duration
+  //   const durationDiv = document.getElementById("hldSummaryPackageDuration");
+  //   if (durationDiv) {
+  //     if (value3 === "Monthly") {
+  //       durationDiv.textContent = "1 Month";
+  //       window.stripeHandler.gl1Duration = 1;
+  //     } else if (value3 === "3-Month") {
+  //       durationDiv.textContent = "3 Months";
+  //       window.stripeHandler.gl1Duration = 3;
+  //     } else if (value3 === "6-Month") {
+  //       durationDiv.textContent = "6 Months";
+  //       window.stripeHandler.gl1Duration = 6;
+  //     } else {
+  //       durationDiv.textContent = "No plan selected";
+  //       window.stripeHandler.gl1Duration = 1; // fallback default
+  //     }
+  //   } else {
+  //     console.log("Duration div not found");
+  //   }
+  // }
+
   setStripeData() {
     const dropdown2 = document.querySelector('[name="dropdown_4"]');
     const dropdown3 = document.querySelector('[name="dropdown_3"]');
 
-    const medication = dropdown2 ? dropdown2.value : null;
-    const value3 = dropdown3 ? dropdown3.value : null;
+    const medication =
+      dropdown2 && dropdown2.value.trim() !== "" ? dropdown2.value : null;
+    const value3 =
+      dropdown3 && dropdown3.value.trim() !== "" ? dropdown3.value : null;
 
+    // If both dropdowns are empty, exit early
+    if (!medication && !value3) {
+      console.log("No valid dropdown values — exiting.");
+      return;
+    }
+
+    console.log("Function setStripeData");
     console.log("dropdown_2 selected value:", medication);
     console.log("dropdown_3 selected value:", value3);
 
-    // ✅ Set medication text to the div
-    const summaryDiv = document.getElementById("hldSummaryMedication");
-    if (summaryDiv) {
-      summaryDiv.textContent = medication
-        ? medication
-        : "No medication selected";
+    // ✅ Only update medication div if dropdown2 has a value
+    if (medication) {
+      const summaryDiv = document.getElementById("hldSummaryMedication");
+      if (summaryDiv) {
+        summaryDiv.textContent = medication;
+      }
     }
 
-    // ✅ Set package duration and update window.stripeHandler.gl1Duration
-    const durationDiv = document.getElementById("hldSummaryPackageDuration");
-    if (durationDiv) {
-      if (value3 === "Monthly") {
-        durationDiv.textContent = "1 Month";
-        window.stripeHandler.gl1Duration = 1;
-      } else if (value3 === "3-Month") {
-        durationDiv.textContent = "3 Months";
-        window.stripeHandler.gl1Duration = 3;
-      } else if (value3 === "6-Month") {
-        durationDiv.textContent = "6 Months";
-        window.stripeHandler.gl1Duration = 6;
+    // ✅ Only update duration div if dropdown3 has a value
+    if (value3) {
+      const durationDiv = document.getElementById("hldSummaryPackageDuration");
+      if (durationDiv) {
+        if (value3 === "Monthly") {
+          durationDiv.textContent = "1 Month";
+          window.stripeHandler.gl1Duration = 1;
+        } else if (value3 === "3-Month") {
+          durationDiv.textContent = "3 Months";
+          window.stripeHandler.gl1Duration = 3;
+        } else if (value3 === "6-Month") {
+          durationDiv.textContent = "6 Months";
+          window.stripeHandler.gl1Duration = 6;
+        } else {
+          console.log("Invalid plan selected");
+        }
       } else {
-        durationDiv.textContent = "No plan selected";
-        window.stripeHandler.gl1Duration = 1; // fallback default
+        console.log("Duration div not found");
       }
     }
   }
 
-  
   removeOptinLabelBorder() {
     // Find all elements with the class "optin_cb_container"
     const containers = document.querySelectorAll(".optin_cb_container");
@@ -144,15 +198,77 @@ class HldFluentFormHandler {
     });
   }
 
+  // getAmount() {
+  //   const dropdown2 = document.querySelector('[name="dropdown_4"]');
+  //   const dropdown3 = document.querySelector('[name="dropdown_3"]');
+
+  //   const medication = dropdown2 ? dropdown2.value : null;
+  //   const value3 = dropdown3 ? dropdown3.value : null;
+  //   console.log("getAmount");
+  //   console.log("Selected medication:", medication);
+  //   console.log("Selected plan:", value3);
+
+  //   let duration = 1; // default
+  //   if (value3 === "Monthly") {
+  //     duration = 1;
+  //   } else if (value3 === "3-Month") {
+  //     duration = 3;
+  //   } else if (value3 === "6-Month") {
+  //     duration = 6;
+  //   }
+
+  //   // ✅ Update window.stripeHandler.gl1Duration
+  //   window.stripeHandler.gl1Duration = duration;
+
+  //   let selectedPrice = 0;
+
+  //   // ✅ Find medication in fluentFormData
+  //   if (medication && fluentFormData.medications) {
+  //     const med = fluentFormData.medications.find((m) =>
+  //       m.medication_name.toLowerCase().includes(medication.toLowerCase())
+  //     );
+  //     if (med) {
+  //       const pkg = med.packages.find(
+  //         (p) => parseInt(p.monthly_duration, 10) === duration
+  //       );
+
+  //       if (pkg) {
+  //         selectedPrice = parseInt(pkg.monthly_price, 10);
+
+  //         // ✅ Set window.stripeHandler.priceId
+  //         window.stripeHandler.stripePriceId = pkg.stripe_price_id;
+
+  //         // ✅ Update UI
+  //         const todayDiv = document.getElementById("hldSummaryTotalToday");
+  //         if (todayDiv) {
+  //           todayDiv.textContent = selectedPrice;
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   console.log("Amount to charge today:", selectedPrice);
+  //   return selectedPrice;
+  // }
+
   getAmount() {
-    const dropdown2 = document.querySelector('[name="dropdown_2"]');
+    const dropdown2 = document.querySelector('[name="dropdown_4"]');
     const dropdown3 = document.querySelector('[name="dropdown_3"]');
 
-    const medication = dropdown2 ? dropdown2.value : null;
-    const value3 = dropdown3 ? dropdown3.value : null;
+    const medication =
+      dropdown2 && dropdown2.value.trim() !== "" ? dropdown2.value : null;
+    const value3 =
+      dropdown3 && dropdown3.value.trim() !== "" ? dropdown3.value : null;
 
+    console.log("getAmount");
     console.log("Selected medication:", medication);
     console.log("Selected plan:", value3);
+
+    // If both are empty, stop here
+    if (!medication && !value3) {
+      console.log("No valid dropdown values found — exiting.");
+      return 0;
+    }
 
     let duration = 1; // default
     if (value3 === "Monthly") {
@@ -168,11 +284,12 @@ class HldFluentFormHandler {
 
     let selectedPrice = 0;
 
-    // ✅ Find medication in fluentFormData
+    // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
         m.medication_name.toLowerCase().includes(medication.toLowerCase())
       );
+
       if (med) {
         const pkg = med.packages.find(
           (p) => parseInt(p.monthly_duration, 10) === duration
@@ -359,3 +476,12 @@ class HldFluentFormHandler {
 }
 
 var hldFormHandler = new HldFluentFormHandler();
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    if (typeof hldFormHandler !== "undefined") {
+      hldFormHandler.getAmount();
+      hldFormHandler.setStripeData();
+    }
+  }, 6000); // 5000ms = 5 seconds
+});

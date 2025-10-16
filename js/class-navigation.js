@@ -9,7 +9,7 @@ class HldNavigation {
     // commenting this because now we are moving the login page before checkout so its not need  at the moment
     // this.checkNextEndLoginAndNavigate(); // don't need here  its now called in mutation observer function
     this.initLoginWrapListener();
-    // this.hideNextBtnLoginWrap();
+    this.hideNextBtnLoginWrap();
 
     this.initActionItemSidebar();
     // this.showActionItemSidebar();
@@ -206,6 +206,8 @@ class HldNavigation {
       if (isVisible) {
         console.log("hld_login_wrap is now visible (display:block; opacity:1)");
         this.checkNextEndLoginAndNavigate();
+          hldFormHandler.getAmount();
+          hldFormHandler.setStripeData();
       }
     });
 

@@ -136,10 +136,11 @@ if (!class_exists('hldAssets')) {
                 HLD_PLUGIN_VERSION,
                 true
             );
-
+ 
             wp_localize_script('my-stripe-handler', 'MyStripeData', [
                 'ajax_url'       => admin_url('admin-ajax.php'),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
+                'prefunnelFormId' => HLD_GLP_1_PREFUNNEL_FORM_ID, // pass the constant
             ]);
         }
     }

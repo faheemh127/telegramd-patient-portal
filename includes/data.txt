@@ -32,7 +32,7 @@ healsend4@gmail.com
 healsend5@gmail.com
 
 healsendlive1@gmail.com
-
+?nextend_login_complete=1
 
 
 after login with nextend social this code looks

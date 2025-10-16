@@ -214,7 +214,6 @@ class hldStripeHandler {
   //  Existing card flow
   async handleCardPayment(e) {
     e.preventDefault();
-    
 
     this.toggleButtonState(true, "Processing...");
 
@@ -314,8 +313,6 @@ class hldStripeHandler {
           this.toggleButtonState(false, "Save and Continue");
           return;
         }
-
-        
       }
 
       // const saveResult = await this.savePaymentMethod(
@@ -394,7 +391,7 @@ let glp1FormID;
 if (isLocalhost) {
   glp1FormID = 45;
 } else {
-  glp1FormID = 45;
+  glp1FormID = Number(MyStripeData.prefunnelFormId);
 }
 
 const cardElement = document.querySelector("#card-element");
