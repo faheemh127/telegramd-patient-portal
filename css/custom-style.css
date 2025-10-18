@@ -20,6 +20,16 @@
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   transition: all 0.5s ease-in-out;
 }
+.custom-weight-text .lose-text{
+  font-size: 18px;
+  font-weight: 600;
+}
+.services-card:hover svg{
+  fill: white !important;
+  color: white !important;
+  scale: 1.2;
+  transition: all 0s ease-in-out;
+}
 .hld_form_wrap input:focus,
 .hld_form_wrap input:hover {
   border: 1px solid var(--hld-color-primary) !important;
@@ -831,6 +841,7 @@
   width: 100%;
   background-color: white;
   transition: all 0.3 ease-in-out;
+  overflow: hidden;
 }
 .hld-custom-checkbox:hover{
   border-color: var(--hld-color-primary);
@@ -1331,6 +1342,12 @@
 
 .hld-account-btn:hover {
   background-color: #218838;
+}
+.custom-weight-text .weight-text{
+  color: var(--hld-color-primary);
+  transition: color 0.3s ease;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .optin_cb_container input[type="checkbox"] {
