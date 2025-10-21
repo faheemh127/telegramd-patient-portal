@@ -2,12 +2,17 @@
   --hld-color-primary: #6d6ffc;
 }
 .hld_form_wrap {
-  max-width: 550px !important;
+  max-width: 600px !important;
+  /* background: white;
+    padding: 30px 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px 0; */
 }
 .container {
   padding: 0 !important;
   margin: 0 auto !important;
 }
+
 .hld_form_wrap select {
   height: 50px !important;
   border-radius: 10px !important;
@@ -20,11 +25,11 @@
   border: 1px solid rgba(0, 0, 0, 0.4) !important;
   transition: all 0.5s ease-in-out;
 }
-.custom-weight-text .lose-text{
+.custom-weight-text .lose-text {
   font-size: 18px;
   font-weight: 600;
 }
-.services-card:hover svg{
+.services-card:hover svg {
   fill: white !important;
   color: white !important;
   scale: 1.2;
@@ -111,9 +116,17 @@
 .page-id-9200 footer {
   display: none;
 }
+nav.hld-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 .page-id-9200 .ast-container {
   min-height: 100vh;
   background: #f7f5f5;
+}
+.page-id-9200 header {
+  display: none;
 }
 .hld-account-details-form p {
   font-weight: 700;
@@ -843,7 +856,7 @@
   transition: all 0.3 ease-in-out;
   overflow: hidden;
 }
-.hld-custom-checkbox:hover{
+.hld-custom-checkbox:hover {
   border-color: var(--hld-color-primary);
   box-shadow: 0 4px 14px rgba(109, 111, 252, 0.25);
   transform: translateY(-2px);
@@ -1343,7 +1356,7 @@
 .hld-account-btn:hover {
   background-color: #218838;
 }
-.custom-weight-text .weight-text{
+.custom-weight-text .weight-text {
   color: var(--hld-color-primary);
   transition: color 0.3s ease;
   font-size: 18px;
@@ -1532,4 +1545,58 @@
 /* Tablet only (768px to 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   /* tablet styles */
+}
+
+.hld-navbar {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.hld-navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.hld-back-btn,
+.hld-help-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+  padding: 8px 10px;
+  transition: color 0.3s ease;
+}
+
+.hld-back-btn:hover,
+.hld-help-btn:hover {
+  color: #0073aa;
+}
+
+.hld-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .hld-navbar {
+    padding: 8px 10px;
+  }
+  .hld-back-btn,
+  .hld-help-btn {
+    font-size: 14px;
+  }
+  .hld-logo img {
+    height: 30px;
+  }
 }

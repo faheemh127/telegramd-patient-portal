@@ -41,6 +41,7 @@ if (! class_exists('hldShortcode')) {
             );
 
             ob_start();
+            echo do_shortcode('[hld_navbar]');
             echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
             return ob_get_clean();
         }

@@ -10,13 +10,39 @@ class HldNavigation {
     // this.checkNextEndLoginAndNavigate(); // don't need here  its now called in mutation observer function
     this.initLoginWrapListener();
     this.hideNextBtnLoginWrap();
-
     this.initActionItemSidebar();
     // this.showActionItemSidebar();
     this.connectNavItemsWithActionItem();
     this.hideNextBtnDisqualifyStep();
-
     this.disqualifyLessThan18();
+    // this.showAllPrevButtons();
+    // 👇 Initialize the back button listener here
+    this.initBackButtonListener();
+  }
+
+  // 👇 Add this new method
+  initBackButtonListener() {
+    const backBtn = document.getElementById("hld-back-btn");
+
+    if (!backBtn) return;
+
+    backBtn.addEventListener("click", () => {
+      // Find the currently active FluentForm step
+      const activeStep = document.querySelector(".fluentform-step.active");
+
+      if (activeStep) {
+        // Find the "Previous" button inside that active step
+        const prevButton = activeStep.querySelector(".ff-btn-prev");
+
+        if (prevButton) {
+          prevButton.click(); // Trigger FluentForm's previous step
+        } else {
+          console.warn("⚠️ No .ff-btn-prev found inside active step.");
+        }
+      } else {
+        console.warn("⚠️ No active .fluentform-step found.");
+      }
+    });
   }
 
   // disqualifyLessThan18() {
@@ -91,7 +117,20 @@ class HldNavigation {
     });
   }
 
-  
+  showAllPrevButtons() {
+    const stepContainers = document.querySelectorAll(
+      ".ff-step-container .fluentform-step"
+    );
+
+    stepContainers.forEach((step) => {
+      const prevButton = step.querySelector(".ff-btn-prev");
+      if (prevButton) {
+        // Add display:block !important
+        prevButton.style.setProperty("display", "block", "important");
+      }
+    });
+  }
+
   hideNextBtnDisqualifyStep() {
     const disqualifySteps = document.querySelectorAll(".hld_disqualify_step");
 
@@ -206,8 +245,8 @@ class HldNavigation {
       if (isVisible) {
         console.log("hld_login_wrap is now visible (display:block; opacity:1)");
         this.checkNextEndLoginAndNavigate();
-          hldFormHandler.getAmount();
-          hldFormHandler.setStripeData();
+        hldFormHandler.getAmount();
+        hldFormHandler.setStripeData();
       }
     });
 
