@@ -489,6 +489,7 @@ nav.hld-navbar {
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: 2px;
+  letter-spacing: 1px;
 }
 
 .hld_patient_packages .package-description {
@@ -1382,6 +1383,17 @@ nav.hld-navbar {
 .hld_form_wrap .ffs_default_wrap {
   margin-top: 30px;
 }
+.package-header strong {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+}
+.package-description li {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 0.875rem;
+  font-weight: 400;
+}
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1617,19 +1629,19 @@ nav.hld-navbar {
 }
 
 .hld-footer {
-    position: initial;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
+  position: initial;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 @media (max-width: 600px) {
-    .hld-footer-inner {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
+  .hld-footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
 }
 
 /* Hide Main Footer On greater than mobile devices i.e tablet or desktop */

@@ -380,7 +380,8 @@ class HldFluentFormHandler {
           </div>`;
         } else if (duration === "6") {
           headerTitle = "6-Month Upfront (Max Savings)";
-          headerLabel = `<span class="save-label">Save $100 extra</span>`;
+          // headerLabel = `<span class="save-label">Save $100 extra</span>`;
+          headerLabel = ``;
           dataValue = "6-Month";
           priceHTML = `
           <div class="package-price">

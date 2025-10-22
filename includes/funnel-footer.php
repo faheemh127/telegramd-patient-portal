@@ -15,7 +15,7 @@ function hld_footer_shortcode()
 
             <!-- Right Google Reviews -->
             <div class="hld-footer-right">
-                <a href="https://www.google.com/search?q=Your+Business+Name+reviews" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background-color: #4285F4; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px;">
+                <a href="https://admin.trustindex.io/api/googleReview?place-id=ChIJyyGCkUtZwokRNF3OWcs6WFg" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background-color: #4285F4; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="16" height="16" fill="white">
                         <path d="M488 261.8c0-17.8-1.6-35-4.6-51.8H249v98.2h134.3c-5.8 31-23.1 57.2-49.4 74.8v61h79.8c46.7-43 74.3-106.4 74.3-182.2z" />
                         <path d="M249 492c66.6 0 122.4-22.2 163.2-60.2l-79.8-61c-22.2 15-50.5 24-83.4 24-64 0-118.1-43.1-137.4-101.2H30.1v63.4C70.4 447 153.8 492 249 492z" />

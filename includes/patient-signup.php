@@ -15,17 +15,14 @@ function hld_render_custom_signup_form()
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hld_signup_nonce']) && wp_verify_nonce($_POST['hld_signup_nonce'], 'hld_signup_action')) {
 
-        $username   = sanitize_user($_POST['hld_username']);
-        $email      = sanitize_email($_POST['hld_email']);
-        $password   = $_POST['hld_password'];
-        $agreed     = isset($_POST['hld_agree_terms']); // ✅ Checkbox validation
-       
+        $username = sanitize_user($_POST['hld_username']);
+        $email    = sanitize_email($_POST['hld_email']);
+        $password = $_POST['hld_password'];
+
         if (username_exists($username) || email_exists($email)) {
             $error_message = 'Username or email already exists.';
         } elseif (empty($username) || empty($email) || empty($password)) {
             $error_message = 'All fields are required.';
-        } elseif (!$agreed) {
-            $error_message = 'You must agree to the Privacy Policy, Terms, and Telehealth Consent before signing up.';
         } else {
             // Create user as subscriber
             $user_id = wp_create_user($username, $password, $email);
@@ -86,17 +83,14 @@ function hld_render_custom_signup_form()
                 placeholder="Password"
                 required />
 
-            <!-- ✅ Agreement Checkbox -->
+            <!-- ✅ Agreement Notice (no checkbox) -->
             <div class="hld_terms_consent" style="margin: 10px 0; font-size: 0.9rem;">
-                <label style="display: flex; align-items: flex-start; gap: 6px;">
-                    <input type="checkbox" name="hld_agree_terms" required />
-                    <span>
-                        By continuing, I agree to the
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Privacy_Policy_US.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Terms-of-Service.pdf" target="_blank" rel="noopener noreferrer">Terms</a>, and
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Consent-to-Telehealth.pdf" target="_blank" rel="noopener noreferrer">Telehealth Consent</a>.
-                    </span>
-                </label>
+                <p style="margin: 0;">
+                    By continuing, you agree to the
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Privacy_Policy_US.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Terms-of-Service.pdf" target="_blank" rel="noopener noreferrer">Terms</a>, and
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Consent-to-Telehealth.pdf" target="_blank" rel="noopener noreferrer">Telehealth Consent</a>.
+                </p>
             </div>
 
             <?php wp_nonce_field('hld_signup_action', 'hld_signup_nonce'); ?>

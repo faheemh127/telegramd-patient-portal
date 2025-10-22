@@ -25,30 +25,24 @@ function hld_render_custom_login_form()
         && isset($_POST['hld_login_nonce'])
         && wp_verify_nonce($_POST['hld_login_nonce'], 'hld_login_action')
     ) {
+        $creds = array(
+            'user_login'    => sanitize_user($_POST['hld_username']),
+            'user_password' => $_POST['hld_password'],
+            'remember'      => true,
+        );
+        unset($_REQUEST['redirect_to']);
+        $user = wp_signon($creds, false);
 
-        // ✅ Check if user agreed to terms
-        if (empty($_POST['hld_agree_terms'])) {
-            $error_message = 'You must agree to the privacy policy, terms, and telehealth consent before logging in.';
+        if (is_wp_error($user)) {
+            $error_message = 'Invalid username or password.';
         } else {
-            $creds = array(
-                'user_login'    => sanitize_user($_POST['hld_username']),
-                'user_password' => $_POST['hld_password'],
-                'remember'      => true,
-            );
-            unset($_REQUEST['redirect_to']);
-            $user = wp_signon($creds, false);
-
-            if (is_wp_error($user)) {
-                $error_message = 'Invalid username or password.';
+            // Ensure user has subscriber role
+            if (in_array('subscriber', (array)$user->roles)) {
+                wp_safe_redirect(home_url('/my-account'));
+                exit;
             } else {
-                // Ensure user has subscriber role
-                if (in_array('subscriber', (array)$user->roles)) {
-                    wp_safe_redirect(home_url('/my-account'));
-                    exit;
-                } else {
-                    wp_logout();
-                    $error_message = 'Access denied. Only subscribers can log in here.';
-                }
+                wp_logout();
+                $error_message = 'Access denied. Only subscribers can log in here.';
             }
         }
     }
@@ -60,7 +54,7 @@ function hld_render_custom_login_form()
         <?php endif; ?>
 
         <h2 class="hld_patient_login_title">Welcome Back</h2>
-        <form method="post" class="hld_login_form" onsubmit="return validateHldLoginForm(this);">
+        <form method="post" class="hld_login_form">
             <input
                 type="text"
                 name="hld_username"
@@ -81,17 +75,14 @@ function hld_render_custom_login_form()
                 <a href="<?php echo wp_lostpassword_url(); ?>" style="font-size: 0.875rem">Forgot Password?</a>
             </div>
 
-            <!-- ✅ Agreement Checkbox -->
+            <!-- ✅ Agreement Notice (no checkbox) -->
             <div class="hld_terms_consent" style="margin: 10px 0; font-size: 0.9rem;">
-                <label style="display: flex; align-items: flex-start; gap: 6px;">
-                    <input type="checkbox" name="hld_agree_terms" required />
-                    <span>
-                        By continuing, I agree to the
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Privacy_Policy_US.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Terms-of-Service.pdf" target="_blank" rel="noopener noreferrer">Terms</a>, and
-                        <a href="https://healsend.com/wp-content/uploads/2025/10/Consent-to-Telehealth.pdf" target="_blank" rel="noopener noreferrer">Telehealth Consent</a>.
-                    </span>
-                </label>
+                <p style="margin: 0;">
+                    By continuing, you agree to the
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Privacy_Policy_US.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>,
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Terms-of-Service.pdf" target="_blank" rel="noopener noreferrer">Terms</a>, and
+                    <a href="https://healsend.com/wp-content/uploads/2025/10/Consent-to-Telehealth.pdf" target="_blank" rel="noopener noreferrer">Telehealth Consent</a>.
+                </p>
             </div>
 
             <?php wp_nonce_field('hld_login_action', 'hld_login_nonce'); ?>
@@ -112,18 +103,7 @@ function hld_render_custom_login_form()
         </div>
     </div>
 
-    <!-- ✅ JS Validation -->
-    <script>
-        function validateHldLoginForm(form) {
-            const checkbox = form.querySelector('input[name="hld_agree_terms"]');
-            if (!checkbox.checked) {
-                alert('Please agree to the privacy policy, terms, and telehealth consent before logging in.');
-                return false;
-            }
-            return true;
-        }
-    </script>
-
 <?php
     return ob_get_clean();
 }
+?>
