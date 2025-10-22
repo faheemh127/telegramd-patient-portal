@@ -369,7 +369,7 @@ nav.hld-navbar {
 .hld_patient_packages .package-box {
   text-align: left;
   border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 25px 20px;
   transition: border-color 0.3s;
   position: relative;
@@ -1379,6 +1379,9 @@ nav.hld-navbar {
 .optin_cb_container input {
   height: auto !important;
 }
+.hld_form_wrap .ffs_default_wrap {
+  margin-top: 30px;
+}
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1550,7 +1553,7 @@ nav.hld-navbar {
 .hld-navbar {
   width: 100%;
   background-color: #ffffff;
-  padding: 10px 15px;
+  padding: 5px 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   position: relative;
   z-index: 999;
@@ -1561,7 +1564,7 @@ nav.hld-navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -1574,13 +1577,25 @@ nav.hld-navbar {
   color: #333;
   padding: 8px 10px;
   transition: color 0.3s ease;
+  box-shadow: initial;
 }
 
 .hld-back-btn:hover,
 .hld-help-btn:hover {
-  color: #0073aa;
+  background: white;
+  color: #333;
 }
 
+.hld-back-btn .hld_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.hld-back-btn .hld_wrap svg {
+  width: 25px;
+  height: 25px;
+}
 .hld-logo img {
   height: 40px;
   width: auto;
@@ -1598,5 +1613,28 @@ nav.hld-navbar {
   }
   .hld-logo img {
     height: 30px;
+  }
+}
+
+.hld-footer {
+    position: initial;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+@media (max-width: 600px) {
+    .hld-footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Hide Main Footer On greater than mobile devices i.e tablet or desktop */
+@media screen and (min-width: 769px) {
+  .hld-container-main-footer {
+    display: none;
   }
 }
