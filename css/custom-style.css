@@ -485,6 +485,10 @@ nav.hld-navbar {
   padding-bottom: 10px;
   font-size: 1rem;
 }
+.hld_checkout_or{
+  display: block;
+  text-align: center;
+}
 .hld_patient_packages .package-price span {
   font-size: 1.2rem;
   font-weight: bold;
