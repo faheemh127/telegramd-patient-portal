@@ -36,3 +36,5 @@ https://codebeautify.org/json-to-base64-converter#
 ## Use this shortcode on prefunnel pages
 [hld_glp_prefunnel form_id="3" pay="later" medications=""]
 in medications key you should get the base64 data by converting medications.json file which is in plugin and convert it to base64 and then you can use this shortcode in prefunnel pages
+
+## Always include the new prefunnel to the array exists in $telegra_forms array in classfluenthandler

@@ -3,14 +3,11 @@
 global $wpdb;
 $prefix = $wpdb->prefix . "healsend_";
 
-// Developer environment flag
-if (! defined('HLD_DEVELOPER_ENVIRONMENT')) {
-    define('HLD_DEVELOPER_ENVIRONMENT', true);
-}
+
 
 // Form IDs
 if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
-    define('HLD_GLP_1_PREFUNNEL_FORM_ID', 56);
+    define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 56 : 45);
 }
 // pt-141 57
 // trt prefunnel 59

@@ -4,14 +4,15 @@ if (! class_exists('hldFluentHandler')) {
     class hldFluentHandler
     {
         protected $telegra;
-        protected $glp_prefunnel_form_id = 45;
-
+        
         /**
          * Only forms listed here will trigger Telegra order creation.
          * Add form IDs to this array if they should create an order in Telegra.
          * If a form ID is not in this array, no Telegra order will be created.
          */
-        protected $telegra_forms = [45];
+
+        protected $telegra_forms = [HLD_GLP_1_PREFUNNEL_FORM_ID];
+
         public function __construct($telegra)
         {
             // Register hook when class is instantiated
@@ -743,6 +744,8 @@ if (! class_exists('hldFluentHandler')) {
                 HLD_Telegra::create_patient();
                 error_log("form_id is allowed");
                 $this->telegra();
+            } else {
+                error_log("The Form id" . $form_id . " not exists in telegra_forms. that's why we cannot create any order on telegra with this form");
             }
         }
     }
