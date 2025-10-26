@@ -89,7 +89,7 @@ class HLD_UserSubscriptions
             $table,
             [
                 'user_id'                   => $user_id,
-                'telegra_order_id'          => "pending",
+                'telegra_order_id'          => 'pending_' . wp_generate_uuid4(),
                 'patient_email'             => sanitize_email($patient_email),
                 'subscription_duration'     => sanitize_text_field($subscription_duration),
                 'medication_telegra_id'     => sanitize_text_field($medication_telegra_id),
