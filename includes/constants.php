@@ -61,3 +61,7 @@ if (! defined('HEALSEND_USER_ACTIONS_TABLE')) {
 if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
     define('HEALSEND_SUBSCRIPTIONS_TABLE', $wpdb->prefix . "healsend_subscriptions");
 }
+
+
+define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
+define("HLD_METABOLIC_SLUG", "metabolic");

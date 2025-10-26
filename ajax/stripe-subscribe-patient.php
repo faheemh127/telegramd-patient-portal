@@ -99,14 +99,23 @@ function hld_subscribe_patient_handler()
             // Optional custom actions
             // HLD_Telegra::create_patient();
 
-            HLD_UserSubscriptions::add_subscription(
+            $response = HLD_UserSubscriptions::add_subscription(
                 $user_id,
                 $patient_email,
                 $months,
                 'med_123',            // Example: Telegra med ID
                 'Tirzepatide',        // Example: Medication name
-                $subscription
+                $subscription,
+                HLD_GLP_WEIGHT_LOSS_SLUG
             );
+
+
+            // If the current patient already have the subscription with the same plan don't allow him to purchase that subscription again
+            if (!$response['status']) {
+                wp_send_json_error([
+                    'message' => $response['message'],
+                ]);
+            }
         }
 
         /**

@@ -15,7 +15,7 @@ class HLD_ActionItems_Manager
 
         $default_items = [
             [
-                'plan_slug'          => 'glp_1_prefunnel',
+                'plan_slug'          =>  HLD_GLP_WEIGHT_LOSS_SLUG,
                 'action_key'         => 'id_upload',
                 'label'              => 'ID Verification Pending',
                 'description'        => 'As required by law, you must upload a form of personal identification. This can be a driver\'s license, a state-issued ID, or a passport.',
@@ -25,7 +25,7 @@ class HLD_ActionItems_Manager
                 'required'           => 1,
             ],
             [
-                'plan_slug'          => 'glp_1_prefunnel',
+                'plan_slug'          => HLD_GLP_WEIGHT_LOSS_SLUG,
                 'action_key'         => 'clinical_diff',
                 'label'              => 'Complete Your GLP-1 Weight Loss Visit',
                 'description'        => 'You recently started a GLP-1 weight loss visit and still need to answer a few remaining questions. Pick up where you left off and complete your visit today.',
@@ -35,7 +35,7 @@ class HLD_ActionItems_Manager
                 'required'           => 1,
             ],
             [
-                'plan_slug'          => 'glp_1_prefunnel',
+                'plan_slug'          => HLD_GLP_WEIGHT_LOSS_SLUG,
                 'action_key'         => 'agreement',
                 'label'              => 'Agreement Form',
                 'description'        => 'Review and accept our treatment agreement to proceed.',
@@ -45,7 +45,7 @@ class HLD_ActionItems_Manager
                 'required'           => 1,
             ],
             [
-                'plan_slug'          => 'metabolic',
+                'plan_slug'          => HLD_METABOLIC_SLUG,
                 'action_key'         => 'agreement',
                 'label'              => 'Agreement Form',
                 'description'        => 'Please review and sign the agreement to continue your metabolic plan.',

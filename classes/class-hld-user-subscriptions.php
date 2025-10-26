@@ -18,7 +18,41 @@ class HLD_UserSubscriptions
     /**
      * Runs only once on plugin activation
      */
-  
+
+
+    /**
+     * Check if a user already has an active subscription for a given slug
+     */
+    public static function is_subscription_active($user_id, $subscription_slug)
+    {
+        if (empty($user_id) || empty($subscription_slug)) {
+            return false;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        $current_time = time();
+
+        // Check if user has an active subscription for this slug
+        $result = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM $table
+             WHERE user_id = %d
+             AND subscription_slug = %s
+             AND subscription_status = 'active'
+             AND (subscription_end = 0 OR subscription_end > %d)",
+                $user_id,
+                $subscription_slug,
+                $current_time
+            )
+        );
+
+        return $result > 0;
+    }
+
+
+
 
 
     /**
@@ -51,6 +85,7 @@ class HLD_UserSubscriptions
         cancel_at_period_end TINYINT(1) DEFAULT 0,
         invoice_pdf_url TEXT NULL,
         hosted_invoice_url TEXT NULL,
+        subscription_slug VARCHAR(100) NOT NULL,
 
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (user_id, telegra_order_id)
@@ -65,7 +100,7 @@ class HLD_UserSubscriptions
     /**
      * Insert Stripe subscription data into custom table
      */
-    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData)
+    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData, $subscription_slug)
     {
         error_log("function add_subscription is called");
         error_log("user_id" . $user_id);
@@ -83,6 +118,16 @@ class HLD_UserSubscriptions
         // if (self::has_order($user_id, $telegra_order_id)) {
         //     return true;
         // }
+        // ✅ Check if user already has an active subscription for this plan
+        if (self::is_subscription_active($user_id, $subscription_slug)) {
+            error_log("Current user has already subscribed this plan " . $subscription_slug);
+            return [
+                'status'  => false,
+                'message' => 'You already have an active Weight Loss plan. Please wait until your current subscription ends or contact support for adjustments.'
+            ];
+        }
+
+
 
         $invoice = $stripeData->latest_invoice ?? null;
         $result = $wpdb->insert(
@@ -105,6 +150,7 @@ class HLD_UserSubscriptions
                 'cancel_at_period_end'      => $stripeData->cancel_at_period_end ? 1 : 0,
                 'invoice_pdf_url'           => $invoice->invoice_pdf ?? null,
                 'hosted_invoice_url'        => $invoice->hosted_invoice_url ?? null,
+                'subscription_slug' => $subscription_slug,
             ],
             [
                 '%d',
