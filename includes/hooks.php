@@ -96,3 +96,11 @@ function hld_login_button_shortcode()
     return $html;
 }
 add_shortcode('hld_login_button', 'hld_login_button_shortcode');
+
+
+add_action('init', function() {
+    error_log('Debug test entry - ' . current_time('mysql'));
+});
+
+
+

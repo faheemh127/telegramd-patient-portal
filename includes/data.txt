@@ -41,7 +41,10 @@ https://healsend.com/glp-1-prefunnel/?nextend_login_complete=1&nsl_bypass_cache=
 
 
 // @todo: before publish
+// all requirements
 0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
+// form requirements
+0) https://docs.google.com/document/d/1TCHEtMOwhppUonV_z5pwc-qZiz2m7wcev1j5eQUfvmY/edit?tab=t.0
 1) hide the login button on the first step
 4) test by realtime charge when perscription recieved
 5) recurring charge functionality

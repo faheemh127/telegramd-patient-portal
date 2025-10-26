@@ -113,7 +113,11 @@
   box-shadow: 0 0 5px var(--hld-color-primary); /* optional: adds a glow effect */
   outline: none; /* removes the default blue outline */
 }
-.page-id-9200 footer {
+.page-id-9200 footer,
+.page-id-13194 footer,
+.page-id-13213 footer,
+.page-id-13220 footer,
+.page-id-13237 footer{
   display: none;
 }
 nav.hld-navbar {
@@ -121,11 +125,20 @@ nav.hld-navbar {
   top: 0;
   left: 0;
 }
-.page-id-9200 .ast-container {
+.page-id-9200 .ast-container,
+.page-id-13194 .ast-container,
+.page-id-13213 .ast-container,
+.page-id-13220 .ast-container,
+.page-id-13237 .ast-container {
   min-height: 100vh;
   background: #f7f5f5;
 }
-.page-id-9200 header {
+
+.page-id-9200 header,
+.page-id-13194 header,
+.page-id-13213 header,
+.page-id-13220 header,
+.page-id-13237 header {
   display: none;
 }
 .hld-account-details-form p {
@@ -1574,6 +1587,7 @@ nav.hld-navbar {
   position: relative;
   z-index: 999;
   transition: all 0.3s ease;
+  max-width: 100%;
 }
 
 .hld-navbar-inner {
