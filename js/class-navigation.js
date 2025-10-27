@@ -57,15 +57,16 @@ class HldNavigation {
   // }
 
   disqualifyLessThan18() {
+    console.log("function disqualifyLessThan18 called");
     const dobSteps = document.querySelectorAll(".hld_dob_wrap");
 
     if (document.querySelector(".dobDisqualifySection")) {
       document.querySelector(".dobDisqualifySection").style.display = "none";
     }
-
+ 
     dobSteps.forEach(function (step) {
       const nextBtn = step.querySelector("button.ff-btn-next");
-      const dobField = step.querySelector(".hldDobField");
+      const dobField = step.querySelector(".hldDobFieldRollout");
 
       // Hide the button by default
       if (nextBtn) {
@@ -73,7 +74,7 @@ class HldNavigation {
       }
 
       if (dobField) {
-        dobField.addEventListener("change", function () {
+        // dobField.addEventListener("change", function () {
           const dobValue = dobField.value.trim(); // Example: "03-Sep-25"
 
           if (!dobValue) {
@@ -112,7 +113,7 @@ class HldNavigation {
               // disqualifySection.style.display = "block"; // Show the section
             }
           }
-        });
+        // });
       }
     });
   }

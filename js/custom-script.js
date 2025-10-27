@@ -287,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     el: "#hldPrefunnelDOBInput",
     format: "MM-DD-YYYY",
     beginYear: 1950,
+    endYear: new Date().getFullYear(),
     lang: {
       title: "Select A Date",
       cancel: "Cancel",
@@ -305,12 +306,14 @@ document.addEventListener("DOMContentLoaded", function () {
     confirm: function (date) {
       console.log(date);
       hldDobFieldRollout.value = date;
-      console.log("confirm");
+
+      hldNavigation.disqualifyLessThan18();
+      console.log("confirm called");
     },
     cancel: function () {
       console.log("cancel");
       hldDobFieldRollout.value = "";
-      
+      hldNavigation.disqualifyLessThan18();
     },
   });
 });
