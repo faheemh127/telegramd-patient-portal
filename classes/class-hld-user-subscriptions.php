@@ -173,7 +173,19 @@ class HLD_UserSubscriptions
             ]
         );
 
-        return $result !== false;
+        if ($result) {
+            return [
+                'status'  => true,
+                'message' => 'Subscription has been purchased successfully'
+            ];
+        } else {
+            // Log and return DB error
+            error_log("Database insert failed: " . $wpdb->last_error);
+            return [
+                'status'  => false,
+                'message' => 'Database error: ' . $wpdb->last_error
+            ];
+        }
     }
 
 

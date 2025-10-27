@@ -273,3 +273,40 @@ class hld_BMICalculator {
 document.addEventListener("DOMContentLoaded", () => {
   new hld_BMICalculator();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const visibleInput = document.querySelector(".hldDobFieldRollout");
+  if (visibleInput) {
+    visibleInput.id = "hldPrefunnelDOBInput"; // assign your own ID
+  }
+
+  visibleInput.setAttribute("readonly", true);
+
+  new Rolldate({
+    el: "#hldPrefunnelDOBInput",
+    format: "MM-DD-YYYY",
+    beginYear: 1950,
+    lang: {
+      title: "Select A Date",
+      cancel: "Cancel",
+      confirm: "Confirm",
+      year: "",
+      month: "",
+      day: "",
+      hour: "",
+      min: "",
+      sec: "",
+    },
+    moveEnd: function (scroll) {
+      console.log(scroll);
+      console.log("scroll end");
+    },
+    confirm: function (date) {
+      console.log(date);
+      console.log("confirm");
+    },
+    cancel: function () {
+      console.log("cancel");
+    },
+  });
+});

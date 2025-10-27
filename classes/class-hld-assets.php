@@ -94,6 +94,15 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
+             wp_enqueue_script(
+                'rolldate-min-js',
+                plugin_dir_url(__FILE__) . '../js/rolldate.min.js',
+                [],
+                HLD_PLUGIN_VERSION,
+                true
+            );
+
+
             // Localize scripts
             wp_localize_script(
                 'hld-class-patient-login',

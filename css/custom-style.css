@@ -134,11 +134,11 @@ nav.hld-navbar {
   background: #f7f5f5;
 }
 
-.page-id-9200 header,
-.page-id-13194 header,
-.page-id-13213 header,
-.page-id-13220 header,
-.page-id-13237 header {
+.page-id-9200 header.elementor,
+.page-id-13194 header.elementor,
+.page-id-13213 header.elementor,
+.page-id-13220 header.elementor,
+.page-id-13237 header.elementor {
   display: none;
 }
 .hld-account-details-form p {
@@ -1411,6 +1411,9 @@ nav.hld-navbar {
   margin-bottom: 0.875rem;
   font-weight: 400;
 }
+.hldDobFieldWrap{
+  display: none;
+}
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1656,10 +1659,11 @@ nav.hld-navbar {
 
 @media (max-width: 600px) {
   .hld-footer-inner {
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
     gap: 10px;
-  }
+    padding: 10px 0px !important;
+  } 
 }
 
 /* Hide Main Footer On greater than mobile devices i.e tablet or desktop */
