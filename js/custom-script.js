@@ -276,6 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   const visibleInput = document.querySelector(".hldDobFieldRollout");
+  const hldDobFieldRollout = document.querySelector(".hldDobField");
   if (visibleInput) {
     visibleInput.id = "hldPrefunnelDOBInput"; // assign your own ID
   }
@@ -303,10 +304,13 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     confirm: function (date) {
       console.log(date);
+      hldDobFieldRollout.value = date;
       console.log("confirm");
     },
     cancel: function () {
       console.log("cancel");
+      hldDobFieldRollout.value = "";
+      
     },
   });
 });
