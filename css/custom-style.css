@@ -1414,6 +1414,7 @@ nav.hld-navbar {
 .hldDobFieldWrap{
   display: none;
 }
+
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1617,6 +1618,9 @@ nav.hld-navbar {
 .hld-help-btn:hover {
   background: white;
   color: #333;
+}
+.hld-back-btn:focus{
+  background-color: var(--hld-color-primary);
 }
 
 .hld-back-btn .hld_wrap {

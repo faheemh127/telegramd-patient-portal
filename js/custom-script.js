@@ -306,14 +306,13 @@ document.addEventListener("DOMContentLoaded", function () {
     confirm: function (date) {
       console.log(date);
       hldDobFieldRollout.value = date;
-
-      hldNavigation.disqualifyLessThan18();
+      hldNavigation.disqualifyLessThan18(date); // pass date here
       console.log("confirm called");
     },
     cancel: function () {
       console.log("cancel");
       hldDobFieldRollout.value = "";
-      hldNavigation.disqualifyLessThan18();
+      hldNavigation.disqualifyLessThan18(""); // pass empty value
     },
   });
 });

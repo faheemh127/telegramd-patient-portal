@@ -56,64 +56,58 @@ class HldNavigation {
   //   });
   // }
 
-  disqualifyLessThan18() {
+  disqualifyLessThan18(date) {
     console.log("function disqualifyLessThan18 called");
+
     const dobSteps = document.querySelectorAll(".hld_dob_wrap");
 
-    if (document.querySelector(".dobDisqualifySection")) {
-      document.querySelector(".dobDisqualifySection").style.display = "none";
+    // Hide disqualify section initially
+    const disqualifySection = document.querySelector(".dobDisqualifySection");
+    if (disqualifySection) {
+      disqualifySection.style.display = "none";
     }
- 
+
     dobSteps.forEach(function (step) {
       const nextBtn = step.querySelector("button.ff-btn-next");
-      const dobField = step.querySelector(".hldDobFieldRollout");
 
-      // Hide the button by default
+      // Hide the Next button by default
       if (nextBtn) {
         nextBtn.style.display = "none";
       }
 
-      if (dobField) {
-        // dobField.addEventListener("change", function () {
-          const dobValue = dobField.value.trim(); // Example: "03-Sep-25"
+      // If no date is provided, keep button hidden and return
+      if (!date) {
+        console.warn("No date provided to disqualifyLessThan18");
+        return;
+      }
 
-          if (!dobValue) {
-            if (nextBtn) nextBtn.style.display = "none";
-            return;
-          }
+      // Parse the date (expected format: MM-DD-YYYY)
+      const parsedDate = new Date(date);
+      if (isNaN(parsedDate)) {
+        console.warn("Invalid date format:", date);
+        return;
+      }
 
-          // Parse date from format dd-MMM-yy (e.g. "03-Sep-25")
-          const parsedDate = new Date(dobValue);
-          if (isNaN(parsedDate)) {
-            console.warn("Invalid DOB format:", dobValue);
-            if (nextBtn) nextBtn.style.display = "none";
-            return;
-          }
+      // Calculate age
+      const today = new Date();
+      let age = today.getFullYear() - parsedDate.getFullYear();
+      const monthDiff = today.getMonth() - parsedDate.getMonth();
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < parsedDate.getDate())
+      ) {
+        age--;
+      }
 
-          // Calculate age
-          const today = new Date();
-          let age = today.getFullYear() - parsedDate.getFullYear();
-          const m = today.getMonth() - parsedDate.getMonth();
-          if (m < 0 || (m === 0 && today.getDate() < parsedDate.getDate())) {
-            age--;
-          }
+      console.log("Calculated Age:", age);
 
-          // Toggle next button
-          const disqualifySection = document.querySelector(
-            ".dobDisqualifySection"
-          );
-          if (age >= 18) {
-            nextBtn.style.display = "block"; // show if >= 18
-            if (disqualifySection) {
-              disqualifySection.style.display = "none"; // Show the section
-            }
-          } else {
-            nextBtn.style.display = "none"; // keep hidden if < 18
-            if (disqualifySection) {
-              // disqualifySection.style.display = "block"; // Show the section
-            }
-          }
-        // });
+      // Toggle visibility
+      if (age >= 18) {
+        if (nextBtn) nextBtn.style.display = "block";
+        if (disqualifySection) disqualifySection.style.display = "none";
+      } else {
+        if (nextBtn) nextBtn.style.display = "none";
+        if (disqualifySection) disqualifySection.style.display = "block";
       }
     });
   }
