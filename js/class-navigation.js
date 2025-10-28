@@ -107,7 +107,7 @@ class HldNavigation {
         if (disqualifySection) disqualifySection.style.display = "none";
       } else {
         if (nextBtn) nextBtn.style.display = "none";
-        if (disqualifySection) disqualifySection.style.display = "block";
+        // if (disqualifySection) disqualifySection.style.display = "block";
       }
     });
   }
@@ -192,7 +192,8 @@ class HldNavigation {
     if (
       window.location.href.includes("glp-1-prefunnel") ||
       window.location.href.includes("glp-1-weight-loss-intake") ||
-      window.location.href.includes("upload-id")
+      window.location.href.includes("trt-prefunnel") ||
+      window.location.href.includes("upload-id") 
     ) {
       return;
     }

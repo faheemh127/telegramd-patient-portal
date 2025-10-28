@@ -1,15 +1,17 @@
 https://codebeautify.org/json-to-base64-converter#
-4242 4242 4242 4242
 
-order::44d8f9d0-672c-47ea-9b44-3dd5cfcc6a7d
+
 
 *** website that will convert to base64
 
 
-:  =   ___  (triple underscore)
-.  =   __   (double underscore)
 loca:: =    (should be add in the beginning)
-_  =  -     (sould be converted to hyphen)
+
+
+
+:  =   ___  (colon should be converted to triple underscore)
+.  =   __   (dot should be converted to double underscore)
+-  =   _    (dash sould be converted to underscore)
 
 telegrausera@gmail.com
 telegrausera
@@ -144,3 +146,5 @@ Metabolic - Sermorelin
 GLP-1 weight loss related - Semaglutide, Tirzepatide
 erectile dysfunction-Tadalifil
 TRT-Enclomiphene
+
+

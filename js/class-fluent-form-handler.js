@@ -15,7 +15,7 @@ class HldFluentFormHandler {
   }
 
   initCustomizedData() {
-    // this.initMedications();
+    this.initMedications();
   }
 
   initMedications(selectedMedication = "") {
@@ -27,10 +27,18 @@ class HldFluentFormHandler {
 
     let html = "";
 
-    const filteredMeds = fluentFormData.medications.filter(
-      (med) => med.medication.toLowerCase() === selectedMedication.toLowerCase()
-    );
+    let filteredMeds = "";
 
+    if (selectedMedication == "") {
+      filteredMeds = fluentFormData.medications;
+    } else {
+      filteredMeds = fluentFormData.medications.filter(
+        (med) =>
+          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+      );
+    }
+
+    console.log("filtered medications", filteredMeds);
     filteredMeds.forEach((med) => {
       // extract name & optional label (like Most Popular)
       const nameParts = med.medication_name.split("(");

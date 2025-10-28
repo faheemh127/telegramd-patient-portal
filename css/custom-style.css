@@ -1620,7 +1620,8 @@ nav.hld-navbar {
   color: #333;
 }
 .hld-back-btn:focus{
-  background-color: var(--hld-color-primary);
+  background-color: transparent;
+  color: black;
 }
 
 .hld-back-btn .hld_wrap {
