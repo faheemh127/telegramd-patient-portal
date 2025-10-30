@@ -42,6 +42,7 @@ class HldFluentFormHandler {
     filteredMeds.forEach((med) => {
       // extract name & optional label (like Most Popular)
       const nameParts = med.medication_name.split("(");
+      const telegraID = med.telegra_code;
       const medName = nameParts[0].trim();
       const extraLabel = nameParts[1]
         ? nameParts[1].replace(")", "").trim()
@@ -73,7 +74,7 @@ class HldFluentFormHandler {
 
       // build medication block
       html += `
-      <div class="hld-custom-checkbox hld-medicine" data-value="${medName}">
+      <div class="hld-custom-checkbox hld-medicine" data-value="${medName}" data-telegra-id="${telegraID}">
         <div class="med-box">
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">

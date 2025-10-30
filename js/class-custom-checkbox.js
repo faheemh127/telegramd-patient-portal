@@ -1,33 +1,3 @@
-// class hldCustomCheckbox {
-//   constructor(containerSelector, callback) {
-//     this.container = document.querySelector(containerSelector);
-//     this.callback = callback;
-//     if (!this.container) return;
-
-//     this.checkboxes = this.container.querySelectorAll(".hld-custom-checkbox");
-
-//     this.checkboxes.forEach((box) => {
-//       box.addEventListener("click", () => this.handleClick(box));
-//     });
-//   }
-
-//   handleClick(selectedBox) {
-//     // remove active from all
-//     this.checkboxes.forEach((box) => box.classList.remove("active"));
-
-//     // add active to clicked one
-//     selectedBox.classList.add("active");
-
-//     // get value
-//     const value = selectedBox.getAttribute("data-value");
-
-//     // call callback function with value
-//     if (this.callback) {
-//       this.callback(value);
-//     }
-//   }
-// }
-
 class hldCustomCheckbox {
   constructor(containerSelector, callback) {
     this.container = document.querySelector(containerSelector);
@@ -45,6 +15,24 @@ class hldCustomCheckbox {
 
   handleClick(selectedBox) {
     // remove active from all
+    console.log("selectedBox by user", selectedBox);
+
+    // If selected checkbox contain the telegra Product ID then pass this id to stripe handler
+
+    if (selectedBox && selectedBox.hasAttribute("data-telegra-id")) {
+      const telegraId = selectedBox.getAttribute("data-telegra-id");
+      if (window.stripeHandler) {
+        window.stripeHandler.telegraProdID = telegraId;
+        console.log("TeleGra ID set to stripeHandler:", telegraId);
+      } else {
+        console.warn("stripeHandler not found on window");
+      }
+    } else {
+      console.warn("Selected box does not have a data-telegra-id attribute");
+    }
+
+    // snipet ends
+
     const boxes = this.container.querySelectorAll(".hld-custom-checkbox");
     boxes.forEach((box) => box.classList.remove("active"));
 

@@ -13,6 +13,7 @@ class hldStripeHandler {
     this.chargeImmediately = true; // default: false
     this.isSubscription = true; // <-- set to true for subscription flow
     this.stripePriceId = ""; // dummy Price ID for testing
+    this.telegraProdID = ""; // dummy Price ID for testing
     this.gl1Duration = 1; // 1 is default
     this.init();
     this.submitWrapperClass =
