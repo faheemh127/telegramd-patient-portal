@@ -91,6 +91,7 @@ https://healsend.com/glp-1-weight-loss-intake/
 22) change the hover color of login button in glp-1-prefunnel login button display error messages correctly
 23) test login correctly
 25) hover text color fix on logout 
+26) when create order send the real information
 
 
 todo upload shortcode to live

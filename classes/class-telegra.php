@@ -428,8 +428,9 @@ class HLD_Telegra
             "patient" => $telegra_patient_id, // example: pat::f2b6ec7f-4b87-4988-9ebb-df663edaf872
             "productVariations" => [
                 [
-                    // "productVariation" => $medication_id,
-                    "productVariation" => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb", // glp prefunnel
+                    "productVariation" => $medication_id,
+                    // "productVariation" => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb", // glp prefunnel
+                    // "productVariation" => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb", // glp prefunnel
                     // "productVariation" => "pvt::50553d4f-e36f-41f3-9f1c-e9fec3860248", // metabolic
                     "quantity" => 1
                 ]

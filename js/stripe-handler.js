@@ -355,6 +355,16 @@ class hldStripeHandler {
   }
 
   submitForm() {
+    // set the telegra_id
+    const input = document.querySelector('input[name="telegra_product_id"]');
+    if (input) {
+      input.value = this.telegraProdID || "";
+      console.log("✅ telegra_product_id set to:", this.telegraProdID);
+    } else {
+      console.warn("⚠️ Hidden input 'telegra_product_id' not found in DOM");
+    }
+
+    // submit the form
     const submitWrapper = document.querySelector(this.submitWrapperClass);
     if (submitWrapper) {
       const submitButton = submitWrapper.querySelector('button[type="submit"]');

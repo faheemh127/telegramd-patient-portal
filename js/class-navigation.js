@@ -56,7 +56,66 @@ class HldNavigation {
   //   });
   // }
 
+  // older function that was creating issue on IOS
+  // disqualifyLessThan18(date) {
+  //   console.log("date in disqualifyLessThan18 ", date);
+  //   console.log("function disqualifyLessThan18 called");
+
+  //   const dobSteps = document.querySelectorAll(".hld_dob_wrap");
+
+  //   // Hide disqualify section initially
+  //   const disqualifySection = document.querySelector(".dobDisqualifySection");
+  //   if (disqualifySection) {
+  //     disqualifySection.style.display = "none";
+  //   }
+
+  //   dobSteps.forEach(function (step) {
+  //     const nextBtn = step.querySelector("button.ff-btn-next");
+
+  //     // Hide the Next button by default
+  //     if (nextBtn) {
+  //       nextBtn.style.display = "none";
+  //     }
+
+  //     // If no date is provided, keep button hidden and return
+  //     if (!date) {
+  //       console.warn("No date provided to disqualifyLessThan18");
+  //       return;
+  //     }
+
+  //     // Parse the date (expected format: MM-DD-YYYY)
+  //     const parsedDate = new Date(date);
+  //     if (isNaN(parsedDate)) {
+  //       console.warn("Invalid date format:", date);
+  //       return;
+  //     }
+
+  //     // Calculate age
+  //     const today = new Date();
+  //     let age = today.getFullYear() - parsedDate.getFullYear();
+  //     const monthDiff = today.getMonth() - parsedDate.getMonth();
+  //     if (
+  //       monthDiff < 0 ||
+  //       (monthDiff === 0 && today.getDate() < parsedDate.getDate())
+  //     ) {
+  //       age--;
+  //     }
+
+  //     console.log("Calculated Age:", age);
+
+  //     // Toggle visibility
+  //     if (age >= 18) {
+  //       if (nextBtn) nextBtn.style.display = "block";
+  //       if (disqualifySection) disqualifySection.style.display = "none";
+  //     } else {
+  //       if (nextBtn) nextBtn.style.display = "none";
+  //       // if (disqualifySection) disqualifySection.style.display = "block";
+  //     }
+  //   });
+  // }
+
   disqualifyLessThan18(date) {
+    console.log("date in disqualifyLessThan18 ", date);
     console.log("function disqualifyLessThan18 called");
 
     const dobSteps = document.querySelectorAll(".hld_dob_wrap");
@@ -81,10 +140,20 @@ class HldNavigation {
         return;
       }
 
-      // Parse the date (expected format: MM-DD-YYYY)
-      const parsedDate = new Date(date);
-      if (isNaN(parsedDate)) {
-        console.warn("Invalid date format:", date);
+      // ✅ SAFELY handle MM-DD-YYYY for iOS
+      let parsedDate = null;
+      if (typeof date === "string" && date.includes("-")) {
+        const parts = date.split("-");
+        if (parts.length === 3) {
+          const [month, day, year] = parts;
+          // Convert to ISO format YYYY-MM-DD — works everywhere
+          parsedDate = new Date(`${year}-${month}-${day}`);
+        }
+      }
+
+      // Fallback if still invalid
+      if (!(parsedDate instanceof Date) || isNaN(parsedDate.getTime())) {
+        console.warn("Invalid date format for parsing:", date);
         return;
       }
 
@@ -193,7 +262,7 @@ class HldNavigation {
       window.location.href.includes("glp-1-prefunnel") ||
       window.location.href.includes("glp-1-weight-loss-intake") ||
       window.location.href.includes("trt-prefunnel") ||
-      window.location.href.includes("upload-id") 
+      window.location.href.includes("upload-id")
     ) {
       return;
     }

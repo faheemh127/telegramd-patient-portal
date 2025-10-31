@@ -83,6 +83,11 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
     }
 }
 
+// if wanna display the clinical chat in full window
+if (isset($_GET["care-team"])) {
+    include HLD_PLUGIN_PATH . 'templates/dashboard/care-team-chat.php';
+    return;
+}
 
 
 
@@ -240,7 +245,8 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
         <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
         <div class="hld-sidebar-content">
             <h2>Action Item</h2>
-            <?php // include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; ?>
+            <?php // include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; 
+            ?>
         </div>
     </div>
 </div> -->

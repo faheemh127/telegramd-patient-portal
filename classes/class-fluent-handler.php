@@ -4,7 +4,7 @@ if (! class_exists('hldFluentHandler')) {
     class hldFluentHandler
     {
         protected $telegra;
-        
+
         /**
          * Only forms listed here will trigger Telegra order creation.
          * Add form IDs to this array if they should create an order in Telegra.
@@ -12,6 +12,7 @@ if (! class_exists('hldFluentHandler')) {
          */
 
         protected $telegra_forms = [HLD_GLP_1_PREFUNNEL_FORM_ID];
+        protected $telegra_product_id = null;
 
         public function __construct($telegra)
         {
@@ -319,9 +320,11 @@ if (! class_exists('hldFluentHandler')) {
 
         public function get_medication_id()
         {
-            $medication_name = $this->get_patient_medication();
-            $medication_id =  $this->telegra->get_medicine_code($medication_name);
-            return $medication_id;
+
+            return $this->telegra_product_id;
+            // $medication_name = $this->get_patient_medication();
+            // $medication_id =  $this->telegra->get_medicine_code($medication_name);
+            // return $medication_id;
         }
 
 
@@ -714,6 +717,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
             $this->update_patient_info($form);
+            $this->telegra_product_id = $form["telegra_product_id"];
 
             // First save main submission
             // $this->save_patient_form_submission($insertData);
