@@ -1,3 +1,10 @@
+<?php
+if ($subscription == null) {
+    hld_not_found("You don’t have any lab orders yet.");
+    return;
+}
+?>
+
 <div class="container py-4 hld_lab_order_container">
     <!-- <h1 class="hdl_tab_heading">Patient Order History</h1> -->
 

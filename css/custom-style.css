@@ -418,11 +418,12 @@ nav.hld-navbar {
   padding: 30px 40px !important;
 }
 .hld-view-invoice {
-  border-radius: 50px;
-  background: var(--hld-color-primary);
-  padding: 9px 10px;
-  margin-top: 10px;
-  max-width: 100%;
+  border-radius: 50px !important;
+  padding: 9px 10px !important;
+  margin-top: 10px !important;
+  max-width: 100% !important;
+  background-color: var(--hld-color-primary) !important;
+  border: none !important;
 }
 .hld_terms_consent a {
   text-decoration: none;
@@ -452,7 +453,7 @@ nav.hld-navbar {
 
 .hld-subscription-card {
   background: white;
-  padding: 25px 30px;
+  padding: 30px 25px;
   display: flex;
   flex-direction: column;
   min-height: 300px;
@@ -1556,14 +1557,14 @@ nav.hld-navbar {
   }
 
   .profile-container .hld-personal-info .card-body {
-    padding: 1rem !important;
+    padding: 1.5rem 1.5rem !important;
   }
   .hld-personal-info .col-md-9 {
     padding: 0 !important;
   }
   .hld-payment-info .card-body,
   .hld-shipping-info .card-body {
-    padding: 1rem !important;
+    padding: 1.5rem 1.5rem !important;
   }
   .hld-payment-info .col-md-8 {
     margin-top: 0 !important;
@@ -1621,7 +1622,7 @@ nav.hld-navbar {
   z-index: 999;
   height: 100vh;
 }
-.hld-chat-wrap iframe{
+.hld-chat-wrap iframe {
   height: 100vh;
 }
 .hld-back-btn:hover,

@@ -117,9 +117,9 @@ if (isset($_GET['message'])) {  ?>
                                                                                     echo "No payment method on file.";
                                                                                 } ?></span></div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
-                    </div>
+                    </div> -->
 
 
 
@@ -130,9 +130,8 @@ if (isset($_GET['message'])) {  ?>
             <div class="card mb-4 shadow-sm hld-shipping-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="col-md-12">
-                        <div><strong>Orders:</strong> <span class="fw-bold">Need to change the address of an order that's in-progress? </span> <a href="#">Contact customer support</a></div>
-                        <div class="text-secondary">subscriptions</div>
-                        <div class="text-danger">Update your shipping address in your <a href="">subscriptions page</a></div>
+                        <p>The medication will be shipped to the same address. If you have any questions, please contact our support team.</p>
+                        <div><span class="fw-bold"><?php echo $patient['address']; ?> </span></div>
                     </div>
 
                 </div>

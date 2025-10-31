@@ -18,9 +18,9 @@ if ($subscription == null) {
         <div class="card-body hld-card-body">
             <div class="row">
                 <?php if ($subscription['subscription_status'] === 'active') : ?>
-                    <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile max-w-150 hld_btn_cancel">
+                    <!-- <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile max-w-150 hld_btn_cancel">
                         Cancel Subscription
-                    </button>
+                    </button> -->
                 <?php endif; ?>
             </div>
             <div class="row mb-3 hld-row">
@@ -63,8 +63,8 @@ if ($subscription == null) {
             </div>
 
             <?php if (!empty($subscription['invoice_pdf_url'])) : ?>
-                <div class="row hld-row mt-3">
-                    <a class="hld-view-invoice" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank" class="btn btn-primary">
+                <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
+                    <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">
                         View Last Invoice
                     </a>
                 </div>

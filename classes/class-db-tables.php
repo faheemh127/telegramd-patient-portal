@@ -51,6 +51,7 @@ class HLD_DB_Tables
     medical_history JSON,
     telegra_patient_id VARCHAR(255),
     notes TEXT,
+    address TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_deleted TINYINT(1) DEFAULT 0

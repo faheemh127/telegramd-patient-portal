@@ -298,6 +298,7 @@ if (! class_exists('HLD_Patient')) {
                 'contact_email' => $patient_row->contact_email,
                 'telegra_patient_id' => $patient_row->telegra_patient_id,
                 'notes'      => $patient_row->notes,
+                'address'      => $patient_row->address,
                 'medical_history' => $patient_row->medical_history ? json_decode($patient_row->medical_history, true) : [],
                 'created_at' => $patient_row->created_at,
                 'updated_at' => $patient_row->updated_at,
