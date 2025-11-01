@@ -38,6 +38,7 @@ local7@gmail.com
 healsendlive1@gmail.com
 live11@gmail.com
 live12@gmail.com
+client@faheemhassan.dev
 ?nextend_login_complete=1
 
 
@@ -169,3 +170,7 @@ that box half half in prefunnel below all should the same colors
 if patient does not Eligible in action item how to get him removed??
 // update information on telegra as well on patient update
 // do not allowe email update, update 
+if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
+show order detail perfectly and remove order id from patient dashboard
+On prefunnel glp 1 completion the shipping address should shown in patient dashboard
+If patient disqualify in action item make a refund system

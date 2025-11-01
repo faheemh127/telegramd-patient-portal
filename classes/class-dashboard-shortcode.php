@@ -5,7 +5,6 @@ class hldDashboardShortcode
     public function __construct()
     {
         add_shortcode('patient_dashboard', [$this, 'render_dashboard']);
-        add_action('rest_api_init', [$this, 'register_rest_routes']);
     }
 
     public function render_dashboard()
