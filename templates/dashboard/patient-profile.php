@@ -25,7 +25,7 @@ if (isset($_GET['message'])) {  ?>
             <div class="card mb-4 shadow-sm hld-personal-info">
                 <div class="card-body row g-3 p-4">
 
-                    <div class="col-md-9 hld-patient-info">
+                    <div class="col-md-12 hld-patient-info">
                         <form id="hld-account-details-form" class="hld-account-details-form">
                             <div class="mb-3">
                                 <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
@@ -51,61 +51,19 @@ if (isset($_GET['message'])) {  ?>
                                 <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
                             </div>
 
-                            <button style="display: none;" type="button" id="hld_save_account_details" class="btn btn-primary">Save</button>
+                            <button style="display: none;" type="button" id="hld_save_account_details" class="btn btn-primary hld-save-account-details">Save</button>
                             <span id="hld_account_details_message" style="display:none; margin-left:15px;"></span>
                         </form>
                     </div>
                     <div class="col-md-3 hld-edit-wrap">
-                        <button class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button>
+                        <button id="hldBtnEditProfile" class="btn_payment_method btn_edit_settings hld_btn_edit_profile">Edit Profile</button>
                     </div>
 
 
                 </div>
             </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const saveBtn = document.getElementById('hld_save_account_details');
-                    const form = document.getElementById('hld-account-details-form');
-                    const msgSpan = document.getElementById('hld_account_details_message');
-                    saveBtn.addEventListener('click', function() {
-                        msgSpan.style.display = 'none';
-                        saveBtn.disabled = true;
-                        const data = {
-                            full_name: form.full_name.value,
-                            email: form.email.value,
-                            phone: form.phone.value,
-                            dob: form.dob.value
-                        };
-                        fetch('/wp-json/hld/v1/update-account-details', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest') ?>',
-                                },
-                                body: JSON.stringify(data)
-                            })
-                            .then(res => res.json())
-                            .then(res => {
-                                saveBtn.disabled = false;
-                                msgSpan.style.display = 'inline-block';
-                                if (res.success) {
-                                    msgSpan.textContent = 'Account Details updated successfully.';
-                                    msgSpan.style.color = 'green';
-                                } else {
-                                    msgSpan.textContent = res.message || 'Error updating details.';
-                                    msgSpan.style.color = 'red';
-                                }
-                            })
-                            .catch(() => {
-                                saveBtn.disabled = false;
-                                msgSpan.style.display = 'inline-block';
-                                msgSpan.textContent = 'Error updating details.';
-                                msgSpan.style.color = 'red';
-                            });
-                    });
-                });
-            </script>
+
 
             <h3>Payment Method</h3>
             <div class="card mb-4 shadow-sm hld-payment-info">
@@ -130,7 +88,7 @@ if (isset($_GET['message'])) {  ?>
             <div class="card mb-4 shadow-sm hld-shipping-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="col-md-12">
-                        <p>The medication will be shipped to the same address. If you have any questions, please contact our support team.</p>
+                        <strong>The medication will be shipped to the same address. If you have any questions, please contact our support team.</strong>
                         <div><span class="fw-bold"><?php echo $patient['address']; ?> </span></div>
                     </div>
 

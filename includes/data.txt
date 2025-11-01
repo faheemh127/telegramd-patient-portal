@@ -166,3 +166,6 @@ Some states they may call for those states we need to understand either telegra 
 time for doctor appointment
 change this get started  in the header per page?
 that box half half in prefunnel below all should the same colors
+if patient does not Eligible in action item how to get him removed??
+// update information on telegra as well on patient update
+// do not allowe email update, update 

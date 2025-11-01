@@ -1395,6 +1395,12 @@ nav.hld-navbar {
   flex-direction: row !important;
   align-items: flex-start !important;
 }
+. {
+  display: inline-block;
+  border-radius: 30px;
+  padding: 7px 29px;
+  background: var(--bs-primary);
+}
 .optin_cb_container input {
   height: auto !important;
 }
@@ -1579,9 +1585,17 @@ nav.hld-navbar {
   }
 } /* Responsive mobile_device****************************************************************************** */
 
-/* Tablet only (768px to 1024px) */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+/* Not Mobile only (768px to 1024px) */
+@media screen and (min-width: 768px) {
   /* tablet styles */
+  .hld-personal-info {
+    position: relative;
+  }
+  .hld-edit-wrap {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
 }
 
 .hld-navbar {

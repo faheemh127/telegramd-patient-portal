@@ -278,9 +278,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const visibleInput = document.querySelector(".hldDobFieldRollout");
   if (visibleInput) {
     visibleInput.id = "hldPrefunnelDOBInput"; // assign your own ID
+    visibleInput.setAttribute("readonly", true);
   }
 
-  visibleInput.setAttribute("readonly", true);
+  
 
   new Rolldate({
     el: "#hldPrefunnelDOBInput",

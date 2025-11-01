@@ -70,6 +70,13 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
+            wp_localize_script('hld-class-patient-login', 'hld_ajax_obj', [
+                'ajaxurl'    => admin_url('admin-ajax.php'),
+                'nonce'      => wp_create_nonce('hld_ajax_nonce'),
+                'logged_in'  => is_user_logged_in(),
+            ]);
+
+
             wp_enqueue_script(
                 'hld-class-navigation',
                 plugin_dir_url(__FILE__) . '../js/class-navigation.js',
@@ -94,7 +101,7 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
-             wp_enqueue_script(
+            wp_enqueue_script(
                 'rolldate-min-js',
                 plugin_dir_url(__FILE__) . '../js/rolldate.min.js',
                 [],
@@ -145,7 +152,7 @@ if (!class_exists('hldAssets')) {
                 HLD_PLUGIN_VERSION,
                 true
             );
- 
+
             wp_localize_script('my-stripe-handler', 'MyStripeData', [
                 'ajax_url'       => admin_url('admin-ajax.php'),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
