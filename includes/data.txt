@@ -52,7 +52,9 @@ https://healsend.com/glp-1-prefunnel/?nextend_login_complete=1&nsl_bypass_cache=
 // form requirements
 0) https://docs.google.com/document/d/1TCHEtMOwhppUonV_z5pwc-qZiz2m7wcev1j5eQUfvmY/edit?tab=t.0
 // medications detail send  by vineeth
-https://docs.google.com/spreadsheets/d/1EI7tEmOcElbaP3YtdIU98ZKsxwr8ogjBSgv3IWuvkcw/edit?gid=1071605802#gid=1071605802
+   https://docs.google.com/spreadsheets/d/1EI7tEmOcElbaP3YtdIU98ZKsxwr8ogjBSgv3IWuvkcw/edit?gid=1071605802#gid=1071605802
+// next requirements vineeth shared on 3-Nov-2025
+   https://docs.google.com/document/d/1Chwv7ZHIGtkCKfkJ6beqvH9YlGs0sOmCRFvPmLmS1W0/edit?usp=drivesdk
 1) hide the login button on the first step
 4) test by realtime charge when perscription recieved
 5) recurring charge functionality
@@ -174,3 +176,4 @@ if patient exists in sansucure by accedently the patieient id not available in M
 show order detail perfectly and remove order id from patient dashboard
 On prefunnel glp 1 completion the shipping address should shown in patient dashboard
 If patient disqualify in action item make a refund system
+if go back on first step land him on the home page
