@@ -98,3 +98,11 @@ function hld_login_button_shortcode()
 add_shortcode('hld_login_button', 'hld_login_button_shortcode');
 
 
+
+// On patient signup send mail to the patient
+add_action('user_register', function ($user_id) {
+    if (class_exists('HLD_Mail') && method_exists('HLD_Mail', 'patient_signup_welcome')) {
+        HLD_Mail::patient_signup_welcome($user_id);
+    }
+});
+    

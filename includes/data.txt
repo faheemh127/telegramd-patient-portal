@@ -1,46 +1,13 @@
+// website that will be used to make the shortcode base64 String
 https://codebeautify.org/json-to-base64-converter#
 
 
-
-*** website that will convert to base64
-
-
-loca:: =    (should be add in the beginning)
-
-
-
-:  =   ___  (colon should be converted to triple underscore)
-.  =   __   (dot should be converted to double underscore)
--  =   _    (dash sould be converted to underscore)
-
-telegrausera@gmail.com
-telegrausera
-Ga123!@#Da.
-
-
-hld_disqualify_step
-
-
-test5@gmail.com
-12345
-pat::c88fa4be-6886-4e7e-9824-e366d2eb5ffd
-
-
-
-healsend1@gmail.com
-healsend2@gmail.com
-healsend3@gmail.com
-healsend4@gmail.com
-healsend5@gmail.com
-healsend6@gmail.com
-local7@gmail.com
-
-healsendlive1@gmail.com
-live11@gmail.com
-live12@gmail.com
+// live site patient account
 client@faheemhassan.dev
-?nextend_login_complete=1
+12345
 
+
+patient61@gmail.com
 
 after login with nextend social this code looks
 https://healsend.com/glp-1-prefunnel/?nextend_login_complete=1&nsl_bypass_cache=288dbf206d193a535350af540f7ce886

@@ -27,6 +27,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 }
 
 
+require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';

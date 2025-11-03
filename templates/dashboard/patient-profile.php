@@ -1,13 +1,18 @@
 <?php
-// $user
-
-
-
 $patient = HLD_Patient::get_patient_info();
 
-$dob = new DateTime($patient['dob']);
-$now = new DateTime();
-$patient['age'] = $dob->diff($now)->y;
+if (!empty($patient['dob'])) {
+    try {
+        $dob = new DateTime($patient['dob']);
+        $now = new DateTime();
+        $patient['age'] = $dob->diff($now)->y;
+    } catch (Exception $e) {
+        $patient['age'] = null; // fallback if invalid format
+    }
+} else {
+    $patient['age'] = null; // or 0, depending on your use-case
+}
+
 
 if (isset($_GET['message'])) {  ?>
     <div class="alert alert-success" role="alert">

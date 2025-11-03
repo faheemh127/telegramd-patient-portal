@@ -33,7 +33,8 @@ function hld_render_custom_signup_form()
                 // Set role to subscriber
                 $user = new WP_User($user_id);
                 $user->set_role('subscriber');
-
+                // ✅ Send Welcome Email
+             
                 // Log the user in immediately
                 $creds = array(
                     'user_login'    => $username,
@@ -42,6 +43,7 @@ function hld_render_custom_signup_form()
                 );
 
                 $logged_in_user = wp_signon($creds, false);
+
 
                 if (!is_wp_error($logged_in_user)) {
                     wp_safe_redirect(home_url('/my-account'));
