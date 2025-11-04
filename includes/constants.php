@@ -6,6 +6,9 @@ $prefix = $wpdb->prefix . "healsend_";
 
 
 // Form IDs
+if (! defined('HLD_GLP_1_WEIGHTLOSS_FORM_ID')) {
+    define('HLD_GLP_1_WEIGHTLOSS_FORM_ID', HLD_LIVE ? 56 :53);
+}
 if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
     define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 56 : 45);
 }
