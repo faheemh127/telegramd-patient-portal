@@ -71,7 +71,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-        public function get_patient_entries()
+        public static function get_patient_entries()
         {
             // Check if the user is logged in
             if (! is_user_logged_in()) {
@@ -264,6 +264,35 @@ if (! class_exists('hldFluentHandler')) {
             // Return dropdown_3 (the package type), if it exists
             return $response['dropdown_3'] ?? null;
         }
+
+
+        public static function hld_convert_image_to_base64($image_url)
+        {
+            // Remove any escaped slashes
+            $image_url = stripslashes($image_url);
+
+            // Get the absolute path from the URL
+            $image_path = str_replace(site_url(), ABSPATH, $image_url);
+
+            // Check if the file exists
+            if (! file_exists($image_path)) {
+                return false; // File not found
+            }
+
+            // Get file contents
+            $image_data = file_get_contents($image_path);
+            if (! $image_data) {
+                return false;
+            }
+
+            // Get the file type
+            $file_type = wp_check_filetype($image_path);
+
+            // Return base64 string
+            return 'data:' . $file_type['type'] . ';base64,' . base64_encode($image_data);
+        }
+
+
 
 
 
@@ -757,3 +786,19 @@ if (! class_exists('hldFluentHandler')) {
 
 // Create an object so the hook runs
 $hld_fluent_handler = new hldFluentHandler($hld_telegra);
+
+// add_action("init", function () {
+//     // $es = hldFluentHandler::get_patient_entries();
+//     // error_log(print_r($es, true));
+
+//     $image_url = 'http:\/\/localhost\/server\/healsend-new\/wp-content\/uploads\/fluentform\/ff-2c3effc6a02e44b02ac8f30909388b25-ff-4e35eaed-f8fa-482b-8609-2a6f168df0e9.png';
+//     $base64_image = hldFluentHandler::hld_convert_image_to_base64( $image_url );
+//     if ( $base64_image ) {
+//         echo '<img src="' . esc_attr( $base64_image ) . '" alt="Converted Image">';
+//         error_log($base64_image);
+//     } else {
+//         echo 'Image not found or failed to convert.';
+//     }
+
+    
+// });
