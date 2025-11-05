@@ -161,7 +161,12 @@ perscription fullfillment information
 Implementation of Apple pay
 remove fallback values from create_patient function
 implement udpate patient logic on telegra as well
-
+save preference as well in the database messages preference
+if a person selects metabolic recieve updates yes and weight loss no what should we do? 
+fix phone number sending 1 extra to the beginingg to affiliate portal
+DOB not sending correctly to to telegra
+we can add patient notes system to the patient dashboard
+package name not displaying correctly
 
 
 Hi vineeth before launch Please do following things today

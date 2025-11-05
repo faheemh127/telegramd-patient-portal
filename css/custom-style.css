@@ -455,7 +455,7 @@ nav.hld-navbar {
 
 .hld-subscription-card {
   background: white;
-  padding: 30px 25px;
+  padding: 30px 25px 30px 25px;
   display: flex;
   flex-direction: column;
   min-height: 300px;
@@ -1713,7 +1713,7 @@ nav.hld-navbar {
   color: white !important;
 }
 .hld-save-account-details {
-  display: inline-block !important;
+  display: none;
   background: var(--hld-color-primary);
   min-width: 100px;
   border-radius: 100px !important;

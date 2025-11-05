@@ -52,7 +52,17 @@ if (isset($_GET['message'])) {  ?>
 
                             <div class="mb-3">
                                 <label for="hld_dob" class="form-label"><strong>Date of birth:</strong></label>
-                                <p id="hldPatientProfileDOB"><?= !empty($patient['dob']) ? esc_html($patient['dob']) : '<em>Not provided</em>'; ?></p>
+                                <p id="hldPatientProfileDOB">
+                                    <?php
+                                    if (!empty($patient['dob'])) {
+                                        $formatted_dob = date('jS M Y', strtotime($patient['dob']));
+                                        echo esc_html($formatted_dob);
+                                    } else {
+                                        echo '<em>Not provided</em>';
+                                    }
+                                    ?>
+                                </p>
+
                                 <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
                             </div>
 

@@ -33,22 +33,21 @@ if ($subscription == null) {
                         <?php echo esc_html($subscription['medication_name']); ?></p>
                     <p class="hld-text"><strong class="hld-label">Start Date:</strong>
                         <?php echo date("jS M Y", $subscription['subscription_start']); ?>
-                        
+
                     <p class="hld-text"><strong class="hld-label">End Date:</strong>
-                        <?php echo $subscription['subscription_end'] ? date("Y-m-d", $subscription['subscription_end']) : "Ongoing"; ?></p>
+                        <?php echo $subscription['subscription_end'] ? date("jS M Y", $subscription['subscription_end']) : "Ongoing"; ?>
+                    </p>
                 </div>
                 <div class="col-md-6 hld-col">
                     <p class="hld-text"><strong class="hld-label">Monthly Price:</strong>
                         $<?php echo number_format($subscription['subscription_monthly_amount'], 2); ?></p>
                     <p class="hld-text"><strong class="hld-label">Next Payment Due:</strong>
-                        <?php echo date("Y-m-d", strtotime("+1 month", $subscription['subscription_start'])); ?></p>
-                    <p class="hld-text"><strong class="hld-label">Pending Amount:</strong>
-                        $<?php echo number_format($subscription['subscription_monthly_amount'], 2); ?></p>
+                        <?php echo date("jS M Y", strtotime("+1 month", $subscription['subscription_start'])); ?></p>
                     <p class="hld-text"><strong class="hld-label">Status:</strong>
                         <?php echo ucfirst($subscription['subscription_status']); ?></p>
                 </div>
             </div>
-            <hr class="hld-divider">
+            
             <?php if (!empty($subscription['invoice_pdf_url'])) : ?>
                 <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
                     <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">

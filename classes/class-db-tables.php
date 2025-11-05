@@ -150,7 +150,7 @@ class HLD_DB_Tables
     public static function drop_all_tables()
     {
         error_log("Alert function drop_all_tables called for healsend tables. this will delete 6 tables related to healsend telegra patient portal plugin");
-        // return;
+        return;
         global $wpdb;
 
         // Disable foreign key checks to avoid constraint issues
