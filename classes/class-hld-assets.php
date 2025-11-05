@@ -76,6 +76,20 @@ if (!class_exists('hldAssets')) {
                 'logged_in'  => is_user_logged_in(),
             ]);
 
+            wp_enqueue_script(
+                'hld-class-telegra',
+                plugin_dir_url(__FILE__) . '../js/class-telegra.js',
+                ['jquery'],
+                HLD_PLUGIN_VERSION,
+                true
+            );
+
+            wp_localize_script('hld-class-telegra', 'hld_ajax_obj', [
+                'ajaxurl'    => admin_url('admin-ajax.php'),
+                'nonce'      => wp_create_nonce('hld_ajax_nonce'),
+            ]);
+
+
 
             wp_enqueue_script(
                 'hld-class-navigation',

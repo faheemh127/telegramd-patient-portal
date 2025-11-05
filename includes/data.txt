@@ -144,3 +144,17 @@ show order detail perfectly and remove order id from patient dashboard
 On prefunnel glp 1 completion the shipping address should shown in patient dashboard
 If patient disqualify in action item make a refund system
 if go back on first step land him on the home page
+
+
+
+If already selected a checkbox show next button by default in that fluent form step
+package name is not displaying correctly
+remove Doctor Assigned: Not assigned
+
+Support Contact: alerts@sysadminalerts.net from the subscription detail in patient dashboard
+we should create a document upload system so if patient have additional documents he can easily upload his documents
+display those documents on patient dashboard
+pass realtime address of the patient to dashboard and telegra when create order
+Shipping Address display in order detail
+Product information
+perscription fullfillment information

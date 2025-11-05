@@ -845,8 +845,8 @@ if (! class_exists('hldFluentHandler')) {
 
             $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform');
 
-            print_r($result,);
-          wp_die(888);
+        
+          
             if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
                 $this->prepare_questionare_for_telegra($form);
             }

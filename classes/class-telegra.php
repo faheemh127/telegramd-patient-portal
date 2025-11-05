@@ -23,7 +23,7 @@ class HLD_Telegra
 
 
 
-    public function get_order($order_id, $info)
+    public function get_order($order_id, $info = "")
     {
         if (empty($order_id)) {
             error_log('OrderID should not be empty to fetch order from telegra');

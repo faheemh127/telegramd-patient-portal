@@ -78,15 +78,16 @@ class hldStripeHandler {
       console.warn("Using fallback amount 0 since price fetch failed.");
     }
 
-    const amount = priceData?.amount || 0;
+    // const amount = priceData?.amount || 0; x 100 amount should be multipy by 100 when pass real amount
+    const amount = 1
     const currency = priceData?.currency?.toLowerCase() || "usd";
 
     const paymentRequest = this.stripe.paymentRequest({
       country: "US",
       currency: currency,
       total: {
-        label: "Prescription Subscription",
-        amount: amount * 100,
+        label: "Confirm Payment",
+        amount: amount,
       },
       requestPayerName: true,
       requestPayerEmail: true,

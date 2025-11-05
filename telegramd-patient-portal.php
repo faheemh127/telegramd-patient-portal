@@ -11,7 +11,7 @@
 
 
 
-define('HLD_LIVE', false);
+define('HLD_LIVE', true);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_PLUGIN_VERSION', '1.3');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
@@ -64,6 +64,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-get-subscription-price.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/update-patient-detail.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/get-telegra-order.php';
 
 
 register_activation_hook(__FILE__, function () {

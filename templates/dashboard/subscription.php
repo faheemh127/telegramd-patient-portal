@@ -9,6 +9,8 @@ if (!$current_user || empty($current_user->ID)) {
 
 $subscription = HLD_UserSubscriptions::get_user_subscription($current_user->ID);
 
+error_log(print_r($subscription, true));
+
 if ($subscription == null) {
     hld_not_found("You have no subscriptions yet.");
 } else {
@@ -30,7 +32,8 @@ if ($subscription == null) {
                     <p class="hld-text"><strong class="hld-label">Medication:</strong>
                         <?php echo esc_html($subscription['medication_name']); ?></p>
                     <p class="hld-text"><strong class="hld-label">Start Date:</strong>
-                        <?php echo date("Y-m-d", $subscription['subscription_start']); ?></p>
+                        <?php echo date("jS M Y", $subscription['subscription_start']); ?>
+                        
                     <p class="hld-text"><strong class="hld-label">End Date:</strong>
                         <?php echo $subscription['subscription_end'] ? date("Y-m-d", $subscription['subscription_end']) : "Ongoing"; ?></p>
                 </div>
@@ -46,22 +49,6 @@ if ($subscription == null) {
                 </div>
             </div>
             <hr class="hld-divider">
-            <div class="row hld-row">
-                <div class="col-md-6 hld-col">
-                    <p class="hld-text"><strong class="hld-label">Doctor Assigned:</strong>
-                        <?php echo !empty($subscription['doctor_name']) ? esc_html($subscription['doctor_name']) : "Not assigned"; ?></p>
-                </div>
-                <div class="col-md-6 hld-col">
-                    <p class="hld-text"><strong class="hld-label">Support Contact:</strong>
-                        <?php echo !empty($subscription['support_email']) ? esc_html($subscription['support_email']) : get_bloginfo('admin_email'); ?></p>
-                </div>
-            </div>
-            <div class="row hld-row">
-                <span class="hld-last-updated">Last updated:
-                    <?php echo date("jS M Y", $subscription['subscription_start']); ?>
-                </span>
-            </div>
-
             <?php if (!empty($subscription['invoice_pdf_url'])) : ?>
                 <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
                     <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">

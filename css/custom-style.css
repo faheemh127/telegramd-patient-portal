@@ -150,15 +150,17 @@ nav.hld-navbar {
   margin-bottom: 0 !important;
 }
 .hld_order_status {
-  padding: 6px 26px !important;
+  padding: 5px 15px !important;
   border-radius: 50px;
-  font-size: 1rem;
+  font-size: 0.875rem;
   text-transform: capitalize;
   background-color: var(--hld-color-primary) !important;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: capitalize;
+  cursor: pointer;
 }
 .hld_form_wrap .ff-float-right.ff-btn {
   border-radius: 30px;
@@ -446,8 +448,8 @@ nav.hld-navbar {
 }
 
 .hld-order-item .hld-sub-desc {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   color: #737373;
 }
 
@@ -1422,6 +1424,17 @@ nav.hld-navbar {
   display: none;
 }
 
+/* Target the label when its input radio is checked */
+.ff-el-form-check-label:has(input:checked) {
+  background-color: var(--hld-color-primary);
+  color: #fff !important;
+  transition: 0.3s;
+}
+
+.hld-subscription-card .hld-text {
+  margin-bottom: 0.6em;
+}
+
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1666,6 +1679,43 @@ nav.hld-navbar {
   margin: 0 auto;
 }
 
+.hld-order-card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.hld-patient-img {
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.hld-symptom-list .badge {
+  font-size: 0.85rem;
+  background-color: #6c757d;
+}
+
+.hld-order-detail-box {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hld-order-detail-box .card-header {
+  padding: 12px 15px;
+  background-color: transparent;
+}
+.hld-order-detail-box .card-body {
+  padding: 15px 18px;
+}
+.hld-back-to-orders {
+  width: 100%;
+  background: var(--hld-color-primary) !important;
+  border-radius: 50px !important;
+  border: none !important;
+  color: white !important;
+}
+
+.hidden {
+  display: none;
+}
 @media (max-width: 768px) {
   .hld-navbar {
     padding: 8px 10px;
@@ -1676,6 +1726,11 @@ nav.hld-navbar {
   }
   .hld-logo img {
     height: 30px;
+  }
+  .hld_order_status {
+    width: 100%;
+    padding: 7px 12px !important;
+    font-size: 0.875rem;
   }
 }
 
