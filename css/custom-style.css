@@ -1712,7 +1712,15 @@ nav.hld-navbar {
   border: none !important;
   color: white !important;
 }
-
+.hld-save-account-details {
+  display: inline-block !important;
+  background: var(--hld-color-primary);
+  min-width: 100px;
+  border-radius: 100px !important;
+  border: none !important;
+  font-size: 1rem !important;
+  margin-top: 5px;
+}
 .hidden {
   display: none;
 }

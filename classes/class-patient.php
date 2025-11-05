@@ -231,6 +231,89 @@ if (! class_exists('HLD_Patient')) {
         }
 
 
+        public static function update_city($city)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_city() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                [
+                    'city'        => sanitize_text_field($city),
+                    'updated_at'  => current_time('mysql'),
+                ],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        public static function update_address($address)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_address() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                [
+                    'address'     => sanitize_textarea_field($address),
+                    'updated_at'  => current_time('mysql'),
+                ],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
+
+        public static function update_zip_code($zip_code)
+        {
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: update_zip_code() called but patient not logged in.');
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            $updated = $wpdb->update(
+                $table,
+                [
+                    'zip_code'    => sanitize_text_field($zip_code),
+                    'updated_at'  => current_time('mysql'),
+                ],
+                ['patient_email' => $patient_email],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            return $updated !== false;
+        }
+
         /**
          * Update patient notes
          */
@@ -299,6 +382,9 @@ if (! class_exists('HLD_Patient')) {
                 'telegra_patient_id' => $patient_row->telegra_patient_id,
                 'notes'      => $patient_row->notes,
                 'address'      => $patient_row->address,
+                'city'      => $patient_row->city,
+                'state'      => $patient_row->state,
+                'zip_code'      => $patient_row->zip_code,
                 'medical_history' => $patient_row->medical_history ? json_decode($patient_row->medical_history, true) : [],
                 'created_at' => $patient_row->created_at,
                 'updated_at' => $patient_row->updated_at,

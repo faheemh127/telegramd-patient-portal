@@ -32,27 +32,27 @@ if (isset($_GET['message'])) {  ?>
 
                     <div class="col-md-12 hld-patient-info">
                         <form id="hld-account-details-form" class="hld-account-details-form">
-                            <div class="mb-3">
+                            <div class="mb-3 mt-4">
                                 <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
-                                <p><?= !empty($patient['full_name']) ? esc_html($patient['full_name']) : '<em>Not provided</em>'; ?></p>
+                                <p id="hldPatientProfileFullName"><?= !empty($patient['full_name']) ? esc_html($patient['full_name']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
                             </div>
 
                             <div class="mb-3">
                                 <label for="hld_email" class="form-label"><strong>Email:</strong></label>
-                                <p><?= esc_html($patient['email']); ?></p>
+                                <p id="hldPatientProfileEmail"><?= esc_html($patient['email']); ?></p>
                                 <input type="hidden" class="form-control" id="hld_email" name="email" value="<?= esc_attr($patient['email']); ?>">
                             </div>
 
                             <div class="mb-3">
                                 <label for="hld_phone" class="form-label"><strong>Phone:</strong></label>
-                                <p><?= !empty($patient['phone']) ? esc_html($patient['phone']) : '<em>Not provided</em>'; ?></p>
+                                <p id="hldPatientProfilePhone"><?= !empty($patient['phone']) ? esc_html($patient['phone']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_phone" name="phone" value="<?= esc_attr($patient['phone']); ?>">
                             </div>
 
                             <div class="mb-3">
                                 <label for="hld_dob" class="form-label"><strong>Date of birth:</strong></label>
-                                <p><?= !empty($patient['dob']) ? esc_html($patient['dob']) : '<em>Not provided</em>'; ?></p>
+                                <p id="hldPatientProfileDOB"><?= !empty($patient['dob']) ? esc_html($patient['dob']) : '<em>Not provided</em>'; ?></p>
                                 <input type="hidden" class="form-control" id="hld_dob" name="dob" value="<?= esc_attr($patient['dob']); ?>">
                             </div>
 

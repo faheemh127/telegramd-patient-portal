@@ -81,29 +81,32 @@ class HldPatientLogin {
   enableProfileEditing() {
     // List of editable fields
     const fields = [
-      { id: "hld_full_name", type: "text" },
-      { id: "hld_email", type: "email" },
-      { id: "hld_phone", type: "text" },
-      { id: "hld_dob", type: "date" },
+      {
+        id: "hld_full_name",
+        type: "text",
+        displayId: "hldPatientProfileFullName",
+      },
+      { id: "hld_email", type: "email", displayId: "hldPatientProfileEmail" },
+      { id: "hld_phone", type: "text", displayId: "hldPatientProfilePhone" },
+      { id: "hld_dob", type: "date", displayId: "hldPatientProfileDOB" },
     ];
 
     fields.forEach((field) => {
       const input = document.getElementById(field.id);
-      const label = input?.previousElementSibling;
-      const paragraph = label?.nextElementSibling;
+      const displayEl = document.getElementById(field.displayId);
 
-      if (input && paragraph && input.type === "hidden") {
-        // Remove <p> display value
-        paragraph.style.display = "none";
+      // Hide <p> display value if visible
+      if (displayEl) displayEl.style.display = "none";
 
-        // Convert hidden to editable input
+      // Convert hidden input to editable
+      if (input && input.type === "hidden") {
         input.type = field.type;
         input.setAttribute("data-editable", "true");
         input.style.display = "block";
       }
     });
 
-    // Show save button
+    // Show Save button
     const saveBtn = document.getElementById("hld_save_account_details");
     if (saveBtn) {
       saveBtn.style.display = "inline-block";

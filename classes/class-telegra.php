@@ -183,25 +183,21 @@ class HLD_Telegra
 
     public static function create_patient()
     {
+        global $wpdb;
         if (!is_user_logged_in()) {
             return false;
         }
-
         $user = wp_get_current_user();
-
-        // Optional: only allow certain roles (if needed)
+        // Only subscriber is a patient not any other user
         if (!in_array('subscriber', (array) $user->roles)) {
             return false;
         }
-
-        global $wpdb;
 
         $email = $user->user_email;
         if (empty($email) || !is_email($email)) {
             error_log('HLD_Telegra: Invalid user email for create_patient');
             return false;
         }
-
         // Check if patient already has Telegra ID
         $existing_id = HLD_Patient::get_telegra_patient_id($email);
         if ($existing_id) {
@@ -209,7 +205,6 @@ class HLD_Telegra
             return $existing_id;
         }
 
-        // Fetch patient info from local table
         $patient_table = HEALSEND_PATIENTS_TABLE;
         $patient = $wpdb->get_row(
             $wpdb->prepare("SELECT * FROM {$patient_table} WHERE patient_email = %s", $email),
@@ -232,9 +227,7 @@ class HLD_Telegra
             'dateOfBirth'      => $dob,
             'gender'           => $gender,
             'genderBiological' => $gender,
-            'affiliate'        => defined('TELEGRAMD_AFFLIATE_ID')
-                ? TELEGRAMD_AFFLIATE_ID
-                : 'AFFILIATE-123',
+            'affiliate'        => TELEGRAMD_AFFLIATE_ID,
         ];
 
         $args = [
@@ -358,6 +351,51 @@ class HLD_Telegra
     }
 
 
+    public function update_patient_on_telegra($telegra_patient_id, $data = [])
+    {
+        if (empty($telegra_patient_id)) {
+            return new WP_Error('missing_patient_id', 'Missing Telegra patient ID.');
+        }
+
+        if (empty($data) || !is_array($data)) {
+            return new WP_Error('invalid_data', 'Invalid or empty patient data.');
+        }
+
+        $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
+        $endpoint     = TELEGRA_BASE_URL . '/patients/' . urlencode($telegra_patient_id);
+
+        $args = [
+            'method'  => 'PUT',
+            'headers' => [
+                'Authorization' => $bearer_token,
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+            ],
+            'body'    => wp_json_encode($data),
+            'timeout' => 20,
+        ];
+
+        $response = wp_remote_request($endpoint, $args);
+
+        // Handle transport-level errors
+        if (is_wp_error($response)) {
+            error_log('[TelegraMD] Patient Update Error: ' . $response->get_error_message());
+            return new WP_Error('api_error', 'Failed to update patient: ' . $response->get_error_message());
+        }
+
+        $status_code   = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+        $decoded       = json_decode($response_body, true);
+
+        if ($status_code !== 200) {
+            error_log("[TelegraMD] Failed to update patient ($telegra_patient_id) → HTTP $status_code → $response_body");
+            return new WP_Error('update_failed', 'Telegra API error: ' . $response_body);
+        }
+
+        error_log("[TelegraMD] Patient Updated Successfully ($telegra_patient_id): " . print_r($decoded, true));
+
+        return $decoded;
+    }
 
 
 
@@ -419,42 +457,37 @@ class HLD_Telegra
     {
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint = TELEGRA_BASE_URL . '/orders';
-
-        // 🔧 Prepare the request body based on CURL sample
+        $patient = HLD_Patient::get_patient_info();
+        error_log("Patient detail in create_order function 423: " . print_r($patient, true));
         $body = [
             "data" => [
                 "someData" => "?"
             ],
-            "patient" => $telegra_patient_id, // example: pat::f2b6ec7f-4b87-4988-9ebb-df663edaf872
+            "patient" => $telegra_patient_id,
             "productVariations" => [
                 [
                     "productVariation" => $medication_id,
-                    // "productVariation" => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb", // glp prefunnel
-                    // "productVariation" => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb", // glp prefunnel
-                    // "productVariation" => "pvt::50553d4f-e36f-41f3-9f1c-e9fec3860248", // metabolic
                     "quantity" => 1
                 ]
             ],
-            "symptoms" => (array) $symptoms, // always array
+            "symptoms" => (array) $symptoms,
             "address" => [
                 "billing" => [
-                    "address1" => "123 S Main St",
+                    "address1" => $patient['address'],
                     "address2" => null,
-                    "city"     => "Kennewick",
-                    "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
-                    "zipcode"  => 99337
+                    "city"     => $patient['city'],
+                    "state"    => $patient['state'],
+                    "zipcode"  => $patient['zip_code']
                 ],
                 "shipping" => [
-                    "address1" => "123 S Main St",
+                    "address1" => $patient['address'],
                     "address2" => null,
-                    "city"     => "Kennewick",
-                    "state"    => "state::07b1c554-5521-4bab-b65c-8436b72cfcb6",
-                    "zipcode"  => 99337
+                    "city"     => $patient['city'],
+                    "state"    => $patient['state'],
+                    "zipcode"  => $patient['zip_code']
                 ]
             ]
         ];
-
-        // 🛰 Send the POST request
         $response = wp_remote_post($endpoint, [
             'method'    => 'POST',
             'headers'   => [
@@ -465,18 +498,15 @@ class HLD_Telegra
             'body'      => json_encode($body),
             'timeout'   => 20,
         ]);
-
         // Check for transport-level WP error
         if (is_wp_error($response)) {
             error_log('[TelegraMD Error] cURL Error: ' . $response->get_error_message());
             return new WP_Error('api_error', 'Failed to create order: ' . $response->get_error_message());
         }
-
         $status_code   = wp_remote_retrieve_response_code($response);
         $response_body = wp_remote_retrieve_body($response);
         $data          = json_decode($response_body, true);
 
-        // API returned non-200/201
         if ($status_code !== 200 && $status_code !== 201) {
             error_log('[TelegraMD Order Failed] HTTP ' . $status_code . ' → ' . $response_body);
             return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
@@ -487,8 +517,6 @@ class HLD_Telegra
         } else {
             error_log("⚠️ User not logged in, cannot save order to user meta.");
         }
-
-        // Success
         error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
         return $data['id'];
     }

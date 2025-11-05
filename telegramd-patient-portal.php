@@ -11,7 +11,7 @@
 
 
 
-define('HLD_LIVE', true);
+define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_PLUGIN_VERSION', '1.3');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
@@ -33,7 +33,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
-
+ 
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-navbar.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-footer.php';

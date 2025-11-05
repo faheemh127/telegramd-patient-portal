@@ -11,9 +11,10 @@ if (! class_exists('hldFluentHandler')) {
          * If a form ID is not in this array, no Telegra order will be created.
          */
 
-        protected $telegra_forms = [
-          HLD_GLP_1_PREFUNNEL_FORM_ID,
-          HLD_GLP_1_WEIGHTLOSS_FORM_ID,
+        protected $prefunnel_forms_ids = [
+            HLD_GLP_1_PREFUNNEL_FORM_ID,
+            HLD_METABOLIC_PREFUNNEL_FORM_ID,
+            HLD_TRT_PREFUNNEL_FORM_ID
         ];
         protected $telegra_product_id = null;
 
@@ -493,82 +494,82 @@ if (! class_exists('hldFluentHandler')) {
         public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string)
         {
 
-          //later pass these dynamically
-          /* $order_id  = $this->get_order_id(); */
-          $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405";
-          $answers = [];
-          $last_location = null;
-          $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
+            //later pass these dynamically
+            /* $order_id  = $this->get_order_id(); */
+            $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405";
+            $answers = [];
+            $last_location = null;
+            $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
 
-          if (!$order_id) {
-            error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
-            return false;
-          }
-
-          foreach ($form_data as $key => $value) {
-            if (strpos($key, $search_string) === 0) {
-             $val = $value;
-              if (is_array($value) && isset($value[0])) {
-                $potential_url = $value[0];
-                if (filter_var($potential_url, FILTER_VALIDATE_URL)) {
-                  $file_contents = @file_get_contents($potential_url);
-                  if ($file_contents !== false) {
-                    $base64_file = base64_encode($file_contents);
-                    $val = $base64_file; // Replace the value with the Base64 string
-                  } else {
-                    error_log("[TelegraMD] Unable to fetch file from URL: {$potential_url}");
-                    continue; 
-                  }
-                } else {
-                  $val = $value;
-                }
-              }
-
-              // Replace special patterns in the key
-              $loc_id = str_replace('___', ':', $key);
-              $loc_id = str_replace('__', '.', $loc_id);
-              $loc_id = str_replace('_', '-', $loc_id);
-
-              $answers[] = [
-                'location' => "loc::{$loc_id}",
-                'value'    => $val,
-              ];
+            if (!$order_id) {
+                error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
+                return false;
             }
-          }
 
-          error_log("[TelegraMD] Answers for {$form_type} → " . print_r($answers, true));
+            foreach ($form_data as $key => $value) {
+                if (strpos($key, $search_string) === 0) {
+                    $val = $value;
+                    if (is_array($value) && isset($value[0])) {
+                        $potential_url = $value[0];
+                        if (filter_var($potential_url, FILTER_VALIDATE_URL)) {
+                            $file_contents = @file_get_contents($potential_url);
+                            if ($file_contents !== false) {
+                                $base64_file = base64_encode($file_contents);
+                                $val = $base64_file; // Replace the value with the Base64 string
+                            } else {
+                                error_log("[TelegraMD] Unable to fetch file from URL: {$potential_url}");
+                                continue;
+                            }
+                        } else {
+                            $val = $value;
+                        }
+                    }
 
-          // Submit the questionnaire answers
-          if (!empty($answers)) {
-            $result = $this->telegra->submit_questionnaire_answers(
-              $order_id,
-              $quest_inst, 
-              $answers,
-              $last_location 
-            );
+                    // Replace special patterns in the key
+                    $loc_id = str_replace('___', ':', $key);
+                    $loc_id = str_replace('__', '.', $loc_id);
+                    $loc_id = str_replace('_', '-', $loc_id);
 
-            // Debug log for submission result
-            error_log("[TelegraMD] Submission result for {$form_type} → " . print_r($result, true));
+                    $answers[] = [
+                        'location' => "loc::{$loc_id}",
+                        'value'    => $val,
+                    ];
+                }
+            }
 
-            return $result;
-          }
+            //   error_log("[TelegraMD] Answers for {$form_type} → " . print_r($answers, true));
 
-        error_log("[TelegraMD] No answers found for {$form_type}. Nothing to submit.");
-        return false;
-    }
+            // Submit the questionnaire answers
+            if (!empty($answers)) {
+                $result = $this->telegra->submit_questionnaire_answers(
+                    $order_id,
+                    $quest_inst,
+                    $answers,
+                    $last_location
+                );
+
+                // Debug log for submission result
+                // error_log("[TelegraMD] Submission result for {$form_type} → " . print_r($result, true));
+
+                return $result;
+            }
+
+            // error_log("[TelegraMD] No answers found for {$form_type}. Nothing to submit.");
+            return false;
+        }
 
 
         /* public function prepare_questionare_for_telegra($form_data) */
         /* { */
         /*     // Example — later pass these dynamically */
-        /*     /* $order_id  = $this->get_order_id(); */ 
+        /*     /* $order_id  = $this->get_order_id(); */
         /*     $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405"; */
         /*     $answers = []; */
         /*     $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80"; */
         /**/
         /*     /** */
         /*      * 1️⃣ Process Glp_intakeform_ questionnaire */
-        /*      */ 
+        /*      */
         /*     foreach ($form_data as $key => $value) { */
         /*         // Only process keys starting with Glp_intakeform_ */
         /*         if (strpos($key, 'Glp_intakeform_') === 0) { */
@@ -747,6 +748,10 @@ if (! class_exists('hldFluentHandler')) {
             $dob        = isset($prefunnel_form_data['datetime']) ? sanitize_text_field($prefunnel_form_data['datetime']) : '';
             $state      = isset($prefunnel_form_data['dropdown']) ? sanitize_text_field($prefunnel_form_data['dropdown']) : '';
             $phone      = isset($prefunnel_form_data['phone']) ? sanitize_text_field($prefunnel_form_data['phone']) : '';
+            $address    = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["address_line_1"]) : '';
+            $city       = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["city"]) : '';
+            $zip_code   = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["zip"]) : '';
+
 
             // Physical metrics
             $height_feet  = isset($prefunnel_form_data['input_text_2']) ? floatval($prefunnel_form_data['input_text_2']) : 0;
@@ -788,6 +793,18 @@ if (! class_exists('hldFluentHandler')) {
             if ($phone) {
                 HLD_Patient::update_phone($phone);
             }
+            if ($city) {
+                HLD_Patient::update_city($city);
+            }
+
+            if ($address) {
+                HLD_Patient::update_address($address);
+            }
+
+            if ($zip_code) {
+                HLD_Patient::update_zip_code($zip_code);
+            }
+
 
             error_log("✅ Patient info updated successfully for logged-in user.");
         }
@@ -804,35 +821,31 @@ if (! class_exists('hldFluentHandler')) {
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
-            // No need to do processing if user is not a patient
-
+            // No need to do processing if user is not a patient and have not signed up
             if (! is_user_logged_in()) {
                 return;
             }
 
-            $this->update_patient_info($form);
+            $form_id = $insertData['form_id'];
+            // receiving telegra_product_id from fluent form prefunnel
             $this->telegra_product_id = $form["telegra_product_id"];
 
-            // First save main submission
-            // $this->save_patient_form_submission($insertData);
-            // $submission_id = $wpdb->insert_id; // get last inserted ID
-
-            // // Then save answers
-            // $form = json_decode($insertData['response'], true);
+            // For security reasons also save the duplicate copy of fluent form submission
+            $this->save_patient_form_submission($insertData);
             // $this->save_patient_form_answers($submission_id, $form);
 
-            $form_id = $insertData['form_id'];
-            $this->save_patient_form_submission($insertData);
-
             // if not form can create patient create telegra order return
-            if (in_array($form_id, $this->telegra_forms)) {
+            if (in_array($form_id, $this->prefunnel_forms_ids)) {
+                error_log("form is prefunnel so proceed");
+                $this->update_patient_info($form);
                 HLD_Telegra::create_patient();
-                error_log("form_id is allowed");
                 $this->telegra();
             } else {
                 error_log("The Form id" . $form_id . " not exists in telegra_forms. that's why we cannot create any order on telegra with this form");
             }
         }
+
+
         public function handle_after_insert_submission($insert_id, $form)
         {
 
@@ -841,20 +854,21 @@ if (! class_exists('hldFluentHandler')) {
             /*     return; */
             /* } */
 
-                /* $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform_4'); */
+            /* $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform_4'); */
 
-            $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform');
-
-        
-          
-            if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
-                $this->prepare_questionare_for_telegra($form);
-            }
+            //actual
+            // $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform');
 
 
-            if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
-                $this->update_patient_name($insertData);
-            }
+
+            // if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
+            //     $this->prepare_questionare_for_telegra($form);
+            // }
+
+
+            // if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
+            //     $this->update_patient_name($insertData);
+            // }
         }
     }
 }
