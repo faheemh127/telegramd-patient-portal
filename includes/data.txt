@@ -167,7 +167,7 @@ fix phone number sending 1 extra to the beginingg to affiliate portal
 DOB not sending correctly to to telegra
 we can add patient notes system to the patient dashboard
 package name not displaying correctly
-
+Fix Thank you page of action item weight loss intake the long form 
 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's

@@ -491,15 +491,30 @@ if (! class_exists('hldFluentHandler')) {
         //     return $result;
         // }
 
-        public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string)
+        public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string, $order_id)
         {
 
-            //later pass these dynamically
-            /* $order_id  = $this->get_order_id(); */
-            $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405";
+            // later pass these dynamically
+            // $order_id  = $this->get_order_id();
+            // $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405";
+
+
             $answers = [];
             $last_location = null;
-            $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
+            $last_location = "loc::Glp-intakeform-22.18";
+            error_log("[ORDER ID]" . $order_id);
+            $order_detail = $this->telegra->get_order($order_id);
+            error_log(print_r($order_detail, true));
+
+            // quinst for glp weight loss
+            $quest_inst = $order_detail["questionnaireInstances"][0]["id"];
+
+            // quinst for clinical difference
+            $quest_inst_id_clinical_difference = $order_detail["questionnaireInstances"][1]["id"];
+            // $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
+
+            error_log("quinst id for GLP weight loss" . $quest_inst);
+            error_log("quinst id for GLP weight loss" . $quest_inst_id_clinical_difference);
 
             if (!$order_id) {
                 error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
@@ -828,7 +843,10 @@ if (! class_exists('hldFluentHandler')) {
 
             $form_id = $insertData['form_id'];
             // receiving telegra_product_id from fluent form prefunnel
-            $this->telegra_product_id = $form["telegra_product_id"];
+            if (isset($form['telegra_product_id'])) {
+                $this->telegra_product_id = $form['telegra_product_id'];
+            }
+
 
             // For security reasons also save the duplicate copy of fluent form submission
             $this->save_patient_form_submission($insertData);
@@ -850,6 +868,17 @@ if (! class_exists('hldFluentHandler')) {
         {
 
 
+            error_log("aftersubmission form 853");
+            error_log(print_r($insert_id, true));
+            error_log(print_r($form, true));
+            /**
+             * this form id is dynamically getting 
+             */
+            $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
+            if (empty($telegra_order_id)) {
+                error_log("Action Item telegra order id should not be correct");
+                return;
+            }
             /* if (! is_user_logged_in()) { */
             /*     return; */
             /* } */
@@ -857,7 +886,7 @@ if (! class_exists('hldFluentHandler')) {
             /* $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform_4'); */
 
             //actual
-            // $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform');
+            $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform', $telegra_order_id);
 
 
 

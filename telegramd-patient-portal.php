@@ -33,7 +33,6 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
- 
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-navbar.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-footer.php';
