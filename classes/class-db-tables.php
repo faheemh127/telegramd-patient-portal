@@ -216,4 +216,8 @@ class HLD_DB_Tables
 
 
 // HLD_DB_Tables::hld_add_stripe_customer_id_column();
+// ********************************************
+// ****** Dangerous Function HLD_DB_Tables::drop_all_tables(); **************
+// *** will delete all the tables related to this plugin *************
+//******use it carefully *************/
 // HLD_DB_Tables::drop_all_tables();

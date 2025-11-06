@@ -1729,10 +1729,10 @@ nav.hld-navbar {
 .hidden {
   display: none;
 }
-.hld_form_wrap label:hover {
+/* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;
   color: var(--hld-color-primary);
-}
+} */
 @media (max-width: 768px) {
   .hld-navbar {
     padding: 8px 10px;
