@@ -15,6 +15,7 @@ class HldNavigation {
     this.connectNavItemsWithActionItem();
     this.hideNextBtnDisqualifyStep();
     this.disqualifyLessThan18();
+    this.hideLayoutIfForm();
     // this.showAllPrevButtons();
     // 👇 Initialize the back button listener here
     this.initBackButtonListener();
@@ -252,6 +253,27 @@ class HldNavigation {
     this.showActionItemSidebar();
   }
 
+  hideLayoutIfForm() {
+    const formWrap = document.querySelector(".hld_form_wrap");
+
+    if (formWrap) {
+      // Hide Elementor header
+      const header = document.querySelector("header.elementor");
+      if (header) header.style.display = "none";
+
+      // Hide footer
+      const footer = document.querySelector("footer");
+      if (footer) footer.style.display = "none";
+
+      // Adjust container style
+      const container = document.querySelector(".ast-container");
+      if (container) {
+        container.style.minHeight = "100vh";
+        container.style.background = "#f7f5f5";
+      }
+    }
+  }
+
   initActionItemSidebar() {
     if (!hldActionItem.glp1Prefunnel || hldActionItem.glp1Prefunnel == "0")
       return;
@@ -264,7 +286,6 @@ class HldNavigation {
       window.location.href.includes("trt-prefunnel") ||
       window.location.href.includes("pt-141-prefunnel") ||
       window.location.href.includes("upload-id")
-      
     ) {
       return;
     }

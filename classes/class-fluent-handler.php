@@ -491,7 +491,7 @@ if (! class_exists('hldFluentHandler')) {
         //     return $result;
         // }
 
-        public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string, $order_id)
+        public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string, $order_id, $last_location = "")
         {
 
             // later pass these dynamically
@@ -501,7 +501,7 @@ if (! class_exists('hldFluentHandler')) {
 
             $answers = [];
             $last_location = null;
-            $last_location = "loc::Glp-intakeform-22.18";
+            $last_location = "loc::Glp-intakeform-23";
             error_log("[ORDER ID]" . $order_id);
             $order_detail = $this->telegra->get_order($order_id);
             error_log(print_r($order_detail, true));

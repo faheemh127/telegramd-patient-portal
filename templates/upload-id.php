@@ -23,6 +23,20 @@
                         name="patient_id"
                         accept=".jpg,.jpeg,.png,.pdf"
                         required>
+
+
+                    <?php
+                    // Safely get telegra_order_id from URL
+                    $telegra_order_id = isset($_GET['telegra_order_id']) ? sanitize_text_field($_GET['telegra_order_id']) : '';
+                    ?>
+
+                    <!-- Hidden input field -->
+                    <input
+                        type="hidden"
+                        id="telegraOrderID"
+                        name="telegra_order_id"
+                        value="<?php echo esc_attr($telegra_order_id); ?>">
+
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100" style="background-color: #7b68ee; border-radius: 50px; border: none;">

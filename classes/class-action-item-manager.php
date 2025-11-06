@@ -39,7 +39,7 @@ class HLD_ActionItems_Manager
                 'action_key'         => 'agreement',
                 'label'              => 'Agreement Form',
                 'description'        => 'Review and accept our treatment agreement to proceed.',
-                'item_slug'          => 'glp_1_agreement_form',
+                'item_slug'          => 'glp-1-agreement-form',
                 'quinst_array_index' => '4',
                 'sort_order'         => 3,
                 'required'           => 1,
@@ -167,18 +167,24 @@ class HLD_ActionItems_Manager
         $user_actions_table = HEALSEND_USER_ACTIONS_TABLE;
         $action_items_table = HEALSEND_ACTION_ITEMS_TABLE;
 
-        // Get all pending user actions joined with action item info
+        // Get all pending user actions joined with action item info + telegra_order_id
         $results = $wpdb->get_results(
             $wpdb->prepare("
-                SELECT ai.label, ai.description, ai.item_slug, ua.plan_slug, ua.action_key
-                FROM {$user_actions_table} AS ua
-                INNER JOIN {$action_items_table} AS ai
-                    ON ua.plan_slug = ai.plan_slug
-                    AND ua.action_key = ai.action_key
-                WHERE ua.patient_email = %s
+            SELECT 
+                ai.label, 
+                ai.description, 
+                ai.item_slug, 
+                ua.plan_slug, 
+                ua.action_key,
+                ua.telegra_order_id
+            FROM {$user_actions_table} AS ua
+            INNER JOIN {$action_items_table} AS ai
+                ON ua.plan_slug = ai.plan_slug
+                AND ua.action_key = ai.action_key
+            WHERE ua.patient_email = %s
                 AND ua.status = 'pending'
-                ORDER BY ai.sort_order ASC
-            ", $user_email)
+            ORDER BY ai.sort_order ASC
+        ", $user_email)
         );
 
         if (empty($results)) {
@@ -189,15 +195,15 @@ class HLD_ActionItems_Manager
         $pending_items = [];
         foreach ($results as $row) {
             $pending_items[] = [
-                'label'       => $row->label,
-                'description' => $row->description,
-                'url'         => home_url('/' . ltrim($row->item_slug, '/')),
+                'label'            => $row->label,
+                'description'      => $row->description,
+                'url'              => home_url('/' . ltrim($row->item_slug, '/')),
+                'plan_slug'        => $row->plan_slug,
+                'action_key'       => $row->action_key,
+                'telegra_order_id' => $row->telegra_order_id, // ✅ added field
             ];
         }
 
         return $pending_items;
-    } // function ends
-
-
-
+    }
 } //class ends
