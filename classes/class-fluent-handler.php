@@ -1,4 +1,5 @@
 <?php
+
 if (! class_exists('hldFluentHandler')) {
 
     class hldFluentHandler
@@ -872,7 +873,7 @@ if (! class_exists('hldFluentHandler')) {
             error_log(print_r($insert_id, true));
             error_log(print_r($form, true));
             /**
-             * this form id is dynamically getting 
+             * this form id is dynamically getting
              */
             $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
             if (empty($telegra_order_id)) {
@@ -885,6 +886,7 @@ if (! class_exists('hldFluentHandler')) {
 
             /* $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform_4'); */
 
+            wp_die();
             //actual
             $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform', $telegra_order_id);
 
@@ -918,5 +920,5 @@ $hld_fluent_handler = new hldFluentHandler($hld_telegra);
 //         echo 'Image not found or failed to convert.';
 //     }
 
-    
+
 // });
