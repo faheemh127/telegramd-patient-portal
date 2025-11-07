@@ -44,3 +44,16 @@ in medications key you should get the base64 data by converting medications.json
 All fluent forms latest backup is available to fluent-forms folder of this plugin if you find more fluent form in a backup for example for glp-1-prefunnel folder if you find more than 1 then you can choose the latest date of .json it means previous one are the older backup and the latest date means latest backup you should alwasy prefer to import that
 
 
+## .hld_form_wrap class
+whenever add a fluent form to any wordpress page make sure to add the class .hld_form_wrap as to the container of fluent form shortcode so it can be filled with all the style that is in our custom-style.css file 
+
+
+Make sure to add hld_glp_prefunnel shortcode and add your forms there in the provided shortcode above and add the medication json in base64 convert them using online tool
+
+
+## What is quinst-data.json file and where it is used
+basically this .json file can be encoded to base64 and pass in the fluent form in hidden field name the name attribute will be telegra_quinst_data and the data will be base64 json from quinst-data.json file. when action form will be submitted this data will be submitted too and our php code will use this data to upload questionnare to telegra using their REST API.
+
+
+## what is constants.php 
+Constant.php file contain the fluent form id's mainly and especially the tables names of the database this plugin creates and uses

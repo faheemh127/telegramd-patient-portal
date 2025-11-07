@@ -17,6 +17,9 @@ if (! class_exists('hldFluentHandler')) {
             HLD_METABOLIC_PREFUNNEL_FORM_ID,
             HLD_TRT_PREFUNNEL_FORM_ID
         ];
+        protected $action_items = [
+            HLD_CLINICAL_DIFFERENCE_FORM_ID
+        ];
         protected $telegra_product_id = null;
 
         public function __construct($telegra)
@@ -495,33 +498,26 @@ if (! class_exists('hldFluentHandler')) {
         public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string, $order_id, $last_location = "")
         {
 
+
+
+
+
+
             // later pass these dynamically
             // $order_id  = $this->get_order_id();
             // $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405";
+            // $last_location = null;
+            // error_log("[ORDER ID]" . $order_id);
+            // // quinst for clinical difference
+            // $quest_inst_id_clinical_difference = $order_detail["questionnaireInstances"][1]["id"];
+            // // $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
+            // error_log("quinst id for GLP weight loss" . $quest_inst);
+            // error_log("quinst id for GLP weight loss" . $quest_inst_id_clinical_difference);
+
+
 
 
             $answers = [];
-            $last_location = null;
-            $last_location = "loc::Glp-intakeform-23";
-            error_log("[ORDER ID]" . $order_id);
-            $order_detail = $this->telegra->get_order($order_id);
-            error_log(print_r($order_detail, true));
-
-            // quinst for glp weight loss
-            $quest_inst = $order_detail["questionnaireInstances"][0]["id"];
-
-            // quinst for clinical difference
-            $quest_inst_id_clinical_difference = $order_detail["questionnaireInstances"][1]["id"];
-            // $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80";
-
-            error_log("quinst id for GLP weight loss" . $quest_inst);
-            error_log("quinst id for GLP weight loss" . $quest_inst_id_clinical_difference);
-
-            if (!$order_id) {
-                error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
-                return false;
-            }
-
             foreach ($form_data as $key => $value) {
                 if (strpos($key, $search_string) === 0) {
                     $val = $value;
@@ -865,41 +861,97 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
+
+        // faheem commented function cloned to make it dynamic below after this commented
+        // public function handle_after_insert_submission($insert_id, $form)
+        // {
+        //     error_log("aftersubmission form 853");
+        //     error_log(print_r($insert_id, true));
+        //     error_log(print_r($form, true));
+
+        //     $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
+        //     if (empty($telegra_order_id)) {
+        //         error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
+        //         return;
+        //     }
+        //     $telegra_quinst_data = isset($form['telegra_quinst_data']) ? sanitize_text_field($form['telegra_quinst_data']) : '';
+
+
+        //     $telegra_location_key = isset($form['telegra_location_key']) ? sanitize_text_field($form['telegra_location_key']) : '';
+        //     $order_detail = $this->telegra->get_order($telegra_order_id);
+        //     $quest_inst = $order_detail["questionnaireInstances"][0]["id"];
+        //     $last_location = "loc::Glp-intakeform-23";
+        //     $this->prepare_questionare_for_telegra(
+        //         $form,
+        //         $quest_inst,
+        //         $telegra_location_key, // "Glp_intakeform",
+        //         $telegra_order_id,
+        //         $last_location
+        //     );
+        // }
+
+
         public function handle_after_insert_submission($insert_id, $form)
         {
-
-
             error_log("aftersubmission form 853");
             error_log(print_r($insert_id, true));
             error_log(print_r($form, true));
-            /**
-             * this form id is dynamically getting
-             */
+
+            // 1️⃣ Retrieve and sanitize order ID
+            $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
             $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
             if (empty($telegra_order_id)) {
-                error_log("Action Item telegra order id should not be correct");
+                error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
                 return;
             }
-            /* if (! is_user_logged_in()) { */
-            /*     return; */
-            /* } */
 
-            /* $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform_4'); */
+            // 2️⃣ Decode base64 JSON string safely
+            $telegra_quinst_data_raw = isset($form['telegra_quinst_data']) ? $form['telegra_quinst_data'] : '';
+            $decoded_json = base64_decode($telegra_quinst_data_raw, true);
+            if ($decoded_json === false) {
+                error_log("[TelegraMD] Failed to base64 decode telegra_quinst_data");
+                return;
+            }
 
-            wp_die();
-            //actual
-            $result = $this->prepare_questionare_for_telegra($form, "ASDF", 'Glp_intakeform', $telegra_order_id);
+            $telegra_quinst_data = json_decode($decoded_json, true);
+            if (json_last_error() !== JSON_ERROR_NONE || !is_array($telegra_quinst_data)) {
+                error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
+                return;
+            }
 
+            // 3️⃣ Get order details once
+            $order_detail = $this->telegra->get_order($telegra_order_id);
 
+            // 4️⃣ Loop through each object and process
+            foreach ($telegra_quinst_data as $item) {
+                $quinst_index = isset($item['quinst_array_index']) ? intval($item['quinst_array_index']) : null;
+                $telegra_location_key = isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
+                $last_location = isset($item['last_location']) ? sanitize_text_field($item['last_location']) : '';
 
-            // if ($form_id == HLD_CLINICAL_DIFFERENCE_FORM_ID) {
-            //     $this->prepare_questionare_for_telegra($form);
-            // }
+                if ($quinst_index === null || empty($telegra_location_key) || empty($last_location)) {
+                    error_log("[TelegraMD] Skipped invalid entry in telegra_quinst_data");
+                    continue;
+                }
 
+                // Safety: ensure that index exists
+                if (!isset($order_detail["questionnaireInstances"][$quinst_index]["id"])) {
+                    error_log("[TelegraMD] Questionnaire index {$quinst_index} not found in order detail");
+                    continue;
+                }
 
-            // if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
-            //     $this->update_patient_name($insertData);
-            // }
+                $quest_inst = $order_detail["questionnaireInstances"][$quinst_index]["id"];
+
+                // 5️⃣ Call prepare_questionare_for_telegra for each object
+                $this->prepare_questionare_for_telegra(
+                    $form,
+                    $quest_inst,
+                    $telegra_location_key,
+                    $telegra_order_id,
+                    $last_location
+                );
+
+                error_log("[TelegraMD] Submitted questionnaire {$quest_inst} for location {$telegra_location_key}");
+            }
         }
     }
 }
@@ -907,10 +959,10 @@ if (! class_exists('hldFluentHandler')) {
 // Create an object so the hook runs
 $hld_fluent_handler = new hldFluentHandler($hld_telegra);
 
+
 // add_action("init", function () {
 //     // $es = hldFluentHandler::get_patient_entries();
 //     // error_log(print_r($es, true));
-
 //     $image_url = 'http:\/\/localhost\/server\/healsend-new\/wp-content\/uploads\/fluentform\/ff-2c3effc6a02e44b02ac8f30909388b25-ff-4e35eaed-f8fa-482b-8609-2a6f168df0e9.png';
 //     $base64_image = hldFluentHandler::hld_convert_image_to_base64( $image_url );
 //     if ( $base64_image ) {
@@ -919,6 +971,4 @@ $hld_fluent_handler = new hldFluentHandler($hld_telegra);
 //     } else {
 //         echo 'Image not found or failed to convert.';
 //     }
-
-
 // });

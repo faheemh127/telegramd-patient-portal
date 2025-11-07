@@ -32,7 +32,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
-require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
+
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-navbar.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-footer.php';
@@ -64,6 +64,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-get-subscription-price.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/update-patient-detail.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/get-telegra-order.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 
 
 register_activation_hook(__FILE__, function () {

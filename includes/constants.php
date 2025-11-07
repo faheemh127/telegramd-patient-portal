@@ -5,9 +5,9 @@ $prefix = $wpdb->prefix . "healsend_";
 
 
 
-// Form IDs
+// Form IDs --- Prefunnels
 if (! defined('HLD_GLP_1_WEIGHTLOSS_FORM_ID')) {
-    define('HLD_GLP_1_WEIGHTLOSS_FORM_ID', HLD_LIVE ? 56 :53);
+    define('HLD_GLP_1_WEIGHTLOSS_FORM_ID', HLD_LIVE ? 56 : 53);
 }
 if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
     define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 56 : 45);
@@ -18,7 +18,7 @@ if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
 // pt-141 57
 // trt prefunnel 59
 if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
-    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', 52);
+    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', HLD_LIVE ? 66 : 55);
 }
 
 if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {

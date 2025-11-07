@@ -8,13 +8,18 @@ add_action('wp_ajax_nopriv_id_upload', 'hld_id_upload_handler');
 
 function hld_id_upload_handler()
 {
+
+    global $hld_telegra;
     // Validate file
     if (!isset($_FILES['patient_id']) || $_FILES['patient_id']['error'] !== UPLOAD_ERR_OK) {
         wp_send_json_error(['message' => 'No file uploaded or file error']);
     }
 
-    $order_id = "order::8f4d4e93-32c1-4202-868e-c4c30da48b9d";
-    $quest_inst = "quinst::23c1c69e-a9dd-4792-a871-b525e0bfe793";
+    $telegra_order_id = isset($_POST['telegra_order_id']) ? sanitize_text_field($_POST['telegra_order_id']) : '';
+    $order_detail = $hld_telegra->get_order($telegra_order_id);
+    $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
+    // $order_id = "order::8f4d4e93-32c1-4202-868e-c4c30da48b9d";
+    // $quest_inst = "quinst::23c1c69e-a9dd-4792-a871-b525e0bfe793";
 
     $file      = $_FILES['patient_id'];
     $file_name = sanitize_file_name($file['name']);
@@ -46,8 +51,8 @@ function hld_id_upload_handler()
     // $api_url = TELEGRA_BASE_URL . "/patients/{$patient_id}/uploadFile";
 
     $body = [
-      "location" => "loc::identification-questionnaire:2",
-      "value" => $file_url
+        "location" => "loc::identification-questionnaire:2",
+        "value" => $file_url
     ];
 
     $response = wp_remote_request($api_url, [
