@@ -51,7 +51,7 @@ class HldPatientLogin {
     e.preventDefault();
 
     let target = e.target;
-    let nonce = target.getAttribute("nonce");
+    let nonce = target.getAttribute("sub-nonce");
     let data = target.getAttribute("data");
 
     const response = await fetch(hld_ajax_obj.ajaxurl, {

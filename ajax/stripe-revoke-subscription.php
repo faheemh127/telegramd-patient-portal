@@ -27,12 +27,17 @@ function hld_revoke_patient_subscription()
     $nonce = sanitize_text_field($_POST['nonce']);
 
     if (!wp_verify_nonce($nonce, 'sub_nonce')) {
-        wp_send_json_error(['message' => 'Security check failed.']);
+        wp_send_json_error(['message' => 'Security check failed a.']);
         wp_die();
     }
 
-    $subscription_id = "sub_". substr($data, 32);
+    $subscription_id = "sub_" . substr($data, 32);
+    $sub_hash =  wp_hash($nonce . $subscription_id);
     $hash = substr($data, 0, 32);
+    if ($hash != $sub_hash) {
+        wp_send_json_error(['message' => 'Security check failed b.']);
+        wp_die();
+    }
     $user_id = get_current_user_id();
 
     $subscription = $wpdb->get_row(
@@ -53,17 +58,25 @@ function hld_revoke_patient_subscription()
         $invoice = \Stripe\Invoice::retrieve($stripe_subscription->latest_invoice);
         if ($invoice) {
             $invoice_payment = \Stripe\InvoicePayment::all(['invoice' => $stripe_subscription->latest_invoice]);
-            $payment_intent_id = $invoice_payment->data[0]->payment->payment_intent;
-            if ($payment_intent_id) {
-                $refund = \Stripe\Refund::create(['payment_intent' => $payment_intent_id]);
-            } else {
-                echo "No payment found for this subscription.\n";
+
+
+            foreach ($invoice_payment->data as $data) {
+                $payment_intent_id = $data->payment->payment_intent;
+                if ($payment_intent_id) {
+                    $refund = \Stripe\Refund::create(['payment_intent' => $payment_intent_id]);
+                    error_log($refund);
+                } else {
+                    echo "No payment found for this subscription.\n";
+                }
             }
 
+
+            // subscription refund and cancelled success
             wp_send_json_success([
                 'subscription_id' => $subscription->id,
                 'status' => $subscription->status,
                 'customer_id' => $customer_id,
+
             ]);
         }
     } catch (Exception $e) {

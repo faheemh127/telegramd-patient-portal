@@ -10,13 +10,13 @@ if (!$current_user || empty($current_user->ID)) {
 $subscription = HLD_UserSubscriptions::get_user_subscription($current_user->ID);
 $sub_nonce = wp_create_nonce('sub_nonce');
 $sub_hash =  wp_hash($sub_nonce . $subscription['stripe_subscription_id']);
-
+error_log("[SubNonce issue]" . $sub_nonce);
 error_log(print_r($subscription, true));
 
 if ($subscription == null) {
     hld_not_found("You have no subscriptions yet.");
 } else {
-    ?>
+?>
     <h3 class="hld-subscription-title">Your Subscription Overview</h3>
     <div class="w-100 hld-card hld-subscription-card">
         <div class="card-body hld-card-body">
@@ -49,18 +49,20 @@ if ($subscription == null) {
                         <?php echo ucfirst($subscription['subscription_status']); ?></p>
                 </div>
             </div>
-            
+
             <?php if (!empty($subscription['invoice_pdf_url'])) : ?>
                 <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
-          <div>
-                    <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">
-                        View Last Invoice
-                    </a>
-                 <span class="hld-view-invoice btn btn-primary" id="hld-revoke-sub" nonce="<?php echo $sub_nonce;  ?>" data="<?php echo $sub_hash.explode('_', $subscription['stripe_subscription_id'])[1]; ?>" >
-                        Revoke Subscription
-                    </span>
-          
-          </div>
+                    <div>
+                        <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">
+                            View Last Invoice
+                        </a>
+                        
+                        
+                        <span class="hld-view-invoice btn btn-primary" id="hld-revoke-sub" sub-nonce="<?php echo $sub_nonce;  ?>" data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
+                            Revoke Subscription
+                        </span>
+
+                    </div>
 
                 </div>
             <?php endif; ?>
