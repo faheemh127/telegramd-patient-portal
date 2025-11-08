@@ -6,6 +6,7 @@ class hldStripeHandler {
     this.cardElementId = config.cardElementId || "card-element";
     this.errorElementId = config.errorElementId || "card-errors";
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";
+    this.revokeButtonId = config.paymentButtonId || "hdlrevokeSub";
     this.prButtonId = config.prButtonId || "payment-request-button"; // NEW: container for Google Pay button
     this.stripe = null;
     this.elements = null;
@@ -79,7 +80,7 @@ class hldStripeHandler {
     }
 
     // const amount = priceData?.amount || 0; x 100 amount should be multipy by 100 when pass real amount
-    const amount = 1
+    const amount = 1;
     const currency = priceData?.currency?.toLowerCase() || "usd";
 
     const paymentRequest = this.stripe.paymentRequest({
@@ -169,9 +170,9 @@ class hldStripeHandler {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `action=subscribe_patient&payment_method=${encodeURIComponent(
-            ev.paymentMethod.id
+            ev.paymentMethod.id,
           )}&price_id=${encodeURIComponent(
-            this.stripePriceId
+            this.stripePriceId,
           )}&duration=${encodeURIComponent(this.gl1Duration)}`,
         });
 
@@ -181,7 +182,7 @@ class hldStripeHandler {
           ev.complete("fail");
           this.showError(
             "Failed to create subscription: " +
-              (subResponse.data?.message || "")
+              (subResponse.data?.message || ""),
           );
           return;
         }
@@ -202,6 +203,7 @@ class hldStripeHandler {
     const form = document.getElementById(this.formId);
     this.errorDisplay = document.getElementById(this.errorElementId);
     this.paymentButton = document.getElementById(this.paymentButtonId);
+    this.revokeButton = document.getElementById(this.revokeButtonId);
 
     if (!form || !this.paymentButton) {
       console.warn("Form or payment button not found.");
@@ -209,7 +211,7 @@ class hldStripeHandler {
     }
 
     this.paymentButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e)
+      this.handleCardPayment(e),
     );
   }
 
@@ -254,11 +256,11 @@ class hldStripeHandler {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `action=subscribe_patient&customer_id=${encodeURIComponent(
-            setupIntent.data.customerId
+            setupIntent.data.customerId,
           )}&payment_method=${encodeURIComponent(
-            paymentMethod
+            paymentMethod,
           )}&price_id=${encodeURIComponent(
-            this.stripePriceId
+            this.stripePriceId,
           )}&duration=${encodeURIComponent(this.gl1Duration)}`,
         });
 
@@ -267,7 +269,7 @@ class hldStripeHandler {
         if (!subResponse.success) {
           this.showError(
             "Failed to create subscription: " +
-              (subResponse.data?.message || "")
+              (subResponse.data?.message || ""),
           );
           this.toggleButtonState(false, "Save and Continue");
           return;
@@ -283,9 +285,9 @@ class hldStripeHandler {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `action=charge_now&customer_id=${encodeURIComponent(
-            setupIntent.data.customerId
+            setupIntent.data.customerId,
           )}&payment_method=${encodeURIComponent(
-            paymentMethod
+            paymentMethod,
           )}&amount=${encodeURIComponent(amount)}`,
         });
 
@@ -293,7 +295,8 @@ class hldStripeHandler {
 
         if (!chargeResponse.success) {
           this.showError(
-            "Failed to charge the card: " + (chargeResponse.data?.message || "")
+            "Failed to charge the card: " +
+              (chargeResponse.data?.message || ""),
           );
           this.toggleButtonState(false, "Save and Continue");
           return;
@@ -301,13 +304,13 @@ class hldStripeHandler {
 
         console.log(
           "Payment charged immediately! PaymentIntent ID:",
-          chargeResponse.data.payment_intent
+          chargeResponse.data.payment_intent,
         );
       } else {
         // Just save for later
         const saveResult = await this.savePaymentMethod(
           setupIntent.data.customerId,
-          paymentMethod
+          paymentMethod,
         );
 
         if (!saveResult.success) {

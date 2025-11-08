@@ -7,3 +7,5 @@ backup/
 .git
 .vscode
 api-keys.php
+/includes/api-key.php
+.php-cs-fixer.cache

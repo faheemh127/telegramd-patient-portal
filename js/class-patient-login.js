@@ -6,6 +6,7 @@ class HldPatientLogin {
     this.saveBtn = document.getElementById("hld_save_account_details");
     this.form = document.getElementById("hld-account-details-form");
     this.msgSpan = document.getElementById("hld_account_details_message");
+    this.revokeButton = document.getElementById("hld-revoke-sub");
 
     if (this.loginBtn) {
       this.loginBtn.addEventListener("click", (e) => {
@@ -25,7 +26,7 @@ class HldPatientLogin {
     this.editProfileBtn = document.getElementById("hldBtnEditProfile");
     if (this.editProfileBtn) {
       this.editProfileBtn.addEventListener("click", () =>
-        this.enableProfileEditing()
+        this.enableProfileEditing(),
       );
     }
 
@@ -34,7 +35,31 @@ class HldPatientLogin {
       this.postEmailToIframes();
     }
 
+    if (!this.revokeButton) {
+      console.warn("Revoke button not found.");
+    } else {
+      this.revokeButton.addEventListener("click", (e) =>
+        this.handleRevokeSub(e),
+      );
+    }
+
     this.setUpPatientTypeListeners();
+  }
+
+  //  Existing sub revoke
+  async handleRevokeSub(e) {
+    e.preventDefault();
+
+    let target = e.target;
+    let nonce = target.getAttribute("nonce");
+    let data = target.getAttribute("data");
+
+    const response = await fetch(hld_ajax_obj.ajaxurl, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `action=revoke_patient_subscription&nonce=${nonce}&data=${data}`,
+    });
+    return await response.json();
   }
 
   saveAccountDetails() {
@@ -119,7 +144,7 @@ class HldPatientLogin {
     iframe.onload = () => {
       iframe.contentWindow.postMessage(
         { hldPatientEmail: window.hldPatientEmail },
-        "https://healsend.com" // target origin (must match iframe's origin)
+        "https://healsend.com", // target origin (must match iframe's origin)
       );
     };
   }
