@@ -1,5 +1,6 @@
 :root {
   --hld-color-primary: #6d6ffc;
+  --hld-color-primary-dark: #5758d6; /* slightly darker shade for hover */
 }
 .hld_form_wrap {
   max-width: 650px !important;
@@ -1299,15 +1300,18 @@ nav.hld-navbar {
 .hld-success-story-wrap .ff-el-group.ff-custom_html {
   outline: none !important;
 }
-.hld_form_wrap .ff-custom_html{
+.hld_form_wrap .ff-custom_html {
   outline: none !important;
 }
 /* hide the number from progress bar  */
-.hld_form_wrap .ff-el-progress-bar span{
+.hld_form_wrap .ff-el-progress-bar span {
   display: none !important;
 }
 .hld-checkout .fluentform .ff-el-group {
   margin-bottom: 0 !important;
+}
+.ff-el-form-check-label input {
+  display: none !important;
 }
 /* css ends for disqualify page */
 /* Mobile adjustments */
@@ -1362,14 +1366,18 @@ nav.hld-navbar {
 /* ***********Login/ My Account button style */
 
 .hld-btn {
-  display: inline-block;
-  padding: 10px 25px;
+  padding: 12px 24px;
   border-radius: 30px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+  font-size: 15px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hld-login-btn-nav {
@@ -1434,6 +1442,29 @@ nav.hld-navbar {
 }
 .hldDobFieldWrap {
   display: none;
+}
+.hld-login-buttons-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+.hld-login-buttons-wrapper .hld-get-started-btn {
+  color: #fff;
+  background: var(--hld-color-primary);
+  border: none;
+  padding: 10px 18px;
+  transition: all 300ms ease; /* smooth 300ms hover effect */
+}
+
+/* Hover Effect */
+.hld-login-buttons-wrapper .hld-get-started-btn:hover {
+  background: var(
+    --hld-color-primary-dark,
+    #0056b3
+  ); /* fallback if --hld-color-primary-dark not defined */
+  transform: translateY(-2px); /* subtle lift on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Target the label when its input radio is checked */
@@ -1607,6 +1638,9 @@ nav.hld-navbar {
   }
   .hld-chat-container {
     padding: 0 !important;
+  }
+  .hld-login-buttons-wrapper .hld-login-btn-nav {
+    display: none;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

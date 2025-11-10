@@ -74,26 +74,48 @@ add_action('wp_login', function ($user_login, $user) {
 
 
 
-
 // Shortcode: [hld_login_button]
 function hld_login_button_shortcode()
 {
+    ob_start(); // Start output buffering
 
-    // If user is logged in
+    // --- Login / My Account button setup ---
     if (is_user_logged_in()) {
-        $url  = home_url('/my-account');
-        $text = 'My Account';
+        $url   = home_url('/my-account');
+        $text  = 'My Account';
         $class = 'hld-btn hld-login-btn-nav';
     } else {
-        $url  = home_url('/patient-login');
-        $text = 'Login';
+        $url   = home_url('/patient-login');
+        $text  = 'Login';
         $class = 'hld-btn hld-login-btn-nav';
     }
 
-    // Return HTML for button
-    $html = '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '">' . esc_html($text) . '</a>';
+    // --- Detect current page slug ---
+    $current_slug = basename(get_permalink());
 
-    return $html;
+    // Default "Get Started" link
+    $get_started_url = home_url('/glp-1-form');
+
+    // Customize based on slug
+    if ($current_slug === 'weight-loss') {
+        $get_started_url = home_url('glp-1-form');
+    } elseif ($current_slug === 'weight-loss-products') {
+        $get_started_url = home_url('/weight-loss-form');
+    }
+
+    // --- Output HTML ---
+?>
+    <div class="hld-login-buttons-wrapper">
+        <a href="<?php echo esc_url($url); ?>" class="<?php echo esc_attr($class); ?>">
+            <?php echo esc_html($text); ?>
+        </a>
+        <a href="<?php echo esc_url($get_started_url); ?>" class="hld-btn hld-get-started-btn">
+            Get Started
+        </a>
+    </div>
+<?php
+
+    return ob_get_clean(); // Return the buffered HTML
 }
 add_shortcode('hld_login_button', 'hld_login_button_shortcode');
 
@@ -105,4 +127,3 @@ add_action('user_register', function ($user_id) {
         HLD_Mail::patient_signup_welcome($user_id);
     }
 });
-    

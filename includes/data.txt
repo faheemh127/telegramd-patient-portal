@@ -195,3 +195,29 @@ Hi vineeth before launch Please do following things today
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
 3) create a new domain i.e staging.healsend.com or dev.healsend.com we will ourself creating clone of this site as staging for development after launch
 4) you can provide me your own stripe account login i'll create glp prefunnel products their i need to add their id's to the shortcode. 
+
+
+
+Link it to the home page
+need to 
+after select state again if it goes there should be next button
+If they click injection 
+Which 
+link the home things
+hover outline on radio input fields
+customer is checking the validation 
+date picker
+premedication step is going to be replaced completely
+we only havetirezepatide
+most popular in weekly
+remove the compounded 
+tablets are only for tirezepatide so no need to next step
+Wheather they want to take tablet or injection
+
+Two options  Meciation drops, tablets  section removed,
+remove 6 month plans for all
+ignore 
+Choose your plan  (remove the line Please note that to select a specific you can use the above options)
+fix badges
+Only Injectsions now in prefunnel GLP 
+improve the design of packages section
