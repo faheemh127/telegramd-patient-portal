@@ -15,7 +15,8 @@ if (! class_exists('hldFluentHandler')) {
         protected $prefunnel_forms_ids = [
             HLD_GLP_1_PREFUNNEL_FORM_ID,
             HLD_METABOLIC_PREFUNNEL_FORM_ID,
-            HLD_TRT_PREFUNNEL_FORM_ID
+            HLD_TRT_PREFUNNEL_FORM_ID,
+            HLD_METABOLIC_PREFUNNEL_FORM_ID,
         ];
         protected $action_items = [
             HLD_CLINICAL_DIFFERENCE_FORM_ID
@@ -549,6 +550,13 @@ if (! class_exists('hldFluentHandler')) {
                 }
             }
 
+
+            switch ($search_string) {
+                case 'metabolic-enhancement':
+                    $data = get_user_meata(get_current_user()->ID, 'metabolic-action-data');
+                    $answers = array_merge($answers, $data);
+                    break;
+            }
             //   error_log("[TelegraMD] Answers for {$form_type} → " . print_r($answers, true));
 
             // Submit the questionnaire answers
@@ -853,6 +861,20 @@ if (! class_exists('hldFluentHandler')) {
             if (in_array($form_id, $this->prefunnel_forms_ids)) {
                 error_log("form is prefunnel so proceed");
                 $this->update_patient_info($form);
+                //
+                switch ($form_id) {
+                    case HLD_METABOLIC_PREFUNNEL_FORM_ID:
+                        $data = [];
+                        $data[] = ['location' => 'loc::metabolic-enhancement-1','value' => $form['checkbox']];
+                        $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
+                        $data[] = ['location' => 'loc::metabolic-enhancement-7', 'value' => $form['input_radio_2']];
+
+                        $uid = wp_get_current_user()->ID;
+                        update_user_meta($uid, 'metabolic-action-data', $data);
+                        break;
+                    default:
+                        break;
+                }
                 HLD_Telegra::create_patient();
                 $this->telegra();
             } else {

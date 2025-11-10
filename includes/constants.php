@@ -1,4 +1,5 @@
 <?php
+
 // constants
 global $wpdb;
 $prefix = $wpdb->prefix . "healsend_";
@@ -14,6 +15,10 @@ if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
 }
 if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
     define('HLD_TRT_PREFUNNEL_FORM_ID', HLD_LIVE ? 63 : 55);
+}
+
+if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
+    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 67 : 67);
 }
 // pt-141 57
 // trt prefunnel 59

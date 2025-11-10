@@ -1,9 +1,11 @@
 <?php
-if (! defined('ABSPATH')) exit;
+
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class HLD_ActionItems_Manager
 {
-
     /**
      * Seed default action items if not already existing
      */
@@ -49,7 +51,7 @@ class HLD_ActionItems_Manager
                 'action_key'         => 'agreement',
                 'label'              => 'Agreement Form',
                 'description'        => 'Please review and sign the agreement to continue your metabolic plan.',
-                'item_slug'          => 'metabolic_agreement_form',
+                'item_slug'          => 'metabolic-enhancers-initial-intake-form',
                 'quinst_array_index' => '1',
                 'sort_order'         => 1,
                 'required'           => 1,
