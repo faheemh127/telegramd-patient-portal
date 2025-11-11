@@ -99,6 +99,16 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
+            // Pass home URL to the script
+            wp_localize_script(
+                'hld-class-navigation',
+                'hldClassNavData',
+                [
+                    'homeUrl' => home_url(),
+                ]
+            );
+
+
             wp_enqueue_script(
                 'class-fluent-form-handler',
                 plugin_dir_url(__FILE__) . '../js/class-fluent-form-handler.js',

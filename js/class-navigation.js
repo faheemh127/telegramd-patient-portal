@@ -39,9 +39,15 @@ class HldNavigation {
           prevButton.click(); // Trigger FluentForm's previous step
         } else {
           console.warn("⚠️ No .ff-btn-prev found inside active step.");
+           if (typeof hldClassNavData !== "undefined" && hldClassNavData.homeUrl) {
+             window.location.href = hldClassNavData.homeUrl;
+           }
         }
       } else {
         console.warn("⚠️ No active .fluentform-step found.");
+        if (typeof hldClassNavData !== "undefined" && hldClassNavData.homeUrl) {
+           window.location.href = hldClassNavData.homeUrl;
+         }
       }
     });
   }
