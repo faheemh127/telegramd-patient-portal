@@ -222,8 +222,8 @@ fix badges
 Only Injectsions now in prefunnel GLP 
 improve the design of packages section
 
-Login need to show instead of get started if they login my account
-date picker on desktop
+
+
 Show Next button in state
 in placeholder it should say street address
 outlining in blue
@@ -235,3 +235,10 @@ vineeth will provide me the pages and where should it goes
 For metabolic there will be two forms
 in NAD we will have two selections
 Need to fix that 
+GHL text messaging
+
+
+
+
+Flow 
+prefunnel 
