@@ -27,22 +27,22 @@ if (!class_exists('hldAssets')) {
 
 
             // Datepicker for desktop
-            wp_enqueue_script(
-                'slim-date-picker',
-                'https://code.jquery.com/jquery-3.6.3.slim.min.js',
-                [],
-                null,
-                true
-            );
+            // wp_enqueue_script(
+            //     'slim-date-picker',
+            //     'https://code.jquery.com/jquery-3.6.3.slim.min.js',
+            //     [],
+            //     null,
+            //     true
+            // );
 
 
-            wp_enqueue_script(
-                'jquery-dOb-js',
-                plugin_dir_url(__FILE__) . '../js/jquery.dOb.js',
-                [],
-                HLD_PLUGIN_VERSION,
-                true
-            );
+            // wp_enqueue_script(
+            //     'jquery-dOb-js',
+            //     plugin_dir_url(__FILE__) . '../js/jquery.dOb.js',
+            //     [],
+            //     HLD_PLUGIN_VERSION,
+            //     true
+            // );
 
 
 

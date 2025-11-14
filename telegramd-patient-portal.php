@@ -66,6 +66,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/stripe-get-subscription-price.php
 require_once plugin_dir_path(__FILE__) . 'ajax/update-patient-detail.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/get-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
 
 
 register_activation_hook(__FILE__, function () {

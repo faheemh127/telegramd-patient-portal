@@ -126,8 +126,12 @@ if (isset($_GET["care-team"])) {
 
                 <p class="hld_tabs_hint">Swipe to navigate.</p>
             <?php endif; ?>
+
+
             <?php if (isset($_GET['upload-id'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/upload-id.php'; ?>
+            <?php elseif (isset($_GET['glp-agreement-form'])) : ?>
+                <?php require_once HLD_PLUGIN_PATH . 'templates/glp-agreement-form.php'; ?>
             <?php else : ?>
                 <div class="content">
                     <!-- Section 1 -->

@@ -190,6 +190,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- if due to any reason on prefunnel click order failed means create order failed then we should handle that no subscription should be created and even no need to create that patient to telegra
 -- on fluent form when we navigate to next steps the form flicker when too many steps skip in conditional logic you can give fixed height
 -- BMI class initialize twice due to next button not showing when page refresh so i set a timer also on other plans no need to initilaize the class if there are no fields
+-- Need to add links at privacy policy  and terms and conditions in upload glp  agreement concent in action item 
 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
