@@ -704,8 +704,9 @@ nav.hld-navbar {
   width: 100%;
 }
 .hld_testimonial-content {
-  max-width: 550px;
-  text-align: left;
+    max-width: 100%;
+    text-align: left;
+    padding: 0 15px;
 }
 
 .hld_testimonial-name {
@@ -1297,6 +1298,23 @@ nav.hld-navbar {
 }
 .btn_payment_method {
   float: right;
+}
+/* Desktop date picker */
+.myBirthDate select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none !important;
+  background-color: #fff;
+  border-color: #6b7280;
+  border-width: 1px;
+  border-radius: 0;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  max-width: 200px !important;
 }
 
 .hld-success-story-wrap .ff-el-group.ff-custom_html {

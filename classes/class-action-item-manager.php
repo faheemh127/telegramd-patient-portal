@@ -41,7 +41,7 @@ class HLD_ActionItems_Manager
                 'action_key'         => 'agreement',
                 'label'              => 'Agreement Form',
                 'description'        => 'Review and accept our treatment agreement to proceed.',
-                'item_slug'          => 'glp-1-agreement-form',
+                'item_slug'          => 'my-account?glp-agreement-form',
                 'quinst_array_index' => '4',
                 'sort_order'         => 3,
                 'required'           => 1,

@@ -16,6 +16,8 @@ class HldNavigation {
     this.hideNextBtnDisqualifyStep();
     this.disqualifyLessThan18();
     this.hideLayoutIfForm();
+    this.showNextButtonAfterSelectSelection();
+    this.showNextButtonOnRadioSelection();
     // this.showAllPrevButtons();
     // 👇 Initialize the back button listener here
     this.initBackButtonListener();
@@ -39,15 +41,48 @@ class HldNavigation {
           prevButton.click(); // Trigger FluentForm's previous step
         } else {
           console.warn("⚠️ No .ff-btn-prev found inside active step.");
-           if (typeof hldClassNavData !== "undefined" && hldClassNavData.homeUrl) {
-             window.location.href = hldClassNavData.homeUrl;
-           }
+          if (
+            typeof hldClassNavData !== "undefined" &&
+            hldClassNavData.homeUrl
+          ) {
+            window.location.href = hldClassNavData.homeUrl;
+          }
         }
       } else {
         console.warn("⚠️ No active .fluentform-step found.");
         if (typeof hldClassNavData !== "undefined" && hldClassNavData.homeUrl) {
-           window.location.href = hldClassNavData.homeUrl;
-         }
+          window.location.href = hldClassNavData.homeUrl;
+        }
+      }
+    });
+  }
+
+  showNextButtonAfterSelectSelection() {
+    const steps = document.querySelectorAll(".fluentform-step");
+
+    steps.forEach((step) => {
+      const select = step.querySelector("select");
+      const nextBtn = step.querySelector('button[data-action="next"]');
+
+      if (select && nextBtn) {
+        // Helper function to show button
+        const showBtn = () => {
+          nextBtn.classList.remove("hld-hidden");
+          nextBtn.style.visibility = "visible";
+          nextBtn.style.display = "block";
+        };
+
+        // 1️⃣ Show button immediately if select already has a value
+        if (select.value.trim() !== "") {
+          showBtn();
+        }
+
+        // 2️⃣ Show button when user selects a value
+        select.addEventListener("change", function () {
+          if (select.value.trim() !== "") {
+            showBtn();
+          }
+        });
       }
     });
   }
@@ -278,6 +313,38 @@ class HldNavigation {
         container.style.background = "#f7f5f5";
       }
     }
+  }
+
+  showNextButtonOnRadioSelection() {
+    const formWrap = document.querySelector(".hld_form_wrap");
+    if (!formWrap) return;
+
+    const steps = formWrap.querySelectorAll(".fluentform-step");
+
+    steps.forEach((step) => {
+      const radioInputs = step.querySelectorAll('input[type="radio"]');
+      const nextBtn = step.querySelector('button[data-action="next"]');
+
+      if (radioInputs.length && nextBtn) {
+        // Helper to show button
+        const showBtn = () => {
+          nextBtn.style.display = "block";
+          nextBtn.style.visibility = "visible";
+          nextBtn.classList.remove("hld-hidden");
+        };
+
+        // If one is already selected (page reload case)
+        const alreadyChecked = step.querySelector(
+          'input[type="radio"]:checked'
+        );
+        if (alreadyChecked) showBtn();
+
+        // Add click listeners
+        radioInputs.forEach((radio) => {
+          radio.addEventListener("click", () => showBtn());
+        });
+      }
+    });
   }
 
   initActionItemSidebar() {

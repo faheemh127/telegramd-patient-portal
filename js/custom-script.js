@@ -214,7 +214,10 @@ class hld_BMICalculator {
     this.calculateBMI(); // initial run
   }
 
+  
+
   calculateBMI() {
+    console.log("BMI function called");
     const feet = parseFloat(this.feetInput.value) || 0;
     const inches = parseFloat(this.inchesInput.value) || 0;
     const weight = parseFloat(this.weightInput.value) || 0;
@@ -272,6 +275,9 @@ class hld_BMICalculator {
 // Init on page load
 document.addEventListener("DOMContentLoaded", () => {
   new hld_BMICalculator();
+  setTimeout(() => {
+    new hld_BMICalculator();
+  }, 9000);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -281,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     visibleInput.setAttribute("readonly", true);
   }
 
-  
+  // Datepicker for mobile device
 
   new Rolldate({
     el: "#hldPrefunnelDOBInput",
@@ -314,3 +320,14 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 });
+
+// $(function () {
+//   $("#myBirthDate").dOb({
+//     dOb_Y: "#dOb_Y", // element year
+//     dOb_M: "#dOb_M", // element month
+//     dOb_D: "#dOb_D", // element day
+//     from_Y: 2010, // from year (default: 2000)
+//     to_Y: 2023, // to year (default: 2023)
+//     isPadding: true, // is padding zero (default: true)
+//   });
+// });
