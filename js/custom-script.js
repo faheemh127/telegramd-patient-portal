@@ -1,6 +1,48 @@
 class hldFluentFormClass {
   constructor() {
     // Initialization logic here (if needed)
+    this.setupDobRollout();
+  }
+
+  setupDobRollout() {
+    const yearEl = document.querySelector(".dOb_Y");
+    const monthEl = document.querySelector(".dOb_M");
+    const dayEl = document.querySelector(".dOb_D");
+    const outputEl = document.querySelector(".hldDobFieldRollout");
+
+    // return;
+    if (!yearEl || !monthEl || !dayEl || !outputEl) return;
+
+    function updateDob() {
+      const y = yearEl.value;
+      const m = monthEl.value;
+      const d = dayEl.value;
+
+      hldNavigation.disqualifyLessThan18("");
+
+      // If any value missing, do not set date
+      if (!y || !m || !d) {
+        outputEl.value = "";
+        return;
+      }
+
+      // ✅ Format for display in input: MM/DD/YYYY
+      const displayFormatted = `${String(m).padStart(2, "0")}/${String(
+        d
+      ).padStart(2, "0")}/${y}`;
+      outputEl.value = displayFormatted;
+
+      // ✅ Format for disqualifyLessThan18: MM-DD-YYYY
+      const disqualifyFormatted = `${String(m).padStart(2, "0")}-${String(
+        d
+      ).padStart(2, "0")}-${y}`;
+      hldNavigation.disqualifyLessThan18(disqualifyFormatted);
+    }
+
+    // Attach listeners
+    yearEl.addEventListener("change", updateDob);
+    monthEl.addEventListener("change", updateDob);
+    dayEl.addEventListener("change", updateDob);
   }
 
   clickNextMultipleTimesToReachStep(currentStepDiv, nextButton) {
@@ -214,8 +256,6 @@ class hld_BMICalculator {
     this.calculateBMI(); // initial run
   }
 
-  
-
   calculateBMI() {
     console.log("BMI function called");
     const feet = parseFloat(this.feetInput.value) || 0;
@@ -321,13 +361,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// $(function () {
-//   $("#myBirthDate").dOb({
-//     dOb_Y: "#dOb_Y", // element year
-//     dOb_M: "#dOb_M", // element month
-//     dOb_D: "#dOb_D", // element day
-//     from_Y: 2010, // from year (default: 2000)
-//     to_Y: 2023, // to year (default: 2023)
-//     isPadding: true, // is padding zero (default: true)
-//   });
-// });
+jQuery(function ($) {
+  $("#myBirthDate").dOb({
+    dOb_Y: ".dOb_Y", // element year
+    dOb_M: ".dOb_M", // element month
+    dOb_D: ".dOb_D", // element day
+    from_Y: 1960, // from year (default: 2000)
+    to_Y: 2025, // to year (default: 2023)
+    isPadding: true, // is padding zero (default: true)
+  });
+});

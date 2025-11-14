@@ -16,33 +16,13 @@ if (!class_exists('hldAssets')) {
          */
         public function enqueue_assets()
         {
-            // Google Places API
             wp_enqueue_script(
-                'google-places-api',
-                'https://maps.googleapis.com/maps/api/js?key=AIzaSyCMrx4VCbwXkdIQqEo64zC8I_gTEJZXMpk&libraries=places',
+                'jquery-dOb-js',
+                plugin_dir_url(__FILE__) . '../js/jquery.dOb.js',
                 [],
-                null,
+                HLD_PLUGIN_VERSION,
                 true
             );
-
-
-            // Datepicker for desktop
-            // wp_enqueue_script(
-            //     'slim-date-picker',
-            //     'https://code.jquery.com/jquery-3.6.3.slim.min.js',
-            //     [],
-            //     null,
-            //     true
-            // );
-
-
-            // wp_enqueue_script(
-            //     'jquery-dOb-js',
-            //     plugin_dir_url(__FILE__) . '../js/jquery.dOb.js',
-            //     [],
-            //     HLD_PLUGIN_VERSION,
-            //     true
-            // );
 
 
 

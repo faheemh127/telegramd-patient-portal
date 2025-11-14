@@ -18,6 +18,7 @@ class HldNavigation {
     this.hideLayoutIfForm();
     this.showNextButtonAfterSelectSelection();
     this.showNextButtonOnRadioSelection();
+    this.hideNextBtnOnDOB();
     // this.showAllPrevButtons();
     // 👇 Initialize the back button listener here
     this.initBackButtonListener();
@@ -61,23 +62,28 @@ class HldNavigation {
     const steps = document.querySelectorAll(".fluentform-step");
 
     steps.forEach((step) => {
+      // ⛔ Skip DOB step (fluentform-step + hld_dob_wrap combo)
+      if (step.classList.contains("hld_dob_wrap")) {
+        return;
+      }
+
       const select = step.querySelector("select");
       const nextBtn = step.querySelector('button[data-action="next"]');
 
       if (select && nextBtn) {
-        // Helper function to show button
+        // Helper function to show the button
         const showBtn = () => {
           nextBtn.classList.remove("hld-hidden");
           nextBtn.style.visibility = "visible";
           nextBtn.style.display = "block";
         };
 
-        // 1️⃣ Show button immediately if select already has a value
+        // 1️⃣ Show if already selected
         if (select.value.trim() !== "") {
           showBtn();
         }
 
-        // 2️⃣ Show button when user selects a value
+        // 2️⃣ Show on change
         select.addEventListener("change", function () {
           if (select.value.trim() !== "") {
             showBtn();
@@ -87,76 +93,35 @@ class HldNavigation {
     });
   }
 
-  // disqualifyLessThan18() {
-  //   // hide next button first
-  //   const dobStep = document.querySelectorAll(".hld_dob_wrap");
-  //   dobStep.forEach(function (step) {
-  //     const nextBtn = step.querySelector("button.ff-btn-next");
+  hideNextBtnOnDOB() {
+    // Select the wrapper
+    const dobWrap = document.querySelector(".hld_dob_wrap");
+    if (!dobWrap) return;
+
+    // Find the Next button inside it
+    const nextBtn = dobWrap.querySelector('[data-action="next"]');
+
+    // Hide it
+    if (nextBtn) {
+      nextBtn.style.display = "none";
+      nextBtn.style.visibility = "hidden";
+    }
+  }
+
+  //   showNextBtnOnDOB() {
+  //     const dobWrap = document.querySelector('.hld_dob_wrap');
+  //     if (!dobWrap) return;
+  //     const nextBtn = dobWrap.querySelector('[data-action="next"]');
   //     if (nextBtn) {
-  //       nextBtn.style.display = "none";
+  //         nextBtn.style.display = "";
+  //         nextBtn.style.visibility = "visible";
   //     }
-  //   });
   // }
 
-  // older function that was creating issue on IOS
-  // disqualifyLessThan18(date) {
-  //   console.log("date in disqualifyLessThan18 ", date);
-  //   console.log("function disqualifyLessThan18 called");
-
-  //   const dobSteps = document.querySelectorAll(".hld_dob_wrap");
-
-  //   // Hide disqualify section initially
-  //   const disqualifySection = document.querySelector(".dobDisqualifySection");
-  //   if (disqualifySection) {
-  //     disqualifySection.style.display = "none";
-  //   }
-
-  //   dobSteps.forEach(function (step) {
-  //     const nextBtn = step.querySelector("button.ff-btn-next");
-
-  //     // Hide the Next button by default
-  //     if (nextBtn) {
-  //       nextBtn.style.display = "none";
-  //     }
-
-  //     // If no date is provided, keep button hidden and return
-  //     if (!date) {
-  //       console.warn("No date provided to disqualifyLessThan18");
-  //       return;
-  //     }
-
-  //     // Parse the date (expected format: MM-DD-YYYY)
-  //     const parsedDate = new Date(date);
-  //     if (isNaN(parsedDate)) {
-  //       console.warn("Invalid date format:", date);
-  //       return;
-  //     }
-
-  //     // Calculate age
-  //     const today = new Date();
-  //     let age = today.getFullYear() - parsedDate.getFullYear();
-  //     const monthDiff = today.getMonth() - parsedDate.getMonth();
-  //     if (
-  //       monthDiff < 0 ||
-  //       (monthDiff === 0 && today.getDate() < parsedDate.getDate())
-  //     ) {
-  //       age--;
-  //     }
-
-  //     console.log("Calculated Age:", age);
-
-  //     // Toggle visibility
-  //     if (age >= 18) {
-  //       if (nextBtn) nextBtn.style.display = "block";
-  //       if (disqualifySection) disqualifySection.style.display = "none";
-  //     } else {
-  //       if (nextBtn) nextBtn.style.display = "none";
-  //       // if (disqualifySection) disqualifySection.style.display = "block";
-  //     }
-  //   });
-  // }
+  
 
   disqualifyLessThan18(date) {
+    // return;
     console.log("date in disqualifyLessThan18 ", date);
     console.log("function disqualifyLessThan18 called");
 
@@ -214,10 +179,29 @@ class HldNavigation {
 
       // Toggle visibility
       if (age >= 18) {
-        if (nextBtn) nextBtn.style.display = "block";
+        console.log("if statement called 247");
+        console.log(age);
+        console.log("nextBtn", nextBtn);
+        console.log("disqualifySection", disqualifySection);
+
+        if (nextBtn) {
+          nextBtn.style.visibility = "visible";
+          nextBtn.style.display = "block";
+        }
         if (disqualifySection) disqualifySection.style.display = "none";
       } else {
-        if (nextBtn) nextBtn.style.display = "none";
+        console.log("else is called");
+        console.log("nextBtn", nextBtn);
+        if (nextBtn) {
+          console.log("none is called 255");
+          nextBtn.style.display = "none";
+        }
+        if (nextBtn) {
+          console.log("hidden is called 259");
+          nextBtn.style.visibility = "hidden";
+        }
+        console.log("nextBtn after", nextBtn);
+
         // if (disqualifySection) disqualifySection.style.display = "block";
       }
     });

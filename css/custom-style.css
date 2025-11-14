@@ -704,9 +704,9 @@ nav.hld-navbar {
   width: 100%;
 }
 .hld_testimonial-content {
-    max-width: 100%;
-    text-align: left;
-    padding: 0 15px;
+  max-width: 100%;
+  text-align: left;
+  padding: 0 15px;
 }
 
 .hld_testimonial-name {
@@ -1795,14 +1795,30 @@ nav.hld-navbar {
   font-size: 1rem !important;
   margin-top: 5px;
 }
+.hld-desktop-dob label {
+  margin-bottom: 0 !important;
+  font-size: 16px !important;
+}
 .hidden {
   display: none;
+}
+.hld-dob-mobile {
+  display: none;
+}
+.hld-dob-desktop-wrap {
+  display: block;
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;
   color: var(--hld-color-primary);
 } */
 @media (max-width: 768px) {
+  .hld-dob-desktop-wrap {
+    display: none;
+  }
+  .hld-dob-mobile {
+    display: block;
+  }
   .hld-navbar {
     padding: 8px 10px;
   }
