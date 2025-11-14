@@ -40,19 +40,19 @@ function hld_glp_agreement_upload_handler()
         $file_url = wp_get_attachment_url($attachment_id);
     }
 
-    // $file_data = base64_encode(file_get_contents($file_tmp));
-    //
-    //
-    // $patient_id =  HLD_Patient::get_telegra_patient_id();
-
     $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
     $api_url = TELEGRA_BASE_URL . '/questionnaireInstances/' . rawurlencode($quest_inst) . '/actions/answerLocation';
 
-    // $api_url = TELEGRA_BASE_URL . "/patients/{$patient_id}/uploadFile";
+    $value = [];
+    $value['agreementData'] = [
+        'consent' => true,
+        'consentDate' => new DateTime("now", new DateTimeZone('UTC'))->format('Y-m-d\TH:i:s.v\Z'),
+        'signature' => $file_url,
+      ];
 
     $body = [
-        "location" => "loc::identification-questionnaire:2",
-        "value" => $file_url
+        'location' => 'loc::informed-consent:1',
+        'data' => $value
     ];
 
     $response = wp_remote_request($api_url, [
