@@ -34,7 +34,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
       );
     }
 
@@ -79,8 +79,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-      }
+              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+            }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -296,12 +296,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration
+          (p) => parseInt(p.monthly_duration, 10) === duration,
         );
 
         if (pkg) {
@@ -346,7 +346,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine)
+      m.medication_name.includes(medicine),
     );
     if (!med) return;
 
@@ -430,10 +430,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]'
+      'input[name="names[first_name]"]',
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]'
+      'input[name="names[last_name]"]',
     );
 
     // Get values safely
@@ -465,6 +465,29 @@ class HldFluentFormHandler {
     }
   }
 
+  submitData() {
+    const first_name = document.querySelectorAll(
+      'input[name="names[first_name]"]',
+    );
+
+    const last_name = document.querySelectorAll(
+      'input[name="names[last_name]"]',
+    );
+
+    const dob = document.querySelectorAll('input[name="datetime"]');
+    const phone = document.querySelectorAll('input[name="phone"]');
+    const address1 = document.querySelectorAll(
+      'input[name="address_1[address_line_1]"]',
+    );
+
+    const city = document.querySelectorAll('input[name="address_1[city]"]');
+    const zipCode = document.querySelectorAll('input[name="address_1[zip]"]');
+    const sex = document.querySelectorAll('select[name="dropdown_1"');
+    const email = document.querySelectorAll('input[name="input_text_5"]');
+
+    //
+  }
+
   /**
    * Set value for a select element by its name attribute
    * @param {string} dropdownName - The name of the select element (e.g., "dropdown_1")
@@ -488,10 +511,10 @@ class HldFluentFormHandler {
 var hldFormHandler = new HldFluentFormHandler();
 
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    if (typeof hldFormHandler !== "undefined") {
-      hldFormHandler.getAmount();
-      hldFormHandler.setStripeData();
-    }
-  }, 6000); // 5000ms = 5 seconds
+  // setTimeout(() => {
+  //   if (typeof hldFormHandler !== "undefined") {
+  //     hldFormHandler.getAmount();
+  //     hldFormHandler.setStripeData();
+  //   }
+  // }, 6000); // 5000ms = 5 seconds
 });
