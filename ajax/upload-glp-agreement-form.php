@@ -1,5 +1,6 @@
 <?php
 
+// Handle ID / Document Upload
 add_action('wp_ajax_glp_agreement_upload', 'hld_glp_agreement_upload_handler');
 add_action('wp_ajax_nopriv_glp_agreement_upload', 'hld_glp_agreement_upload_handler');
 

@@ -8,11 +8,17 @@ class hldStripeHandler {
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";
     this.revokeButtonId = config.paymentButtonId || "hdlrevokeSub";
     this.prButtonId = config.prButtonId || "payment-request-button"; // NEW: container for Google Pay button
+    this.klarnaBtnId = config.klarnaBtnId || "hldPayWithKlarna";
+    this.afterPayBtnId = config.afterPayBtnId || "hldPayWithAP";
     this.stripe = null;
     this.elements = null;
     this.card = null;
+    this.klarna = null;
+    this.afterPay = null;
+    this.klarnaButton = null;
+    this.afterPayButton = null;
     this.chargeImmediately = true; // default: false
-    this.isSubscription = true; // <-- set to true for subscription flow
+    this.isSubscription = false; // <-- set to true for subscription flow
     this.stripePriceId = ""; // dummy Price ID for testing
     this.telegraProdID = ""; // dummy Price ID for testing
     this.gl1Duration = 1; // 1 is default
@@ -204,47 +210,85 @@ class hldStripeHandler {
     this.errorDisplay = document.getElementById(this.errorElementId);
     this.paymentButton = document.getElementById(this.paymentButtonId);
     this.revokeButton = document.getElementById(this.revokeButtonId);
+    this.klarnaButton = document.getElementById(this.klarnaBtnId);
+    this.afterPayButton = document.getElementById(this.afterPayBtnId);
 
-    if (!form || !this.paymentButton) {
+    if (
+      !form ||
+      !this.paymentButton ||
+      !this.afterPayButton ||
+      !this.klarnaButton
+    ) {
       console.warn("Form or payment button not found.");
       return;
     }
 
+    this.afterPayButton.addEventListener("click", (e) =>
+      this.handleCardPayment(e, "afterPay"),
+    );
+
+    this.klarnaButton.addEventListener("click", (e) =>
+      this.handleCardPayment(e, "klarna"),
+    );
+
     this.paymentButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e),
+      this.handleCardPayment(e, "card"),
     );
   }
 
   //  Existing card flow
-  async handleCardPayment(e) {
+  async handleCardPayment(e, type) {
     e.preventDefault();
 
-    this.toggleButtonState(true, "Processing...");
+    let intent;
+    this.toggleButtonState(true, "Processing...", this.paymentButton);
+
+    if (type == "card") intent = await this.createIntent("setup");
+    else intent = await this.createIntent("payment");
 
     try {
-      const setupIntent = await this.createSetupIntent();
-
-      if (!setupIntent.success) {
+      if (!intent.success) {
         this.showError("Error creating SetupIntent.");
         this.toggleButtonState(false, "Save and Continue");
         return;
       }
 
-      const { clientSecret, customerId } = setupIntent.data;
+      const { clientSecret, customerId } = intent.data;
       const customerName = hldFormHandler.getFullNameFromContainer();
 
-      const result = await this.stripe.confirmCardSetup(clientSecret, {
-        payment_method: {
-          card: this.card,
-          billing_details: {
-            name: customerName, // TODO: replace with dynamic user info
-          },
-        },
-      });
+      let result;
+      let stateButton;
+      let stateButtonText = "Save and Continue";
+      switch (type) {
+        case "card":
+          this.isSubscription = true;
+          stateButton = this.paymentButton;
+          result = await this.stripe.confirmCardSetup(clientSecret, {
+            payment_method: {
+              card: this.card,
+              billing_details: {
+                name: customerName, // TODO: replace with dynamic user info
+              },
+            },
+          });
+
+          break;
+        case "klarna":
+          stateButton = this.klarnaButton;
+          stateButtonText = "Pay with Klarna";
+          result = await this.stripe.confirmKlarnaPayment(clientSecret, {
+            return_url: "https://healsend.com/payment-complete",
+          });
+          break;
+        case "afterpay":
+        default:
+          stateButtonText = "Pay with AfterPay";
+          stateButton = this.afterPayButton;
+      }
 
       if (result.error) {
         this.errorDisplay.textContent = result.error.message;
-        this.toggleButtonState(false, "Save and Continue");
+        this.toggleButtonState(false, stateButtonText, stateButton);
         return;
       }
 
@@ -340,12 +384,20 @@ class hldStripeHandler {
     }
   }
 
-  async createSetupIntent() {
-    const response = await fetch(this.ajaxUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "action=create_setup_intent",
-    });
+  async createIntent(type) {
+    let response;
+    if (type == "setup")
+      response = await fetch(this.ajaxUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `action=create_setup_intent`,
+      });
+    else
+      response = await fetch(this.ajaxUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `action=create_payment_intent`,
+      });
     return await response.json();
   }
 
@@ -378,10 +430,10 @@ class hldStripeHandler {
     }
   }
 
-  toggleButtonState(disabled, text) {
-    if (this.paymentButton) {
-      this.paymentButton.disabled = disabled;
-      if (text) this.paymentButton.textContent = text;
+  toggleButtonState(disabled, text, btn) {
+    if (btn) {
+      btn.disabled = disabled;
+      if (text) btn.textContent = text;
     }
   }
 
@@ -403,12 +455,13 @@ const isLocalhost =
 const isSecure = window.location.protocol === "https:";
 // Usage
 let glp1FormID;
-if (isLocalhost) {
-  glp1FormID = 45;
-} else {
-  glp1FormID = Number(MyStripeData.prefunnelFormId);
-}
-
+// if (isLocalhost) {
+//   glp1FormID = 45;
+// } else {
+//   glp1FormID = Number(MyStripeData.prefunnelFormId);
+// }
+//
+glp1FormID = Number(MyStripeData.prefunnelFormId);
 const cardElement = document.querySelector("#card-element");
 
 if (cardElement) {
