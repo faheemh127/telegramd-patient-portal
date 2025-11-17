@@ -88,12 +88,43 @@ function my_create_payment_intent()
     try {
         // Create SetupIntent for this customer
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'customer' => $customer_id,
-            'amount' => '900',
-            'currency' => 'usd',
             'payment_method_types' => ['klarna'],
-            'setup_future_usage'   => 'off_session', // As far as I know, this is important if we want to charge without customer authorization for the next payment.
-        ]);
+            'amount' => 1099,
+            'currency' => 'usd',
+            'amount_details' => [
+              'line_items' => [
+                [
+                  'product_name' => 'Your product name',
+                  'unit_cost' => 1099,
+                  'quantity' => 1,
+                ],
+              ],
+            ],
+            'shipping' => [
+              'name' => 'Jenny Rosen',
+              'address' => [
+                'city' => 'Brothers',
+                'country' => 'US',
+                'line1' => '27 Fredrick Ave',
+                'postal_code' => '97712',
+                'state' => 'OR',
+              ],
+            ],
+            'payment_method_data' => [
+              'type' => 'klarna',
+              'billing_details' => [
+                'address' => [
+                  'city' => 'Brothers',
+                  'country' => 'US',
+                  'line1' => '27 Fredrick Ave',
+                  'postal_code' => '97712',
+                  'state' => 'OR',
+                ],
+                'email' => 'jenny.rosen@example.com',
+                'name' => 'Jenny Rosen',
+              ],
+            ],
+          ]);
 
         wp_send_json_success([
             'clientSecret' => $paymentIntent->client_secret,
