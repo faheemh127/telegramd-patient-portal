@@ -267,6 +267,10 @@ nav.hld-navbar {
   border-radius: 50px !important;
   height: 50px;
   padding: 10px 10px !important;
+  background: var(--hld-color-primary);
+}
+.hld_btn_continue_with_email:hover{
+  background-color: var(--hld-color-primary-dark);
 }
 .hdl_input_wrap label {
   font-size: 16px !important;
@@ -1543,7 +1547,7 @@ nav.hld-navbar {
     font-size: 1.5rem;
   }
   .med-features li {
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.275rem;
   }
   .hld_tabs_hint {
     display: block;

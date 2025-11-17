@@ -8,6 +8,7 @@ https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hg
 // live site patient account
 client@faheemhassan.dev
 client2@faheemhassan.dev
+client12@faheemhassan.dev
 12345
 
 
@@ -191,6 +192,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- on fluent form when we navigate to next steps the form flicker when too many steps skip in conditional logic you can give fixed height
 -- BMI class initialize twice due to next button not showing when page refresh so i set a timer also on other plans no need to initilaize the class if there are no fields
 -- Need to add links at privacy policy  and terms and conditions in upload glp  agreement concent in action item 
+-- On checkout when we refresh it do not loads the summary details but when we do click on back button it then shows everything correctly it looks that on page refresh getAmount function do not called when user on checkout page
 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
@@ -244,3 +246,8 @@ GHL text messaging
 
 Flow 
 prefunnel 
+Error handling: test invalid data, missing fields
+Error messages when API key is wrong
+Timeouts + retry logic
+
+we need to create seperate product.json for localhost testing

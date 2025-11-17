@@ -26,7 +26,7 @@ class HldPatientLogin {
     this.editProfileBtn = document.getElementById("hldBtnEditProfile");
     if (this.editProfileBtn) {
       this.editProfileBtn.addEventListener("click", () =>
-        this.enableProfileEditing(),
+        this.enableProfileEditing()
       );
     }
 
@@ -39,7 +39,7 @@ class HldPatientLogin {
       console.warn("Revoke button not found.");
     } else {
       this.revokeButton.addEventListener("click", (e) =>
-        this.handleRevokeSub(e),
+        this.handleRevokeSub(e)
       );
     }
 
@@ -54,7 +54,7 @@ class HldPatientLogin {
     let nonce = target.getAttribute("sub-nonce");
     let data = target.getAttribute("data");
 
-    const response = await fetch(hld_ajax_obj.ajaxurl, {
+    const response = await fetch(MyPatientLogin.ajaxurl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `action=revoke_patient_subscription&nonce=${nonce}&data=${data}`,
@@ -75,10 +75,10 @@ class HldPatientLogin {
       email: this.form.email.value,
       phone: this.form.phone.value,
       dob: this.form.dob.value,
-      _ajax_nonce: hld_ajax_obj.nonce, // Optional if you localize nonce
+      _ajax_nonce: MyPatientLogin.nonce, // Optional if you localize nonce
     };
 
-    fetch(hld_ajax_obj.ajaxurl, {
+    fetch(MyPatientLogin.ajaxurl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(data).toString(),
@@ -144,7 +144,7 @@ class HldPatientLogin {
     iframe.onload = () => {
       iframe.contentWindow.postMessage(
         { hldPatientEmail: window.hldPatientEmail },
-        "https://healsend.com", // target origin (must match iframe's origin)
+        "https://healsend.com" // target origin (must match iframe's origin)
       );
     };
   }
@@ -218,13 +218,13 @@ class HldPatientLogin {
 
     // AJAX call
     jQuery.ajax({
-      url: hld_ajax_obj.ajaxurl,
+      url: MyPatientLogin.ajaxurl,
       type: "POST",
       data: {
         action: "hld_patient_login",
         username: username,
         password: password,
-        nonce: hld_ajax_obj.nonce,
+        nonce: MyPatientLogin.nonce,
       },
       success: (response) => {
         if (response.success) {
@@ -233,19 +233,20 @@ class HldPatientLogin {
         } else {
           alert(response.data || "Login failed. Please try again.");
         }
+        hldPatientLogin.loginBtn.disabled = false;
+        hldPatientLogin.loginBtn.innerText = "Login";
       },
 
       error: () => {
         alert("Something went wrong. Please try again.");
+        hldPatientLogin.loginBtn.disabled = false;
+        hldPatientLogin.loginBtn.innerText = "Login";
       },
     });
-
-    this.loginBtn.disabled = false;
-    this.loginBtn.innerText = "Login";
   }
 }
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
-  new HldPatientLogin();
+  window.hldPatientLogin = new HldPatientLogin();
 });

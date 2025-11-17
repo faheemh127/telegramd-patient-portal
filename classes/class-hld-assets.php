@@ -71,9 +71,9 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
-            wp_localize_script('hld-class-patient-login', 'hld_ajax_obj', [
+            wp_localize_script('hld-class-patient-login', 'MyPatientLogin', [
                 'ajaxurl'    => admin_url('admin-ajax.php'),
-                'nonce'      => wp_create_nonce('hld_ajax_nonce'),
+                'nonce'      => wp_create_nonce('class_patient_login_nonce'),
                 'logged_in'  => is_user_logged_in(),
             ]);
 
@@ -139,16 +139,7 @@ if (!class_exists('hldAssets')) {
 
 
 
-            // Localize scripts
-            wp_localize_script(
-                'hld-class-patient-login',
-                'hld_ajax_obj',
-                [
-                    'ajaxurl' => admin_url('admin-ajax.php'),
-                    'nonce'   => wp_create_nonce('hld_patient_login_nonce')
-                ]
-            );
-
+       
             $form_id         = 24; // Or dynamically get this
             $active_step_key = 'active_step_fluent_form_' . $form_id;
             $active_step     = get_user_meta(get_current_user_id(), $active_step_key, true);

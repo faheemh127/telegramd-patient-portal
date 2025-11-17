@@ -57,3 +57,7 @@ basically this .json file can be encoded to base64 and pass in the fluent form i
 
 ## what is constants.php 
 Constant.php file contain the fluent form id's mainly and especially the tables names of the database this plugin creates and uses
+
+
+## Medication name in shortcode data and Medication name in fluent from dropdown should be same
+Make sure that on a specific prefunnel the medication detail that you pass on shortcode (the medication name) that is actually depending on the fluent form medication dropdown behind the scene. bechase we have built a custom UI for selecting medication that's why you need to make sure that both medication names are same including spelling wise and uppercase and lowercase etc

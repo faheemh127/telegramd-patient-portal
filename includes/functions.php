@@ -28,7 +28,7 @@ function hld_action_item($title, $msg, $link)
 function hld_not_found($msg)
 {
     // Build a dynamic URL for the "Find a Treatment" page
-    $treatment_url = home_url('/glp-1-prefunnel/'); // relative path
+    $treatment_url = home_url('/glp-1-form/'); // relative path
 
     ?>
     <div class="hld_no_found_wrap">

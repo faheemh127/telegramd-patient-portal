@@ -2,9 +2,11 @@
 add_action('wp_ajax_hld_patient_login', 'hld_patient_login_handler');
 add_action('wp_ajax_nopriv_hld_patient_login', 'hld_patient_login_handler');
 
-function hld_patient_login_handler() {
-    check_ajax_referer('hld_patient_login_nonce', 'nonce');
+function hld_patient_login_handler()
+{
+    check_ajax_referer('class_patient_login_nonce', 'nonce');
 
+    error_log("works unti here");
     $username = sanitize_text_field($_POST['username'] ?? '');
     $password = sanitize_text_field($_POST['password'] ?? '');
 
@@ -20,7 +22,7 @@ function hld_patient_login_handler() {
         'remember'      => true,
     ];
 
-    $user = wp_signon($creds, false); 
+    $user = wp_signon($creds, false);
 
     if (is_wp_error($user)) {
         wp_send_json_error($user->get_error_message());

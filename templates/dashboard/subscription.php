@@ -10,8 +10,8 @@ if (!$current_user || empty($current_user->ID)) {
 $subscription = HLD_UserSubscriptions::get_user_subscription($current_user->ID);
 $sub_nonce = wp_create_nonce('sub_nonce');
 $sub_hash =  wp_hash($sub_nonce . $subscription['stripe_subscription_id']);
-error_log("[SubNonce issue]" . $sub_nonce);
-error_log(print_r($subscription, true));
+// error_log("[SubNonce issue]" . $sub_nonce);
+// error_log(print_r($subscription, true));
 
 if ($subscription == null) {
     hld_not_found("You have no subscriptions yet.");
