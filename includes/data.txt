@@ -253,3 +253,13 @@ Timeouts + retry logic
 
 we need to create seperate product.json for localhost testing
 thankyou page for weight loss action item
+
+
+** remove actions after completion
+** make action item for refund payment
+** enable action item if disqualify
+** work on GHL logic
+** fix datepicker issue
+** need to work on patient information update to telegra
+** mobile responsive test
+** backup of fluent forms

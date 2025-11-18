@@ -39,7 +39,7 @@ add_filter('nsl_redirect_url', function ($url, $provider) {
 }, 20, 2);
 
 
-
+ 
 
 // Add sidebar overlay to every page
 add_action('wp_footer', 'hld_add_sidebar_overlay');

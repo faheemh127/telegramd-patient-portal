@@ -1,6 +1,6 @@
 <?php
 $pending_items = HLD_ActionItems_Manager::get_user_pending_action_items();
-// error_log(print_r($pending_items, true));
+
 
 if ($pending_items) {
     foreach ($pending_items as $item) {

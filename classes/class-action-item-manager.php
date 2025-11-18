@@ -87,6 +87,55 @@ class HLD_ActionItems_Manager
     }
 
 
+public static function mark_action_item_completed($telegra_order_id, $plan_slug)
+{
+    global $wpdb;
+
+    // Table name
+    $table = HEALSEND_USER_ACTIONS_TABLE;
+
+    if (empty($telegra_order_id) || empty($plan_slug)) {
+        return false; // invalid input
+    }
+
+    // Check if row exists
+    $row_exists = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$table} WHERE telegra_order_id = %s AND plan_slug = %s",
+            $telegra_order_id,
+            $plan_slug
+        )
+    );
+
+    if (!$row_exists) {
+        return false; // no matching row found
+    }
+
+    // Update the row: set status to 'completed' only
+    $updated = $wpdb->update(
+        $table,
+        [
+            'status' => 'completed',
+        ],
+        [
+            'telegra_order_id' => $telegra_order_id,
+            'plan_slug'        => $plan_slug,
+        ],
+        [
+            '%s', // status
+        ],
+        [
+            '%s', // telegra_order_id
+            '%s', // plan_slug
+        ]
+    );
+
+    return $updated !== false;
+}
+
+
+
+
 
     /**
      * Assign all pending action items for a given plan to the currently logged-in user's email.
