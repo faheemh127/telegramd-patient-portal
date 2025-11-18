@@ -9,6 +9,7 @@ https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hg
 client@faheemhassan.dev
 client2@faheemhassan.dev
 client12@faheemhassan.dev
+client13@faheemhassan.dev
 12345
 
 
@@ -251,3 +252,4 @@ Error messages when API key is wrong
 Timeouts + retry logic
 
 we need to create seperate product.json for localhost testing
+thankyou page for weight loss action item
