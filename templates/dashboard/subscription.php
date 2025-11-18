@@ -52,7 +52,7 @@ if ($subscription == null) {
 
             <?php if (!empty($subscription['invoice_pdf_url'])) : ?>
                 <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
-                    <div>
+                    <div class="hld-invoice-btns-wrap">
                         <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">
                             View Last Invoice
                         </a>

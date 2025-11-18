@@ -1,3 +1,63 @@
+class HLDTelegra {
+  constructor() {
+    this.initRefundListener();
+  }
+
+  // Attach click listener to all refund buttons
+  initRefundListener() {
+    jQuery(document).on("click", ".hldRequestRefund", (e) => {
+      e.preventDefault();
+      this.handleRefundRequest(e.currentTarget);
+    });
+  }
+
+  // Main function that handles refund request
+  handleRefundRequest(buttonElement) {
+    const $btn = jQuery(buttonElement);
+
+    // Find telegra_order_id anywhere in DOM
+    const orderId = jQuery('input[name="telegra_order_id"]').val();
+
+    if (!orderId) {
+      alert("❌ No telegra_order_id found in the DOM.");
+      return;
+    }
+
+    $btn.text("Requesting...").prop("disabled", true);
+
+    jQuery.ajax({
+      url: hld_ajax_obj.ajaxurl,
+      type: "POST",
+      dataType: "json",
+      data: {
+        action: "hld_request_refund",
+        nonce: hld_ajax_obj.nonce,
+        telegra_order_id: orderId,
+      },
+      success: (response) => {
+        if (response.success) {
+          alert("✅ Refund request submitted successfully.");
+        } else {
+          alert("⚠️ " + (response.data?.message || "Request failed."));
+        }
+      },
+      error: () => {
+        alert("❌ AJAX Error occurred.");
+      },
+      complete: () => {
+        $btn.text("Request Refund").prop("disabled", false);
+      },
+    });
+  }
+}
+
+// Initialize class
+jQuery(document).ready(() => {
+  new HLDTelegra();
+});
+
+// class code ends
+
 jQuery(document).ready(function ($) {
   $(document).on("click", "#hldViewOrderDetail", function (e) {
     e.preventDefault();
