@@ -68,6 +68,24 @@ class hldStripeHandler {
     this.stripe = Stripe(this.publishableKey);
     this.elements = this.stripe.elements();
 
+    const amount = 1999;
+    const priceData = await this.fetchStripePrice();
+    if (!priceData) {
+      console.warn("Using fallback amount 0 since price fetch failed.");
+    }
+    const currency = priceData?.currency?.toLowerCase() || "usd";
+
+    const options = {
+      amount,
+      currency: currency.toUpperCase(),
+      paymentMethodTypes: ["klarna", "afterpay_clearpay", "affirm"],
+      countryCode: "US",
+    };
+    const paymentMessageElement = this.elements.create(
+      "paymentMethodMessaging",
+      options,
+    );
+    paymentMessageElement.mount("#payment-method-messaging-element");
     //  Card Element (keep existing flow)
     this.card = this.elements.create("card");
 
@@ -80,14 +98,7 @@ class hldStripeHandler {
 
     // const amount = hldFormHandler.getAmount();
 
-    const priceData = await this.fetchStripePrice();
-    if (!priceData) {
-      console.warn("Using fallback amount 0 since price fetch failed.");
-    }
-
     // const amount = priceData?.amount || 0; x 100 amount should be multipy by 100 when pass real amount
-    const amount = 1;
-    const currency = priceData?.currency?.toLowerCase() || "usd";
 
     const paymentRequest = this.stripe.paymentRequest({
       country: "US",
@@ -98,6 +109,7 @@ class hldStripeHandler {
       },
       requestPayerName: true,
       requestPayerEmail: true,
+      paymentMethodTypes: ["card", "afterpay_clearpay"],
     });
 
     const prButton = this.elements.create("paymentRequestButton", {
@@ -224,7 +236,7 @@ class hldStripeHandler {
     }
 
     this.afterPayButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "afterPay"),
+      this.handleCardPayment(e, "afterpay"),
     );
 
     this.klarnaButton.addEventListener("click", (e) =>
@@ -244,7 +256,8 @@ class hldStripeHandler {
     this.toggleButtonState(true, "Processing...", this.paymentButton);
 
     if (type == "card") intent = await this.createIntent("setup");
-    else intent = await this.createIntent("payment");
+    if (type == "klarna") intent = await this.createIntent("klarna");
+    if (type == "afterpay") intent = await this.createIntent("afterpay");
 
     try {
       if (!intent.success) {
@@ -274,16 +287,18 @@ class hldStripeHandler {
 
           break;
         case "klarna":
-          stateButton = this.klarnaButton;
-          stateButtonText = "Pay with Klarna";
           result = await this.stripe.confirmKlarnaPayment(clientSecret, {
             return_url: "https://healsend.com/payment-complete",
           });
           break;
         case "afterpay":
         default:
-          stateButtonText = "Pay with AfterPay";
-          stateButton = this.afterPayButton;
+          result = await this.stripe.confirmAfterpayClearpayPayment(
+            clientSecret,
+            {
+              return_url: "https://healsend.com/payment-complete",
+            },
+          );
       }
 
       if (result.error) {
@@ -392,12 +407,20 @@ class hldStripeHandler {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `action=create_setup_intent`,
       });
-    else
+    if (type == "klarna")
       response = await fetch(this.ajaxUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `action=create_payment_intent`,
       });
+
+    if (type == "afterpay")
+      response = await fetch(this.ajaxUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `action=create_payment_intent&for=${type}`,
+      });
+
     return await response.json();
   }
 

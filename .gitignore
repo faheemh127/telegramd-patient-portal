@@ -1,6 +1,7 @@
 #ignore the backup folder
 backup/
 /vendor/
+/wordpress/
 
 
 # Ignore specific file
@@ -9,3 +10,4 @@ backup/
 api-keys.php
 /includes/api-key.php
 .php-cs-fixer.cache
+./composer.json

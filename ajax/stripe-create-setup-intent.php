@@ -69,6 +69,7 @@ function my_create_payment_intent()
     require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
+    $bank = sanitize_text_field($_POST['for'] ?? '');
     // Get current user info
     $current_user = wp_get_current_user();
     $user_email   = $current_user->user_email;
@@ -85,10 +86,15 @@ function my_create_payment_intent()
         wp_die();
     }
 
+    $intent_for = 'klarna';
+    if ($bank == 'afterpay') {
+        $intent_for = 'afterpay_clearpay';
+    }
+
     try {
         // Create SetupIntent for this customer
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'payment_method_types' => ['klarna'],
+            'payment_method_types' => [$intent_for],
             'amount' => 1099,
             'currency' => 'usd',
             'amount_details' => [
@@ -111,7 +117,7 @@ function my_create_payment_intent()
               ],
             ],
             'payment_method_data' => [
-              'type' => 'klarna',
+              'type' => $intent_for,
               'billing_details' => [
                 'address' => [
                   'city' => 'Brothers',

@@ -464,30 +464,6 @@ class HldFluentFormHandler {
       });
     }
   }
-
-  submitData() {
-    const first_name = document.querySelectorAll(
-      'input[name="names[first_name]"]',
-    );
-
-    const last_name = document.querySelectorAll(
-      'input[name="names[last_name]"]',
-    );
-
-    const dob = document.querySelectorAll('input[name="datetime"]');
-    const phone = document.querySelectorAll('input[name="phone"]');
-    const address1 = document.querySelectorAll(
-      'input[name="address_1[address_line_1]"]',
-    );
-
-    const city = document.querySelectorAll('input[name="address_1[city]"]');
-    const zipCode = document.querySelectorAll('input[name="address_1[zip]"]');
-    const sex = document.querySelectorAll('select[name="dropdown_1"');
-    const email = document.querySelectorAll('input[name="input_text_5"]');
-
-    //
-  }
-
   /**
    * Set value for a select element by its name attribute
    * @param {string} dropdownName - The name of the select element (e.g., "dropdown_1")
