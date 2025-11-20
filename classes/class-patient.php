@@ -352,11 +352,17 @@ if (! class_exists('HLD_Patient')) {
                 return [];
             }
 
+            $table = HEALSEND_PATIENTS_TABLE;
+            if (! hld_table_exists($table)) {
+                error_log("Healsend Error: Table does not exist: {$table}");
+                return false;
+            }
+            
             $current_user = wp_get_current_user();
             $patient_email = $current_user->user_email;
 
             global $wpdb;
-            $table = HEALSEND_PATIENTS_TABLE;
+
 
             // Fetch patient record by email
             $patient_row = $wpdb->get_row(

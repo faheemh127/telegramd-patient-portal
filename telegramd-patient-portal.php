@@ -3,7 +3,7 @@
 /**
  * Plugin Name: TelegraMD Patient Portal
  * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration, including prescriptions, lab results, and subscription management.
- * Version: 1.2
+ * Version: 1.4
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
  */
@@ -13,11 +13,12 @@
 
 define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
-define('HLD_PLUGIN_VERSION', '1.3');
+define('HLD_TELEGRA_AFFILIATE', true);
+
+
+define('HLD_PLUGIN_VERSION', '1.4');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
-
-
 
 require_once plugin_dir_path(__FILE__) . 'includes/constants.php';
 
@@ -26,18 +27,17 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
 
-
+require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
-
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-navbar.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-footer.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-settings.php';
-require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-subscriptions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-payments.php';
@@ -70,8 +70,6 @@ require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/request-refund.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/ghl-activate-prefunnel-email.php';
-
-
 
 register_activation_hook(__FILE__, function () {
     HLD_DB_Tables::create_tables();

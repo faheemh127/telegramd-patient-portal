@@ -104,7 +104,8 @@ if (isset($_GET['message'])) {  ?>
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="col-md-12">
                         <strong>The medication will be shipped to the same address. If you have any questions, please contact our support team.</strong>
-                        <div><span class="fw-bold"><?php echo $patient['address']; ?> </span></div>
+                        <div><span class="fw-bold"><?php echo isset($patient['address']) ? $patient['address'] : ''; ?>
+                            </span></div>
                     </div>
 
                 </div>

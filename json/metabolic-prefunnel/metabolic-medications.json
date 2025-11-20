@@ -8,13 +8,13 @@
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "0",
+        "monthly_price": "45",
         "desc": "to be provided, to be provided, to be provided",
         "stripe_price_id": "price_1SVPuyAcgi1hKyLWgjOYvTcm"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "0",
+        "monthly_price": "42",
         "desc": "to be provided, to be provided, to be provided",
         "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
       }

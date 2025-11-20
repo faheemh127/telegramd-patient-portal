@@ -75,17 +75,19 @@ class hldStripeHandler {
     }
     const currency = priceData?.currency?.toLowerCase() || "usd";
 
-    const options = {
-      amount,
-      currency: currency.toUpperCase(),
-      paymentMethodTypes: ["klarna", "afterpay_clearpay", "affirm"],
-      countryCode: "US",
-    };
-    const paymentMessageElement = this.elements.create(
-      "paymentMethodMessaging",
-      options,
-    );
-    paymentMessageElement.mount("#payment-method-messaging-element");
+    // const options = {
+    //   amount,
+    //   currency: currency.toUpperCase(),
+    //   paymentMethodTypes: ["klarna", "afterpay_clearpay", "affirm"],
+    //   countryCode: "US",
+    // };
+
+    //** We will only need that when we will deal with klarna and after pay below two lines */
+    // const paymentMessageElement = this.elements.create(
+    //   "paymentMethodMessaging",
+    //   options
+    // );
+    // paymentMessageElement.mount("#payment-method-messaging-element");
     //  Card Element (keep existing flow)
     this.card = this.elements.create("card");
 
@@ -227,21 +229,20 @@ class hldStripeHandler {
     console.log("bindEvents function called");
     if (
       !form ||
-      !this.paymentButton ||
-      !this.afterPayButton ||
-      !this.klarnaButton
+      !this.paymentButton
+      // !this.afterPayButton ||
+      // !this.klarnaButton
     ) {
       console.warn("Form or payment button not found.");
       return;
     }
 
-    this.afterPayButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "afterpay"),
-    );
+    // this.afterPayButton.addEventListener("click", (e) =>
+    //   this.handleCardPayment(e, "afterpay")
+    // );
 
-    this.klarnaButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "klarna"),
-    );
+    //   this.handleCardPayment(e, "klarna")
+    // );
 
     this.paymentButton.addEventListener("click", (e) =>
       this.handleCardPayment(e, "card"),
@@ -470,36 +471,20 @@ class hldStripeHandler {
   }
 }
 
-const isLocalhost =
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1" ||
-  window.location.hostname === "::1";
-
-// Check if connection is secure (HTTPS)
-const isSecure = window.location.protocol === "https:";
-// Usage
-let glp1FormID;
-// if (isLocalhost) {
-//   glp1FormID = 45;
-// } else {
-//   glp1FormID = Number(MyStripeData.prefunnelFormId);
-// }
-//
-glp1FormID = Number(MyStripeData.prefunnelFormId);
 const cardElement = document.querySelector("#card-element");
 
 if (cardElement) {
   window.stripeHandler = new hldStripeHandler({
     publishableKey: MyStripeData.publishableKey,
     ajaxUrl: MyStripeData.ajax_url,
-    formId: "fluentform_" + glp1FormID,
+    formId: "fluentform_" + Number(fluentFormData.form_id),
     cardElementId: "card-element",
     errorElementId: "card-errors",
     paymentButtonId: "hdlMakeStipePayment",
     submitWrapperClass: ".hld_form_main_submit_button",
     prButtonId: "payment-request-button", // NEW: add this container in HTML
   });
-  // console.log(" hldStripeHandler initialized!");
+  // console.log("hldStripeHandler initialized!");
 } else {
   // console.log("#card-element not found. Stripe handler not initialized.");
 }

@@ -149,6 +149,19 @@ class HLD_ActionItems_Manager
 
         $table = HEALSEND_SUBSCRIPTIONS_TABLE;
 
+
+         // Check table existence
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare("SHOW TABLES LIKE %s", $table)
+        );
+
+        if ($table_exists !== $table) {
+            error_log("Healsend Error: Missing required table: {$table}");
+            return false;
+        }
+
+
+
         // Check if any subscription has refund_status = requested
         $row = $wpdb->get_row(
             $wpdb->prepare(
@@ -258,6 +271,34 @@ class HLD_ActionItems_Manager
         global $wpdb;
         $user_actions_table = HEALSEND_USER_ACTIONS_TABLE;
         $action_items_table = HEALSEND_ACTION_ITEMS_TABLE;
+
+
+
+
+        // Check if required tables exist before running queries
+        $missing_tables = [];
+
+        $check_tables = [
+            $user_actions_table,
+            $action_items_table
+        ];
+
+        foreach ($check_tables as $table_name) {
+            $table_exists = $wpdb->get_var(
+                $wpdb->prepare("SHOW TABLES LIKE %s", $table_name)
+            );
+
+            if ($table_exists !== $table_name) {
+                $missing_tables[] = $table_name;
+            }
+        }
+
+        if (!empty($missing_tables)) {
+            error_log("Healsend Error: Missing required tables: " . implode(', ', $missing_tables));
+            return false;
+        }
+
+
 
         // Get all pending user actions joined with action item info + telegra_order_id
         $results = $wpdb->get_results(

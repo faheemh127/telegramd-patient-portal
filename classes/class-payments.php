@@ -61,6 +61,15 @@ class HLD_Payments
     {
         global $wpdb;
         $table = self::get_table_name();
+
+
+        if (! hld_table_exists($table)) {
+            error_log("Healsend Error: Table does not exist: {$table}");
+            return false;
+        }
+
+
+
         $email = self::get_logged_in_email();
 
         if (! $email) {

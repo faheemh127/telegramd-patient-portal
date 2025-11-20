@@ -8,8 +8,14 @@ if (!$current_user || empty($current_user->ID)) {
 }
 
 $subscription = HLD_UserSubscriptions::get_user_subscription($current_user->ID);
+if (!is_array($subscription) || empty($subscription['stripe_subscription_id'])) {
+    error_log('Subscription data missing or invalid.');
+    return; // or handle however you want
+}
+
 $sub_nonce = wp_create_nonce('sub_nonce');
-$sub_hash =  wp_hash($sub_nonce . $subscription['stripe_subscription_id']);
+$sub_hash = wp_hash($sub_nonce . $subscription['stripe_subscription_id']);
+
 // error_log("[SubNonce issue]" . $sub_nonce);
 // error_log(print_r($subscription, true));
 
@@ -56,8 +62,8 @@ if ($subscription == null) {
                         <a class="hld-view-invoice btn btn-primary" href="<?php echo esc_url($subscription['invoice_pdf_url']); ?>" target="_blank">
                             View Last Invoice
                         </a>
-                        
-                        
+
+
                         <span class="hld-view-invoice btn btn-primary" id="hld-revoke-sub" sub-nonce="<?php echo $sub_nonce;  ?>" data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
                             Revoke Subscription
                         </span>

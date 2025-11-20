@@ -15,6 +15,7 @@ client13@faheemhassan.dev
 
 // local sites patients
 lime1@gmail.com
+lime2@gmail.com
 
 
 after login with nextend social this code looks
@@ -181,6 +182,8 @@ Find a treatment button should go to treatment section
 There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 Its not going back when moved to checkout page if the user is already login in prefunnel either that's GLP prefunnel or may be other prefunnel
 on prefunnel login page fix the hover color of the button and QA the functionality
+
+
 -- password is sent openly in login page
 -- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
 -- signup button hover color need to be fixed
@@ -194,6 +197,10 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- BMI class initialize twice due to next button not showing when page refresh so i set a timer also on other plans no need to initilaize the class if there are no fields
 -- Need to add links at privacy policy  and terms and conditions in upload glp  agreement concent in action item 
 -- On checkout when we refresh it do not loads the summary details but when we do click on back button it then shows everything correctly it looks that on page refresh getAmount function do not called when user on checkout page
+-- we also need to only send sms if user click that yes i prefer to recieve updates
+-- we should only save the patient information if not already save saving the already patient information again and again does not make sense
+-- prevent action that if form is prefunnel he should not reach to submit questionnare or prepare questionnare code that is in after fluent form submit hook.
+-- if order create failed we do not need to charge do not need to create order and do not need to do anything
 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
@@ -269,6 +276,12 @@ thankyou page for weight loss action item
 ## Required stuff from vineeth for metabolic
 1) he need to tell me prices for medications, description , labels, including package description
 2) how much discount he wanna give on metabolic
-
+3) vineeth need to provide me factual success story for metabolic page
 
 ## Required stuff from abubakar for metabolic
+
+
+
+
+Ryan
+make the auto order next to false as we need to test on live requirements
