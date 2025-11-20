@@ -11,7 +11,7 @@
 
 
 
-define('HLD_LIVE', true);
+define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_PLUGIN_VERSION', '1.3');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
@@ -46,10 +46,10 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-hld-assets.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-patient.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-admin-menu.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-action-item-manager.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-action-item-manager.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
@@ -67,6 +67,8 @@ require_once plugin_dir_path(__FILE__) . 'ajax/update-patient-detail.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/get-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/request-refund.php';
+
 
 
 register_activation_hook(__FILE__, function () {

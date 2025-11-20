@@ -269,7 +269,7 @@ nav.hld-navbar {
   padding: 10px 10px !important;
   background: var(--hld-color-primary);
 }
-.hld_btn_continue_with_email:hover{
+.hld_btn_continue_with_email:hover {
   background-color: var(--hld-color-primary-dark);
 }
 .hdl_input_wrap label {
@@ -432,11 +432,13 @@ nav.hld-navbar {
 }
 .hld-view-invoice {
   border-radius: 50px !important;
-  padding: 9px 10px !important;
+  padding: 8px 20px !important;
   margin-top: 10px !important;
   max-width: 100% !important;
   background-color: var(--hld-color-primary) !important;
   border: none !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
 }
 .hld_terms_consent a {
   text-decoration: none;
@@ -1507,6 +1509,13 @@ nav.hld-navbar {
   color: var(--hld-color-primary);
 }
 
+/************** Design for healsend.com home page slider starts ****************/
+/* .hld-main-slider{
+
+} */
+/************** Design for healsend.com home page slider ends ****************/
+
+
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1673,6 +1682,15 @@ nav.hld-navbar {
   }
   .hld-custom-checkbox-group {
     flex-direction: column;
+  }
+  .hld-view-invoice{
+    width: 100%;
+  }
+  .hld-invoice-btns-wrap{
+    padding: 0;
+  }
+  .hld-order-detail-box .card-body{
+    padding: 1.5rem !important;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

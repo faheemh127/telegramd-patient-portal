@@ -87,6 +87,96 @@ class HLD_ActionItems_Manager
     }
 
 
+    public static function mark_action_item_completed($telegra_order_id, $plan_slug)
+    {
+        global $wpdb;
+
+        // Table name
+        $table = HEALSEND_USER_ACTIONS_TABLE;
+
+        if (empty($telegra_order_id) || empty($plan_slug)) {
+            return false; // invalid input
+        }
+
+        // Check if row exists
+        $row_exists = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table} WHERE telegra_order_id = %s AND plan_slug = %s",
+                $telegra_order_id,
+                $plan_slug
+            )
+        );
+
+        if (!$row_exists) {
+            return false; // no matching row found
+        }
+
+        // Update the row: set status to 'completed' only
+        $updated = $wpdb->update(
+            $table,
+            [
+                'status' => 'completed',
+            ],
+            [
+                'telegra_order_id' => $telegra_order_id,
+                'plan_slug'        => $plan_slug,
+            ],
+            [
+                '%s', // status
+            ],
+            [
+                '%s', // telegra_order_id
+                '%s', // plan_slug
+            ]
+        );
+
+        return $updated !== false;
+    }
+
+
+
+
+    public static function get_refund_requested_action_item()
+    {
+        if (!is_user_logged_in()) {
+            return false;
+        }
+
+        global $wpdb;
+
+        $user = wp_get_current_user();
+        $email = sanitize_email($user->user_email);
+
+        $table = HEALSEND_SUBSCRIPTIONS_TABLE;
+
+        // Check if any subscription has refund_status = requested
+        $row = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM {$table} 
+             WHERE patient_email = %s 
+             AND refund_status = 'requested' 
+             LIMIT 1",
+                $email
+            ),
+            ARRAY_A
+        );
+
+        if (!$row) {
+            return false; // No refund request found
+        }
+
+        // Build action item
+        return [
+            'label'       => 'Refund Requested',
+            'description' => 'Your refund request for the subscription has been successfully received. You may review the request anytime in your Subscription section and proceed to complete the refund process when ready.',
+            'url'         => home_url('/my-account?subscription'),
+            'telegra_order_id' => $row['telegra_order_id'],
+        ];
+    }
+
+
+
+
 
     /**
      * Assign all pending action items for a given plan to the currently logged-in user's email.

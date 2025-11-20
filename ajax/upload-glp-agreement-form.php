@@ -21,12 +21,12 @@ function hld_glp_agreement_upload_handler()
     $order_detail = $hld_telegra->get_order($telegra_order_id);
 
     if (
-        !isset($order_detail["questionnaireInstances"][2]["id"])
+        !isset($order_detail["questionnaireInstances"][3]["id"])
     ) {
         wp_send_json_error(['message' => 'Invalid questionnaire instance']);
     }
 
-    $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
+    $quest_inst = $order_detail["questionnaireInstances"][3]["id"];
 
     // Validate file size
     $file = $_FILES['patient_id'];
@@ -84,7 +84,9 @@ function hld_glp_agreement_upload_handler()
     $status_code = wp_remote_retrieve_response_code($response);
     $response_body = wp_remote_retrieve_body($response);
 
+
     if ($status_code == 200) {
+        HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "agreement");
         wp_send_json_success(['message' => 'File uploaded successfully', 'response' => $response_body]);
     }
 

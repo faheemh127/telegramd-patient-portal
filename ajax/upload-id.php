@@ -75,6 +75,7 @@ function hld_id_upload_handler()
     $response_body = wp_remote_retrieve_body($response);
 
     if ($status_code == 200) {
+        HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "id_upload");
         wp_send_json_success(['message' => 'File uploaded successfully', 'response' => $response_body]);
     } else {
         wp_send_json_error(['message' => 'API error', 'status' => $status_code, 'response' => $response_body]);

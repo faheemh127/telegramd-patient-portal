@@ -64,7 +64,6 @@ class HLD_UserSubscriptions
         $table = $wpdb->prefix . self::$table_name;
 
         $charset_collate = $wpdb->get_charset_collate();
-
         $sql = "CREATE TABLE IF NOT EXISTS $table (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         user_id BIGINT(20) NOT NULL,
@@ -75,7 +74,6 @@ class HLD_UserSubscriptions
         medication_name VARCHAR(255) NOT NULL,
         stripe_product_id VARCHAR(255) NOT NULL,
         subscription_monthly_amount DECIMAL(10,2) NOT NULL,
-
         stripe_subscription_id VARCHAR(255) NOT NULL,
         stripe_customer_id VARCHAR(255) NOT NULL,
         stripe_invoice_id VARCHAR(255) NULL,
@@ -86,15 +84,13 @@ class HLD_UserSubscriptions
         invoice_pdf_url TEXT NULL,
         hosted_invoice_url TEXT NULL,
         subscription_slug VARCHAR(100) NOT NULL,
-
+        refund_status ENUM('created', 'requested', 'refunded') DEFAULT 'created'
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (user_id, telegra_order_id)
     ) $charset_collate;";
-
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
     }
-
 
 
     /**

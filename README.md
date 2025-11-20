@@ -61,3 +61,7 @@ Constant.php file contain the fluent form id's mainly and especially the tables 
 
 ## Medication name in shortcode data and Medication name in fluent from dropdown should be same
 Make sure that on a specific prefunnel the medication detail that you pass on shortcode (the medication name) that is actually depending on the fluent form medication dropdown behind the scene. bechase we have built a custom UI for selecting medication that's why you need to make sure that both medication names are same including spelling wise and uppercase and lowercase etc
+
+
+## Refund REquest
+in the fluent form that button should have a class that .hldRequestRefund each button should have that class

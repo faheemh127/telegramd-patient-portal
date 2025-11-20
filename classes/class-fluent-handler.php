@@ -865,7 +865,7 @@ if (! class_exists('hldFluentHandler')) {
                 switch ($form_id) {
                     case HLD_METABOLIC_PREFUNNEL_FORM_ID:
                         $data = [];
-                        $data[] = ['location' => 'loc::metabolic-enhancement-1','value' => $form['checkbox']];
+                        $data[] = ['location' => 'loc::metabolic-enhancement-1', 'value' => $form['checkbox']];
                         $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
                         $data[] = ['location' => 'loc::metabolic-enhancement-7', 'value' => $form['input_radio_2']];
 
@@ -971,6 +971,9 @@ if (! class_exists('hldFluentHandler')) {
                     $telegra_order_id,
                     $last_location
                 );
+
+                
+                HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "clinical_diff");
 
                 error_log("[TelegraMD] Submitted questionnaire {$quest_inst} for location {$telegra_location_key}");
             }

@@ -9,6 +9,7 @@ https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hg
 client@faheemhassan.dev
 client2@faheemhassan.dev
 client12@faheemhassan.dev
+client13@faheemhassan.dev
 12345
 
 
@@ -251,3 +252,23 @@ Error messages when API key is wrong
 Timeouts + retry logic
 
 we need to create seperate product.json for localhost testing
+thankyou page for weight loss action item
+
+
+** remove actions after completion
+** make action item for refund payment
+** enable action item if disqualify
+** work on GHL logic
+** fix datepicker issue
+** need to work on patient information update to telegra
+** mobile responsive test
+** backup of fluent forms
+
+
+
+## Required stuff from vineeth for metabolic
+1) he need to tell me prices for medications, description , labels, including package description
+2) how much discount he wanna give on metabolic
+
+
+## Required stuff from abubakar for metabolic
