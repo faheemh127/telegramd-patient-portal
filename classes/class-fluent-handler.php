@@ -374,7 +374,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-        public function telegra()
+        public function telegra($form_id)
         {
             $telegra_patient_id = HLD_Telegra::create_patient();
 
@@ -391,7 +391,16 @@ if (! class_exists('hldFluentHandler')) {
                 ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             );
 
-            HLD_ActionItems_Manager::assign_pending_actions_for_plan('glp_1_prefunnel', $order_id);
+            // Assign General Action item that will be for all plans
+            HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GENERAL_ACTION_ITEM, $order_id);
+
+            if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
+                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GLP_WEIGHT_LOSS_SLUG, $order_id);
+            } else if ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
+                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_METABOLIC_SLUG, $order_id);
+            } else {
+                error_log("[Healsend Error]: we cannot fill any action item as form id" . $form_id . " do not match any prefunnel");
+            }
         }
 
 
@@ -712,7 +721,7 @@ if (! class_exists('hldFluentHandler')) {
                 }
                 HLD_Telegra::create_patient();
                 // HLD_Patient::prepareGHLContact();
-                $this->telegra();
+                $this->telegra($form_id);
             } else {
                 error_log("The Form id" . $form_id . " not exists in telegra_forms. that's why we cannot create any order on telegra with this form");
             }

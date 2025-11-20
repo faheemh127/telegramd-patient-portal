@@ -1,6 +1,6 @@
 [
   {
-    "telegra_code": "pvt::9fa261db-3d40-4f9d-b2be-80000c2e6a02",
+    "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
     "medication_name": "NAD+ Injections",
     "description": "Waiting to be provided.",
     "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
@@ -38,12 +38,6 @@
         "monthly_price": "0",
         "desc": "Three-month package offering better savings while maintaining consistent daily dosing and visible results.",
         "stripe_price_id": "price_dummy_tab_3M"
-      },
-      {
-        "monthly_duration": "6",
-        "monthly_price": "0",
-        "desc": "Best value plan — six-month supply designed for patients dedicated to sustained hormone support and long-term improvement.",
-        "stripe_price_id": "price_dummy_tab_6M"
       }
     ]
   }

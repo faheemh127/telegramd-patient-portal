@@ -17,13 +17,23 @@ class HLD_ActionItems_Manager
 
         $default_items = [
             [
-                'plan_slug'          =>  HLD_GLP_WEIGHT_LOSS_SLUG,
+                'plan_slug'          =>  HLD_GENERAL_ACTION_ITEM,
                 'action_key'         => 'id_upload',
                 'label'              => 'ID Verification Pending',
                 'description'        => 'As required by law, you must upload a form of personal identification. This can be a driver\'s license, a state-issued ID, or a passport.',
                 'item_slug'          => 'my-account?upload-id',
                 'quinst_array_index' => '3',
                 'sort_order'         => 1,
+                'required'           => 1,
+            ],
+            [
+                'plan_slug'          => HLD_GENERAL_ACTION_ITEM,
+                'action_key'         => 'agreement',
+                'label'              => 'Agreement Form',
+                'description'        => 'Review and accept our treatment agreement to proceed.',
+                'item_slug'          => 'my-account?informed-consent-for-treatment',
+                'quinst_array_index' => '4',
+                'sort_order'         => 3,
                 'required'           => 1,
             ],
             [
@@ -34,16 +44,6 @@ class HLD_ActionItems_Manager
                 'item_slug'          => 'glp-1-weight-loss-intake',
                 'quinst_array_index' => '1,2',
                 'sort_order'         => 2,
-                'required'           => 1,
-            ],
-            [
-                'plan_slug'          => HLD_GLP_WEIGHT_LOSS_SLUG,
-                'action_key'         => 'agreement',
-                'label'              => 'Agreement Form',
-                'description'        => 'Review and accept our treatment agreement to proceed.',
-                'item_slug'          => 'my-account?glp-agreement-form',
-                'quinst_array_index' => '4',
-                'sort_order'         => 3,
                 'required'           => 1,
             ],
             [
@@ -150,7 +150,7 @@ class HLD_ActionItems_Manager
         $table = HEALSEND_SUBSCRIPTIONS_TABLE;
 
 
-         // Check table existence
+        // Check table existence
         $table_exists = $wpdb->get_var(
             $wpdb->prepare("SHOW TABLES LIKE %s", $table)
         );

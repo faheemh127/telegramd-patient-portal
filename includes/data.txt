@@ -201,7 +201,8 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- we should only save the patient information if not already save saving the already patient information again and again does not make sense
 -- prevent action that if form is prefunnel he should not reach to submit questionnare or prepare questionnare code that is in after fluent form submit hook.
 -- if order create failed we do not need to charge do not need to create order and do not need to do anything
-
+-- we should pass no symptoms
+-- make it dynamic quinstn id 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode

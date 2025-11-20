@@ -20,13 +20,14 @@ function hld_glp_agreement_upload_handler()
     $telegra_order_id = sanitize_text_field($_POST['telegra_order_id']);
     $order_detail = $hld_telegra->get_order($telegra_order_id);
 
+    // @todo make it dynamic quinstn id 
     if (
-        !isset($order_detail["questionnaireInstances"][3]["id"])
+        !isset($order_detail["questionnaireInstances"][2]["id"])
     ) {
         wp_send_json_error(['message' => 'Invalid questionnaire instance']);
     }
 
-    $quest_inst = $order_detail["questionnaireInstances"][3]["id"];
+    $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
 
     // Validate file size
     $file = $_FILES['patient_id'];

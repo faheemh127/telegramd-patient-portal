@@ -43,12 +43,13 @@ function hld_ghl_activate_reminder()
         wp_die();
     }
 
-    $delay_seconds = 900;
+    $delay_seconds = 900; // 15 minutes
+    // $delay_seconds = 10; // 10 seconds
 
     $current_user = wp_get_current_user();
     $patient_email = $current_user->user_email;
 
-    $args = [$patient_emaily];
+    $args = [$patient_email];
     $hook_name = 'hld_send_ghl_webhook_event';
 
     $timestamp = wp_next_scheduled($hook_name, $args);
@@ -72,7 +73,6 @@ function hld_ghl_execute_webhook_logic($patient_email)
         ];
 
         $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
-
     } catch (Exception $e) {
         error_log('GHL Webhook Failed: ' . $e->getMessage());
     }

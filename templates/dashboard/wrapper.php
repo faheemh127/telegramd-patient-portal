@@ -130,7 +130,7 @@ if (isset($_GET["care-team"])) {
 
             <?php if (isset($_GET['upload-id'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/upload-id.php'; ?>
-            <?php elseif (isset($_GET['glp-agreement-form'])) : ?>
+            <?php elseif (isset($_GET['informed-consent-for-treatment'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/glp-agreement-form.php'; ?>
             <?php else : ?>
                 <div class="content">

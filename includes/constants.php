@@ -75,5 +75,8 @@ if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
 
 
 // Define Slugs for plans
+define("HLD_GENERAL_ACTION_ITEM", "general");
+
 define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
 define("HLD_METABOLIC_SLUG", "metabolic");
+
