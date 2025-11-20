@@ -2,6 +2,7 @@ class HldFluentFormHandler {
   constructor() {
     // @todo uncomment this on production
 
+    this.hasFired = false;
     this.hideBmiNextBtn();
     this.hldhideNext("hld_gender_wrap");
     this.hldhideNext("hld_state_wrap");
@@ -16,6 +17,43 @@ class HldFluentFormHandler {
 
   initCustomizedData() {
     this.initMedications();
+    let that = this;
+
+    jQuery(document).ready(function ($) {
+      var $steps = $(".fluentform-step");
+
+      if ($steps.length > 0) {
+        var lastStepNode = $steps[$steps.length - 1];
+
+        async function executeLastStepCode() {
+          if (!this.hasFired) {
+            const subResult = await fetch(MyStripeData.ajax_url, {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: `action=activate_reminder`,
+            });
+            this.hasFired = true;
+          }
+        }
+
+        var observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.type === "attributes") {
+              var $lastStep = $(lastStepNode);
+
+              if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
+                executeLastStepCode.call(that);
+              }
+            }
+          });
+        });
+
+        observer.observe(lastStepNode, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+      }
+    });
   }
 
   initMedications(selectedMedication = "") {
