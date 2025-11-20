@@ -13,6 +13,9 @@
 
 define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
+define('HLD_TELEGRA_AFFILIATE', true);
+
+
 define('HLD_PLUGIN_VERSION', '1.4');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));

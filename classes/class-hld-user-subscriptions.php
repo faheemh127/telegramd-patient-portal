@@ -84,7 +84,7 @@ class HLD_UserSubscriptions
         invoice_pdf_url TEXT NULL,
         hosted_invoice_url TEXT NULL,
         subscription_slug VARCHAR(100) NOT NULL,
-        refund_status ENUM('created', 'requested', 'refunded') DEFAULT 'created'
+        refund_status ENUM('created', 'requested', 'refunded') DEFAULT 'created',
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (user_id, telegra_order_id)
     ) $charset_collate;";

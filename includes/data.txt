@@ -15,6 +15,7 @@ client13@faheemhassan.dev
 
 // local sites patients
 lime1@gmail.com
+lime2@gmail.com
 
 
 after login with nextend social this code looks
@@ -199,7 +200,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- we also need to only send sms if user click that yes i prefer to recieve updates
 -- we should only save the patient information if not already save saving the already patient information again and again does not make sense
 -- prevent action that if form is prefunnel he should not reach to submit questionnare or prepare questionnare code that is in after fluent form submit hook.
-
+-- if order create failed we do not need to charge do not need to create order and do not need to do anything
 
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
@@ -278,3 +279,9 @@ thankyou page for weight loss action item
 3) vineeth need to provide me factual success story for metabolic page
 
 ## Required stuff from abubakar for metabolic
+
+
+
+
+Ryan
+make the auto order next to false as we need to test on live requirements
