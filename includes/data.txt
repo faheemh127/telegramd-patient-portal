@@ -263,3 +263,12 @@ thankyou page for weight loss action item
 ** need to work on patient information update to telegra
 ** mobile responsive test
 ** backup of fluent forms
+
+
+
+## Required stuff from vineeth for metabolic
+1) he need to tell me prices for medications, description , labels, including package description
+2) how much discount he wanna give on metabolic
+
+
+## Required stuff from abubakar for metabolic

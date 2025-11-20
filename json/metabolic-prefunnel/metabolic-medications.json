@@ -1,34 +1,28 @@
 [
   {
-    "telegra_code": "pvt::50553d4f-e36f-41f3-9f1c-e9fec3860248",
-    "medication_name": "Medication-1 (To be provided by Vineeth)",
+    "telegra_code": "pvt::9fa261db-3d40-4f9d-b2be-80000c2e6a02",
+    "medication_name": "NAD+ Injections",
     "description": "Waiting to be provided.",
-    "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "Free Evaluation, Weekly Injection",
+    "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
+    "labels": "to be provided, to be provided",
     "packages": [
       {
         "monthly_duration": "1",
         "monthly_price": "0",
-        "desc": "Perfect for first-time users. Try Sermorelin therapy for one month with no long-term commitment.",
-        "stripe_price_id": "price_dummy_1M"
+        "desc": "to be provided, to be provided, to be provided",
+        "stripe_price_id": "price_1SVPuyAcgi1hKyLWgjOYvTcm"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "0",
-        "desc": "Three-month treatment plan offering moderate savings and consistent progress tracking.",
-        "stripe_price_id": "price_dummy_3M"
-      },
-      {
-        "monthly_duration": "6",
-        "monthly_price": "0",
-        "desc": "Best value plan — long-term six-month commitment with maximum results and biggest savings.",
-        "stripe_price_id": "price_dummy_6M"
+        "desc": "to be provided, to be provided, to be provided",
+        "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
       }
     ]
   },
   {
-    "telegra_code": "pvt::4332bc52-5f54-4c8f-bf5c-f1ef2bb95fa0",
-    "medication_name": "Medication-2 (To be provided by Vineeth)",
+    "telegra_code": "pvt::87803044-1615-490d-ac20-1d0ac7f83915",
+    "medication_name": "NAD+ Nasal Spray",
     "description": "Waiting to be provided.",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
     "labels": "Free Evaluation, Daily Tablets",
