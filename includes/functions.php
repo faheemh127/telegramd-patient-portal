@@ -17,7 +17,7 @@ if (!function_exists('hld_log')) {
 
 function hld_action_item($title, $msg, $link)
 {
-    ?>
+?>
     <div class="hld_action_item_wrap">
         <p class="title"><?php echo  $title; ?></p>
         <p class="desc"><?php echo $msg;  ?></p>
@@ -30,7 +30,7 @@ function hld_not_found($msg)
     // Build a dynamic URL for the "Find a Treatment" page
     $treatment_url = home_url('/glp-1-form/'); // relative path
 
-    ?>
+?>
     <div class="hld_no_found_wrap">
         <p><?php echo esc_html($msg); ?></p>
         <a href="<?php echo esc_url($treatment_url); ?>">Find a Treatment</a>
@@ -110,4 +110,24 @@ function hld_should_display_dashboard_nav()
     } else {
         return true; // Default case
     }
+}
+
+function hld_table_exists($table_name)
+{
+
+    // ** Usage
+    // if (! hld_table_exists($table)) {
+    //     error_log("Healsend Error: Table does not exist: {$table}");
+    //     return false;
+    // }
+    
+    global $wpdb;
+
+    // Use prepare for safety
+    $result = $wpdb->get_var(
+        $wpdb->prepare("SHOW TABLES LIKE %s", $table_name)
+    );
+
+    // Return true if the table name matches
+    return ($result === $table_name);
 }

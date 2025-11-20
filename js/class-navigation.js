@@ -342,7 +342,9 @@ class HldNavigation {
       window.location.href.includes("glp-1-weight-loss-intake") ||
       window.location.href.includes("trt-prefunnel") ||
       window.location.href.includes("pt-141-prefunnel") ||
+      window.location.href.includes("nad-therapy") ||
       window.location.href.includes("upload-id")
+      
     ) {
       return;
     }

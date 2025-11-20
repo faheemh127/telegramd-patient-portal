@@ -394,107 +394,6 @@ if (! class_exists('hldFluentHandler')) {
             HLD_ActionItems_Manager::assign_pending_actions_for_plan('glp_1_prefunnel', $order_id);
         }
 
-        // public function prepare_questionare_for_telegra($form_data)
-        // {
-        //     // Hardcoded for testing — later you’ll pass real values
-        //     $order_id  = "order::a6807624-9c95-4819-ac61-a956784b02ed";
-        //     $quinst_id = "quinst::54188482-41ac-4866-afc8-9e498c645d05";
-
-        //     $answers = [];
-
-        //     foreach ($form_data as $key => $value) {
-        //         // Skip non-questionnaire fields
-        //         if (strpos($key, 'Glp_intakeform_') !== false) {
-        //             $answers[] = [
-        //                 'location' => 'loc::' . $key, // prepend loc::
-        //                 'value'    => $value
-        //             ];
-        //         }
-        //     }
-
-        //     // Debug log for safety
-        //     error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
-
-        //     // Now call your submit function (if you want to auto-send)
-        //     $result = $this->telegra->submit_questionnaire_answers($order_id, $quinst_id, $answers);
-
-        //     return $result;
-        // }
-
-
-        // public function prepare_questionare_for_telegra($form_data, $quinst_id, $order_id)
-        // {
-        //     $answers = [];
-
-        //     foreach ($form_data as $key => $value) {
-        //         if (strpos($key, 'Glp_intakeform_') === 0) {
-        //             // Convert Fluent form keys to Telegra location IDs
-        //             $loc_id = str_replace('_', '-', $key); // <-- critical fix
-        //             $answers[] = [
-        //                 'location' => "loc::{$loc_id}",
-        //                 'value'    => $value,
-        //             ];
-        //         }
-        //     }
-
-        //     error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
-
-        //     return [
-        //         'quinst_id' => $quinst_id,
-        //         'order_id'  => $order_id,
-        //         'answers'   => $answers,
-        //     ];
-        // }
-
-
-
-
-        // public function prepare_questionare_for_telegra($form_data)
-        // {
-        //     // Example — later pass these dynamically
-        //     $order_id  = "order::a6807624-9c95-4819-ac61-a956784b02ed";
-        //     $quinst_id = "quinst::54188482-41ac-4866-afc8-9e498c645d05";
-
-        //     $answers = [];
-
-        //     foreach ($form_data as $key => $value) {
-        //         // Only process keys starting with Glp_intakeform_
-        //         if (strpos($key, 'Glp_intakeform_') === 0) {
-
-        //             // First replace triple underscore with colon
-        //             $loc_id = str_replace('___', ':', $key);
-
-        //             // Then replace double underscore with dot
-        //             $loc_id = str_replace('__', '.', $loc_id);
-
-        //             // Finally replace remaining single underscores with hyphens
-        //             $loc_id = str_replace('_', '-', $loc_id);
-
-        //             // Prepend loc::
-        //             $answers[] = [
-        //                 'location' => "loc::{$loc_id}",
-        //                 'value'    => $value
-        //             ];
-        //         }
-        //     }
-
-        //     // Figure out the last location dynamically (no hardcoding)
-        //     $last_location = null;
-        //     // if (!empty($answers)) {
-        //     //     $last_location = end($answers)['location']; // last answered loc
-        //     // }
-
-        //     // $last_location = "loc::Glp-intakeform-2";
-
-        //     // Debug log to confirm payload
-        //     error_log("[TelegraMD] Prepared Questionnaire Answers → " . print_r($answers, true));
-        //     error_log("[TelegraMD] Last Location → " . $last_location);
-
-        //     // Call submit function
-        //     $result = $this->telegra->submit_questionnaire_answers($order_id, $quinst_id, $answers, $last_location);
-
-        //     return $result;
-        // }
 
         public function prepare_questionare_for_telegra($form_data, $quest_inst, $search_string, $order_id, $last_location = "")
         {
@@ -577,91 +476,6 @@ if (! class_exists('hldFluentHandler')) {
             // error_log("[TelegraMD] No answers found for {$form_type}. Nothing to submit.");
             return false;
         }
-
-
-        /* public function prepare_questionare_for_telegra($form_data) */
-        /* { */
-        /*     // Example — later pass these dynamically */
-        /*     /* $order_id  = $this->get_order_id(); */
-        /*     $order_id  = "order::a55a22f5-8bdb-4299-87f7-b18eb2a3a405"; */
-        /*     $answers = []; */
-        /*     $quest_inst = "quinst::0cefcecd-d2a7-4763-8989-a78af06bad80"; */
-        /**/
-        /*     /** */
-        /*      * 1️⃣ Process Glp_intakeform_ questionnaire */
-        /*      */
-        /*     foreach ($form_data as $key => $value) { */
-        /*         // Only process keys starting with Glp_intakeform_ */
-        /*         if (strpos($key, 'Glp_intakeform_') === 0) { */
-        /**/
-        /*             // Replace special patterns */
-        /*             $loc_id = str_replace('___', ':', $key); */
-        /*             $loc_id = str_replace('__', '.', $loc_id); */
-        /*             $loc_id = str_replace('_', '-', $loc_id); */
-        /**/
-        /*             $answers[] = [ */
-        /*                 'location' => "loc::{$loc_id}", */
-        /*                 'value'    => $value */
-        /*             ]; */
-        /*         } */
-        /*     } */
-        /**/
-        /*     // For full submission we keep last_location null */
-        /*     $last_location = null; */
-        /**/
-        /*     // Debug log */
-        /*     error_log("[TelegraMD] Intakeform Answers → " . print_r($answers, true)); */
-        /*     error_log("[TelegraMD] Intakeform Last Location → " . $last_location); */
-        /**/
-        /*     // Submit intakeform questionnaire */
-        /*     $result = $this->telegra->submit_questionnaire_answers( */
-        /*         $order_id, */
-        /*         $quest_inst,  */
-        /*         $answers, */
-        /*         $last_location */
-        /*     ); */
-        /**/
-        /*     /** */
-        /*      * 2️⃣ Process glp-clinical-difference-intake questionnaire */
-        /*      */
-        /*     $clinical_answers = []; */
-        /*     foreach ($form_data as $key => $value) { */
-        /*         // Only process keys starting with glp-clinical-difference-intake */
-        /*         if (strpos($key, 'glp-clinical-difference-intake') === 0) { */
-        /**/
-        /*             // Replace special patterns */
-        /*             $loc_id = str_replace('___', ':', $key); */
-        /*             $loc_id = str_replace('__', '.', $loc_id); */
-        /*             $loc_id = str_replace('_', '-', $loc_id); */
-        /**/
-        /*             $clinical_answers[] = [ */
-        /*                 'location' => "loc::{$loc_id}", */
-        /*                 'value'    => $value */
-        /*             ]; */
-        /*         } */
-        /*     } */
-        /**/
-        /*     $last_location = null; // full submission */
-        /**/
-        /*     // Debug log */
-        /*     error_log("[TelegraMD] Clinical Difference Answers → " . print_r($clinical_answers, true)); */
-        /*     error_log("[TelegraMD] Clinical Difference Last Location → " . $last_location); */
-        /**/
-        /*     // Submit clinical difference questionnaire */
-        /*     if (!empty($clinical_answers)) { */
-        /*         $result = $this->telegra->submit_questionnaire_answers( */
-        /*             $order_id, */
-        /*             $quest_inst,  */
-        /*             $clinical_answers, */
-        /*             $last_location */
-        /*         ); */
-        /*     } */
-        /**/
-        /*     return $result; */
-        /* } */
-
-
-
 
         public function save_patient_form_submission($insertData)
         {
@@ -829,6 +643,19 @@ if (! class_exists('hldFluentHandler')) {
             error_log("✅ Patient info updated successfully for logged-in user.");
         }
 
+        private function is_prefunnel($form_id)
+        {
+            return in_array($form_id, $this->prefunnel_forms_ids, true);
+        }
+
+        private function is_action_item($form_id)
+        {
+            return in_array($form_id, $this->action_items, true);
+        }
+
+
+
+
         /**
          * Callback for FluentForm before insert submission
          *
@@ -837,6 +664,9 @@ if (! class_exists('hldFluentHandler')) {
          */
         public function handle_before_insert_submission($insertData, $form)
         {
+
+
+
 
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
@@ -854,11 +684,16 @@ if (! class_exists('hldFluentHandler')) {
 
 
             // For security reasons also save the duplicate copy of fluent form submission
-            $this->save_patient_form_submission($insertData);
+            if ($this->is_prefunnel($form_id)) {
+                $this->save_patient_form_submission($insertData);
+            } else {
+                error_log($form_id . " is not a prefunnel [line 876]");
+            }
+
             // $this->save_patient_form_answers($submission_id, $form);
 
             // if not form can create patient create telegra order return
-            if (in_array($form_id, $this->prefunnel_forms_ids)) {
+            if ($this->is_prefunnel($form_id)) {
                 error_log("form is prefunnel so proceed");
                 $this->update_patient_info($form);
                 //
@@ -884,40 +719,12 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-        // faheem commented function cloned to make it dynamic below after this commented
-        // public function handle_after_insert_submission($insert_id, $form)
-        // {
-        //     error_log("aftersubmission form 853");
-        //     error_log(print_r($insert_id, true));
-        //     error_log(print_r($form, true));
-
-        //     $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
-        //     if (empty($telegra_order_id)) {
-        //         error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
-        //         return;
-        //     }
-        //     $telegra_quinst_data = isset($form['telegra_quinst_data']) ? sanitize_text_field($form['telegra_quinst_data']) : '';
-
-
-        //     $telegra_location_key = isset($form['telegra_location_key']) ? sanitize_text_field($form['telegra_location_key']) : '';
-        //     $order_detail = $this->telegra->get_order($telegra_order_id);
-        //     $quest_inst = $order_detail["questionnaireInstances"][0]["id"];
-        //     $last_location = "loc::Glp-intakeform-23";
-        //     $this->prepare_questionare_for_telegra(
-        //         $form,
-        //         $quest_inst,
-        //         $telegra_location_key, // "Glp_intakeform",
-        //         $telegra_order_id,
-        //         $last_location
-        //     );
-        // }
-
-
         public function handle_after_insert_submission($insert_id, $form)
         {
             error_log("aftersubmission form 853");
             error_log(print_r($insert_id, true));
             error_log(print_r($form, true));
+
 
             // 1️⃣ Retrieve and sanitize order ID
             $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
@@ -972,7 +779,7 @@ if (! class_exists('hldFluentHandler')) {
                     $last_location
                 );
 
-                
+
                 HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "clinical_diff");
 
                 error_log("[TelegraMD] Submitted questionnaire {$quest_inst} for location {$telegra_location_key}");

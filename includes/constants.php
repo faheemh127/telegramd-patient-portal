@@ -7,28 +7,24 @@ $prefix = $wpdb->prefix . "healsend_";
 
 
 // Form IDs --- Prefunnels
-if (! defined('HLD_GLP_1_WEIGHTLOSS_FORM_ID')) {
-    define('HLD_GLP_1_WEIGHTLOSS_FORM_ID', HLD_LIVE ? 56 : 53);
-}
+
 if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
     define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 56 : 45);
 }
+
+if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
+    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 67 : 57);
+}
+
 if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
     define('HLD_TRT_PREFUNNEL_FORM_ID', HLD_LIVE ? 63 : 55);
 }
 
-if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
-    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 67 : 67);
-}
-// pt-141 57
-// trt prefunnel 59
 if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
     define('HLD_CLINICAL_DIFFERENCE_FORM_ID', HLD_LIVE ? 66 : 55);
 }
 
-if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
-    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', 53);
-}
+
 
 
 
@@ -45,6 +41,8 @@ if (! defined('QUINST_CLINICAL_DIFFERENCE')) {
 if (! defined('HLD_PATIENT_DASHBOARD_URL')) {
     define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
 }
+
+
 
 
 
@@ -74,5 +72,8 @@ if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
 }
 
 
+
+
+// Define Slugs for plans
 define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
 define("HLD_METABOLIC_SLUG", "metabolic");

@@ -232,6 +232,15 @@ class HLD_UserSubscriptions
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
+
+
+
+        if (! hld_table_exists($table)) {
+            error_log("Healsend Error: Table does not exist: {$table}");
+            return false;
+        }
+
+
         // Fetch latest active subscription for user
         $result = $wpdb->get_row(
             $wpdb->prepare(
