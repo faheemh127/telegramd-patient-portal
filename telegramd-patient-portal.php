@@ -27,7 +27,9 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
     require_once $file;
 }
 
+
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-ghl-webhook-client.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
@@ -50,7 +52,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-action-item-manager.php'
 require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
-require_once plugin_dir_path(__FILE__) . 'classes/class-ghl-webhook-client.php';
+
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
@@ -69,7 +71,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/get-telegra-order.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/request-refund.php';
-require_once plugin_dir_path(__FILE__) . 'ajax/ghl-activate-prefunnel-email.php';
+// require_once plugin_dir_path(__FILE__) . 'ajax/ghl-activate-prefunnel-email.php';
 
 register_activation_hook(__FILE__, function () {
     HLD_DB_Tables::create_tables();

@@ -711,6 +711,7 @@ if (! class_exists('hldFluentHandler')) {
                         break;
                 }
                 HLD_Telegra::create_patient();
+                // HLD_Patient::prepareGHLContact();
                 $this->telegra();
             } else {
                 error_log("The Form id" . $form_id . " not exists in telegra_forms. that's why we cannot create any order on telegra with this form");

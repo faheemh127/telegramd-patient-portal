@@ -121,21 +121,3 @@ class GhlApiClient
 }
 
 
-// $GhlApiClient = new GhlApiClient(api_key);
-// $data = [
-//     "firstName"   => "Rosan",
-//     "lastName"    => "Deo",
-//     "name"        => "Rosan Deo",
-//     "email"       => "rosan@deos.com",
-//     "locationId"  => "tqGhhCGePHa1hQkrrOQY",
-//     "gender"      => "male",
-//     "phone"       => "+1 888-888-8888",
-//     "address1"    => "3535 1st St N",
-//     "city"        => "Dolomite",
-//     "state"       => "AL",
-//     "postalCode"  => "35061",
-//     "website"     => "https://www.tesla.com",
-//     "timezone"    => "America/Chihuahua"
-// ];
-// // (object) $data;
-// $GhlApiClient->createContact($data);
