@@ -675,8 +675,6 @@ if (! class_exists('hldFluentHandler')) {
         {
 
 
-
-
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
@@ -686,8 +684,12 @@ if (! class_exists('hldFluentHandler')) {
             }
 
             $form_id = $insertData['form_id'];
+
             // receiving telegra_product_id from fluent form prefunnel
-            if (isset($form['telegra_product_id'])) {
+            if (!isset($form['telegra_product_id']) || empty($form['telegra_product_id'])) {
+                error_log("[Healsend Error] Telegra id has not been set");
+                return;
+            } else {
                 $this->telegra_product_id = $form['telegra_product_id'];
             }
 

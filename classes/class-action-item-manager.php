@@ -49,10 +49,10 @@ class HLD_ActionItems_Manager
             [
                 'plan_slug'          => HLD_METABOLIC_SLUG,
                 'action_key'         => 'agreement',
-                'label'              => 'Agreement Form',
-                'description'        => 'Please review and sign the agreement to continue your metabolic plan.',
+                'label'              => 'Metabolic Enhancement Questionnaire',
+                'description'        => 'A quick assessment to help us understand your metabolic health and create a personalized enhancement plan.',
                 'item_slug'          => 'metabolic-enhancers-initial-intake-form',
-                'quinst_array_index' => '1',
+                'quinst_array_index' => '0',
                 'sort_order'         => 1,
                 'required'           => 1,
             ],

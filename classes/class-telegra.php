@@ -373,6 +373,7 @@ class HLD_Telegra
         $endpoint = TELEGRA_BASE_URL . '/orders';
         $patient = HLD_Patient::get_patient_info();
         error_log("Patient detail in create_order function 423: " . print_r($patient, true));
+        error_log("[HEALSEND NOTICE] product variation is ". $medication_id);
         $body = [
             "data" => [
                 "someData" => "?"
