@@ -136,11 +136,7 @@ class HLD_DB_Tables
         }
     }
 
-
-
-
-
-
+    
 
     /**
      * todo delete this function after go to production
