@@ -139,7 +139,7 @@ if (!class_exists('hldAssets')) {
 
 
 
-       
+
             $form_id         = 24; // Or dynamically get this
             $active_step_key = 'active_step_fluent_form_' . $form_id;
             $active_step     = get_user_meta(get_current_user_id(), $active_step_key, true);
@@ -175,6 +175,7 @@ if (!class_exists('hldAssets')) {
 
             wp_localize_script('my-stripe-handler', 'MyStripeData', [
                 'ajax_url'       => admin_url('admin-ajax.php'),
+                'return_url'    =>  get_permalink(),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
             ]);
         }

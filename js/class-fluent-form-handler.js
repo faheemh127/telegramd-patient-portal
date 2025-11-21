@@ -23,7 +23,6 @@ class HldFluentFormHandler {
       var $steps = $(".fluentform-step");
 
       if ($steps.length > 0) {
-        let $formWrapper = jQuery(".hld_form_warp_hidden");
         let lastStepNode = $steps[$steps.length - 1];
         let fluentFrom = $("Form").attr("id");
         let formId = fluentFrom.split("_")[1];
