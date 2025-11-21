@@ -48,7 +48,8 @@ function hld_ghl_activate_reminder()
 
     $current_user = wp_get_current_user();
     $patient_email = $current_user->user_email;
-    $patient_phone = $current_user->phone;
+    $patient = HLD_Patient::get_patient_info();
+    $patient_phone = $patient['phone'];
 
     $args = [$patient_email, $patient_phone];
     $hook_name = 'hld_send_ghl_webhook_event';
