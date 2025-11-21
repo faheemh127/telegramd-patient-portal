@@ -397,7 +397,7 @@ if (! class_exists('hldFluentHandler')) {
 
             if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
                 HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GLP_WEIGHT_LOSS_SLUG, $order_id);
-            } else if ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
+            } elseif ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
                 HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_METABOLIC_SLUG, $order_id);
             } else {
                 error_log("[Healsend Error]: we cannot fill any action item as form id" . $form_id . " do not match any prefunnel");
@@ -676,6 +676,7 @@ if (! class_exists('hldFluentHandler')) {
         {
 
 
+            $gender     = isset($form['dropdown_1']) ? strtolower(sanitize_text_field($form['dropdown_1'])) : '';
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
@@ -713,7 +714,11 @@ if (! class_exists('hldFluentHandler')) {
                     case HLD_METABOLIC_PREFUNNEL_FORM_ID:
                         $data = [];
                         $data[] = ['location' => 'loc::metabolic-enhancement-1', 'value' => $form['checkbox']];
-                        $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
+
+                        if ($gender == 'female') {
+                            $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
+                        }
+
                         $data[] = ['location' => 'loc::metabolic-enhancement-7', 'value' => $form['input_radio_2']];
 
                         $uid = wp_get_current_user()->ID;

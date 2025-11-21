@@ -48,8 +48,10 @@ function hld_ghl_activate_reminder()
 
     $current_user = wp_get_current_user();
     $patient_email = $current_user->user_email;
+    $patient = HLD_Patient::get_patient_info();
+    $patient_phone = $patient['phone'];
 
-    $args = [$patient_email];
+    $args = [$patient_email, $patient_phone];
     $hook_name = 'hld_send_ghl_webhook_event';
 
     $timestamp = wp_next_scheduled($hook_name, $args);
@@ -62,14 +64,15 @@ function hld_ghl_activate_reminder()
     wp_die();
 }
 
-function hld_ghl_execute_webhook_logic($patient_email)
+function hld_ghl_execute_webhook_logic($patient_email, $patient_phone)
 {
     $api_key = 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b';
     try {
         $GhlApiClient = new GhlApiClient($api_key);
 
         $data = [
-            "email" => $patient_email
+            "email" => $patient_email,
+            "phone" => $patient_phone
         ];
 
         $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
