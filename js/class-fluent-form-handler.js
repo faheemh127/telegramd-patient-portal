@@ -25,6 +25,18 @@ class HldFluentFormHandler {
       if ($steps.length > 0) {
         var lastStepNode = $steps[$steps.length - 1];
 
+        document.addEventListener("fluentform_init", function () {
+          alert("TESETASETAWETA;");
+        });
+
+        //This is a bad practice to use setTimeout to to unhide the element. There is
+        //no way to detect this is the right time to show the user the element.I am
+        //using 2seconds just by trail and error and  by seeing other values used as high as
+        //9 seconds.
+        setTimeout(function () {
+          jQuery(".hld_form_warp_hidden").removeClass("hld_form_warp_hidden");
+        }, 2000);
+
         async function executeLastStepCode() {
           if (!this.hasFired) {
             const subResult = await fetch(MyStripeData.ajax_url, {
@@ -40,6 +52,13 @@ class HldFluentFormHandler {
           mutations.forEach(function (mutation) {
             if (mutation.type === "attributes") {
               var $lastStep = $(lastStepNode);
+
+              $steps.each(function (i, step) {
+                if ($(step).hasClass("active"))
+                  $(".hld_form_warp_hidden").removeClass(
+                    "hld_form_warp_hidden",
+                  );
+              });
 
               if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
                 executeLastStepCode.call(that);

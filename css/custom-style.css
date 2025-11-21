@@ -95,6 +95,11 @@
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
 }
+
+.hld_form_warp_hidden {
+  display: none !important;
+}
+
 .hld_glp_1_prefunnel_wrap
   .hld_form_wrap
   .fluentform
@@ -883,7 +888,9 @@ nav.hld-navbar {
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
-  transition: border 0.3s ease, color 0.3s ease;
+  transition:
+    border 0.3s ease,
+    color 0.3s ease;
   width: 120px;
   text-align: center;
   width: 100%;
@@ -946,7 +953,9 @@ nav.hld-navbar {
   border-radius: 10px;
   padding: 25px 20px;
   background: #fff;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
   width: 100%;
   text-align: left;
   height: 100%;
@@ -1397,7 +1406,8 @@ nav.hld-navbar {
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
   font-size: 15px;
   height: 40px;
@@ -1515,7 +1525,6 @@ nav.hld-navbar {
 } */
 /************** Design for healsend.com home page slider ends ****************/
 
-
 /* ***************** sidebar code ends for action item sidebar */
 
 /* Mobile only (up to 767px) */
@@ -1534,7 +1543,9 @@ nav.hld-navbar {
     outline: none;
     box-shadow: none;
     cursor: text;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .hld_login_form input:focus {
@@ -1683,13 +1694,13 @@ nav.hld-navbar {
   .hld-custom-checkbox-group {
     flex-direction: column;
   }
-  .hld-view-invoice{
+  .hld-view-invoice {
     width: 100%;
   }
-  .hld-invoice-btns-wrap{
+  .hld-invoice-btns-wrap {
     padding: 0;
   }
-  .hld-order-detail-box .card-body{
+  .hld-order-detail-box .card-body {
     padding: 1.5rem !important;
   }
 } /* Responsive mobile_device****************************************************************************** */
