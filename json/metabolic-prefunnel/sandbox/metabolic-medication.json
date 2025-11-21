@@ -22,21 +22,21 @@
   },
   {
     "telegra_code": "pvt::87803044-1615-490d-ac20-1d0ac7f83915",
-    "medication_name": "NAD+ Nasal Spray",
-    "description": "Waiting to be provided.",
+    "medication_name": "NAD+ Nasal Spray (Empty)",
+    "description": "to be provided.",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "Free Evaluation, Daily Tablets",
+    "labels": "to be added, to be added",
     "packages": [
       {
         "monthly_duration": "1",
         "monthly_price": "0",
-        "desc": "Ideal for newcomers. One-month supply to experience the benefits of Sermorelin tablets without a long-term commitment.",
+        "desc": "to be added, to be added, to be added",
         "stripe_price_id": "price_dummy_tab_1M"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "0",
-        "desc": "Three-month package offering better savings while maintaining consistent daily dosing and visible results.",
+        "desc": "to be added, to be added, to be added",
         "stripe_price_id": "price_dummy_tab_3M"
       }
     ]

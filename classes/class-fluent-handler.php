@@ -19,7 +19,8 @@ if (! class_exists('hldFluentHandler')) {
             HLD_METABOLIC_PREFUNNEL_FORM_ID,
         ];
         protected $action_items = [
-            HLD_CLINICAL_DIFFERENCE_FORM_ID
+            HLD_CLINICAL_DIFFERENCE_FORM_ID,
+            HLD_METABOLIC_ACTION_ITEM_FORM_ID
         ];
         protected $telegra_product_id = null;
 

@@ -11,9 +11,9 @@
 
 
 
-define('HLD_LIVE', false);
+define('HLD_LIVE', true);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
-define('HLD_TELEGRA_AFFILIATE', true);
+define('HLD_TELEGRA_AFFILIATE', false);
 
 
 define('HLD_PLUGIN_VERSION', '1.4');
