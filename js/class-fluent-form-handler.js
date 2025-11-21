@@ -23,19 +23,28 @@ class HldFluentFormHandler {
       var $steps = $(".fluentform-step");
 
       if ($steps.length > 0) {
+        let $formWrapper = jQuery(".hld_form_warp_hidden");
         var lastStepNode = $steps[$steps.length - 1];
+        let fluentFrom = $("Form").attr("id");
+        let formId = fluentFrom.split("_")[1];
+        var cookieName = `fluentform_step_form_hash_${formId}`;
 
-        document.addEventListener("fluentform_init", function () {
-          alert("TESETASETAWETA;");
+        var hasCookie = document.cookie.split(";").some(function (item) {
+          return item.trim().startsWith(cookieName + "=");
         });
 
-        //This is a bad practice to use setTimeout to to unhide the element. There is
-        //no way to detect this is the right time to show the user the element.I am
-        //using 2seconds just by trail and error and  by seeing other values used as high as
-        //9 seconds.
-        setTimeout(function () {
+        if (!hasCookie) {
           jQuery(".hld_form_warp_hidden").removeClass("hld_form_warp_hidden");
-        }, 2000);
+        } else
+          //This is a bad  workaroundto use setTimeout to to unhide the element. There is
+          //no way to detect this is the right time to show the user the element.I am
+          //using 2seconds just by trail and error and  by seeing other values used as high as
+          //9 seconds. This is would only run when the user has interacted with form and
+          //clicked all the way back to the frist step of the form and left and is now returning
+          //again .
+          setTimeout(function () {
+            jQuery(".hld_form_warp_hidden").removeClass("hld_form_warp_hidden");
+          }, 2000);
 
         async function executeLastStepCode() {
           if (!this.hasFired) {
