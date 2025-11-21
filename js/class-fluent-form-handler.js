@@ -33,17 +33,19 @@ class HldFluentFormHandler {
         });
 
         if (!hasCookie) {
-          jQuery(".hld_form_warp_hidden").removeClass("hld_form_warp_hidden");
-        } else
+          jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
+        } 
+        // else
           //This is a bad  workaround to use setTimeout to to unhide the element. There is
           //no way to detect this is the right time to show the user the element.I am
           //using 2seconds just by trail and error and  by seeing other values used as high as
           //9 seconds. This is would only run when the user has interacted with form and
           //clicked all the way back to the frist step of the form and left and is now returning
           //again.
-          setTimeout(function () {
-            jQuery(".hld_form_warp_hidden").removeClass("hld_form_warp_hidden");
-          }, 2000);
+          
+          // setTimeout(function () {
+          //   jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
+          // }, 2000);
 
         async function executeLastStepCode() {
           if (!this.hasFired) {
@@ -56,16 +58,27 @@ class HldFluentFormHandler {
           }
         }
 
+        console.log("laststepnode 60", lastStepNode);
+
         var observer = new MutationObserver(function (mutations) {
           mutations.forEach(function (mutation) {
+
             if (mutation.type === "attributes") {
+              console.log("mutation if called");
               var $lastStep = $(lastStepNode);
+
+              console.log($lastStep);
 
               $steps.each(function (i, step) {
                 if ($(step).hasClass("active"))
-                  $(".hld_form_warp_hidden").removeClass(
-                    "hld_form_warp_hidden",
+
+
+                  console.log("enter in if condition 67");
+
+                  $(".hld_form_wrap_hidden").removeClass(
+                    "hld_form_wrap_hidden",
                   );
+
               });
 
               if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {

@@ -96,9 +96,9 @@
   accent-color: var(--hld-color-primary) !important;
 }
 
-.hld_form_warp_hidden {
+/* .hld_form_wrap_hidden {
   display: none !important;
-}
+} */
 
 .hld_glp_1_prefunnel_wrap
   .hld_form_wrap
@@ -1518,6 +1518,7 @@ nav.hld-navbar {
   border: 1px solid var(--hld-color-primary) !important;
   color: var(--hld-color-primary);
 }
+
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
