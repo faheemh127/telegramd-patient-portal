@@ -43,9 +43,9 @@ class HldFluentFormHandler {
         //clicked all the way back to the frist step of the form and left and is now returning
         //again.
 
-        // setTimeout(function () {
-        //   jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
-        // }, 2000);
+        setTimeout(function () {
+          jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
+        }, 8000);
 
         async function executeLastStepCode() {
           if (!this.hasFired) {

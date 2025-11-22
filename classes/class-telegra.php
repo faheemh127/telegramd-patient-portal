@@ -241,6 +241,8 @@ class HLD_Telegra
             'body'    => wp_json_encode($body),
             'timeout' => 20,
         ]);
+        // error_log("body json");
+        // error_log(wp_json_encode($body));
 
         // Handle transport error
         if (is_wp_error($response)) {
@@ -373,7 +375,7 @@ class HLD_Telegra
         $endpoint = TELEGRA_BASE_URL . '/orders';
         $patient = HLD_Patient::get_patient_info();
         error_log("Patient detail in create_order function 423: " . print_r($patient, true));
-        error_log("[HEALSEND NOTICE] product variation is ". $medication_id);
+        error_log("[HEALSEND NOTICE] product variation is " . $medication_id);
         $body = [
             "data" => [
                 "someData" => "?"

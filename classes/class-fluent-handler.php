@@ -411,6 +411,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
+            error_log($last_location);
 
 
             // later pass these dynamically
@@ -460,15 +461,21 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
+            error_log("Search string is " . $search_string);
             switch ($search_string) {
-                case 'metabolic-enhancement':
-                    $data = get_user_meata(get_current_user()->ID, 'metabolic-action-data');
+                case 'metabolic_enhancement':
+                    $data = get_user_meta(get_current_user_id(), 'metabolic-action-data', true);
+                    error_log("user questionnare meta data for metabolic");
+                    error_log(print_r($data, true));
                     $answers = array_merge($answers, $data);
                     break;
             }
             //   error_log("[TelegraMD] Answers for {$form_type} → " . print_r($answers, true));
 
+            error_log("Answers");
+            error_log(print_r($answers, true));
             // Submit the questionnaire answers
+            // $last_location = "loc::metabolic-enhancement-8";
             if (!empty($answers)) {
                 $result = $this->telegra->submit_questionnaire_answers(
                     $order_id,
@@ -717,6 +724,8 @@ if (! class_exists('hldFluentHandler')) {
 
                         if ($gender == 'female') {
                             $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
+                        }else{
+                            $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => "4ad305b7"];
                         }
 
                         $data[] = ['location' => 'loc::metabolic-enhancement-7', 'value' => $form['input_radio_2']];
@@ -789,6 +798,10 @@ if (! class_exists('hldFluentHandler')) {
                 $quest_inst = $order_detail["questionnaireInstances"][$quinst_index]["id"];
 
                 // 5️⃣ Call prepare_questionare_for_telegra for each object
+                error_log("[Five Data]");
+
+
+
                 $this->prepare_questionare_for_telegra(
                     $form,
                     $quest_inst,
