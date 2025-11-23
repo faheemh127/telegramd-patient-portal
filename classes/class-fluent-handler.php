@@ -388,10 +388,14 @@ if (! class_exists('hldFluentHandler')) {
             error_log("telegra_patient_id is:245" . $telegra_patient_id);
             $medication_id = $this->get_medication_id();
 
+
+
+
+            // the third parameter we can pass is symptoms at the moment we are ignoring it means empty array default parameter will be used
+            // ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             $order_id = $this->telegra->create_order(
                 $telegra_patient_id,
-                $medication_id,
-                ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
+                $medication_id
             );
 
             if (is_user_logged_in()) {
@@ -711,7 +715,7 @@ if (! class_exists('hldFluentHandler')) {
                 $this->telegra_product_id = $form['telegra_product_id'];
             }
 
- 
+
 
             if ($this->is_prefunnel($form_id) && (!isset($form['my_stripe_subscription_id']) && empty($form['my_stripe_subscription_id']))) {
                 error_log("[Healsend Error] Subscription_id has not been set for form submission of " . $form_id);

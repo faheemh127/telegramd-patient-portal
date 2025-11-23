@@ -69,7 +69,13 @@
                 },
                 success: function(response) {
                     console.log(response);
-                    alert("Your file has been uploaded successfully!");
+                    if (response.data && response.data.patient_dashboard_url) {
+                        window.location.href = response.data.patient_dashboard_url;
+                    } else {
+                        console.warn("No redirect URL returned from server.");
+                    }
+
+
                 },
                 error: function(err) {
                     console.error(err);

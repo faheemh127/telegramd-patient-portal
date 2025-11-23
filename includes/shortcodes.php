@@ -41,15 +41,20 @@ if (! class_exists('hldShortcode')) {
             );
 
             ob_start();
-            echo do_shortcode('[hld_navbar]');
-?>
+            echo do_shortcode('[hld_navbar]'); ?>
             <div class="hld_form_wrap_hidden">
-                <?php echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]'); ?>
-            </div> <?php echo do_shortcode('[hld_footer]');
-                    return ob_get_clean();
-                }
-            }
+                <?php
+                echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
+                echo do_shortcode('[hld_footer]');
+                ?>
+            </div>
 
-            // instantiate on plugins loaded (or just instantiate now)
-            new hldShortcode();
+
+<?php
+            return ob_get_clean();
         }
+    }
+
+    // instantiate on plugins loaded (or just instantiate now)
+    new hldShortcode();
+}

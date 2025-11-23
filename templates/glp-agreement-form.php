@@ -1,5 +1,5 @@
  <div class="container d-flex flex-column justify-content-center  mt-5 hld-upload-id">
-     
+
      <div class="card shadow-sm rounded-3 w-100" style="max-width: 700px; border-radius: 20px;
     overflow: hidden;">
          <div class="card-body p-4">
@@ -122,7 +122,11 @@
                  },
                  success: function(response) {
                      console.log(response);
-                     alert("Your file has been uploaded successfully!");
+                     if (response.data && response.data.patient_dashboard_url) {
+                         window.location.href = response.data.patient_dashboard_url;
+                     } else {
+                         console.warn("No redirect URL returned from server.");
+                     }
                  },
                  error: function(err) {
                      console.error(err);

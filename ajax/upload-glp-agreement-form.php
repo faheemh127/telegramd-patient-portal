@@ -88,7 +88,11 @@ function hld_glp_agreement_upload_handler()
 
     if ($status_code == 200) {
         HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "agreement");
-        wp_send_json_success(['message' => 'File uploaded successfully', 'response' => $response_body]);
+        wp_send_json_success([
+            'message' => 'File uploaded successfully',
+            'response' => $response_body,
+            "patient_dashboard_url" => HLD_PATIENT_DASHBOARD_URL
+        ]);
     }
 
     wp_send_json_error(['message' => 'API error', 'status' => $status_code, 'response' => $response_body]);

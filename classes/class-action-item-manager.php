@@ -94,6 +94,7 @@ class HLD_ActionItems_Manager
         // Table name
         $table = HEALSEND_USER_ACTIONS_TABLE;
 
+
         if (empty($telegra_order_id) || empty($plan_slug)) {
             return false; // invalid input
         }
@@ -101,7 +102,7 @@ class HLD_ActionItems_Manager
         // Check if row exists
         $row_exists = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT COUNT(*) FROM {$table} WHERE telegra_order_id = %s AND plan_slug = %s",
+                "SELECT COUNT(*) FROM {$table} WHERE telegra_order_id = %s AND action_key = %s",
                 $telegra_order_id,
                 $plan_slug
             )
@@ -119,7 +120,7 @@ class HLD_ActionItems_Manager
             ],
             [
                 'telegra_order_id' => $telegra_order_id,
-                'plan_slug'        => $plan_slug,
+                'action_key'        => $plan_slug,
             ],
             [
                 '%s', // status
