@@ -374,7 +374,7 @@ class HLD_Telegra
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint = TELEGRA_BASE_URL . '/orders';
         $patient = HLD_Patient::get_patient_info();
-        error_log("Patient detail in create_order function 423: " . print_r($patient, true));
+        error_log("Patient detail in create order function in class telegra function 423: " . print_r($patient, true));
         error_log("[HEALSEND NOTICE] product variation is " . $medication_id);
         $body = [
             "data" => [
@@ -429,11 +429,7 @@ class HLD_Telegra
             return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
         }
 
-        if (is_user_logged_in()) {
-            HLD_UserSubscriptions::update_order($data['id']);
-        } else {
-            error_log("⚠️ User not logged in, cannot save order to user meta.");
-        }
+    
         error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
         return $data['id'];
     }

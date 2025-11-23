@@ -285,7 +285,7 @@ class HLD_UserSubscriptions
                 'telegra_order_id' => sanitize_text_field($telegra_order_id),
             ],
             [
-                'patient_email' => $patient_email, // condition
+                'stripe_subscription_id' => $patient_email, // condition
             ],
             ['%s'],
             ['%s']

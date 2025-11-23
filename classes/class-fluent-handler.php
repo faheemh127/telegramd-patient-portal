@@ -23,6 +23,8 @@ if (! class_exists('hldFluentHandler')) {
             HLD_METABOLIC_ACTION_ITEM_FORM_ID
         ];
         protected $telegra_product_id = null;
+        protected $stripe_subscription_id = null;
+
 
         public function __construct($telegra)
         {
@@ -392,6 +394,13 @@ if (! class_exists('hldFluentHandler')) {
                 ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             );
 
+            if (is_user_logged_in()) {
+                HLD_UserSubscriptions::update_order($this->stripe_subscription_id);
+            } else {
+                error_log("⚠️ User not logged in, cannot save order to user meta.");
+            }
+
+
             // Assign General Action item that will be for all plans
             HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GENERAL_ACTION_ITEM, $order_id);
 
@@ -702,6 +711,17 @@ if (! class_exists('hldFluentHandler')) {
                 $this->telegra_product_id = $form['telegra_product_id'];
             }
 
+ 
+
+            if ($this->is_prefunnel($form_id) && (!isset($form['my_stripe_subscription_id']) && empty($form['my_stripe_subscription_id']))) {
+                error_log("[Healsend Error] Subscription_id has not been set for form submission of " . $form_id);
+                return;
+            } else {
+                $this->stripe_subscription_id = $form['my_stripe_subscription_id'];
+            }
+
+
+
 
             // For security reasons also save the duplicate copy of fluent form submission
             if ($this->is_prefunnel($form_id)) {
@@ -724,7 +744,7 @@ if (! class_exists('hldFluentHandler')) {
 
                         if ($gender == 'female') {
                             $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => $form['input_radio']];
-                        }else{
+                        } else {
                             $data[] = ['location' => 'loc::metabolic-enhancement-9', 'value' => "4ad305b7"];
                         }
 
