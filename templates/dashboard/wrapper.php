@@ -127,8 +127,9 @@ if (isset($_GET["care-team"])) {
                 <p class="hld_tabs_hint">Swipe to navigate.</p>
             <?php endif; ?>
 
-            
-<?php // error_log(print_r(get_user_meta(get_current_user_id()), true)); ?>
+
+            <?php // error_log(print_r(get_user_meta(get_current_user_id()), true)); 
+            ?>
 
             <?php if (isset($_GET['upload-id'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/upload-id.php'; ?>
@@ -162,13 +163,24 @@ if (isset($_GET["care-team"])) {
                     <!-- Section 3 -->
                     <section class="container hld-chat-container">
 
-                        <iframe
-                            id="chat-clinical"
-                            src="https://healsend.com/chat-app/"
-                            width="100%"
-                            height="1000"
-                            style="border: none;"
-                            loading="lazy"></iframe>
+
+                        <?php
+
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
+
+
+                        ?>
+                            <iframe
+                                id="chat-clinical"
+                                src="https://healsend.com/chat-app/"
+                                width="100%"
+                                height="1000"
+                                style="border: none;"
+                                loading="lazy"></iframe>
+
+                        <?php } else {
+                            hld_not_found("Clinical chat will be activated once you purchase your first subscription.");
+                        } ?>
 
 
                     </section>
@@ -183,12 +195,29 @@ if (isset($_GET["care-team"])) {
                     <section class="container">
                         <?php // hdl_get_template('dashboard/returns'); 
                         ?>
-                        <iframe
-                            src="https://healsend.com/visit/"
-                            width="100%"
-                            height="1000"
-                            style="border: none;"
-                            loading="lazy"></iframe>
+
+
+
+                        <?php
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
+                        ?>
+                            <iframe
+                                src="https://healsend.com/visit/"
+                                width="100%"
+                                height="1000"
+                                style="border: none;"
+                                loading="lazy"></iframe>
+
+                        <?php } else {
+                            hld_not_found("Your visit records will be available once you purchase your first subscription.");
+                        } ?>
+
+
+
+
+
+
+
 
                     </section>
                     <section class="container">
@@ -204,26 +233,57 @@ if (isset($_GET["care-team"])) {
 
                     <section class="container hld-chat-container">
 
-                        <iframe
-                            id="chat-support"
-                            src="https://healsend.com/chat-app/"
-                            width="100%"
-                            height="1000"
-                            style="border: none;"
-                            loading="lazy"></iframe>
+
+                        <?php
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
+                        ?>
+                            <iframe
+                                id="chat-support"
+                                src="https://healsend.com/chat-app/"
+                                width="100%"
+                                height="1000"
+                                style="border: none;"
+                                loading="lazy"></iframe>
+
+                        <?php } else {
+                            hld_not_found("Support will be available once you purchase your first subscription.");
+                        } ?>
+
+
+
+
+
+
+
 
 
                     </section>
 
 
                     <section class="container hld-chat-container">
-                        <iframe
-                            id="chat-billing"
-                            src="https://healsend.com/chat-app/"
-                            width="100%"
-                            height="1000"
-                            style="border: none;"
-                            loading="lazy"></iframe>
+
+
+                        <?php
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
+                        ?>
+                            <iframe
+                                id="chat-billing"
+                                src="https://healsend.com/chat-app/"
+                                width="100%"
+                                height="1000"
+                                style="border: none;"
+                                loading="lazy"></iframe>
+
+                        <?php } else {
+                            hld_not_found("Billing chat will be available once you purchase your first subscription.");
+                        } ?>
+
+
+
+
+
+
+
                     </section>
 
 

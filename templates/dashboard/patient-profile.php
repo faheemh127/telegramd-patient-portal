@@ -34,7 +34,7 @@ if (isset($_GET['message'])) {  ?>
                         <form id="hld-account-details-form" class="hld-account-details-form">
                             <div class="mb-3 mt-4">
                                 <label for="hld_full_name" class="form-label"><strong>Name:</strong></label>
-                                <p id="hldPatientProfileFullName"><?= !empty($patient['full_name']) ? esc_html($patient['full_name']) : '<em>Not provided</em>'; ?></p>
+                                <p id="hldPatientProfileFullName"><?= !empty($patient['full_name']) ? esc_html($patient['full_name']) : get_logged_in_username(); ?></p>
                                 <input type="hidden" class="form-control" id="hld_full_name" name="full_name" value="<?= esc_attr($patient['full_name']); ?>">
                             </div>
 

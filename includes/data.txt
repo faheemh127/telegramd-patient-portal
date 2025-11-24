@@ -205,6 +205,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- make it dynamic quinstn id 
 -- add disqualify for states in nad-therapy
 -- need to add loading bar with hld_form_wrap_hidden so on page loads we can show loading bar we can
+--  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode

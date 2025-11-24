@@ -62,6 +62,37 @@ class HLD_UserSubscriptions
     }
 
 
+    public static function has_any_subscription()
+    {
+        // Must be logged in
+        if (!is_user_logged_in()) {
+            error_log("has_any_subscription: User not logged in.");
+            return false;
+        }
+
+        // Get logged-in user email
+        $current_user = wp_get_current_user();
+        $patient_email = $current_user->user_email;
+
+        if (empty($patient_email)) {
+            error_log("has_any_subscription: Logged-in user has no email.");
+            return false;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Check ANY subscription for this email
+        $result = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM $table
+             WHERE patient_email = %s",
+                $patient_email
+            )
+        );
+
+        return $result > 0;
+    }
 
 
 

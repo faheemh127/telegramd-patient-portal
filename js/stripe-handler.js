@@ -274,7 +274,7 @@ class hldStripeHandler {
     try {
       if (!intent.success) {
         this.showError("Error creating SetupIntent.");
-        this.toggleButtonState(false, "Save and Continue");
+        this.toggleButtonState(false, "Save and Continue", this.paymentButton);
         return;
       }
 
@@ -372,7 +372,7 @@ class hldStripeHandler {
             "Failed to create subscription: " +
               (subResponse.data?.message || "")
           );
-          this.toggleButtonState(false, "Save and Continue");
+          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
           return;
         }
 
@@ -415,7 +415,7 @@ class hldStripeHandler {
           this.showError(
             "Failed to charge the card: " + (chargeResponse.data?.message || "")
           );
-          this.toggleButtonState(false, "Save and Continue");
+          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
           return;
         }
 
@@ -432,7 +432,7 @@ class hldStripeHandler {
 
         if (!saveResult.success) {
           this.showError("Error saving card.");
-          this.toggleButtonState(false, "Save and Continue");
+          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
           return;
         }
       }
@@ -453,7 +453,7 @@ class hldStripeHandler {
     } catch (error) {
       console.error("Error during card payment handling:", error);
       this.showError("Something went wrong. Please try again.");
-      this.toggleButtonState(false, "Save and Continue");
+      this.toggleButtonState(false, "Save and Continue", this.paymentButton);
     }
   }
 

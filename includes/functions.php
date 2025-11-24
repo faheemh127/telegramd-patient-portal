@@ -131,3 +131,7 @@ function hld_table_exists($table_name)
     // Return true if the table name matches
     return ($result === $table_name);
 }
+function get_logged_in_username() {
+    $user = wp_get_current_user();
+    return ($user && $user->ID) ? $user->user_login : null;
+}

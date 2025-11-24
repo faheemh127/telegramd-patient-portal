@@ -5,6 +5,10 @@ add_action('wp_ajax_nopriv_subscribe_patient', 'hld_subscribe_patient_handler');
 
 function hld_subscribe_patient_handler()
 {
+
+
+    // @todo check nonce here
+
     if (!isset($_POST['payment_method']) || !isset($_POST['price_id']) || !isset($_POST['duration'])) {
         wp_send_json_error(['message' => 'Missing parameters']);
         wp_die();
@@ -15,8 +19,6 @@ function hld_subscribe_patient_handler()
      * check that if patient has already purchased the plan or not
      * one patient should not be able to purchase the same plan again
      */
-
-
 
     $slug  = sanitize_text_field($_POST['slug']);
     if (empty($_POST['slug'])) { // covers both not set and empty
@@ -43,7 +45,7 @@ function hld_subscribe_patient_handler()
     $price_id           = sanitize_text_field($_POST['price_id']);
     $duration           = (int) sanitize_text_field($_POST['duration']);
     $months             = max(1, $duration); // ensure positive integer
-    $medication         = sanitize_text_field($_POST['price_id']);
+    $medication         = sanitize_text_field($_POST['medication']);
     $telegra_product_id = sanitize_text_field($_POST['telegra_product_id']);
 
     try {
