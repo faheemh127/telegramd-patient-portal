@@ -294,3 +294,4 @@ make the auto order next to false as we need to test on live requirements
 -- need to setup thankyou page for metabolic action items (same we can use on other questionnares)
 -- quinst id should be dynamic
 -- DOB 
+-- preferred medicaion is not dymaic order is id is not saving in subscription table

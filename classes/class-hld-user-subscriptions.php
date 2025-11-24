@@ -260,7 +260,7 @@ class HLD_UserSubscriptions
 
 
 
-    public static function update_order($telegra_order_id)
+    public static function update_order($telegra_order_id, $stripe_subscription_id)
     {
         // Validate input
         if (empty($telegra_order_id)) {
@@ -278,14 +278,15 @@ class HLD_UserSubscriptions
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
-        // Update telegra_order_id for this patient
+        // Update telegra_order_id for this patient'
+        
         $result = $wpdb->update(
             $table,
             [
                 'telegra_order_id' => sanitize_text_field($telegra_order_id),
             ],
             [
-                'stripe_subscription_id' => $patient_email, // condition
+                'stripe_subscription_id' => $stripe_subscription_id, // condition
             ],
             ['%s'],
             ['%s']

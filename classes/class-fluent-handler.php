@@ -24,6 +24,7 @@ if (! class_exists('hldFluentHandler')) {
         ];
         protected $telegra_product_id = null;
         protected $stripe_subscription_id = null;
+        protected $medication_name = null;
 
 
         public function __construct($telegra)
@@ -399,7 +400,7 @@ if (! class_exists('hldFluentHandler')) {
             );
 
             if (is_user_logged_in()) {
-                HLD_UserSubscriptions::update_order($this->stripe_subscription_id);
+                HLD_UserSubscriptions::update_order( $order_id,$this->stripe_subscription_id);
             } else {
                 error_log("⚠️ User not logged in, cannot save order to user meta.");
             }
@@ -617,13 +618,24 @@ if (! class_exists('hldFluentHandler')) {
             $zip_code   = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["zip"]) : '';
 
 
+
+            error_log("DOB is" . $dob);
             // Physical metrics
             $height_feet  = isset($prefunnel_form_data['input_text_2']) ? floatval($prefunnel_form_data['input_text_2']) : 0;
             $height_inches = isset($prefunnel_form_data['input_text_4']) ? floatval($prefunnel_form_data['input_text_4']) : 0;
             $weight_lbs   = isset($prefunnel_form_data['input_text_3']) ? floatval($prefunnel_form_data['input_text_3']) : 0;
 
-            // ✅ Convert DOB to proper format if needed (Fluent Form might return dd-MMM-yy)
-            $formatted_dob = date('Y-m-d', strtotime($dob));
+
+            $date = DateTime::createFromFormat('m-d-Y', $dob);
+
+            if ($date) {
+                $formatted_dob = $date->format('Y-m-d');
+                error_log("Formatted DOB: " . $formatted_dob);
+            } else {
+                error_log("Failed to format DOB: " . $dob);
+            }
+
+
 
             // Log extracted data for debugging
             error_log("🧾 update_patient_info extracted data: " . print_r([
@@ -713,6 +725,7 @@ if (! class_exists('hldFluentHandler')) {
                 return;
             } else {
                 $this->telegra_product_id = $form['telegra_product_id'];
+                $this->medication_name = $form['dropdown_4']; //dropdown_4 is actually the name attribute in prefunnel for product
             }
 
 
@@ -823,7 +836,7 @@ if (! class_exists('hldFluentHandler')) {
                 $quest_inst = $order_detail["questionnaireInstances"][$quinst_index]["id"];
 
                 // 5️⃣ Call prepare_questionare_for_telegra for each object
-               
+
 
 
 
