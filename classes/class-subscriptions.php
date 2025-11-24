@@ -23,26 +23,36 @@ class HLD_UserSubscriptions
     /**
      * Check if a user already has an active subscription for a given slug
      */
-    public static function is_subscription_active($user_id, $subscription_slug)
+    public static function is_subscription_active($subscription_slug)
     {
-        if (empty($user_id) || empty($subscription_slug)) {
+        // Check if user is logged in
+        if (!is_user_logged_in() || empty($subscription_slug)) {
+            error_log("is_subscription_active: No logged-in user or subscription_slug missing.");
+            return false;
+        }
+
+        // Get logged-in user's email
+        $current_user = wp_get_current_user();
+        $patient_email = $current_user->user_email;
+
+        if (empty($patient_email)) {
+            error_log("is_subscription_active: Logged-in user has no email.");
             return false;
         }
 
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
-
         $current_time = time();
 
-        // Check if user has an active subscription for this slug
+        // Check if there is an active subscription for this email and slug
         $result = $wpdb->get_var(
             $wpdb->prepare(
                 "SELECT COUNT(*) FROM $table
-             WHERE user_id = %d
+             WHERE patient_email = %s
              AND subscription_slug = %s
              AND subscription_status = 'active'
              AND (subscription_end = 0 OR subscription_end > %d)",
-                $user_id,
+                $patient_email,
                 $subscription_slug,
                 $current_time
             )
@@ -50,6 +60,7 @@ class HLD_UserSubscriptions
 
         return $result > 0;
     }
+
 
 
 
@@ -77,7 +88,7 @@ class HLD_UserSubscriptions
         stripe_subscription_id VARCHAR(255) NOT NULL,
         stripe_customer_id VARCHAR(255) NOT NULL,
         stripe_invoice_id VARCHAR(255) NULL,
-        subscription_status VARCHAR(50) NOT NULL,
+        subscription_status ENUM('active', 'past_due', 'canceled', 'unpaid', 'incomplete', 'incomplete_expired', 'trialing') NOT NULL,
         subscription_start BIGINT(20) NOT NULL,
         subscription_end BIGINT(20) NULL,
         cancel_at_period_end TINYINT(1) DEFAULT 0,
@@ -110,18 +121,7 @@ class HLD_UserSubscriptions
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
-        // Prevent duplicates
-        // if (self::has_order($user_id, $telegra_order_id)) {
-        //     return true;
-        // }
-        // ✅ Check if user already has an active subscription for this plan
-        if (self::is_subscription_active($user_id, $subscription_slug)) {
-            error_log("Current user has already subscribed this plan " . $subscription_slug);
-            return [
-                'status'  => false,
-                'message' => 'You already have an active Weight Loss plan. Please wait until your current subscription ends or contact support for adjustments.'
-            ];
-        }
+
 
 
 

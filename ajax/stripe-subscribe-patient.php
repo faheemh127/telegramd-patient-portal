@@ -10,6 +10,32 @@ function hld_subscribe_patient_handler()
         wp_die();
     }
 
+
+    /**
+     * check that if patient has already purchased the plan or not
+     * one patient should not be able to purchase the same plan again
+     */
+
+
+
+    $slug  = sanitize_text_field($_POST['slug']);
+    if (empty($_POST['slug'])) { // covers both not set and empty
+        wp_send_json_error([
+            'message' => 'Plan slug is required. Please verify whether the patient has already purchased this subscription.'
+        ]);
+        wp_die();
+    }
+    $plan_exists = HLD_UserSubscriptions::is_subscription_active($slug);
+    if ($plan_exists) {
+        wp_send_json_error([
+            'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.'
+        ]);
+        wp_die();
+    }
+
+
+
+
     require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
@@ -103,10 +129,10 @@ function hld_subscribe_patient_handler()
                 $user_id,
                 $patient_email,
                 $months,
-                'med_123',            // Example: Telegra med ID
-                'Tirzepatide',        // Example: Medication name
+                'to be added', // Example: Telegra med ID
+                'to be added', // Example: Medication name
                 $subscription,
-                HLD_GLP_WEIGHT_LOSS_SLUG
+                HLD_GLP_WEIGHT_LOSS_SLUG // todo this should be dynamic
             );
 
 

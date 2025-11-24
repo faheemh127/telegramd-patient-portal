@@ -75,7 +75,6 @@ if (! defined('HLD_PATIENT_DASHBOARD_URL')) {
 
 // Define Slugs for plans
 define("HLD_GENERAL_ACTION_ITEM", "general");
-
 define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
 define("HLD_METABOLIC_SLUG", "metabolic");
 

@@ -40,7 +40,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/funnel-navbar.php';
 require_once plugin_dir_path(__FILE__) . 'includes/funnel-footer.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-settings.php';
 
-require_once plugin_dir_path(__FILE__) . 'classes/class-hld-user-subscriptions.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-subscriptions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-hld-user-notifications.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-payments.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-hld-db-backup-manager.php';

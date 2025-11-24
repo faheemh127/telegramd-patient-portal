@@ -400,8 +400,8 @@ if (! class_exists('hldFluentHandler')) {
             );
 
             if (is_user_logged_in()) {
-                 HLD_UserSubscriptions::update_order_telegra_id( $order_id,$this->stripe_subscription_id);
-                 HLD_UserSubscriptions::update_telegra_product_id( $order_id,$this->telegra_product_id, $this->stripe_subscription_id);
+                HLD_UserSubscriptions::update_order_telegra_id($order_id, $this->stripe_subscription_id);
+                HLD_UserSubscriptions::update_telegra_product_id($order_id, $this->telegra_product_id, $this->stripe_subscription_id);
             } else {
                 error_log("⚠️ User not logged in, cannot save order to user meta.");
             }

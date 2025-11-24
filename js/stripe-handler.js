@@ -321,18 +321,44 @@ class hldStripeHandler {
 
       const paymentMethod = result.setupIntent.payment_method;
 
+      const planSlugField = document.querySelector('[name="hld_plan_slug"]');
+      const planSlug = planSlugField ? planSlugField.value : "";
+      console.log("plan slug is ", planSlug);
+
       if (this.isSubscription) {
+        
+
+        /**
+         * the below code should be deleted because its replaced with a betterone
+         */
+        // const subResult = await fetch(MyStripeData.ajax_url, {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        //   body: `action=subscribe_patient&customer_id=${encodeURIComponent(
+        //     intent.data.customerId
+        //   )}&payment_method=${encodeURIComponent(
+        //     paymentMethod
+        //   )}&slug=${encodeURIComponent(
+        //     planSlug
+        //   )}&price_id=${encodeURIComponent(
+        //     this.stripePriceId
+        //   )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+        // });
+
         // Call subscription AJAX instead of charge_now
+        const data = new URLSearchParams({
+          action: "subscribe_patient",
+          customer_id: intent.data.customerId,
+          payment_method: paymentMethod,
+          slug: planSlug,
+          price_id: this.stripePriceId,
+          duration: this.gl1Duration,
+        });
+
         const subResult = await fetch(MyStripeData.ajax_url, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: `action=subscribe_patient&customer_id=${encodeURIComponent(
-            intent.data.customerId
-          )}&payment_method=${encodeURIComponent(
-            paymentMethod
-          )}&price_id=${encodeURIComponent(
-            this.stripePriceId
-          )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+          body: data.toString(),
         });
 
         const subResponse = await subResult.json();
