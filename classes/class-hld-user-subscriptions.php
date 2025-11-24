@@ -304,38 +304,50 @@ class HLD_UserSubscriptions
     /**
      * Get all orders for a given user
      */
-    public static function get_orders($user_id)
+    public static function get_orders()
     {
-        if (empty($user_id)) return [];
+        // Ensure user is logged in
+        if (!is_user_logged_in()) {
+            error_log("TelegraMD Error: get_orders() called but no user is logged in.");
+            return [];
+        }
+
+        // Get logged-in user's email
+        $current_user = wp_get_current_user();
+
+        if (empty($current_user->user_email)) {
+            error_log("TelegraMD Error: Logged-in user has no email address.");
+            return [];
+        }
+
+        $patient_email = $current_user->user_email;
 
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
-        // ✅ Check if table exists
-        $table_exists = $wpdb->get_var($wpdb->prepare(
-            "SHOW TABLES LIKE %s",
-            $table
-        ));
+        // Check if table exists
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare("SHOW TABLES LIKE %s", $table)
+        );
 
         if ($table_exists !== $table) {
             error_log("TelegraMD Error: Table '$table' does not exist.");
             return [];
         }
 
-        // ✅ Get orders starting with 'order::'
+        // Fetch all telegra orders for this patient
         $results = $wpdb->get_col(
             $wpdb->prepare(
                 "SELECT telegra_order_id 
              FROM $table 
-             WHERE user_id = %d 
-               AND telegra_order_id LIKE %s",
-                $user_id,
-                $wpdb->esc_like('order::') . '%'
+             WHERE patient_email = %s",
+                $patient_email
             )
         );
 
         return $results ?: [];
     }
+
 
 
 

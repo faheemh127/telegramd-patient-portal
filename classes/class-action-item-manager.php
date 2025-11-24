@@ -48,7 +48,7 @@ class HLD_ActionItems_Manager
             ],
             [
                 'plan_slug'          => HLD_METABOLIC_SLUG,
-                'action_key'         => 'agreement',
+                'action_key'         => 'metabolic_questionnare',
                 'label'              => 'Metabolic Enhancement Questionnaire',
                 'description'        => 'A quick assessment to help us understand your metabolic health and create a personalized enhancement plan.',
                 'item_slug'          => 'metabolic-enhancers-initial-intake-form',

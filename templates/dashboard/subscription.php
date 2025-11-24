@@ -13,6 +13,8 @@ if (!is_array($subscription) || empty($subscription['stripe_subscription_id'])) 
     return; // or handle however you want
 }
 
+
+
 $sub_nonce = wp_create_nonce('sub_nonce');
 $sub_hash = wp_hash($sub_nonce . $subscription['stripe_subscription_id']);
 
@@ -35,8 +37,8 @@ if ($subscription == null) {
             </div>
             <div class="row mb-3 hld-row">
                 <div class="col-md-6 hld-col">
-                    <p class="hld-text"><strong class="hld-label">Package Name:</strong>
-                        <?php echo esc_html($subscription['subscription_duration']); ?></p>
+                    <p class="hld-text"><strong class="hld-label">Preferred Medication:</strong>
+                        <?php echo esc_html($subscription['medication_name']); ?></p>
                     <p class="hld-text"><strong class="hld-label">Medication:</strong>
                         <?php echo esc_html($subscription['medication_name']); ?></p>
                     <p class="hld-text"><strong class="hld-label">Start Date:</strong>
@@ -63,10 +65,13 @@ if ($subscription == null) {
                             View Last Invoice
                         </a>
 
+                        <?php if (isset($subscription["refund_status"]) && $subscription["refund_status"] == "requested") { ?>
 
-                        <span class="hld-view-invoice btn btn-primary" id="hld-revoke-sub" sub-nonce="<?php echo $sub_nonce;  ?>" data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
-                            Revoke Subscription
-                        </span>
+                            <span class="hld-view-invoice btn btn-primary" id="hld-revoke-sub" sub-nonce="<?php echo $sub_nonce;  ?>" data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
+                                Revoke Subscription
+                            </span>
+
+                        <?php } ?>
 
                     </div>
 

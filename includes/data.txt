@@ -289,3 +289,8 @@ thankyou page for weight loss action item
 Ryan
 make the auto order next to false as we need to test on live requirements
 -- fix update_telegra_order id unique order key error  when add telegra_order_id 
+
+
+-- need to setup thankyou page for metabolic action items (same we can use on other questionnares)
+-- quinst id should be dynamic
+-- DOB 

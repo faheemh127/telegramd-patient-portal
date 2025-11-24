@@ -807,6 +807,7 @@ if (! class_exists('hldFluentHandler')) {
                 $quinst_index = isset($item['quinst_array_index']) ? intval($item['quinst_array_index']) : null;
                 $telegra_location_key = isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
                 $last_location = isset($item['last_location']) ? sanitize_text_field($item['last_location']) : '';
+                $action_key = isset($item['action_key']) ? sanitize_text_field($item['action_key']) : '';
 
                 if ($quinst_index === null || empty($telegra_location_key) || empty($last_location)) {
                     error_log("[TelegraMD] Skipped invalid entry in telegra_quinst_data");
@@ -822,7 +823,7 @@ if (! class_exists('hldFluentHandler')) {
                 $quest_inst = $order_detail["questionnaireInstances"][$quinst_index]["id"];
 
                 // 5️⃣ Call prepare_questionare_for_telegra for each object
-                error_log("[Five Data]");
+               
 
 
 
@@ -835,7 +836,7 @@ if (! class_exists('hldFluentHandler')) {
                 );
 
 
-                HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, "clinical_diff");
+                HLD_ActionItems_Manager::mark_action_item_completed($telegra_order_id, $action_key);
 
                 error_log("[TelegraMD] Submitted questionnaire {$quest_inst} for location {$telegra_location_key}");
             }

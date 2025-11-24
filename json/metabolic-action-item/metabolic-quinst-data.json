@@ -2,6 +2,7 @@
   {
     "quinst_array_index": 0,
     "telegra_location_key": "metabolic_enhancement",
-    "last_location": "loc::metabolic-enhancement-9"
+    "last_location": "loc::metabolic-enhancement-9",
+    "action_key": "metabolic_questionnare"
   }
 ]

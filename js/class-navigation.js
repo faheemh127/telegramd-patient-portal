@@ -118,8 +118,6 @@ class HldNavigation {
   //     }
   // }
 
-  
-
   disqualifyLessThan18(date) {
     // return;
     console.log("date in disqualifyLessThan18 ", date);
@@ -344,8 +342,13 @@ class HldNavigation {
       window.location.href.includes("pt-141-prefunnel") ||
       window.location.href.includes("nad-therapy") ||
       window.location.href.includes("upload-id")
-      
     ) {
+      return;
+    }
+
+    // also do not show action item on any form page
+
+    if (document.querySelector(".hld_form_wrap")) {
       return;
     }
 
