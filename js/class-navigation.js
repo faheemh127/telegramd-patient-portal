@@ -28,22 +28,34 @@ class HldNavigation {
   initBackButtonListener() {
     const backBtn = document.getElementById("hld-back-btn");
 
+    const stepElement = document.querySelector(".hld_login_wrap");
+    const nextButton = stepElement.querySelector('button[data-action="next"]');
+    // document.addEventListener("ff_to_next_page", () => alert("ASDFASDF"));
+
     if (!backBtn) return;
 
     backBtn.addEventListener("click", () => {
       // Find the currently active FluentForm step
+      let steps = jQuery(".fluentform-step");
+      let fluentForm = jQuery(jQuery("Form")[jQuery("form").length - 1]);
       const activeStep = document.querySelector(".fluentform-step.active");
+      let lastStep = jQuery(steps[steps.length - 1]);
 
       if (activeStep) {
         // Find the "Previous" button inside that active step
         const prevButton = activeStep.querySelector(".ff-btn-prev");
+
+        if (lastStep.hasClass("active") || lastStep.is(":visible")) {
+          prevButton.click(); // Trigger FluentForm's previous step
+          jQuery(prevButton).addClass("back-clicked");
+        }
 
         if (prevButton) {
           prevButton.click(); // Trigger FluentForm's previous step
         } else {
           console.warn("⚠️ No .ff-btn-prev found inside active step.");
           if (
-            typeof hldClassNavData !== "undefined" &&
+            typeof ldClassNavData !== "undefined" &&
             hldClassNavData.homeUrl
           ) {
             window.location.href = hldClassNavData.homeUrl;
@@ -207,7 +219,7 @@ class HldNavigation {
 
   showAllPrevButtons() {
     const stepContainers = document.querySelectorAll(
-      ".ff-step-container .fluentform-step"
+      ".ff-step-container .fluentform-step",
     );
 
     stepContainers.forEach((step) => {
@@ -317,7 +329,7 @@ class HldNavigation {
 
         // If one is already selected (page reload case)
         const alreadyChecked = step.querySelector(
-          'input[type="radio"]:checked'
+          'input[type="radio"]:checked',
         );
         if (alreadyChecked) showBtn();
 
@@ -429,42 +441,43 @@ class HldNavigation {
   }
 
   // If user is logged in, auto-click next button in FluentForm
-  checkNextEndLoginAndNavigate() {
-    console.log("function checkNextEndLoginAndNavigate is working");
-
-    // Parse the current URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const isNextendLoginComplete =
-      urlParams.get("nextend_login_complete") === "1";
-
-    // Check both conditions before proceeding
-    // if (this.isUserLoggedIn() && isNextendLoginComplete) {
-    if (this.isUserLoggedIn()) {
-      const stepElement = document.querySelector(".hld_login_wrap");
-
-      if (stepElement) {
-        const nextButton = stepElement.querySelector(
-          'button[data-action="next"]'
-        );
-
-        if (nextButton) {
-          console.log("nextButton found:", nextButton);
-          console.log("Will click FluentForm next button in 4s...");
-
-          setTimeout(() => {
-            console.log("button is clicked 4564", nextButton);
-
-            nextButton.click();
-            console.log("Clicked FluentForm next button!");
-          }, 10); // small delay to allow DOM updates
-        }
-      }
-    } else {
-      console.log(
-        "Conditions not met. Either user is not logged in or nextend_login_complete != 1"
-      );
-    }
-  }
+  // checkNextEndLoginAndNavigate() {
+  //   console.log("function checkNextEndLoginAndNavigate is working");
+  //
+  //   // Parse the current URL parameters
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const isNextendLoginComplete =
+  //     urlParams.get("nextend_login_complete") === "1";
+  //
+  //   // Check both conditions before proceeding
+  //   // if (this.isUserLoggedIn() && isNextendLoginComplete) {
+  //   if (this.isUserLoggedIn()) {
+  //     const stepElement = document.querySelector(".hld_login_wrap");
+  //
+  //     if (stepElement) {
+  //       const nextButton = stepElement.querySelector(
+  //         'button[data-action="next"]',
+  //       );
+  //       const prevButton = jQuery(".ff-btn-prev");
+  //
+  //       if (nextButton && !prevButton.hasClass("back-clicked")) {
+  //         console.log("nextButton found:", nextButton);
+  //         console.log("Will click FluentForm next button in 4s...");
+  //
+  //         setTimeout(() => {
+  //           console.log("button is clicked 4564", nextButton);
+  //
+  //           nextButton.click();
+  //           console.log("Clicked FluentForm next button!");
+  //         }, 10); // small delay to allow DOM updates
+  //       }
+  //     }
+  //   } else {
+  //     console.log(
+  //       "Conditions not met. Either user is not logged in or nextend_login_complete != 1",
+  //     );
+  //   }
+  // }
 }
 
 // Initialize only when DOM is ready
