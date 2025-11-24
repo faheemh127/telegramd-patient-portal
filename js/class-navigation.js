@@ -406,7 +406,7 @@ class HldNavigation {
 
       if (isVisible) {
         console.log("hld_login_wrap is now visible (display:block; opacity:1)");
-        this.checkNextEndLoginAndNavigate();
+        // this.checkNextEndLoginAndNavigate();
         hldFormHandler.getAmount();
         hldFormHandler.setStripeData();
       }

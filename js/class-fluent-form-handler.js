@@ -34,14 +34,14 @@ class HldFluentFormHandler {
 
         if (!hasCookie) {
           jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
-        } else
-          //This is a bad  workaround to use setTimeout to to unhide the element. There is
-          //no way to detect this is the right time to show the user the element.I am
-          //using 2seconds just by trail and error and  by seeing other values used as high as
-          //9 seconds. This is would only run when the user has interacted with form and
-          //clicked all the way back to the frist step of the form and left and is now returning
-          //again.
-
+        }
+        //This is a bad  workaround to use setTimeout to to unhide the element. There is
+        //no way to detect this is the right time to show the user the element.I am
+        //using 2seconds just by trail and error and  by seeing other values used as high as
+        //9 seconds. This is would only run when the user has interacted with form and
+        //clicked all the way back to the frist step of the form and left and is now returning
+        //again.
+        else
           setTimeout(function () {
             jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
           }, 8000);
@@ -52,7 +52,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder`,
-            });
+            }); 
             this.hasFired = true;
           }
         }
@@ -72,29 +72,33 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
                   nextButton.click();
                 }
 
-                if ($(step).hasClass("active"))
+                if ($(step).hasClass("active")) {
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden",
+                    "hld_form_wrap_hidden"
                   );
+                }
+
+                //This is Experimental code note tested for now.
+                //This is to to check if the user is not logged in and has
+                //the last step visible. This should move the user to login
+                // step.
+                if (
+                  i == $steps.length - 1 &&
+                  !$("body").hasClass("logged-in") &&
+                  $($lastStep).hasClass("active")
+                ) {
+                  
+                  const activeStep = document.querySelector(".fluentform-step.active");
+                  const prevButton = activeStep.querySelector(".ff-btn-prev");
+                  prevButton.click(); // Trigger FluentForm's previous step
+                }
               });
 
-              //This is Experimental code note tested for now.
-              //This is to to check if the user is not logged in and has
-              //the last step visible. This should move the user to login
-              // step.
-              if (
-                i == $steps.length - 1 &&
-                !$("body").hasClass("logged-in") &&
-                $($lastStep).hasClass("active")
-              ) {
-                const prevButton = activeStep.querySelector(".ff-btn-prev");
-                prevButton.click(); // Trigger FluentForm's previous step
-              }
               if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
                 executeLastStepCode.call(that);
               }
@@ -106,7 +110,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          }),
+          })
         );
       }
     });
@@ -128,7 +132,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
+          med.medication.toLowerCase() === selectedMedication.toLowerCase()
       );
     }
 
@@ -173,8 +177,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-            }
+        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+      }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -390,12 +394,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
+        m.medication_name.toLowerCase().includes(medication.toLowerCase())
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration,
+          (p) => parseInt(p.monthly_duration, 10) === duration
         );
 
         if (pkg) {
@@ -440,7 +444,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine),
+      m.medication_name.includes(medicine)
     );
     if (!med) return;
 
@@ -524,10 +528,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]',
+      'input[name="names[first_name]"]'
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]',
+      'input[name="names[last_name]"]'
     );
 
     // Get values safely
