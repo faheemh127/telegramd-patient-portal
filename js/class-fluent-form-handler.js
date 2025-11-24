@@ -52,7 +52,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder`,
-            }); 
+            });
             this.hasFired = true;
           }
         }
@@ -92,8 +92,9 @@ class HldFluentFormHandler {
                   !$("body").hasClass("logged-in") &&
                   $($lastStep).hasClass("active")
                 ) {
-                  
-                  const activeStep = document.querySelector(".fluentform-step.active");
+                  const activeStep = document.querySelector(
+                    ".fluentform-step.active"
+                  );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
                 }
@@ -239,13 +240,18 @@ class HldFluentFormHandler {
   //     console.log("Duration div not found");
   //   }
   // }
-
-  setStripeData() {
+  getSelectedMedication() {
     const dropdown2 = document.querySelector('[name="dropdown_4"]');
-    const dropdown3 = document.querySelector('[name="dropdown_3"]');
-
     const medication =
       dropdown2 && dropdown2.value.trim() !== "" ? dropdown2.value : null;
+    return medication;
+  }
+
+  setStripeData() {
+    const dropdown3 = document.querySelector('[name="dropdown_3"]');
+
+    const medication = this.getSelectedMedication();
+
     const value3 =
       dropdown3 && dropdown3.value.trim() !== "" ? dropdown3.value : null;
 

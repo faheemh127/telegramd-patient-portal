@@ -165,6 +165,7 @@ class HLD_UserSubscriptions
                 '%d',
                 '%d',
                 '%s',
+                '%s',
                 '%s'
             ]
         );

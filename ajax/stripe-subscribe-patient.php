@@ -39,10 +39,12 @@ function hld_subscribe_patient_handler()
     require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
-    $payment_method  = sanitize_text_field($_POST['payment_method']);
-    $price_id        = sanitize_text_field($_POST['price_id']);
-    $duration        = (int) sanitize_text_field($_POST['duration']);
-    $months          = max(1, $duration); // ensure positive integer
+    $payment_method     = sanitize_text_field($_POST['payment_method']);
+    $price_id           = sanitize_text_field($_POST['price_id']);
+    $duration           = (int) sanitize_text_field($_POST['duration']);
+    $months             = max(1, $duration); // ensure positive integer
+    $medication         = sanitize_text_field($_POST['price_id']);
+    $telegra_product_id = sanitize_text_field($_POST['telegra_product_id']);
 
     try {
         /**
@@ -129,10 +131,10 @@ function hld_subscribe_patient_handler()
                 $user_id,
                 $patient_email,
                 $months,
-                'to be added', // Example: Telegra med ID
-                'to be added', // Example: Medication name
+                $telegra_product_id, // Example: pov::.....
+                $medication, // Example: Tirzepatide
                 $subscription,
-                HLD_GLP_WEIGHT_LOSS_SLUG // todo this should be dynamic
+                $slug // metabolic, glp_1_prefunnel
             );
 
 

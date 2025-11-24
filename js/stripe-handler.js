@@ -346,13 +346,17 @@ class hldStripeHandler {
         // });
 
         // Call subscription AJAX instead of charge_now
+        const planMedication =  hldFormHandler.getSelectedMedication();
+
         const data = new URLSearchParams({
           action: "subscribe_patient",
           customer_id: intent.data.customerId,
           payment_method: paymentMethod,
           slug: planSlug,
+          medication: planMedication,
           price_id: this.stripePriceId,
           duration: this.gl1Duration,
+          telegra_product_id: this.telegraProdID 
         });
 
         const subResult = await fetch(MyStripeData.ajax_url, {
