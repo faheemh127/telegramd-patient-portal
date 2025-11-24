@@ -260,7 +260,8 @@ class HLD_UserSubscriptions
 
 
 
-    public static function update_order($telegra_order_id, $stripe_subscription_id)
+
+    public static function update_order_telegra_id($telegra_order_id, $stripe_subscription_id)
     {
         // Validate input
         if (empty($telegra_order_id)) {
@@ -279,7 +280,7 @@ class HLD_UserSubscriptions
         $table = $wpdb->prefix . self::$table_name;
 
         // Update telegra_order_id for this patient'
-        
+
         $result = $wpdb->update(
             $table,
             [
@@ -293,6 +294,40 @@ class HLD_UserSubscriptions
         );
 
         // If no row was updated (patient not found), return false
+        return $result !== false && $result > 0;
+    }
+    public static function update_telegra_product_id($telegra_order_id, $telegra_product_id, $stripe_subscription_id)
+    {
+        // Validate input
+        if (empty($telegra_order_id) || empty($telegra_product_id) || empty($stripe_subscription_id)) {
+            return false;
+        }
+
+        // Get current user (optional if user is required)
+        $current_user = wp_get_current_user();
+        if (!$current_user || empty($current_user->user_email)) {
+            return false;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Perform update with TWO conditions:
+        // 1) stripe_subscription_id
+        // 2) medication_telegra_id
+        $result = $wpdb->update(
+            $table,
+            [
+                'telegra_order_id' => sanitize_text_field($telegra_order_id),
+            ],
+            [
+                'stripe_subscription_id' => $stripe_subscription_id,
+                'medication_telegra_id'  => $telegra_product_id,
+            ],
+            ['%s'],
+            ['%s', '%s']
+        );
+
         return $result !== false && $result > 0;
     }
 
