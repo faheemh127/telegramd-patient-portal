@@ -35,7 +35,7 @@ function my_create_setup_intent()
         // Create SetupIntent for this customer
         $setupIntent = \Stripe\SetupIntent::create([
             'customer' => $customer_id,
-            'payment_method_types' => ['card', 'klarna'],
+            'payment_method_types' => ['card'],
             'metadata' => [
                 'plan' => 'glp_1_prefunnel',
                 'source' => 'Healsend WordPress',

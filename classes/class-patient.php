@@ -1,4 +1,5 @@
 <?php
+
 if (! class_exists('HLD_Patient')) {
 
     class HLD_Patient
@@ -11,9 +12,6 @@ if (! class_exists('HLD_Patient')) {
 
             return HEALSEND_PATIENTS_TABLE;
         }
-
-
-
 
         /**
          * Update patient DOB for logged-in user
@@ -41,7 +39,6 @@ if (! class_exists('HLD_Patient')) {
 
             return $updated !== false;
         }
-
 
         /**
          * Update patient first and/or last name
@@ -89,7 +86,6 @@ if (! class_exists('HLD_Patient')) {
             return $updated !== false;
         }
 
-
         /**
          * Update patient gender
          */
@@ -122,7 +118,6 @@ if (! class_exists('HLD_Patient')) {
 
             return $updated !== false;
         }
-
 
         /**
          * Update height (feet, inches) and weight
@@ -174,7 +169,6 @@ if (! class_exists('HLD_Patient')) {
             return $updated !== false;
         }
 
-
         /**
          * Update patient state
          */
@@ -201,7 +195,6 @@ if (! class_exists('HLD_Patient')) {
 
             return $updated !== false;
         }
-
 
         /**
          * Update patient phone
@@ -368,7 +361,119 @@ if (! class_exists('HLD_Patient')) {
 
         }
 
+        public static function cancel_email_reminders_to_add_card()
+        {
+            $patient = HLD::get_patient_info();
 
+            $user_id = get_current_user_id();
+            $args = [$patient_email, $patient_phone];
+            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+
+            $timestamp = wp_next_scheduled($hook_name, $args);
+            if ($timestamp) {
+                wp_unschedule_event($timestamp, $hook_name, $args);
+            } else {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static function hld_send_ghl_card_reminder_webhook_event($patient_email, $patient_phone, $user_id, $count)
+        {
+
+            $api_key = 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b';
+            try {
+                $GhlApiClient = new GhlApiClient($api_key);
+
+                $data = [
+                    "email" => $patient_email,
+                    "phone" => $patient_phone
+                ];
+
+                //TODO change the webook to match the reminder hook created at GHL-CRM;
+                $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+            } catch (Exception $e) {
+                error_log('GHL Webhook Failed: ' . $e->getMessage());
+            }
+
+            $args = [$patient_email, $patient_phone, $user_id, $count + 1];
+            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+
+            $timestamp = wp_next_scheduled($hook_name, $args);
+            if ($timestamp) {
+                wp_unschedule_event($timestamp, $hook_name, $args);
+            }
+
+            switch ($count) {
+                case 1:
+                    $delay_seconds = 24 * 3600;
+                    break;
+                case 2:
+                case 3:
+                    $delay_seconds = 24 * 3600 * 7;
+                    break;
+                case 4:
+                    $delay_seconds = 24  * 3600 * 30;
+                    break;
+                case 5:
+                default:
+                    $delay_seconds = 24 * 3600 * 90;
+            }
+
+            wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
+        }
+
+        public static function create_email_reminders_to_add_card()
+        {
+            $patient = HLD::get_patient_info();
+            $delay_seconds = 3600; // 1 hour
+
+            $user_id = get_current_user_id();
+            $args = [$patient['email'], $patient['phone'], $user_id, 1];
+            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+
+            $timestamp = wp_next_scheduled($hook_name, $args);
+            if ($timestamp) {
+                wp_unschedule_event($timestamp, $hook_name, $args);
+            }
+
+            wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
+
+            return true;
+        }
+
+        public static function get_card_status()
+        {
+
+            // Check if user is logged in
+            if (! is_user_logged_in()) {
+                error_log('HLD_Patient Error: Patient should be logged in to fetch info.');
+                return false;
+            }
+
+            $table = HEALSEND_PAYMENTS_TABLE;
+            if (! hld_table_exists($table)) {
+                error_log("Healsend Error: Table does not exist: {$table}");
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $patient_email = $current_user->user_email;
+
+            global $wpdb;
+
+            $patient_row = $wpdb->get_row(
+                $wpdb->prepare("SELECT * FROM {$table} WHERE patient_email = %s AND is_deleted = 0", $patient_email)
+            );
+
+            if (! $patient_row) {
+                error_log("HLD_Patient Warning: No payment method found in payments table for email {$patient_email}");
+                return false;
+            }
+
+            return true;
+        }
 
         public static function get_patient_info()
         {
@@ -425,10 +530,6 @@ if (! class_exists('HLD_Patient')) {
             return $patient;
         }
 
-
-
-
-
         public static function sync_user_to_patient($user)
         {
             if (!$user || empty($user->user_email)) {
@@ -452,7 +553,7 @@ if (! class_exists('HLD_Patient')) {
             );
 
             $first_name = sanitize_text_field($user->first_name ?: get_user_meta($user->ID, 'first_name', true));
-            $last_name  = sanitize_text_field($user->last_name  ?: get_user_meta($user->ID, 'last_name', true));
+            $last_name  = sanitize_text_field($user->last_name ?: get_user_meta($user->ID, 'last_name', true));
 
             if ($existing) {
                 // Already exists → optionally update names if empty
@@ -496,9 +597,6 @@ if (! class_exists('HLD_Patient')) {
 
             return false;
         }
-
-
-
 
         /**
          * Get telegra_patient_id by patient email
@@ -619,8 +717,6 @@ if (! class_exists('HLD_Patient')) {
             return $row ?: null;
         }
 
-
-
         /**
          * Ensure a patient exists by email.
          * If not found, insert a new row with only the email set.
@@ -667,5 +763,17 @@ if (! class_exists('HLD_Patient')) {
 
             return false;
         }
+
+        public static function register_actions()
+        {
+            add_action(
+                'HLD_Patient::hld_send_ghl_card_reminder_webhook_event',
+                ['HLD_Patient', 'hld_send_ghl_card_reminder_webhook_event'],
+                10,
+                4
+            );
+        }
     }
+
+    HLD::register_actions();
 }
