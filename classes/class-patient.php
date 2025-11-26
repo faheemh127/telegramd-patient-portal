@@ -775,5 +775,5 @@ if (! class_exists('HLD_Patient')) {
         }
     }
 
-    HLD::register_actions();
+    HLD_Patient::register_actions();
 }

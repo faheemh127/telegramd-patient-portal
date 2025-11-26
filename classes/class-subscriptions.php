@@ -257,36 +257,43 @@ class HLD_UserSubscriptions
     }
 
 
-    public static function get_user_subscription($user_id)
+    public static function get_subscriptions()
     {
-        if (empty($user_id)) return null;
+        // Check if user is logged in
+        if (!is_user_logged_in()) {
+            return null;
+        }
+
+        // Get logged-in user's email
+        $current_user = wp_get_current_user();
+        $email = $current_user->user_email;
+
+        if (empty($email)) {
+            return null;
+        }
 
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
-
-
-
-        if (! hld_table_exists($table)) {
+        // Check if table exists
+        if (!hld_table_exists($table)) {
             error_log("Healsend Error: Table does not exist: {$table}");
             return false;
         }
 
-
-        // Fetch latest active subscription for user
-        $result = $wpdb->get_row(
+        // Fetch ALL subscriptions for this email (latest first)
+        $results = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT * 
              FROM $table 
-             WHERE user_id = %d 
-             ORDER BY subscription_start DESC 
-             LIMIT 1",
-                $user_id
+             WHERE patient_email = %s
+             ORDER BY subscription_start DESC",
+                $email
             ),
             ARRAY_A
         );
 
-        return $result ?: null;
+        return $results ?: [];
     }
 
 

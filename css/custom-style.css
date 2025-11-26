@@ -476,7 +476,7 @@ nav.hld-navbar {
   padding: 30px 25px 30px 25px;
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+
   border-radius: 20px;
   box-shadow: var(--bs-box-shadow-sm) !important;
   margin-bottom: 15px;
