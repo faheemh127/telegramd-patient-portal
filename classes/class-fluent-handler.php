@@ -722,7 +722,7 @@ if (! class_exists('hldFluentHandler')) {
 
             // receiving telegra_product_id from fluent form prefunnel
             if (!isset($form['telegra_product_id']) || empty($form['telegra_product_id'])) {
-                error_log("[Healsend Error] Telegra id has not been set");
+                error_log("[Healsend Error] Telegra product id has not been set");
                 return;
             } else {
                 $this->telegra_product_id = $form['telegra_product_id'];

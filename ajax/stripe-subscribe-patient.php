@@ -23,7 +23,7 @@ function hld_subscribe_patient_handler()
     $slug  = sanitize_text_field($_POST['slug']);
     if (empty($_POST['slug'])) { // covers both not set and empty
         wp_send_json_error([
-            'message' => 'Plan slug is required. Please verify whether the patient has already purchased this subscription.'
+            'message' => 'Plan slug is required.'
         ]);
         wp_die();
     }

@@ -124,7 +124,7 @@ if (isset($_GET["care-team"])) {
                     </ul>
                 </div>
 
-                <p class="hld_tabs_hint">Swipe to navigate.</p>
+                <!-- <p class="hld_tabs_hint">Swipe to navigate.</p> -->
             <?php endif; ?>
 
 

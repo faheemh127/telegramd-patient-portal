@@ -206,6 +206,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- add disqualify for states in nad-therapy
 -- need to add loading bar with hld_form_wrap_hidden so on page loads we can show loading bar we can
 --  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
+--  at this moment if user fillout prefunnel first we create a subscription but if due to some reason the fluent form become failed the subscription still remain created we should make it not like that
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
@@ -296,3 +297,20 @@ make the auto order next to false as we need to test on live requirements
 -- quinst id should be dynamic
 -- DOB 
 -- preferred medicaion is not dymaic order is id is not saving in subscription table
+
+
+
+
+
+
+
+
+
+
+
+referrence number
+arrival date 
+departure date
+
+add more applicants
+      (refference number only)
