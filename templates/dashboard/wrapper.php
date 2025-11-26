@@ -39,7 +39,9 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
         foreach ($meta_keys as $meta) {
             // Extract the form ID from the meta key
             preg_match('/fluent_form_(\d+)/', $meta->meta_key, $matches);
-            if (!isset($matches[1])) continue;
+            if (!isset($matches[1])) {
+                continue;
+            }
 
             $form_id = $matches[1];
             $form_link = get_permalink(); // fallback to current page
@@ -54,10 +56,12 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
                 $resume_url = esc_url($meta_value);
             }
 
-            if (!$resume_url) continue;
+            if (!$resume_url) {
+                continue;
+            }
 
             // Output the card
-?>
+            ?>
             <div
                 class="hld-card"
                 style="background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 50px 50px; max-width: 700px; font-family: Arial, sans-serif; width: 100%; margin: 20px auto;">
@@ -89,6 +93,10 @@ if (isset($_GET["care-team"])) {
     return;
 }
 
+if (isset($_GET["payment-succeded"])) {
+    include HLD_PLUGIN_PATH . 'templates/dashboard/payment-succeded.php';
+    return;
+}
 
 
 ?>
@@ -128,7 +136,7 @@ if (isset($_GET["care-team"])) {
             <?php endif; ?>
 
 
-            <?php // error_log(print_r(get_user_meta(get_current_user_id()), true)); 
+            <?php // error_log(print_r(get_user_meta(get_current_user_id()), true));
             ?>
 
             <?php if (isset($_GET['upload-id'])) : ?>
@@ -147,8 +155,8 @@ if (isset($_GET["care-team"])) {
 
                         <?php
                         include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php';
-                        // hdl_get_template('dashboard/home', ['user' => $user]); 
-                        ?>
+                // hdl_get_template('dashboard/home', ['user' => $user]);
+                ?>
 
                     </section>
                     <!-- Section 2 -->
@@ -166,10 +174,10 @@ if (isset($_GET["care-team"])) {
 
                         <?php
 
-                        if (HLD_UserSubscriptions::has_any_subscription()) {
+                if (HLD_UserSubscriptions::has_any_subscription()) {
 
 
-                        ?>
+                    ?>
                             <iframe
                                 id="chat-clinical"
                                 src="https://healsend.com/chat-app/"
@@ -193,14 +201,14 @@ if (isset($_GET["care-team"])) {
                     </section>
                     <!-- Section 5 -->
                     <section class="container">
-                        <?php // hdl_get_template('dashboard/returns'); 
+                        <?php // hdl_get_template('dashboard/returns');
                         ?>
 
 
 
                         <?php
                         if (HLD_UserSubscriptions::has_any_subscription()) {
-                        ?>
+                            ?>
                             <iframe
                                 src="https://healsend.com/visit/"
                                 width="100%"
@@ -228,15 +236,15 @@ if (isset($_GET["care-team"])) {
 
                     <section class="container">
                         <?php hdl_get_template('dashboard/lab-orders');
-                        ?>
+                ?>
                     </section>
 
                     <section class="container hld-chat-container">
 
 
                         <?php
-                        if (HLD_UserSubscriptions::has_any_subscription()) {
-                        ?>
+                if (HLD_UserSubscriptions::has_any_subscription()) {
+                    ?>
                             <iframe
                                 id="chat-support"
                                 src="https://healsend.com/chat-app/"
@@ -265,7 +273,7 @@ if (isset($_GET["care-team"])) {
 
                         <?php
                         if (HLD_UserSubscriptions::has_any_subscription()) {
-                        ?>
+                            ?>
                             <iframe
                                 id="chat-billing"
                                 src="https://healsend.com/chat-app/"
@@ -291,7 +299,7 @@ if (isset($_GET["care-team"])) {
                     <!-- Section 7 -->
                     <!-- <section> -->
                     <!-- <h2>Action Items</h2> -->
-                    <?php // hld_display_fluent_saved_forms_cards();    
+                    <?php // hld_display_fluent_saved_forms_cards();
                     ?>
                     <!-- </section> -->
 
@@ -311,7 +319,7 @@ if (isset($_GET["care-team"])) {
         <button class="hld-sidebar-close" id="hldSidebarClose">&times;</button>
         <div class="hld-sidebar-content">
             <h2>Action Item</h2>
-            <?php // include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php'; 
+            <?php // include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php';
             ?>
         </div>
     </div>
