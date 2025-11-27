@@ -363,10 +363,11 @@ if (! class_exists('HLD_Patient')) {
 
         public static function cancel_email_reminders_to_add_card()
         {
-            $patient = HLD::get_patient_info();
+            $patient = HLD_Patient::get_patient_info();
 
             $user_id = get_current_user_id();
-            $args = [$patient_email, $patient_phone];
+            $count = get_user_meta($user_id, 'count')
+            $args = [$patient_email, $patient_phone, $user_id, $count];
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
@@ -382,9 +383,8 @@ if (! class_exists('HLD_Patient')) {
         public static function hld_send_ghl_card_reminder_webhook_event($patient_email, $patient_phone, $user_id, $count)
         {
 
-            $api_key = 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b';
             try {
-                $GhlApiClient = new GhlApiClient($api_key);
+                $GhlApiClient = new GhlApiClient(GHL_API_KEY);
 
                 $data = [
                     "email" => $patient_email,
@@ -398,6 +398,8 @@ if (! class_exists('HLD_Patient')) {
             }
 
             $args = [$patient_email, $patient_phone, $user_id, $count + 1];
+
+            update_user_meta($user_id, "count", $count);
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
@@ -426,7 +428,7 @@ if (! class_exists('HLD_Patient')) {
 
         public static function create_email_reminders_to_add_card()
         {
-            $patient = HLD::get_patient_info();
+            $patient = HLD_Patient::get_patient_info();
             $delay_seconds = 3600; // 1 hour
 
             $user_id = get_current_user_id();

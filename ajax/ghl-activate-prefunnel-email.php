@@ -66,9 +66,8 @@ function hld_ghl_activate_reminder()
 
 function hld_ghl_execute_webhook_logic($patient_email, $patient_phone)
 {
-    $api_key = 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b';
     try {
-        $GhlApiClient = new GhlApiClient($api_key);
+        $GhlApiClient = new GhlApiClient(GHL_API_KEY);
 
         $data = [
             "email" => $patient_email,

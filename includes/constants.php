@@ -23,8 +23,6 @@ if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
 
 
 
-
-
 // Action Items -  Questionnaires
 
 if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
@@ -67,6 +65,12 @@ if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
 
 
 
+
+#***********************GHL API KEY *************************
+if (! defined('GHL_API_KEY')) {
+    define('GHL_API_KEY', 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b');
+}
+
 // Patient dashboard URL
 if (! defined('HLD_PATIENT_DASHBOARD_URL')) {
     define('HLD_PATIENT_DASHBOARD_URL', home_url('/my-account/'));
@@ -79,4 +83,3 @@ define("HLD_GENERAL_ACTION_ITEM", "general");
 
 define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
 define("HLD_METABOLIC_SLUG", "metabolic");
-
