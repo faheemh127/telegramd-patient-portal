@@ -6,7 +6,7 @@ $client_secret = "";
 if (!$hasCardAttached) {
     $hasRemiderScheduled = HLD_Patient::create_email_reminders_to_add_card();
 
-    $patient = HLD_PATIENT::get_patient_info();
+    $patient = HLD_Patient::get_patient_info();
     $customer_id = HLD_Stripe::get_or_create_stripe_customer($patient['email'], $$patient['first_name'], $$patient['last_name']);
     $setupIntent =  \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
@@ -47,9 +47,11 @@ const elements = stripe.elements({ <?php echo $client_secret ?> });
             document.getElementById('payment-message').style.color = "green";
             document.getElementById('payment-message').innerText = "Card saved successfully!";
 
-            setTimeout(function () {
-              document.getElementById('stripe-card-add').remove();
-            }, 300);
+            const res = await fetch(MyStripeData.ajax_url, {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: `action=cancel_card_reminders`,
+            });
         }
     });
 }

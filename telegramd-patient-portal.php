@@ -1,15 +1,19 @@
 <?php
 
 /**
+ *
  * Plugin Name: TelegraMD Patient Portal
- * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration, including prescriptions, lab results, and subscription management.
+ * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration,
+ *              including prescriptions, lab results, and subscription management.
  * Version: 1.4
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
  */
 
-
-
+//
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);

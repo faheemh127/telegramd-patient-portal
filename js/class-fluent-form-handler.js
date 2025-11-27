@@ -72,31 +72,27 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]'
+                    'button[data-action="next"]',
                   );
                   nextButton.click();
                 }
 
-                if ($(step).hasClass("active")) {
-                  $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden"
-                  );
-                }
-
-                //This is Experimental code note tested for now.
-                //This is to to check if the user is not logged in and has
-                //the last step visible. This should move the user to login
-                // step.
                 if (
                   i == $steps.length - 1 &&
                   !$("body").hasClass("logged-in") &&
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active"
+                    ".fluentform-step.active",
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
+                }
+
+                if ($(step).hasClass("active")) {
+                  $(".hld_form_wrap_hidden").removeClass(
+                    "hld_form_wrap_hidden",
+                  );
                 }
               });
 
@@ -111,7 +107,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          })
+          }),
         );
       }
     });
@@ -133,7 +129,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
       );
     }
 
@@ -178,8 +174,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-      }
+              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+            }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -400,12 +396,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration
+          (p) => parseInt(p.monthly_duration, 10) === duration,
         );
 
         if (pkg) {
@@ -450,7 +446,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine)
+      m.medication_name.includes(medicine),
     );
     if (!med) return;
 
@@ -534,10 +530,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]'
+      'input[name="names[first_name]"]',
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]'
+      'input[name="names[last_name]"]',
     );
 
     // Get values safely
