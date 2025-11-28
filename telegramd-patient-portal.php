@@ -1,13 +1,18 @@
 <?php
 
 /**
+ *
  * Plugin Name: TelegraMD Patient Portal
- * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration, including prescriptions, lab results, and subscription management.
+ * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration,
+ *              including prescriptions, lab results, and subscription management.
  * Version: 1.4
  * Author: Faheem
  * Author URI: https://faheemhassan.dev
  */
 
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 
 // Core constants for live, staging and localhost
@@ -72,6 +77,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/upload-id.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/request-refund.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/ghl-activate-prefunnel-email.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/hld-cancel-user-card-reminders.php';
 
 register_activation_hook(__FILE__, function () {
     HLD_DB_Tables::create_tables();
