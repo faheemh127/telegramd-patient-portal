@@ -26,8 +26,8 @@ if (!$hasCardAttached) {
         const stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY ?>');
 
         async function initializePaymentMethod() {
-            const elements = stripe.elements(
-                "<?php echo $client_secret; ?>", {}
+            const elements = stripe.elements({
+               clientSecret:  "<?php echo $client_secret; ?>"}
             );
             const paymentElement = elements.create("payment");
             paymentElement.mount("#add-payment-card");

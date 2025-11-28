@@ -1,9 +1,11 @@
 <?php
-if (! defined('ABSPATH')) exit;
+
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class HLD_DB_Tables
 {
-
     private static $tables = [];
 
     public static function get_table($name)
@@ -136,7 +138,7 @@ class HLD_DB_Tables
         }
     }
 
-    
+
 
     /**
      * todo delete this function after go to production

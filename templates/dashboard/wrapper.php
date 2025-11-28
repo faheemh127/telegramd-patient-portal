@@ -93,8 +93,8 @@ if (isset($_GET["care-team"])) {
     return;
 }
 
-if (isset($_GET["payment-succeded"])) {
-    include HLD_PLUGIN_PATH . 'templates/dashboard/payment-succeded.php';
+if (isset($_GET["payment-succeeded"])) {
+    include HLD_PLUGIN_PATH . 'templates/dashboard/payment-succeeded.php';
     return;
 }
 
