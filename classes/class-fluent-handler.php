@@ -415,6 +415,8 @@ if (! class_exists('hldFluentHandler')) {
                 HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GLP_WEIGHT_LOSS_SLUG, $order_id);
             } elseif ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
                 HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_METABOLIC_SLUG, $order_id);
+            } else if ($form_id == HLD_PT_141_PREFUNNEL_FORM_ID) {
+                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_PT_141_SLUG, $order_id);
             } else {
                 error_log("[Healsend Error]: we cannot fill any action item as form id" . $form_id . " do not match any prefunnel");
             }

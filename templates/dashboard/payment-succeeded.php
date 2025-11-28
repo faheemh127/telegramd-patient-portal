@@ -9,7 +9,8 @@ if (!$hasCardAttached) {
     $hasRemiderScheduled = HLD_Patient::create_email_reminders_to_add_card();
 
     $patient = HLD_Patient::get_patient_info();
-    $customer_id = HLD_Stripe::get_or_create_stripe_customer($patient['email'], $$patient['first_name'], $$patient['last_name']);
+    // error_log(print_r($patient, true));
+    $customer_id = HLD_Stripe::get_or_create_stripe_customer($patient['email'], $patient['first_name'], $patient['last_name']);
     $setupIntent =  \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
     $setupIntent = \Stripe\SetupIntent::create([
@@ -27,8 +28,8 @@ if (!$hasCardAttached) {
 
         async function initializePaymentMethod() {
             const elements = stripe.elements({
-               clientSecret:  "<?php echo $client_secret; ?>"}
-            );
+                clientSecret: "<?php echo $client_secret; ?>"
+            });
             const paymentElement = elements.create("payment");
             paymentElement.mount("#add-payment-card");
 
