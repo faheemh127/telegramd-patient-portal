@@ -716,6 +716,7 @@ if (! class_exists('hldFluentHandler')) {
             error_log("form: " . print_r($form, true));
             // No need to do processing if user is not a patient and have not signed up
             if (! is_user_logged_in()) {
+                error_log("[Healsend Error] user is not logged in ");
                 return;
             }
 

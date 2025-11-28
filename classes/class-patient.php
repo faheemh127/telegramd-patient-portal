@@ -478,6 +478,7 @@ if (! class_exists('HLD_Patient')) {
             return true;
         }
 
+     
         public static function get_patient_info()
         {
             // Check if user is logged in

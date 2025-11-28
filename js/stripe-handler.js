@@ -514,6 +514,8 @@ class hldStripeHandler {
       console.warn("⚠️ Hidden input 'telegra_product_id' not found in DOM");
     }
 
+    // its important to call this function to avoid fluent form error while submit becuase fluent form only accept select values we add from fluent form settings so it do not accept
+    hldFormHandler.setDOB("year", "month", "day");
     // submit the form
     const submitWrapper = document.querySelector(this.submitWrapperClass);
     if (submitWrapper) {
