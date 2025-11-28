@@ -10,12 +10,13 @@
  * Author URI: https://faheemhassan.dev
  */
 
-//
 if (! defined('ABSPATH')) {
     exit;
 }
 
-define('HLD_LIVE', false);
+
+// Core constants for live, staging and localhost
+define('HLD_LIVE', true);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
 

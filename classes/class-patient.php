@@ -364,7 +364,6 @@ if (! class_exists('HLD_Patient')) {
         public static function cancel_email_reminders_to_add_card()
         {
             $patient = HLD_Patient::get_patient_info();
-
             $user_id = get_current_user_id();
             $count = get_user_meta($user_id, 'count');
             $args = [$patient['email'], $patient['phone'], $user_id, $count];

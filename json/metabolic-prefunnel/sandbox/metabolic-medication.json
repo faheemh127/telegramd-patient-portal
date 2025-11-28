@@ -19,26 +19,5 @@
         "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
       }
     ]
-  },
-  {
-    "telegra_code": "pvt::87803044-1615-490d-ac20-1d0ac7f83915",
-    "medication_name": "NAD+ Nasal Spray (Empty)",
-    "description": "to be provided.",
-    "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "to be added, to be added",
-    "packages": [
-      {
-        "monthly_duration": "1",
-        "monthly_price": "0",
-        "desc": "to be added, to be added, to be added",
-        "stripe_price_id": "price_dummy_tab_1M"
-      },
-      {
-        "monthly_duration": "3",
-        "monthly_price": "0",
-        "desc": "to be added, to be added, to be added",
-        "stripe_price_id": "price_dummy_tab_3M"
-      }
-    ]
   }
 ]
