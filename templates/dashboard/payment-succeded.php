@@ -47,6 +47,7 @@ const elements = stripe.elements({ <?php echo $client_secret ?> });
             document.getElementById('payment-message').style.color = "green";
             document.getElementById('payment-message').innerText = "Card saved successfully!";
 
+            //I used MyStripeData because this has relation to the Stripe
             const res = await fetch(MyStripeData.ajax_url, {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
