@@ -366,8 +366,8 @@ if (! class_exists('HLD_Patient')) {
             $patient = HLD_Patient::get_patient_info();
 
             $user_id = get_current_user_id();
-            $count = get_user_meta($user_id, 'count')
-            $args = [$patient_email, $patient_phone, $user_id, $count];
+            $count = get_user_meta($user_id, 'count');
+            $args = [$patient['email'], $patient['phone'], $user_id, $count];
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);

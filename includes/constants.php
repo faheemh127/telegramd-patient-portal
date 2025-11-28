@@ -65,7 +65,6 @@ if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
 
 
 
-
 #***********************GHL API KEY *************************
 if (! defined('GHL_API_KEY')) {
     define('GHL_API_KEY', 'pit-dcbcc991-8612-49ae-a5ff-31046d43da5b');

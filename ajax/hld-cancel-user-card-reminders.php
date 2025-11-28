@@ -1,7 +1,7 @@
 <?php
 
 add_action('wp_ajax_cancel_card_reminders', 'hld_cancel_card_reminders');
-add_action('wp_ajax_nopriv_card_reminders', 'hld_cancel_card_reminders');
+add_action('wp_ajax_nopriv_cancel_card_reminders', 'hld_cancel_card_reminders');
 
 function hld_cancel_card_reminders()
 {
