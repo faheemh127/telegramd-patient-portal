@@ -630,6 +630,7 @@ if (! class_exists('hldFluentHandler')) {
 
             $date = DateTime::createFromFormat('m-d-Y', $dob);
 
+            $formatted_dob = "";
             if ($date) {
                 $formatted_dob = $date->format('Y-m-d');
                 error_log("Formatted DOB: " . $formatted_dob);

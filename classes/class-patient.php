@@ -463,9 +463,9 @@ if (! class_exists('HLD_Patient')) {
             $patient_email = $current_user->user_email;
 
             global $wpdb;
-
+ 
             $patient_row = $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM {$table} WHERE patient_email = %s AND is_deleted = 0", $patient_email)
+                $wpdb->prepare("SELECT * FROM {$table} WHERE patient_email = %s", $patient_email)
             );
 
             if (! $patient_row) {

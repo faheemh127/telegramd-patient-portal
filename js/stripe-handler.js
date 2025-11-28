@@ -239,17 +239,17 @@ class hldStripeHandler {
     console.log("bindEvents function called");
     if (
       !form ||
-      !this.paymentButton
-      // !this.afterPayButton ||
+      !this.paymentButton ||
+      !this.afterPayButton
       // !this.klarnaButton
     ) {
       console.warn("Form or payment button not found.");
       return;
     }
 
-    // this.afterPayButton.addEventListener("click", (e) =>
-    //   this.handleCardPayment(e, "afterpay")
-    // );
+    this.afterPayButton.addEventListener("click", (e) =>
+      this.handleCardPayment(e, "afterpay")
+    );
 
     //   this.handleCardPayment(e, "klarna")
     // );
@@ -326,8 +326,6 @@ class hldStripeHandler {
       console.log("plan slug is ", planSlug);
 
       if (this.isSubscription) {
-        
-
         /**
          * the below code should be deleted because its replaced with a betterone
          */
@@ -346,7 +344,7 @@ class hldStripeHandler {
         // });
 
         // Call subscription AJAX instead of charge_now
-        const planMedication =  hldFormHandler.getSelectedMedication();
+        const planMedication = hldFormHandler.getSelectedMedication();
 
         const data = new URLSearchParams({
           action: "subscribe_patient",
@@ -356,7 +354,7 @@ class hldStripeHandler {
           medication: planMedication,
           price_id: this.stripePriceId,
           duration: this.gl1Duration,
-          telegra_product_id: this.telegraProdID 
+          telegra_product_id: this.telegraProdID,
         });
 
         const subResult = await fetch(MyStripeData.ajax_url, {
@@ -372,7 +370,11 @@ class hldStripeHandler {
             "Failed to create subscription: " +
               (subResponse.data?.message || "")
           );
-          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
+          this.toggleButtonState(
+            false,
+            "Save and Continue",
+            this.paymentButton
+          );
           return;
         }
 
@@ -415,7 +417,11 @@ class hldStripeHandler {
           this.showError(
             "Failed to charge the card: " + (chargeResponse.data?.message || "")
           );
-          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
+          this.toggleButtonState(
+            false,
+            "Save and Continue",
+            this.paymentButton
+          );
           return;
         }
 
@@ -432,7 +438,11 @@ class hldStripeHandler {
 
         if (!saveResult.success) {
           this.showError("Error saving card.");
-          this.toggleButtonState(false, "Save and Continue", this.paymentButton);
+          this.toggleButtonState(
+            false,
+            "Save and Continue",
+            this.paymentButton
+          );
           return;
         }
       }

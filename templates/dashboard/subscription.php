@@ -86,7 +86,7 @@ if (empty($subscriptions) || !is_array($subscriptions)) {
                             View Last Invoice
                         </a>
 
-                        <?php if (isset($subscription["refund_status"]) && $subscription["refund_status"] == "requested") : ?>
+                        <?php //if (isset($subscription["refund_status"]) && $subscription["refund_status"] == "requested") : ?>
 
                             <span class="hld-view-invoice btn btn-primary"
                                 id="hld-revoke-sub"
@@ -95,7 +95,7 @@ if (empty($subscriptions) || !is_array($subscriptions)) {
                                 Revoke Subscription
                             </span>
 
-                        <?php endif; ?>
+                        <?php // endif; ?>
 
                     </div>
                 </div>

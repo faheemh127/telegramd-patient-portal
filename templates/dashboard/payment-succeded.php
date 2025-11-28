@@ -2,6 +2,8 @@
 $hasCardAttached = false;
 $hasCardAttached = HLD_Patient::get_card_status();
 
+
+$hasCardAttached = false;
 $client_secret = "";
 if (!$hasCardAttached) {
     $hasRemiderScheduled = HLD_Patient::create_email_reminders_to_add_card();
@@ -11,54 +13,61 @@ if (!$hasCardAttached) {
     $setupIntent =  \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
     $setupIntent = \Stripe\SetupIntent::create([
-          'customer' => $customer_id,
-          'payment_method_types' => ['card'],
-      ]);
+        'customer' => $customer_id,
+        'payment_method_types' => ['card'],
+    ]);
 
     $client_secret = $setupIntent->client_secret;
 }
 
 ?>
 <script>
+    jQuery(document).ready(function($) {
+        const stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY ?>');
 
-const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+        async function initializePaymentMethod() {
+            const elements = stripe.elements(
+                "<?php echo $client_secret; ?>", {}
+            );
+            const paymentElement = elements.create("payment");
+            paymentElement.mount("#add-payment-card");
 
-async function initializePaymentMethod() {
-const elements = stripe.elements({ <?php echo $client_secret ?> });
-    const paymentElement = elements.create("payment");
-    paymentElement.mount("#add-payment-card");
+            const form = document.getElementById('payment-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
 
-    const form = document.getElementById('payment-form');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+                const {
+                    error,
+                    setupIntent
+                } = await stripe.confirmSetup({
+                    elements,
+                    confirmParams: {
+                        return_url: "<?php echo get_permalink(); ?>",
+                    },
+                    redirect: 'if_required' // Prevents redirect if 3D secure isn't needed
+                });
 
-        const { error, setupIntent } = await stripe.confirmSetup({
-            elements,
-            confirmParams: {
-                return_url: <?php echo get_permalink() ?>,
-            },
-            redirect: 'if_required' // Prevents redirect if 3D secure isn't needed
-        });
+                if (error) {
+                    document.getElementById('payment-message').innerText = error.message;
+                } else {
+                    // Success!
+                    document.getElementById('payment-message').style.color = "green";
+                    document.getElementById('payment-message').innerText = "Card saved successfully!";
 
-        if (error) {
-            document.getElementById('payment-message').innerText = error.message;
-        } else {
-            // Success!
-            document.getElementById('payment-message').style.color = "green";
-            document.getElementById('payment-message').innerText = "Card saved successfully!";
-
-            //I used MyStripeData because this has relation to the Stripe
-            const res = await fetch(MyStripeData.ajax_url, {
-              method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: `action=cancel_card_reminders`,
+                    //I used MyStripeData because this has relation to the Stripe
+                    const res = await fetch(MyStripeData.ajax_url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: `action=cancel_card_reminders`,
+                    });
+                }
             });
         }
+
+        initializePaymentMethod();
     });
-}
-
-initializePaymentMethod();
-
 </script>
 
 <h3 class="hld-subscription-title">Thank you for choosing us.</h3>
@@ -67,13 +76,13 @@ initializePaymentMethod();
         <?php if (!$hasCardAttached) : ?>
             <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
                 Please add the credit card for future transactions....
-              <div>
-                <div id='add-payment-card'>
-              
+                <div>
+                    <div id='add-payment-card'>
+
+                    </div>
+                    <div id="payment-message">
+                    </div>
                 </div>
-                <div id="payment-message">
-                </div>
-              </div>
             </div>
         <?php endif; ?>
     </div>
