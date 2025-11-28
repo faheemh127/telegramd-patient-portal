@@ -23,56 +23,62 @@ if (!$hasCardAttached) {
 ?>
 <script>
     jQuery(document).ready(function($) {
-      const stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY ?>');
+        const stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY ?>');
 
-      async function initializePaymentMethod() {
-          const elements = stripe.elements({
-              clientSecret: "<?php echo $client_secret; ?>"
-          });
+        async function initializePaymentMethod() {
+            const elements = stripe.elements({
+                clientSecret: "<?php echo $client_secret; ?>"
+            });
 
-          const paymentElement = elements.create("payment");
-          paymentElement.mount("#add-payment-card");
+            const paymentElement = elements.create("payment");
+            paymentElement.mount("#add-payment-card");
 
-          paymentElement.on('ready', function() {
-              document.getElementById('submit-button').style.display = 'block';
-          });
+            paymentElement.on('ready', function() {
+                document.getElementById('submit-button').style.display = 'block';
+            });
 
-          const form = document.getElementById('payment-form');
+            const form = document.getElementById('payment-form');
 
-          form.addEventListener('submit', async (e) => {
-              e.preventDefault();
-              
-              const btn = document.getElementById('submit-button');
-              btn.disabled = true;
-              btn.innerText = "Processing...";
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
 
-              const { error, setupIntent } = await stripe.confirmSetup({
-                  elements,
-                  confirmParams: {
-                      return_url: "<?php echo get_permalink(); ?>",
-                  },
-                  redirect: 'if_required'
-              });
+                const btn = document.getElementById('submit-button');
+                btn.disabled = true;
+                btn.innerText = "Processing...";
 
-              if (error) {
-                  btn.disabled = false;
-                  btn.innerText = "Save Card";
-                  document.getElementById('payment-message').innerText = error.message;
-              } else {
-                  document.getElementById('payment-message').style.color = "green";
-                  document.getElementById('payment-message').innerText = "Card saved successfully!";
-                  
-                  const res = await fetch(MyStripeData.ajax_url, {
-                      method: "POST",
-                      headers: {
-                          "Content-Type": "application/x-www-form-urlencoded"
-                      },
-                      body: `action=cancel_card_reminders`,
-                  });
-              }
-          });
-      }
-      initializePaymentMethod();
+                const {
+                    error,
+                    setupIntent
+                } = await stripe.confirmSetup({
+                    elements,
+                    confirmParams: {
+                        return_url: "<?php echo get_permalink(); ?>",
+                    },
+                    redirect: 'if_required'
+                });
+
+                console.log("card setup intent 57 ", setupIntent);
+                if (error) {
+                    btn.disabled = false;
+                    btn.innerText = "Save Card";
+                    document.getElementById('payment-message').innerText = error.message;
+                } else {
+                    document.getElementById('payment-message').style.color = "green";
+                    document.getElementById('payment-message').innerText = "Card saved successfully!";
+                    const pm_id = setupIntent.payment_method;
+                    const res = await fetch(MyStripeData.ajax_url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: `action=cancel_card_reminders`,
+                        body: `action=cancel_card_reminders&pm_id=${pm_id}`
+                    });
+
+                }
+            });
+        }
+        initializePaymentMethod();
     })
 </script>
 
@@ -81,12 +87,12 @@ if (!$hasCardAttached) {
     <div class="card-body hld-card-body">
         <?php if (!$hasCardAttached) : ?>
             <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
-              Please add the credit card for future transactions....
-              <form id="payment-form">
-                <div id="add-payment-card"></div>
-                <button id="submit-button" style="display: none">Save Card</button>
-                <div id="payment-message" style="color: red;"></div>
-              </form> 
+                Please add the credit card for future transactions....
+                <form id="payment-form">
+                    <div id="add-payment-card"></div>
+                    <button id="submit-button" style="display: none">Save Card</button>
+                    <div id="payment-message" style="color: red;"></div>
+                </form>
             </div>
         <?php endif; ?>
     </div>

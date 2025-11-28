@@ -365,14 +365,19 @@ if (! class_exists('HLD_Patient')) {
         {
             $patient = HLD_Patient::get_patient_info();
             $user_id = get_current_user_id();
-            $count = get_user_meta($user_id, 'count');
+            $count = get_user_meta($user_id, 'count', true);
             $args = [$patient['email'], $patient['phone'], $user_id, $count];
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
+            error_log("Time stamp in cancel_email_reminders_to_add_card" . $timestamp);
+            error_log("count is ".$count );
+            error_log(print_r($count, true));
             if ($timestamp) {
+                error_log("Time stamp in cancel_email_reminders_to_add_card" . $timestamp);
                 wp_unschedule_event($timestamp, $hook_name, $args);
             } else {
+                error_log("No timestamp found");
                 return false;
             }
 
@@ -431,11 +436,13 @@ if (! class_exists('HLD_Patient')) {
             $delay_seconds = 3600; // 1 hour
 
             $user_id = get_current_user_id();
+            update_user_meta($user_id, "count", 1);
             $args = [$patient['email'], $patient['phone'], $user_id, 1];
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
             if ($timestamp) {
+                error_log("time stamp in create_email_remiders to add card");
                 wp_unschedule_event($timestamp, $hook_name, $args);
             }
 
@@ -463,7 +470,7 @@ if (! class_exists('HLD_Patient')) {
             $patient_email = $current_user->user_email;
 
             global $wpdb;
- 
+
             $patient_row = $wpdb->get_row(
                 $wpdb->prepare("SELECT * FROM {$table} WHERE patient_email = %s", $patient_email)
             );
@@ -476,7 +483,7 @@ if (! class_exists('HLD_Patient')) {
             return true;
         }
 
-     
+
         public static function get_patient_info()
         {
             // Check if user is logged in
