@@ -32,7 +32,7 @@ if (!$hasCardAttached) {
             const paymentElement = elements.create("payment");
             paymentElement.mount("#add-payment-card");
 
-            const form = document.getElementById('payment-form');
+            const form = document.getElementsByTagName('form')[0];
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
