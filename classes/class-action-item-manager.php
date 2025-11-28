@@ -56,6 +56,16 @@ class HLD_ActionItems_Manager
                 'sort_order'         => 1,
                 'required'           => 1,
             ],
+            [
+                'plan_slug'          => HLD_PT_141_SLUG,
+                'action_key'         => 'pt_141_questionnare',
+                'label'              => 'PT-141 Questionnaire',
+                'description'        => 'A quick assessment to help us understand your pt-141 health and create a personalized enhancement plan.',
+                'item_slug'          => 'metabolic-enhancers-initial-intake-form',
+                'quinst_array_index' => '0',
+                'sort_order'         => 1,
+                'required'           => 1,
+            ],
         ];
 
         foreach ($default_items as $item) {

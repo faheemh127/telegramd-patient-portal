@@ -28,8 +28,8 @@ class HldNavigation {
   initBackButtonListener() {
     const backBtn = document.getElementById("hld-back-btn");
 
-    const stepElement = document.querySelector(".hld_login_wrap");
-    const nextButton = stepElement.querySelector('button[data-action="next"]');
+    // const stepElement = document.querySelector(".hld_login_wrap");
+    // const nextButton = stepElement.querySelector('button[data-action="next"]');
     // document.addEventListener("ff_to_next_page", () => alert("ASDFASDF"));
 
     if (!backBtn) return;

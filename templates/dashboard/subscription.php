@@ -11,7 +11,7 @@ if (!$current_user || empty($current_user->ID)) {
 $subscriptions = HLD_UserSubscriptions::get_subscriptions();
 
 // Debug log
-error_log(print_r($subscriptions, true));
+// error_log(print_r($subscriptions, true));
 
 if (empty($subscriptions) || !is_array($subscriptions)) {
     hld_not_found("You have no subscriptions yet.");

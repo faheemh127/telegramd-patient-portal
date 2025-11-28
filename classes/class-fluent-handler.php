@@ -15,8 +15,9 @@ if (! class_exists('hldFluentHandler')) {
         protected $prefunnel_forms_ids = [
             HLD_GLP_1_PREFUNNEL_FORM_ID,
             HLD_METABOLIC_PREFUNNEL_FORM_ID,
+            HLD_PT_141_PREFUNNEL_FORM_ID,
             HLD_TRT_PREFUNNEL_FORM_ID,
-            HLD_METABOLIC_PREFUNNEL_FORM_ID,
+
         ];
         protected $action_items = [
             HLD_CLINICAL_DIFFERENCE_FORM_ID,

@@ -1,0 +1,30 @@
+[
+  {
+    "telegra_code": "pvt::a53ff66a-0673-4371-a785-e6906c2176c2",
+    "medication_name": "PT-141",
+    "description": "product id added, to be added to be added to be added",
+    "stripe_product_id": "prod_T6gWAGad8vzvqU",
+    "labels": "to be added, to be added",
+    "medication": "pt_141",
+    "packages": [
+      {
+        "monthly_duration": "1",
+        "monthly_price": "99",
+        "desc": "to be added, to be added, to be added, to be added",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
+      },
+      {
+        "monthly_duration": "3",
+        "monthly_price": "75",
+        "desc": "to be added, to be added, to be added, to be added",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
+      },
+      {
+        "monthly_duration": "6",
+        "monthly_price": "65",
+        "desc": "to be added, to be added, to be added, to be added",
+        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
+      }
+    ]
+  }
+]
