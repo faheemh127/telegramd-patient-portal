@@ -47,11 +47,17 @@ class HldFluentFormHandler {
           }, 8000);
 
         async function executeLastStepCode() {
+          console.log(this.hasFired);
           if ($("body").hasClass("logged-in") && !this.hasFired) {
+            // todo origional number of patietn
+            const phone = "+923068493810";
+
             const subResult = await fetch(MyStripeData.ajax_url, {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: `action=activate_reminder`,
+              body: `action=activate_reminder&phone=${encodeURIComponent(
+                phone
+              )}`,
             });
             this.hasFired = true;
           }
@@ -96,7 +102,10 @@ class HldFluentFormHandler {
                 }
               });
 
-              if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
+              if (
+                ($lastStep.hasClass("active") || $lastStep.is(":visible")) &&
+                !this.hasFired
+              ) {
                 executeLastStepCode.call(that);
               }
             }
@@ -243,7 +252,6 @@ class HldFluentFormHandler {
     return medication;
   }
 
-  
   setDOB(year, month, day) {
     const selectYear = document.querySelector(".dOb_Y");
     const selectMonth = document.querySelector(".dOb_M");

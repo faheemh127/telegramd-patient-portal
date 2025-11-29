@@ -6,7 +6,7 @@ function hld_footer_shortcode()
 
     <!-- HLD Footer -->
     <div class="hld-footer" id="hld-footer">
-        <div class="hld-footer-inner" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #f5f5f5; border-top: 1px solid #ddd;">
+        <div class="hld-footer-inner" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: transparent; border-top: 1px solid #ddd;">
 
             <!-- Left Text -->
             <div class="hld-footer-left" style="font-size: 14px; color: #333; max-width: 100px;">

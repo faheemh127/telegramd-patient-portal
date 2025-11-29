@@ -359,24 +359,67 @@ if (! class_exists('HLD_Patient')) {
             // $GhlApiClient->createContact($data);
 
 
+            // $patient = HLD_Patient::get_patient_info();
+            // $patient_email = $patient['email'];
+            // $patient_phone = $patient['phone'];
+
+            // try {
+            //     $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+            //     $data = [
+            //         "email" => $patient_email,
+            //         "phone" => $patient_phone
+            //     ];
+
+            //     //TODO change the webook to match the reminder hook created at GHL-CRM;
+            //     // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+            //     $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/7355769a-474b-4198-a795-dddfe8eed813', $data);
+            //     return true;
+            // } catch (Exception $e) {
+            //     error_log('GHL Webhook Failed: ' . $e->getMessage());
+            //     return false;
+            // }
         }
 
         public static function cancel_email_reminders_to_add_card()
         {
-            $patient = HLD_Patient::get_patient_info();
-            $user_id = get_current_user_id();
-            $count = get_user_meta($user_id, 'count', true);
-            $args = [$patient['email'], $patient['phone'], $user_id, $count];
-            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
-            $timestamp = wp_next_scheduled($hook_name, $args);
-            if ($timestamp) {
-                wp_unschedule_event($timestamp, $hook_name, $args);
-            } else {
+
+            $patient = HLD_Patient::get_patient_info();
+            $patient_email = $patient['email'];
+            $patient_phone = $patient['phone'];
+
+            try {
+                $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+                $data = [
+                    "email" => $patient_email,
+                    "phone" => $patient_phone
+                ];
+
+                //TODO change the webook to match the reminder hook created at GHL-CRM;
+                // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/4824f46c-2618-44f5-be04-6306b91640da', $data);
+                return true;
+            } catch (Exception $e) {
+                error_log('GHL Webhook Failed: ' . $e->getMessage());
                 return false;
             }
 
-            return true;
+
+
+
+            // $user_id = get_current_user_id();
+            // $count = get_user_meta($user_id, 'count', true);
+            // $args = [$patient['email'], $patient['phone'], $user_id, $count];
+            // $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+
+            // $timestamp = wp_next_scheduled($hook_name, $args);
+            // if ($timestamp) {
+            //     wp_unschedule_event($timestamp, $hook_name, $args);
+            // } else {
+            //     return false;
+            // }
+
+
         }
 
         public static function hld_send_ghl_card_reminder_webhook_event($patient_email, $patient_phone, $user_id, $count)
@@ -391,60 +434,69 @@ if (! class_exists('HLD_Patient')) {
                 ];
 
                 //TODO change the webook to match the reminder hook created at GHL-CRM;
-                $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/8655bad0-2ed8-4edb-870b-05766c9079b9', $data);
             } catch (Exception $e) {
                 error_log('GHL Webhook Failed: ' . $e->getMessage());
             }
 
-            $count = (int) $count + 1;
-            $args = [$patient_email, $patient_phone, $user_id, $count . ""];
+            // $count = (int) $count + 1;
+            // $args = [$patient_email, $patient_phone, $user_id, $count . ""];
 
-            update_user_meta($user_id, "count", $count);
-            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+            // update_user_meta($user_id, "count", $count);
+            // $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
-            $timestamp = wp_next_scheduled($hook_name, $args);
-            if ($timestamp) {
-                wp_unschedule_event($timestamp, $hook_name, $args);
-            }
+            // $timestamp = wp_next_scheduled($hook_name, $args);
+            // if ($timestamp) {
+            //     wp_unschedule_event($timestamp, $hook_name, $args);
+            // }
 
-            switch ($count) {
-                case 1:
-                    $delay_seconds = 24 * 3600;
-                    break;
-                case 2:
-                case 3:
-                    $delay_seconds = 24 * 3600 * 7;
-                    break;
-                case 4:
-                    $delay_seconds = 24  * 3600 * 30;
-                    break;
-                case 5:
-                default:
-                    $delay_seconds = 24 * 3600 * 90;
-            }
+            // switch ($count) {
+            //     case 1:
+            //         $delay_seconds = 24 * 3600;
+            //         break;
+            //     case 2:
+            //     case 3:
+            //         $delay_seconds = 24 * 3600 * 7;
+            //         break;
+            //     case 4:
+            //         $delay_seconds = 24  * 3600 * 30;
+            //         break;
+            //     case 5:
+            //     default:
+            //         $delay_seconds = 24 * 3600 * 90;
+            // }
 
-            wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
+            // wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
         }
 
         public static function create_email_reminders_to_add_card()
         {
+
+
+
             $patient = HLD_Patient::get_patient_info();
-            $delay_seconds = 3600; // 1 hour
+            // $delay_seconds = 3600; // 1 hour
 
             $user_id = get_current_user_id();
-            update_user_meta($user_id, "count", "1");
-            $args = [$patient['email'], $patient['phone'], $user_id, "1"];
-            $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
+            // update_user_meta($user_id, "count", "1");
+            // $args = [$patient['email'], $patient['phone'], $user_id, "1"];
+            // $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
-            $timestamp = wp_next_scheduled($hook_name, $args);
+            // $timestamp = wp_next_scheduled($hook_name, $args);
 
-            if ($timestamp) {
-                wp_unschedule_event($timestamp, $hook_name, $args);
-            }
+            // if ($timestamp) {
+            //     wp_unschedule_event($timestamp, $hook_name, $args);
+            // }
 
-            wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
+            // wp_schedule_single_event(time() + $delay_seconds, $hook_name, $args);
 
-            return true;
+            // return true;
+
+
+
+
+            HLD_Patient::hld_send_ghl_card_reminder_webhook_event($patient["email"], $patient["phone"], $user_id, 1);
         }
 
         public static function get_card_status()

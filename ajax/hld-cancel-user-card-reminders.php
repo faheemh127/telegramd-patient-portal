@@ -37,6 +37,8 @@ function hld_cancel_card_reminders()
     }
 
     $status = HLD_Patient::cancel_email_reminders_to_add_card();
+
+    
     if ($status) {
         wp_send_json_success(['success' => true, 'message' => 'Reminders cancelled and card saved for later use.']);
     } else {

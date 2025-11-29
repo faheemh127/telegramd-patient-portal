@@ -71,7 +71,7 @@ if (!$hasCardAttached) {
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
-                        body: `action=cancel_card_reminders`,
+                        // body: `action=cancel_card_reminders`,
                         body: `action=cancel_card_reminders&pm_id=${pm_id}`
                     });
 

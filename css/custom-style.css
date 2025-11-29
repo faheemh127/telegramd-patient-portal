@@ -2,12 +2,12 @@
   --hld-color-primary: #6d6ffc;
   --hld-color-primary-dark: #5758d6; /* slightly darker shade for hover */
 }
+.hld_form_container {
+  min-height: 100vh;
+  background: #f7f5f5;
+}
 .hld_form_wrap {
   max-width: 700px !important;
-  /* background: white;
-    padding: 30px 30px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px 0; */
 }
 .container {
   padding: 0 !important;
@@ -888,9 +888,7 @@ nav.hld-navbar {
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
-  transition:
-    border 0.3s ease,
-    color 0.3s ease;
+  transition: border 0.3s ease, color 0.3s ease;
   width: 120px;
   text-align: center;
   width: 100%;
@@ -953,9 +951,7 @@ nav.hld-navbar {
   border-radius: 10px;
   padding: 25px 20px;
   background: #fff;
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
   width: 100%;
   text-align: left;
   height: 100%;
@@ -1406,8 +1402,7 @@ nav.hld-navbar {
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
   font-size: 15px;
   height: 40px;
@@ -1519,7 +1514,6 @@ nav.hld-navbar {
   color: var(--hld-color-primary);
 }
 
-
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
 
@@ -1544,9 +1538,7 @@ nav.hld-navbar {
     outline: none;
     box-shadow: none;
     cursor: text;
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .hld_login_form input:focus {
@@ -1780,6 +1772,7 @@ nav.hld-navbar {
   width: 25px;
   height: 25px;
 }
+
 .hld-logo img {
   height: 40px !important;
   width: auto;
