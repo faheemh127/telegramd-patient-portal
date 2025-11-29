@@ -10,7 +10,7 @@ $prefix = $wpdb->prefix . "healsend_";
 
 // 1)
 if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
-    define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 74 : 60);
+    define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 76 : 60);
 }
 
 // 2)

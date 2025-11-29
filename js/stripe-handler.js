@@ -239,17 +239,17 @@ class hldStripeHandler {
     console.log("bindEvents function called");
     if (
       !form ||
-      !this.paymentButton
-      // !this.afterPayButton
+      !this.paymentButton ||
+      !this.afterPayButton
       // !this.klarnaButton
     ) {
       console.warn("Form or payment button not found.");
       return;
     }
 
-    // this.afterPayButton.addEventListener("click", (e) =>
-    //   this.handleCardPayment(e, "afterpay")
-    // );
+    this.afterPayButton.addEventListener("click", (e) =>
+      this.handleCardPayment(e, "afterpay")
+    );
 
     //   this.handleCardPayment(e, "klarna")
     // );

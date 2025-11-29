@@ -10,9 +10,9 @@
 
 
 
+
 steps to export a funnel from localhost to live
 1) export and import the form to live
-2) update fluent form id's in the plugin
-3) update page form_id in shortcode and shortcode data
+2) update fluent form id's in the plugin & update page form_id in shortcode and shortcode data3
 4) set constants
-5) set quinst_data in action items correctly
+

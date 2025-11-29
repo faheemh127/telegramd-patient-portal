@@ -464,6 +464,17 @@ nav.hld-navbar {
   align-items: center;
   margin: 10px 0;
 }
+#hldPayWithKlarna {
+  width: 100%;
+  border-radius: 50px;
+  background: #feaace;
+  color: black;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
 .ff-btn-submit {
   visibility: visible;
   width: 100%;
