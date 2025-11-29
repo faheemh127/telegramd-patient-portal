@@ -46,20 +46,24 @@ class HldFluentFormHandler {
             jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
           }, 8000);
 
-        async function executeLastStepCode() {
-          console.log(this.hasFired);
-          if ($("body").hasClass("logged-in") && !this.hasFired) {
+        function executeLastStepCode() {
+          console.log("function called exec,..... ", hldFormHandler.hasFired);
+
+          console.log(hldFormHandler.hasFired);
+          if ($("body").hasClass("logged-in") && !hldFormHandler.hasFired) {
+            console.log("ajax called hasfired", hldFormHandler.hasFired);
+
             // todo origional number of patietn
             const phone = "+923068493810";
 
-            const subResult = await fetch(MyStripeData.ajax_url, {
+            const subResult = fetch(MyStripeData.ajax_url, {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
                 phone
               )}`,
             });
-            this.hasFired = true;
+            hldFormHandler.hasFired = true;
           }
         }
 
@@ -102,11 +106,15 @@ class HldFluentFormHandler {
                 }
               });
 
-              if (
-                ($lastStep.hasClass("active") || $lastStep.is(":visible")) &&
-                !this.hasFired
-              ) {
-                executeLastStepCode.call(that);
+              if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
+                console.log("has fired 105", hldFormHandler.hasFired);
+                if (!hldFormHandler.hasFired) {
+                  console.log("has fired 106", hldFormHandler.hasFired);
+
+                  executeLastStepCode.call(that);
+                  hldFormHandler.hasFired = true;
+                  console.log("has fired 107", hldFormHandler.hasFired);
+                }
               }
             }
           });

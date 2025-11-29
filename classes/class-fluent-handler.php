@@ -471,6 +471,8 @@ if (! class_exists('hldFluentHandler')) {
                     $loc_id = str_replace('___', ':', $key);
                     $loc_id = str_replace('__', '.', $loc_id);
                     $loc_id = str_replace('_', '-', $loc_id);
+                    $loc_id = str_replace('____', '/', $loc_id);
+                    
 
                     $answers[] = [
                         'location' => "loc::{$loc_id}",

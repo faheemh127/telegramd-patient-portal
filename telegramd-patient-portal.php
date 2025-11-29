@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) {
 
 
 // Core constants for live, staging and localhost
-define('HLD_LIVE', true);
+define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
 

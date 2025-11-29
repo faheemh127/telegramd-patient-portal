@@ -65,7 +65,7 @@ function hld_ghl_activate_reminder()
         wp_die();
     }
 
-    error_log("execute paused due a reson");
+    error_log("execution of remainders is paused due to testing on faheem side");
     return;
     $phone = $_POST['phone'];
 
