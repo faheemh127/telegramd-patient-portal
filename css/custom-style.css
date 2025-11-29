@@ -8,6 +8,7 @@
 }
 .hld_form_wrap {
   max-width: 700px !important;
+  margin-top: 35px;
 }
 .container {
   padding: 0 !important;
@@ -346,7 +347,7 @@ nav.hld-navbar {
 }
 
 #card-element {
-  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
   background-color: white;
   padding: 15px 19px !important;
   border-radius: 10px !important;

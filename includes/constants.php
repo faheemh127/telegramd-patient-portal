@@ -15,12 +15,12 @@ if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
 
 // 2)
 if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
-    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 72 : 57);
+    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 78 : 57);
 }
 
 // 3)
 if (! defined('HLD_PT_141_PREFUNNEL_FORM_ID')) {
-    define('HLD_PT_141_PREFUNNEL_FORM_ID', HLD_LIVE ? 0 : 61);
+    define('HLD_PT_141_PREFUNNEL_FORM_ID', HLD_LIVE ? 80 : 61);
 }
 
 // 5)
@@ -34,15 +34,15 @@ if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
 // Action Items -  Questionnaires
 
 if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
-    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', HLD_LIVE ? 75 : 59);
+    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', HLD_LIVE ? 77 : 59);
 }
 
 if (! defined('HLD_METABOLIC_ACTION_ITEM_FORM_ID')) {
-    define('HLD_METABOLIC_ACTION_ITEM_FORM_ID', HLD_LIVE ? 73 : 58);
+    define('HLD_METABOLIC_ACTION_ITEM_FORM_ID', HLD_LIVE ? 79 : 58);
 }
 
 if (! defined('HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID')) {
-    define('HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID', HLD_LIVE ? 0 : 64);
+    define('HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID', HLD_LIVE ? 81 : 64);
 }
 
 

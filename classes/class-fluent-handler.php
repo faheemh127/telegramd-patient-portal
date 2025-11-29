@@ -21,7 +21,8 @@ if (! class_exists('hldFluentHandler')) {
         ];
         protected $action_items = [
             HLD_CLINICAL_DIFFERENCE_FORM_ID,
-            HLD_METABOLIC_ACTION_ITEM_FORM_ID
+            HLD_METABOLIC_ACTION_ITEM_FORM_ID,
+            HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID
         ];
         protected $telegra_product_id = null;
         protected $stripe_subscription_id = null;
