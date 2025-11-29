@@ -468,10 +468,11 @@ if (! class_exists('hldFluentHandler')) {
                     }
 
                     // Replace special patterns in the key
-                    $loc_id = str_replace('___', ':', $key);
+                    $loc_id = str_replace('____', '/', $key);
+                    $loc_id = str_replace('___', ':', $loc_id);
                     $loc_id = str_replace('__', '.', $loc_id);
                     $loc_id = str_replace('_', '-', $loc_id);
-                    $loc_id = str_replace('____', '/', $loc_id);
+                    
                     
 
                     $answers[] = [

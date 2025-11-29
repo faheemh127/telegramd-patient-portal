@@ -18,12 +18,12 @@
   height: 50px !important;
   border-radius: 10px !important;
   padding: 0 20px !important;
-  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 .hld_form_wrap input {
   border-radius: 10px !important;
   height: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
   transition: all 0.5s ease-in-out;
 }
 .custom-weight-text .lose-text {
@@ -204,7 +204,7 @@ nav.hld-navbar {
 }
 .hld_form_wrap .nsl-button-google {
   background: white !important;
-  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
   border-radius: 40px !important;
   justify-content: center;
   height: 50px;
@@ -398,7 +398,7 @@ nav.hld-navbar {
 
 .hld_patient_packages .package-box {
   text-align: left;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   padding: 25px 20px;
   transition: border-color 0.3s;
@@ -490,10 +490,10 @@ nav.hld-navbar {
   border-radius: 50px;
 }
 .hld_secure_evaluation {
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .ff-summary-wrapper {
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .hdl_primary_color {
@@ -868,7 +868,7 @@ nav.hld-navbar {
 .hld_email_input input {
   height: 50px !important;
   padding-left: 20px !important;
-  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Style for Male/Female Radio Custom */
@@ -884,7 +884,7 @@ nav.hld-navbar {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;

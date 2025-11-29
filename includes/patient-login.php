@@ -94,6 +94,7 @@ function hld_render_custom_login_form()
 
         <div class="hld_social_login">
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
+            <?php echo do_shortcode('[nextend_social_login provider="apple"]'); ?>
         </div>
 
         <div class="hld_create_wrap">

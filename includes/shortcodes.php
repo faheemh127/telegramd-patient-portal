@@ -42,11 +42,15 @@ if (! class_exists('hldShortcode')) {
 
             ob_start();
             echo do_shortcode('[hld_navbar]'); ?>
-            <div class="hld_form_wrap_hidden">
-                <?php
-                echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
-                echo do_shortcode('[hld_footer]');
-                ?>
+            <div class="hld_form_container">
+                <div class="hld_form_wrap">
+                    <div class="hld_form_wrap_hidden">
+                        <?php
+                        echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
+                        echo do_shortcode('[hld_footer]');
+                        ?>
+                    </div>
+                </div>
             </div>
 
 
