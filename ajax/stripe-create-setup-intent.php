@@ -107,7 +107,7 @@ function my_create_payment_intent()
         $paymentIntent = \Stripe\PaymentIntent::create([
           'payment_method_types' => [$intent_for],
           'customer' => $customer_id,
-          'amount' => $details['price_raw'] * duration,
+          'amount' => $details['price'] * duration,
           'currency' => 'usd',
           'amount_details' => [
             'line_items' => [
@@ -172,7 +172,7 @@ function fetch_stripe_product_details($price_id)
         return [
             'title'       => $price->product->name,
             'description' => $price->product->description,
-            'price_raw'   => $price->unit_amount,
+            'price'   => $price->unit_amount,
             'currency'    => strtoupper($price->currency),
             'formatted'   => number_format($price->unit_amount / 100, 2) . ' ' . strtoupper($price->currency)
         ];
