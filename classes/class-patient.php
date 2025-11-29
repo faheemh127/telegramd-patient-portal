@@ -370,14 +370,9 @@ if (! class_exists('HLD_Patient')) {
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
-            error_log("Time stamp in cancel_email_reminders_to_add_card" . $timestamp);
-            error_log("count is ".$count );
-            error_log(print_r($count, true));
             if ($timestamp) {
-                error_log("Time stamp in cancel_email_reminders_to_add_card" . $timestamp);
                 wp_unschedule_event($timestamp, $hook_name, $args);
             } else {
-                error_log("No timestamp found");
                 return false;
             }
 
@@ -401,7 +396,8 @@ if (! class_exists('HLD_Patient')) {
                 error_log('GHL Webhook Failed: ' . $e->getMessage());
             }
 
-            $args = [$patient_email, $patient_phone, $user_id, $count + 1];
+            $count = (int) $count + 1;
+            $args = [$patient_email, $patient_phone, $user_id, $count . ""];
 
             update_user_meta($user_id, "count", $count);
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
@@ -436,13 +432,13 @@ if (! class_exists('HLD_Patient')) {
             $delay_seconds = 3600; // 1 hour
 
             $user_id = get_current_user_id();
-            update_user_meta($user_id, "count", 1);
-            $args = [$patient['email'], $patient['phone'], $user_id, 1];
+            update_user_meta($user_id, "count", "1");
+            $args = [$patient['email'], $patient['phone'], $user_id, "1"];
             $hook_name = 'HLD_Patient::hld_send_ghl_card_reminder_webhook_event';
 
             $timestamp = wp_next_scheduled($hook_name, $args);
+
             if ($timestamp) {
-                error_log("time stamp in create_email_remiders to add card");
                 wp_unschedule_event($timestamp, $hook_name, $args);
             }
 
