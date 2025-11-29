@@ -320,3 +320,10 @@ add more applicants
 
    --billing 28 days
    -- popup on find a treatment button
+
+
+
+
+
+   Draw the signature
+   i agree the checkbox in the login page

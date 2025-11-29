@@ -411,6 +411,7 @@ if (! class_exists('hldFluentHandler')) {
             // Assign General Action item that will be for all plans
             HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GENERAL_ACTION_ITEM, $order_id);
 
+            // todo replace with one liner hidden field
             if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
                 HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GLP_WEIGHT_LOSS_SLUG, $order_id);
             } elseif ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
