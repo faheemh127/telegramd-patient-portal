@@ -2,22 +2,29 @@
   {
     "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
     "medication_name": "NAD+ Injections",
-    "description": "Waiting to be provided.",
+    "description": "Supports recovery from workouts and long days, Sharpens focus and mental stamina, Helps restore NAD+ levels depleted by stress and aging, Steady all-day cellular energy support, Fast NAD+ rise for deep mitochondrial activation, High bioavailability with no digestive loss, Supports mitochondrial energy and DNA repair",
     "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
-    "labels": "to be provided, to be provided",
+    "labels": "Better Sleep, Stress Tolerance",
     "packages": [
       {
         "monthly_duration": "1",
         "monthly_price": "45",
-        "desc": "to be provided, to be provided, to be provided",
+        "desc": "Short-term boost, ideal for beginners, fast recovery support",
         "stripe_price_id": "price_1SVPuyAcgi1hKyLWgjOYvTcm"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "42",
-        "desc": "to be provided, to be provided, to be provided",
+        "desc": "Long-term cellular support, deeper NAD+ restoration, consistent wellness improvement",
         "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
       }
     ]
   }
 ]
+
+
+
+
+
+
+[hld_glp_prefunnel form_id="57" pay="later" medications="WwogIHsKICAgICJ0ZWxlZ3JhX2NvZGUiOiAicHZ0OjozNmQyNGFhOS0xNzdhLTRiODUtYWUzMS1iNDc3ZTMyYjYyZDkiLAogICAgIm1lZGljYXRpb25fbmFtZSI6ICJOQUQrIEluamVjdGlvbnMiLAogICAgImRlc2NyaXB0aW9uIjogIlN1cHBvcnRzIHJlY292ZXJ5IGZyb20gd29ya291dHMgYW5kIGxvbmcgZGF5cywgU2hhcnBlbnMgZm9jdXMgYW5kIG1lbnRhbCBzdGFtaW5hLCBIZWxwcyByZXN0b3JlIE5BRCsgbGV2ZWxzIGRlcGxldGVkIGJ5IHN0cmVzcyBhbmQgYWdpbmcsIFN0ZWFkeSBhbGwtZGF5IGNlbGx1bGFyIGVuZXJneSBzdXBwb3J0LCBGYXN0IE5BRCsgcmlzZSBmb3IgZGVlcCBtaXRvY2hvbmRyaWFsIGFjdGl2YXRpb24sIEhpZ2ggYmlvYXZhaWxhYmlsaXR5IHdpdGggbm8gZGlnZXN0aXZlIGxvc3MsIFN1cHBvcnRzIG1pdG9jaG9uZHJpYWwgZW5lcmd5IGFuZCBETkEgcmVwYWlyIiwKICAgICJzdHJpcGVfcHJvZHVjdF9pZCI6ICJwcm9kX1RTS2FSOEd2OEVuYkR3IiwKICAgICJsYWJlbHMiOiAiQmV0dGVyIFNsZWVwLCBTdHJlc3MgVG9sZXJhbmNlIiwKICAgICJwYWNrYWdlcyI6IFsKICAgICAgewogICAgICAgICJtb250aGx5X2R1cmF0aW9uIjogIjEiLAogICAgICAgICJtb250aGx5X3ByaWNlIjogIjQ1IiwKICAgICAgICAiZGVzYyI6ICJTaG9ydC10ZXJtIGJvb3N0LCBpZGVhbCBmb3IgYmVnaW5uZXJzLCBmYXN0IHJlY292ZXJ5IHN1cHBvcnQiLAogICAgICAgICJzdHJpcGVfcHJpY2VfaWQiOiAicHJpY2VfMVNWUHV5QWNnaTFoS3lMV2dqT1l2VGNtIgogICAgICB9LAogICAgICB7CiAgICAgICAgIm1vbnRobHlfZHVyYXRpb24iOiAiMyIsCiAgICAgICAgIm1vbnRobHlfcHJpY2UiOiAiNDIiLAogICAgICAgICJkZXNjIjogIkxvbmctdGVybSBjZWxsdWxhciBzdXBwb3J0LCBkZWVwZXIgTkFEKyByZXN0b3JhdGlvbiwgY29uc2lzdGVudCB3ZWxsbmVzcyBpbXByb3ZlbWVudCIsCiAgICAgICAgInN0cmlwZV9wcmljZV9pZCI6ICJwcmljZV8xU1ZQd2JBY2dpMWhLeUxXcUhjYWVpR2wiCiAgICAgIH0KICAgIF0KICB9Cl0="]

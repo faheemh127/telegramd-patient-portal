@@ -86,16 +86,18 @@ if (empty($subscriptions) || !is_array($subscriptions)) {
                             View Last Invoice
                         </a>
 
-                        <?php //if (isset($subscription["refund_status"]) && $subscription["refund_status"] == "requested") : ?>
+                        <?php //if (isset($subscription["refund_status"]) && $subscription["refund_status"] == "requested") : 
+                        ?>
 
-                            <span class="hld-view-invoice btn btn-primary"
-                                id="hld-revoke-sub"
-                                sub-nonce="<?php echo $sub_nonce; ?>"
-                                data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
-                                Revoke Subscription
-                            </span>
+                        <span style="display: none;" class="hld-view-invoice btn btn-primary"
+                            id="hld-revoke-sub"
+                            sub-nonce="<?php echo $sub_nonce; ?>"
+                            data="<?php echo $sub_hash . explode('_', $subscription['stripe_subscription_id'])[1]; ?>">
+                            Revoke Subscription
+                        </span>
 
-                        <?php // endif; ?>
+                        <?php // endif; 
+                        ?>
 
                     </div>
                 </div>

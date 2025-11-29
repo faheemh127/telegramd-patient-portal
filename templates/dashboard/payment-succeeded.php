@@ -82,15 +82,16 @@ if (!$hasCardAttached) {
     })
 </script>
 
-<h3 class="hld-subscription-title">Thank you for choosing us.</h3>
+<h3 class="hld-thank-you-title">Thank you for choosing us.</h3>
+<p class="hld-thank-you-desc">Please add the credit card for future transactions....</p>
 <div class="w-100 hld-card hld-subscription-card">
-    <div class="card-body hld-card-body">
+    <div class="card-body hld-card-body hld-add-card-wrap">
         <?php if (!$hasCardAttached) : ?>
             <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
-                Please add the credit card for future transactions....
+
                 <form id="payment-form">
                     <div id="add-payment-card"></div>
-                    <button id="submit-button" style="display: none">Save Card</button>
+                    <button id="submit-button" class="hld-btn-save-card" style="display: none">Save Card</button>
                     <div id="payment-message" style="color: red;"></div>
                 </form>
             </div>

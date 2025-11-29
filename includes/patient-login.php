@@ -12,40 +12,10 @@ add_shortcode('hld_custom_login_form', 'hld_render_custom_login_form');
 
 function hld_render_custom_login_form()
 {
-    if (is_user_logged_in()) {
-        wp_safe_redirect(home_url('/my-account'));
-        exit;
-    }
-
     ob_start();
 
-    $error_message = '';
-    if (
-        $_SERVER['REQUEST_METHOD'] === 'POST'
-        && isset($_POST['hld_login_nonce'])
-        && wp_verify_nonce($_POST['hld_login_nonce'], 'hld_login_action')
-    ) {
-        $creds = array(
-            'user_login'    => sanitize_user($_POST['hld_username']),
-            'user_password' => $_POST['hld_password'],
-            'remember'      => true,
-        );
-        unset($_REQUEST['redirect_to']);
-        $user = wp_signon($creds, false);
+    $error_message = apply_filters('hld_login_error_message', '');
 
-        if (is_wp_error($user)) {
-            $error_message = 'Invalid username or password.';
-        } else {
-            // Ensure user has subscriber role
-            if (in_array('subscriber', (array)$user->roles)) {
-                wp_safe_redirect(home_url('/my-account'));
-                exit;
-            } else {
-                wp_logout();
-                $error_message = 'Access denied. Only subscribers can log in here.';
-            }
-        }
-    }
 ?>
 
     <div class="hld_login_wrapper">
@@ -94,7 +64,7 @@ function hld_render_custom_login_form()
 
         <div class="hld_social_login">
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
-            <?php echo do_shortcode('[nextend_social_login provider="apple"]'); ?>
+
         </div>
 
         <div class="hld_create_wrap">

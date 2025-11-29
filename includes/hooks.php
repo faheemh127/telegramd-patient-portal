@@ -2,6 +2,100 @@
 if (! defined('ABSPATH')) exit; // Exit if accessed directly
 
 
+add_action('init', 'hld_handle_custom_login');
+function hld_handle_custom_login()
+{
+
+    // logincode
+
+    if (
+        isset($_POST['hld_login_nonce']) &&
+        wp_verify_nonce($_POST['hld_login_nonce'], 'hld_login_action')
+    ) {
+
+        $creds = array(
+            'user_login'    => sanitize_user($_POST['hld_username']),
+            'user_password' => $_POST['hld_password'],
+            'remember'      => true,
+        );
+
+        unset($_REQUEST['redirect_to']);
+
+        $user = wp_signon($creds, false);
+
+        if (is_wp_error($user)) {
+
+            // store error message for shortcode
+            add_filter('hld_login_error_message', function () {
+                return 'Invalid username or password.';
+            });
+        } else {
+
+            if (in_array('subscriber', (array)$user->roles)) {
+
+                // clean redirect (allowed in init)
+                wp_safe_redirect(home_url('/my-account'));
+                exit;
+            } else {
+                wp_logout();
+
+                add_filter('hld_login_error_message', function () {
+                    return 'Access denied. Only subscribers can log in here.';
+                });
+            }
+        }
+    }
+
+
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hld_signup_nonce']) && wp_verify_nonce($_POST['hld_signup_nonce'], 'hld_signup_action')) {
+
+        $username = sanitize_user($_POST['hld_username']);
+        $email    = sanitize_email($_POST['hld_email']);
+        $password = $_POST['hld_password'];
+
+        if (username_exists($username) || email_exists($email)) {
+            $error_message = 'Username or email already exists.';
+        } elseif (empty($username) || empty($email) || empty($password)) {
+            $error_message = 'All fields are required.';
+        } else {
+            // Create user as subscriber
+            $user_id = wp_create_user($username, $password, $email);
+
+            if (is_wp_error($user_id)) {
+                $error_message = 'Registration failed. Please try again.';
+            } else {
+                // Set role to subscriber
+                $user = new WP_User($user_id);
+                $user->set_role('subscriber');
+                // ✅ Send Welcome Email
+
+                // Log the user in immediately
+                $creds = array(
+                    'user_login'    => $username,
+                    'user_password' => $password,
+                    'remember'      => true,
+                );
+
+                $logged_in_user = wp_signon($creds, false);
+
+
+                if (!is_wp_error($logged_in_user)) {
+                    wp_safe_redirect(home_url('/my-account'));
+                    exit;
+                } else {
+                    $error_message = 'Registration successful, but automatic login failed. Please log in manually.';
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
 
 // Disalbe the admin bar for patients
 add_action('after_setup_theme', function () {
@@ -39,7 +133,7 @@ add_filter('nsl_redirect_url', function ($url, $provider) {
 }, 20, 2);
 
 
- 
+
 
 // Add sidebar overlay to every page
 add_action('wp_footer', 'hld_add_sidebar_overlay');

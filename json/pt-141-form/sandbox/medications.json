@@ -2,27 +2,21 @@
   {
     "telegra_code": "pvt::a53ff66a-0673-4371-a785-e6906c2176c2",
     "medication_name": "PT-141",
-    "description": "product id added, to be added to be added to be added",
+    "description": "Enhances sexual desire & arousal, Works for both men and women, Rapid-acting non-hormonal peptide, Increases sensitivity and satisfaction",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "to be added, to be added",
+    "labels": "No Needles, Fast absorption",
     "medication": "pt_141",
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "99",
-        "desc": "to be added, to be added, to be added, to be added",
+        "monthly_price": "169",
+        "desc": "Great for first-time users, Provides fast-acting enhancement, Helps assess individual response, Ideal for short-term boost in desire",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "75",
-        "desc": "to be added, to be added, to be added, to be added",
-        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
-      },
-      {
-        "monthly_duration": "6",
-        "monthly_price": "65",
-        "desc": "to be added, to be added, to be added, to be added",
+        "monthly_price": "149",
+        "desc": "Best value for long-term support, More consistent improvement over time, Enhanced overall satisfaction, Ideal for ongoing performance and confidence",
         "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
       }
     ]

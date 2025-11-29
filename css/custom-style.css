@@ -190,7 +190,7 @@ nav.hld-navbar {
   label:has(input[type="checkbox"]:checked) {
   background-color: white !important;
   border: 1px solid var(--hld-color-primary) !important;
-  color: var(--hld-color-primary);
+  color: var(--hld-color-primary) !important;
 }
 .hld_form_wrap .fluentform .ff-el-form-check {
   margin-bottom: 5px !important;
@@ -431,6 +431,54 @@ nav.hld-navbar {
   font-size: 24px;
   color: black;
   margin-bottom: 15px;
+}
+.hld-btn-save-card {
+  border-radius: 50px;
+  width: 100%;
+  margin-top: 30px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  background: var(--hld-color-primary);
+}
+.hld-thank-you-desc {
+  text-align: center;
+  font-size: 1.2rem;
+}
+.ff-message-success {
+  padding: 0 !important;
+}
+.ff-message-success + div {
+  padding: 0 !important;
+}
+#hldPayWithAP {
+  width: 100%;
+  border-radius: 50px;
+  background: #b4fce5;
+  color: black;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+.ff-btn-submit {
+  visibility: visible;
+  width: 100%;
+  border-radius: 50px;
+  font-size: 15px;
+}
+.hld-add-card-wrap {
+  min-width: 650px;
+  width: 700px;
+  max-width: 100%;
+}
+.hld-thank-you-title {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.5rem;
 }
 .hld-order-item {
   padding: 30px 40px !important;

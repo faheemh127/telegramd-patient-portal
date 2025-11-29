@@ -3,57 +3,13 @@ add_shortcode('hld_custom_signup_form', 'hld_render_custom_signup_form');
 
 function hld_render_custom_signup_form()
 {
-    if (is_user_logged_in()) {
-        wp_safe_redirect(home_url('/my-account'));
-        exit;
-    }
 
     ob_start();
 
     $error_message = '';
     $success_message = '';
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hld_signup_nonce']) && wp_verify_nonce($_POST['hld_signup_nonce'], 'hld_signup_action')) {
 
-        $username = sanitize_user($_POST['hld_username']);
-        $email    = sanitize_email($_POST['hld_email']);
-        $password = $_POST['hld_password'];
-
-        if (username_exists($username) || email_exists($email)) {
-            $error_message = 'Username or email already exists.';
-        } elseif (empty($username) || empty($email) || empty($password)) {
-            $error_message = 'All fields are required.';
-        } else {
-            // Create user as subscriber
-            $user_id = wp_create_user($username, $password, $email);
-
-            if (is_wp_error($user_id)) {
-                $error_message = 'Registration failed. Please try again.';
-            } else {
-                // Set role to subscriber
-                $user = new WP_User($user_id);
-                $user->set_role('subscriber');
-                // ✅ Send Welcome Email
-             
-                // Log the user in immediately
-                $creds = array(
-                    'user_login'    => $username,
-                    'user_password' => $password,
-                    'remember'      => true,
-                );
-
-                $logged_in_user = wp_signon($creds, false);
-
-
-                if (!is_wp_error($logged_in_user)) {
-                    wp_safe_redirect(home_url('/my-account'));
-                    exit;
-                } else {
-                    $error_message = 'Registration successful, but automatic login failed. Please log in manually.';
-                }
-            }
-        }
-    }
 ?>
     <div class="hld_login_wrapper">
         <?php if (!empty($error_message)) : ?>
@@ -104,7 +60,7 @@ function hld_render_custom_signup_form()
 
         <div class="hld_social_login">
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
-            <?php echo do_shortcode('[nextend_social_login provider="apple"]'); ?>
+
 
         </div>
 

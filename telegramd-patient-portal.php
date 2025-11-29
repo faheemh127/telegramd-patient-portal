@@ -25,6 +25,9 @@ define('HLD_PLUGIN_VERSION', '1.4');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
 
+
+
+
 require_once plugin_dir_path(__FILE__) . 'includes/constants.php';
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -34,6 +37,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+require_once plugin_dir_path(__FILE__) . 'includes/hooks.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-ghl-webhook-client.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
@@ -63,7 +67,6 @@ require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
 require_once plugin_dir_path(__FILE__) . 'includes/order-tracking-webhook.php';
 require_once plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook.php';
-require_once plugin_dir_path(__FILE__) . 'includes/hooks.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';

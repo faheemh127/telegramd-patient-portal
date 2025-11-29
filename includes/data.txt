@@ -327,3 +327,4 @@ add more applicants
 
    Draw the signature
    i agree the checkbox in the login page
+   -- we need to remove upload signature field and take the checkbox in prefunnel
