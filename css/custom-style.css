@@ -10,6 +10,7 @@
   max-width: 700px !important;
   margin-top: 35px;
 }
+
 .container {
   padding: 0 !important;
   margin: 0 auto !important;
@@ -1755,6 +1756,9 @@ nav.hld-navbar {
   }
   .hld-order-detail-box .card-body {
     padding: 1.5rem !important;
+  }
+  .hld_form_wrap {
+    padding: 15px 20px;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

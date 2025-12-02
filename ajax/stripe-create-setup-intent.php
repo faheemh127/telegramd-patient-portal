@@ -71,7 +71,21 @@ function my_create_payment_intent()
 
   $duration = isset($_POST['duration']) ? sanitize_text_field($_POST['duration']) : '';
   $price_id = isset($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
+  // Read shipping info JSON
+  $shipping_json = isset($_POST['shipping_info']) ? wp_unslash($_POST['shipping_info']) : '';
+  $shipping_data = json_decode($shipping_json, true);
+
+  // Store values
+  $street = $shipping_data['street_address'] ?? '';
+  $city   = $shipping_data['city'] ?? '';
+  $zip    = $shipping_data['zip'] ?? '';
+  $state  = $shipping_data['state'] ?? '';
+
+
   $bank = sanitize_text_field($_POST['for'] ?? '');
+
+  $price_id = "price_1SVPuyAcgi1hKyLWgjOYvTcm";
+  $duration = 3;
 
   if (empty($duration) || empty($price_id)) {
     wp_send_json_error(['message' => 'Error processing your payment.']);
@@ -80,12 +94,23 @@ function my_create_payment_intent()
 
   $current_user = wp_get_current_user();
   $user_email   = $current_user->user_email;
-  $first_name   = $current_user->first_name ?? '';
-  $last_name    = $current_user->last_name ?? '';
-  $user_name    = trim("$first_name $last_name");
+  // Get first/last name from user meta
+  $first_name = get_user_meta($current_user->ID, 'first_name', true);
+  $last_name  = get_user_meta($current_user->ID, 'last_name', true);
+
+  // Fallback: if first+last empty, use display_name or username
+  $user_name = trim("$first_name $last_name");
+
+  if (empty($user_name)) {
+    $user_name = $current_user->display_name ?: $current_user->user_login;
+  }
+
+
+
 
   $details = fetch_stripe_product_details($price_id);
-  $description  = "Customer for {$details['title']}: {$user_name} ({$user_email})";
+
+  // $description  = "Customer for {$details['title']}: {$user_name} ({$user_email})";
 
   // ✅ Use your  to get or create Stripe Customer properly
   $customer_id = HLD_Stripe::get_or_create_stripe_customer($user_email, $first_name, $last_name);
@@ -103,17 +128,19 @@ function my_create_payment_intent()
 
   // todo make things dynamic
   try {
+
+
     // Create SetupIntent for this customer
     $paymentIntent = \Stripe\PaymentIntent::create([
       'payment_method_types' => [$intent_for],
       'customer' => $customer_id,
       'amount' => $details['price'] * $duration,
-      'currency' => 'usd',
+      'currency' => HLD_CURRENCY,
       'amount_details' => [
         'line_items' => [
           [
             'product_name' => $details['title'],
-            'unit_cost' => $details['formatted'],
+            'unit_cost' =>  $details['price'],
             'quantity' => $duration,
           ],
         ],
@@ -121,22 +148,22 @@ function my_create_payment_intent()
       'shipping' => [
         'name' => $user_name,
         'address' => [
-          'city' => 'Brothers',
-          'country' => 'US',
-          'line1' => '27 Fredrick Ave',
-          'postal_code' => '97712',
-          'state' => 'OR',
+          'city' => $city,
+          'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+          'line1' => $street,
+          'postal_code' => $zip,
+          'state' => $state,
         ],
       ],
       'payment_method_data' => [
         'type' => $intent_for,
         'billing_details' => [
           'address' => [
-            'city' => 'Faisalabad',
-            'country' => 'US',
-            'line1' => '27 Fredrick Ave',
-            'postal_code' => '97712',
-            'state' => 'OR',
+            'city' => $city,
+            'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+            'line1' => $street,
+            'postal_code' => $zip,
+            'state' => $state,
           ],
           'email' => $user_email,
           'name' => $user_name,
@@ -155,26 +182,35 @@ function my_create_payment_intent()
   wp_die();
 }
 
+
 function fetch_stripe_product_details($price_id)
 {
   require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
   \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
   try {
-    $price = \Stripe\Price::retrieve($price_id, [
-      'expand' => ['product']
-    ]);
+    // Retrieve the price
+    $price = \Stripe\Price::retrieve($price_id);
 
     if (!$price->active) {
-      throw new Exception("Product is archived");
+      throw new Exception("Price is inactive or archived");
+    }
+
+    // Retrieve the product if only ID is returned
+    if (is_string($price->product)) {
+      $product = \Stripe\Product::retrieve($price->product);
+    } else {
+      $product = $price->product;
     }
 
     return [
-      'title'       => $price->product->name,
-      'description' => $price->product->description,
-      'price'   => $price->unit_amount,
-      'currency'    => strtoupper($price->currency),
-      'formatted'   => number_format($price->unit_amount / 100, 2) . ' ' . strtoupper($price->currency)
+      'title'       => isset($product->name) ? $product->name : '',
+      'description' => isset($product->description) ? $product->description : '',
+      'price'       => isset($price->unit_amount) ? $price->unit_amount : 0,
+      'currency'    => isset($price->currency) ? strtoupper($price->currency) : '',
+      'formatted'   => isset($price->unit_amount, $price->currency)
+        ? number_format($price->unit_amount / 100, 2) . ' ' . strtoupper($price->currency)
+        : ''
     ];
   } catch (\Exception $e) {
     wp_send_json_error([
