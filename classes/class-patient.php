@@ -821,6 +821,28 @@ if (! class_exists('HLD_Patient')) {
             return false;
         }
 
+        public static function is_patient_new($email)
+        {
+            if (empty($email) || !is_email($email)) {
+                return false;
+            }
+
+            global $wpdb;
+            $table = HEALSEND_SUBSCRIPTIONS_TABL;
+
+            $email = sanitize_email($email);
+
+            // Check if patient already exists
+            $existing = $wpdb->get_var(
+                $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
+            );
+
+            if ($existing) {
+                return false;
+            }
+            return true;
+            ;
+        }
         public static function register_actions()
         {
             add_action(

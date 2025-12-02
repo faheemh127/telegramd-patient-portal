@@ -7,7 +7,6 @@
  */
 class HLD_Telegra
 {
-
     public function get_medicine_code($medicine)
     {
         // Mapping of medicines to codes
@@ -369,7 +368,7 @@ class HLD_Telegra
 
 
 
-    function create_order($telegra_patient_id, $medication_id, $symptoms = [])
+    public function create_order($telegra_patient_id, $medication_id, $symptoms = [])
     {
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint = TELEGRA_BASE_URL . '/orders';
@@ -429,7 +428,7 @@ class HLD_Telegra
             return new WP_Error('order_failed', 'Order API returned error: ' . $response_body);
         }
 
-    
+
         error_log('[TelegraMD Order Created] Status: ' . $status_code . ' → ' . $response_body);
         return $data['id'];
     }
