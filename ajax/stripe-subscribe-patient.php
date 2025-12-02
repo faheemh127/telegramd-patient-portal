@@ -103,6 +103,9 @@ function hld_subscribe_patient_handler()
         $subscription = \Stripe\Subscription::create([
             'customer' => $customer_id,
             'items' => [['price' => $price_id]],
+            'discounts' => [[
+                'promotion_code' => 'promo_1SZwPPAcgi1hKyLW9HK73dQP' // e.g. "25OFF_FIRST_MONTH"
+            ]],
             'cancel_at' => strtotime("+{$months} months"),
             'expand' => ['latest_invoice.payment_intent'],
         ]);

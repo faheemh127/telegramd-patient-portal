@@ -702,6 +702,12 @@ nav.hld-navbar {
   align-items: center;
   width: 100%;
 }
+.hld_apple_signin .nsl-button {
+  background-color: black !important;
+}
+.hld_apple_signin .nsl-button-label-container {
+  color: white !important;
+}
 .hld_login_wrapper .nsl-container {
   width: 100%;
   display: flex;
@@ -1898,6 +1904,9 @@ nav.hld-navbar {
 }
 .hld-dob-desktop-wrap {
   display: block;
+}
+.hld_login_button {
+  background: var(--hld-color-primary);
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;

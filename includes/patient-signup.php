@@ -60,7 +60,9 @@ function hld_render_custom_signup_form()
 
         <div class="hld_social_login">
             <?php echo do_shortcode('[nextend_social_login provider="google"]'); ?>
-
+            <div class="hld_apple_signin">
+                <?php echo do_shortcode('[nextend_social_login provider="apple"]'); ?>
+            </div>
 
         </div>
 
@@ -70,6 +72,18 @@ function hld_render_custom_signup_form()
             </p>
         </div>
     </div>
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if body has class "logged-in"
+            if (document.body.classList.contains("logged-in")) {
+                // Redirect to My Account page
+                window.location.href = "<?php echo esc_url(home_url('/my-account')); ?>";
+            }
+        });
+    </script>
+
 <?php
     return ob_get_clean();
 }
