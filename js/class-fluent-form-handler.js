@@ -25,21 +25,9 @@ class HldFluentFormHandler {
       $("select").each((_, s) => {
         jQuery(s).on("change", (e) => {
           const selectName = jQuery(e.currentTarget).attr("name");
-          switch (selectName) {
-            case "dropdown_1":
-              const curVal = jQuery(e.currentTarget).val();
-              const el = $(`[data-value="${curVal}"]`);
-              el.addClass("active");
-              break;
-            case "dropdown_2":
-              break;
-            case "dropdown_3":
-              break;
-            case "dropdown_4":
-              break;
-            default:
-              break;
-          }
+          let curVal = jQuery(e.currentTarget).val();
+          let el = $(`[data-value="${curVal}"]`);
+          el.addClass("active");
         });
       });
 
@@ -682,14 +670,10 @@ class HldFluentFormHandler {
    */
   setDropdownValue(dropdownName, value) {
     const selectEl = document.querySelector(`select[name="${dropdownName}"]`);
-    selectEl.addEventListener("change", () => console.log("ASDFASDF"));
-    console.log("selectEl", selectEl);
     if (selectEl) {
       selectEl.value = value;
-      console.log("selectEl12");
       selectEl.dispatchEvent(new Event("input", { bubbles: true }));
       selectEl.dispatchEvent(new Event("change", { bubbles: true }));
-      console.log(`Set ${dropdownName} to ${value}`);
     } else {
       console.warn(`Dropdown with name "${dropdownName}" not found.`);
     }
