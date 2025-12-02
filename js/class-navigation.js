@@ -39,11 +39,18 @@ class HldNavigation {
       var $ = jQuery;
       let steps = $(".fluentform-step");
       const activeStep = document.querySelector(".fluentform-step.active");
+      let lastStep = jQuery(steps[steps.length - 1]);
 
       if (activeStep) {
         let firstStep = $(steps[0]);
         // Find the "Previous" button inside that active step
         const prevButton = activeStep.querySelector(".ff-btn-prev");
+
+        if (lastStep.hasClass("active") || lastStep.is(":visible")) {
+          prevButton.click();
+          jQuery(prevButton).addClass("back-clicked");
+        }
+
         if (firstStep.hasClass("active") || firstStep.is(":visible")) {
           window.location.href = hldClassNavData.homeUrl;
           return;
