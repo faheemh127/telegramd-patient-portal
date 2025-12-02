@@ -22,6 +22,27 @@ class HldFluentFormHandler {
     jQuery(document).ready(function ($) {
       var $steps = $(".fluentform-step");
 
+      $("select").each((_, s) => {
+        jQuery(s).on("change", (e) => {
+          const selectName = jQuery(e.currentTarget).attr("name");
+          switch (selectName) {
+            case "dropdown_1":
+              const curVal = jQuery(e.currentTarget).val();
+              const el = $(`[data-value="${curVal}"]`);
+              el.addClass("active");
+              break;
+            case "dropdown_2":
+              break;
+            case "dropdown_3":
+              break;
+            case "dropdown_4":
+              break;
+            default:
+              break;
+          }
+        });
+      });
+
       if ($steps.length > 0) {
         let lastStepNode = $steps[$steps.length - 1];
         let fluentFrom = $($("Form")[$("form").length - 1]).attr("id");
@@ -60,7 +81,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone
+                phone,
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -71,9 +92,61 @@ class HldFluentFormHandler {
           mutations.forEach(function (mutation) {
             if (mutation.type === "attributes") {
               var $lastStep = $(lastStepNode);
+              var hasData = false;
 
               $steps.each(function (i, step) {
                 // if ($(step).hasClass("active") && i > 1)
+
+                if ($(step).hasClass("active") && $(step).is(":visible")) {
+                  $(step)
+                    .find("input, select, textarea")
+                    .each(function () {
+                      var field = $(this);
+                      var type = field.attr("type");
+                      var tagName = field.prop("tagName").toLowerCase();
+
+                      if (
+                        type === "hidden" ||
+                        type === "button" ||
+                        type === "submit"
+                      )
+                        return;
+
+                      if (type === "checkbox" || type === "radio") {
+                        if (field.is(":checked")) {
+                          hasData = true;
+                          return false;
+                        }
+                      } else if (tagName === "select") {
+                        var val = field.val();
+
+                        if (Array.isArray(val) && val.length > 0) {
+                          hasData = true;
+                          return false;
+                        } else if (val !== null && val !== "") {
+                          hasData = true;
+                          return false;
+                        }
+                      } else {
+                        if (field.val() && field.val().trim() !== "") {
+                          hasData = true;
+                          return false;
+                        }
+                      }
+                    });
+                }
+
+                if (hasData) {
+                  const nextBtn = step.querySelector(
+                    'button[data-action="next"]',
+                  );
+
+                  if (nextBtn) {
+                    nextBtn.classList.remove("hld-hidden");
+                    nextBtn.style.visibility = "visible";
+                    nextBtn.style.display = "block";
+                  }
+                }
 
                 if (
                   i == $steps.length - 2 &&
@@ -82,7 +155,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]'
+                    'button[data-action="next"]',
                   );
                   nextButton.click();
                 }
@@ -93,7 +166,7 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active"
+                    ".fluentform-step.active",
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
@@ -101,7 +174,7 @@ class HldFluentFormHandler {
 
                 if ($(step).hasClass("active")) {
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden"
+                    "hld_form_wrap_hidden",
                   );
                 }
               });
@@ -124,7 +197,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          })
+          }),
         );
       }
     });
@@ -146,7 +219,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
       );
     }
 
@@ -191,8 +264,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-      }
+              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+            }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -433,12 +506,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration
+          (p) => parseInt(p.monthly_duration, 10) === duration,
         );
 
         if (pkg) {
@@ -483,7 +556,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine)
+      m.medication_name.includes(medicine),
     );
     if (!med) return;
 
@@ -567,10 +640,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]'
+      'input[name="names[first_name]"]',
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]'
+      'input[name="names[last_name]"]',
     );
 
     // Get values safely
@@ -608,6 +681,7 @@ class HldFluentFormHandler {
    */
   setDropdownValue(dropdownName, value) {
     const selectEl = document.querySelector(`select[name="${dropdownName}"]`);
+    selectEl.addEventListener("change", () => console.log("ASDFASDF"));
     console.log("selectEl", selectEl);
     if (selectEl) {
       selectEl.value = value;

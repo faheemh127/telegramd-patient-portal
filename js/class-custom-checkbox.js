@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (value) => {
       console.log("Selected:", value);
       hldFormHandler.setDropdownValue("dropdown_1", value);
-    }
+    },
   );
 
   window.hldMedicineOptions = new hldCustomCheckbox(
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_2", value);
       hldFormHandler.setPackagePrice(value);
       hldFormHandler.initMedications(value);
-    }
+    },
   );
 
   window.hldMedicineOptions = new hldCustomCheckbox(
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Selected medicine:", value);
       hldFormHandler.setDropdownValue("dropdown_4", value);
       hldFormHandler.setPackagePrice(value);
-    }
+    },
   );
 
   window.hldPatientPackages = new hldCustomCheckbox(
@@ -84,6 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_3", value);
       hldFormHandler.setStripeData();
       hldFormHandler.getAmount();
-    }
+    },
   );
 });
