@@ -62,6 +62,51 @@ class HLD_Stripe
         }
     }
 
+
+
+
+    /**
+     * Verify Stripe Payment if AfterPay Redirect
+     */
+    public static function verify_payment_on_redirect()
+    {
+        // Check required parameters
+        if (empty($_GET['payment_intent']) || empty($_GET['payment_intent_client_secret'])) {
+            return; // nothing to verify
+        }
+
+        $payment_intent_id  = sanitize_text_field($_GET['payment_intent']);
+        $client_secret      = sanitize_text_field($_GET['payment_intent_client_secret']);
+
+        self::init();
+
+        try {
+            // Retrieve the Payment Intent from Stripe
+            $pi = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+
+            // Check if succeeded
+            if ($pi && isset($pi->status) && $pi->status === 'succeeded') {
+                error_log("🔥 Stripe Payment SUCCESSFUL");
+                error_log("PI ID: " . $payment_intent_id);
+                error_log("Amount Received: " . $pi->amount_received);
+                error_log("Currency: " . $pi->currency);
+                error_log("Payment Method Type: " . json_encode($pi->payment_method_types));
+                error_log("Full PaymentIntent: " . print_r($pi, true));
+            } else {
+                error_log("⚠ Stripe Payment FAILED or NOT completed");
+                error_log("PI Status: " . ($pi->status ?? 'unknown'));
+                error_log("Full PI Response: " . print_r($pi, true));
+            }
+        } catch (\Exception $e) {
+            error_log("❌ Stripe Payment Verification ERROR: " . $e->getMessage());
+        }
+    }
+
+
+
+
+
+
     /**
      * Update a Stripe product
      *
@@ -367,81 +412,4 @@ class HLD_Stripe
 }
 
 
-
-// // 1. Create product
-// $product = HLD_Stripe::create_product('Premium Plan', 'Access to all premium features');
-// if ($product) {
-//     echo 'Product ID: ' . $product->id;
-// }
-
-// // 2. Create price
-// $price = HLD_Stripe::create_price($product->id, 29.99, 'usd', 'month');
-// if ($price) {
-//     echo 'Price ID: ' . $price->id;
-// }
-
-// // 3. Get existing product
-// $product_data = HLD_Stripe::get_product($product->id);
-
-// // 4. Update product
-// HLD_Stripe::update_product($product->id, ['description' => 'Updated premium plan details']);
-
-// // 5. Delete product
-// HLD_Stripe::delete_product($product->id);
-
-
-
-// add_action('init', function () {
-
-    // return;
-    // Prevent running this code on every page load — only for testing or setup
-    // if (!is_admin() || !current_user_can('manage_options')) {
-    //     return;
-    // }
-
-    // error_log(("funtion init called 101"));
-
-
-
-    // // Include Stripe setup (make sure your class and constants are defined)
-    // require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
-    // \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
-
-    // // // 1. Create product
-    // // $product = HLD_Stripe::create_product('Premium Plan', 'Access to all premium features');
-    // $product = HLD_Stripe::create_product(
-    //     'Tirzepatide',
-    //     'Most effective, Higher % weight loss, Higher cost ,  Injection • Drops • Tablets',
-    //     [
-    //         'telegra_product_id' => "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",                // custom key
-    //         'period' => 3 // another custom key
-    //     ]
-    // );
-    // if ($product) {
-    //     echo 'Product ID: ' . esc_html($product->id) . '<br>';
-    // }
-
-    // // 2. Create price
-    // if ($product && isset($product->id)) {
-    //     $price = HLD_Stripe::create_price($product->id, 29.99, 'usd', 'month');
-    //     if ($price) {
-    //         echo 'Price ID: ' . esc_html($price->id);
-    //     }
-    // }
-
-
-
-    // $products = \Stripe\Product::search([
-    //     'query' => 'metadata["telegra_product_id"]:"pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb" AND metadata["period"]:"1"',
-    // ]);
-
-
-    // error_log(print_r($products, true));
-
-    // $products = HLD_Stripe::get_all_products();
-
-    // foreach ($products as $p) {
-    //     $data =  $p->id . ' - ' . $p->name . '<br>';
-    //     error_log(print_r($p, true));
-    // }
-// });
+add_action('init', ['HLD_Stripe', 'verify_payment_on_redirect']);

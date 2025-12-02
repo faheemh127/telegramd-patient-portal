@@ -69,7 +69,8 @@ class HldFluentFormHandler {
 
         function executeLastStepCode() {
           console.log("function called exec,..... ", hldFormHandler.hasFired);
-
+          hldFormHandler.getAmount();
+          hldFormHandler.setStripeData();
           console.log(hldFormHandler.hasFired);
           if ($("body").hasClass("logged-in") && !hldFormHandler.hasFired) {
             console.log("ajax called hasfired", hldFormHandler.hasFired);
