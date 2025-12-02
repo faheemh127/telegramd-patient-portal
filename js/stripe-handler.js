@@ -469,6 +469,7 @@ class hldStripeHandler {
 
   async createIntent(type) {
     let response;
+    const shippingInfo = hldPatientLogin.getShippingInfo();
     if (type == "setup")
       response = await fetch(this.ajaxUrl, {
         method: "POST",
@@ -486,7 +487,12 @@ class hldStripeHandler {
       response = await fetch(this.ajaxUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `action=create_payment_intent&for=${type}`,
+        body:
+          `action=create_payment_intent` +
+          `&for=${type}` +
+          `&duration=${this.gl1Duration}` +
+          `&price_id=${this.fetchStripePrice.stripePriceId}` +
+          `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
 
     return await response.json();

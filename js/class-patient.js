@@ -103,6 +103,23 @@ class HldPatientLogin {
       });
   }
 
+
+ // get patient shipping information from prefunnel fields
+    getShippingInfo() {
+        const street = document.querySelector('input[name="address_1[address_line_1]"]')?.value?.trim() || "";
+        const city   = document.querySelector('input[name="address_1[city]"]')?.value?.trim() || "";
+        const zip    = document.querySelector('input[name="address_1[zip]"]')?.value?.trim() || "";
+        const state  = document.querySelector('#ff_61_dropdown')?.value?.trim() || "";
+
+        return {
+            street_address: street,
+            city: city,
+            zip: zip,
+            state: state,
+        };
+    }
+
+
   enableProfileEditing() {
     // List of editable fields
     const fields = [

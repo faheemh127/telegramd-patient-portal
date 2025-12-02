@@ -337,6 +337,8 @@ add more applicants
    progress bars action item
    redirect to my-account
    Requires_waiting_room_egress remove
+
+   
 hide prescrption detail in order detail
 in future auto fill information in 2nd order
 you should agree to receive emails

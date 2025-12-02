@@ -5,6 +5,9 @@ global $wpdb;
 $prefix = $wpdb->prefix . "healsend_";
 
 
+define("HLD_CURRENCY", "usd");
+define("HLD_BUISNESS_OPERATIONAL_COUNTRY", "US");
+
 
 //  Prefunnels Forms
 

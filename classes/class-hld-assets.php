@@ -65,7 +65,7 @@ if (!class_exists('hldAssets')) {
 
             wp_enqueue_script(
                 'hld-class-patient-login',
-                plugin_dir_url(__FILE__) . '../js/class-patient-login.js',
+                plugin_dir_url(__FILE__) . '../js/class-patient.js',
                 ['jquery'],
                 HLD_PLUGIN_VERSION,
                 true
