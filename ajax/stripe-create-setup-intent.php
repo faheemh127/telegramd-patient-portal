@@ -71,6 +71,8 @@ function my_create_payment_intent()
 
   $duration = isset($_POST['duration']) ? sanitize_text_field($_POST['duration']) : '';
   $price_id = isset($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
+  $product_name = isset($_POST['product_name']) ? sanitize_text_field($_POST['product_name']) : '';
+
   // Read shipping info JSON
   $shipping_json = isset($_POST['shipping_info']) ? wp_unslash($_POST['shipping_info']) : '';
   $shipping_data = json_decode($shipping_json, true);
@@ -125,12 +127,23 @@ function my_create_payment_intent()
 
   $is_first_order = is_user_order_first($user_email);
   $price = $details['price'] * $duration;
-  $discount = 12;
+  error_log("Price was" . $price);
+  error_log($product_name);
+  error_log($duration);
+  $discount =  HLD_Discount::getDiscount($product_name, $duration);
+  error_log("Discount is " . $discount);
 
+  // error_log(var_dump($is_first_order, true));
+  error_log("is_first_order");
+  error_log($is_first_order);
+  $calculated_discount = 0;
   if ($is_first_order) {
     $price = $details['price'] * $duration;
-    $price -= $price * ($discount / 100);
+    $calculated_discount = $price * ($discount / 100);
+    $price -= $calculated_discount;
+    error_log("price after discount" . $price);
   }
+  //
 
   try {
     // Create SetupIntent for this customer
@@ -143,8 +156,9 @@ function my_create_payment_intent()
         'line_items' => [
           [
             'product_name' => $details['title'],
-            'unit_cost' =>  $details['price'],
+            'unit_cost' =>   $details['price'],
             'quantity' => $duration,
+            'discount_amount'   => intval($calculated_discount),
           ],
         ],
       ],
@@ -179,6 +193,7 @@ function my_create_payment_intent()
       'customerId'   => $customer_id,
     ]);
   } catch (Exception $e) {
+    error_log(print_r($e->getMessage(), true));
     wp_send_json_error(['message' => $e->getMessage()]);
   }
 

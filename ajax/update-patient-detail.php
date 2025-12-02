@@ -75,11 +75,13 @@ function hld_update_account_details()
             'firstName'        => $first_name,
             'lastName'         => $last_name,
             'email'            => $email,
-            'phone'            => $phone,
+            'phone'            => ltrim($phone, '+1'),
             'dateOfBirth'      => $dob,
             'gender'           => 'other', // optional — use saved value if available
             'genderBiological' => $patient['gender'],
         ];
+        error_log("Payload");
+        error_log(print_r($payload, true));
 
         $update_response = $hld_telegra->update_patient_on_telegra($telegra_patient_id, $payload);
 

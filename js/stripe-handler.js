@@ -470,6 +470,7 @@ class hldStripeHandler {
   async createIntent(type) {
     let response;
     const shippingInfo = hldPatientLogin.getShippingInfo();
+    const medicationName = document.querySelector('[name="dropdown_4"]').value;
     if (type == "setup")
       response = await fetch(this.ajaxUrl, {
         method: "POST",
@@ -492,6 +493,7 @@ class hldStripeHandler {
           `&for=${type}` +
           `&duration=${this.gl1Duration}` +
           `&price_id=${this.fetchStripePrice.stripePriceId}` +
+          `&product_name=${medicationName}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
 

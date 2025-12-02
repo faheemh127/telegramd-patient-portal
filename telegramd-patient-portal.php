@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) {
 
 
 // Core constants for live, staging and localhost
-define('HLD_LIVE', true);
+define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
 
@@ -37,6 +37,7 @@ foreach (glob(plugin_dir_path(__FILE__) . 'helper/*.php') as $file) {
 
 
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-discount.php';
 require_once plugin_dir_path(__FILE__) . 'includes/hooks.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-ghl-webhook-client.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';

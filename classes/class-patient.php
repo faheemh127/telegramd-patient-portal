@@ -828,7 +828,7 @@ if (! class_exists('HLD_Patient')) {
             }
 
             global $wpdb;
-            $table = HEALSEND_SUBSCRIPTIONS_TABL;
+            $table = HEALSEND_SUBSCRIPTIONS_TABLE;
 
             $email = sanitize_email($email);
 
@@ -841,7 +841,6 @@ if (! class_exists('HLD_Patient')) {
                 return false;
             }
             return true;
-            ;
         }
         public static function register_actions()
         {

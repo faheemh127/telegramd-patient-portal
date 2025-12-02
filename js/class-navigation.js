@@ -8,7 +8,7 @@ class HldNavigation {
   init() {
     // commenting this because now we are moving the login page before checkout so its not need  at the moment
     // this.checkNextEndLoginAndNavigate(); // don't need here  its now called in mutation observer function
-    this.initLoginWrapListener();
+    // this.initLoginWrapListener();
     this.hideNextBtnLoginWrap();
     this.initActionItemSidebar();
     // this.showActionItemSidebar();
