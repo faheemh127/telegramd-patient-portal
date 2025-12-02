@@ -233,7 +233,7 @@ nav.hld-navbar {
   text-align: center;
   display: flex;
   justify-content: center;
-  border-radius: 50px;
+  border-radius: 50px !important;
   height: 50px;
 }
 .hld_form_wrap .nsl-button-apple .nsl-button-label-container {
