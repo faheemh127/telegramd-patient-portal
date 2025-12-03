@@ -86,6 +86,7 @@ class HLD_Stripe
 
             // Check if succeeded
             if ($pi && isset($pi->status) && $pi->status === 'succeeded') {
+
                 error_log("🔥 Stripe Payment SUCCESSFUL");
                 error_log("PI ID: " . $payment_intent_id);
                 error_log("Amount Received: " . $pi->amount_received);
@@ -93,7 +94,11 @@ class HLD_Stripe
                 error_log("Payment Method Type: " . json_encode($pi->payment_method_types));
                 error_log("Full PaymentIntent: " . print_r($pi, true));
 
-
+                add_filter('hld_stripe_js_data', function ($data) use ($payment_intent_id) {
+                    // Inject your dynamic payment intent ID
+                    $data['payment_intent_id'] = $payment_intent_id ?? '';
+                    return $data;
+                });
 
 
                 $user_id = get_current_user_id();
@@ -109,8 +114,8 @@ class HLD_Stripe
                         0,
                         "", // Example: pov::.....
                         "", // Example: Tirzepatide
-                        $subscription,
-                        $slug, // metabolic, glp_1_prefunnel
+                        $pi,
+                        "", // metabolic, glp_1_prefunnel
                         $pi->payment_method_types,
                     );
                 }

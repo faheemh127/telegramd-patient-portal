@@ -137,27 +137,185 @@ class HLD_UserSubscriptions
 
 
     /**
-     * Insert Stripe subscription data into custom table
+     * Insert Stripe subscription data into custom table 
+     * old working function 
      */
-    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData, $subscription_slug, $payment_method_types = "card")
-    {
-        error_log("function add_subscription is called");
-        error_log("user_id" . $user_id);
+    // public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData, $subscription_slug, $payment_method_types = "card")
+    // {
+    //     error_log("function add_subscription is called");
+    //     error_log("user_id" . $user_id);
 
+
+    //     if (empty($user_id) || empty($stripeData)) {
+    //         return false;
+    //     }
+    //     error_log("Nothing is empty and function called");
+
+    //     global $wpdb;
+    //     $table = $wpdb->prefix . self::$table_name;
+
+
+
+
+
+    //     $invoice = $stripeData->latest_invoice ?? null;
+    //     $result = $wpdb->insert(
+    //         $table,
+    //         [
+    //             'user_id'                   => $user_id,
+    //             'telegra_order_id'          => 'pending_' . wp_generate_uuid4(),
+    //             'patient_email'             => sanitize_email($patient_email),
+    //             'subscription_duration'     => sanitize_text_field($subscription_duration),
+    //             'medication_telegra_id'     => sanitize_text_field($medication_telegra_id),
+    //             'medication_name'           => sanitize_text_field($medication_name),
+    //             'stripe_product_id'         => sanitize_text_field($stripeData->plan->product ?? ''),
+    //             'subscription_monthly_amount' => ($stripeData->plan->amount ?? 0) / 100, // convert cents to dollars
+    //             'stripe_subscription_id'    => sanitize_text_field($stripeData->id),
+    //             'stripe_customer_id'        => sanitize_text_field($stripeData->customer),
+    //             'stripe_invoice_id'         => $invoice->id ?? null,
+    //             'subscription_status'       => sanitize_text_field($stripeData->status),
+    //             'subscription_start'        => intval($stripeData->start_date),
+    //             'subscription_end'          => intval($stripeData->cancel_at ?? 0),
+    //             'cancel_at_period_end'      => $stripeData->cancel_at_period_end ? 1 : 0,
+    //             'invoice_pdf_url'           => $invoice->invoice_pdf ?? null,
+    //             'hosted_invoice_url'        => $invoice->hosted_invoice_url ?? null,
+    //             'subscription_slug' => $subscription_slug,
+    //         ],
+    //         [
+    //             '%d',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%f',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%s',
+    //             '%d',
+    //             '%d',
+    //             '%d',
+    //             '%s',
+    //             '%s',
+    //             '%s'
+    //         ]
+    //     );
+
+    //     if ($result) {
+    //         return [
+    //             'status'  => true,
+    //             'message' => 'Subscription has been purchased successfully'
+    //         ];
+    //     } else {
+    //         // Log and return DB error
+    //         error_log("Database insert failed: " . $wpdb->last_error);
+    //         return [
+    //             'status'  => false,
+    //             'message' => 'Database error: ' . $wpdb->last_error
+    //         ];
+    //     }
+    // }
+
+    // new function that handles klarna and afterpay and even card payments
+    public static function add_subscription(
+        $user_id,
+        $patient_email,
+        $subscription_duration,
+        $medication_telegra_id,
+        $medication_name,
+        $stripeData,
+        $subscription_slug,
+        $payment_method_types = "card"
+    ) {
+        error_log("function add_subscription is called");
+        error_log("user_id: " . $user_id);
 
         if (empty($user_id) || empty($stripeData)) {
             return false;
         }
-        error_log("Nothing is empty and function called");
 
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
 
+        /** -------------------------------------------------------------------
+         *  CASE A: PROCESS AFTERPAY OR KLARNA (PaymentIntent)
+         * ------------------------------------------------------------------- */
+        if (in_array($payment_method_types[0], ['afterpay_clearpay', 'klarna'])) {
 
+            error_log("Processing AFTERPAY / KLARNA payment");
 
+            $charge_id      = $stripeData->latest_charge ?? '';
+            $amount         = ($stripeData->amount ?? 0) / 100;
+            $payment_method = $payment_method_types[0];
+            $currency       = $stripeData->currency ?? 'usd';
 
+            $result = $wpdb->insert(
+                $table,
+                [
+                    'user_id'                   => $user_id,
+                    'telegra_order_id'          => 'pending_' . wp_generate_uuid4(), // still pending
+                    'patient_email'             => sanitize_email($patient_email),
+                    'subscription_duration'     => 0, // no recurring subscription
+                    'medication_telegra_id'     => sanitize_text_field($medication_telegra_id),
+                    'medication_name'           => sanitize_text_field($medication_name),
+                    'stripe_product_id'         => '',
+                    'subscription_monthly_amount' => $amount,
+                    'stripe_subscription_id'    => '', // no subscription ID for Afterpay/Klarna
+                    'stripe_customer_id'        => sanitize_text_field($stripeData->customer),
+                    'stripe_invoice_id'         => '', // PI doesn’t have invoice
+                    'subscription_status'       => sanitize_text_field($stripeData->status),
+                    'subscription_start'        => intval($stripeData->created),
+                    'subscription_end'          => 0,
+                    'cancel_at_period_end'      => 0,
+                    'invoice_pdf_url'           => '',
+                    'hosted_invoice_url'        => '',
+                    'subscription_slug'         => sanitize_text_field($subscription_slug),
+                ],
+                [
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%f',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%s'
+                ]
+            );
+
+            if ($result) {
+                return [
+                    'status'  => true,
+                    'message' => "Afterpay/Klarna payment stored successfully"
+                ];
+            } else {
+                error_log("DB insert failed: " . $wpdb->last_error);
+
+                return [
+                    'status'  => false,
+                    'message' => 'DB Error: ' . $wpdb->last_error
+                ];
+            }
+        }
+
+        /** -------------------------------------------------------------------
+         *  CASE B: DEFAULT — CARD SUBSCRIPTIONS (Your existing logic)
+         * ------------------------------------------------------------------- */
 
         $invoice = $stripeData->latest_invoice ?? null;
+
         $result = $wpdb->insert(
             $table,
             [
@@ -168,7 +326,7 @@ class HLD_UserSubscriptions
                 'medication_telegra_id'     => sanitize_text_field($medication_telegra_id),
                 'medication_name'           => sanitize_text_field($medication_name),
                 'stripe_product_id'         => sanitize_text_field($stripeData->plan->product ?? ''),
-                'subscription_monthly_amount' => ($stripeData->plan->amount ?? 0) / 100, // convert cents to dollars
+                'subscription_monthly_amount' => ($stripeData->plan->amount ?? 0) / 100,
                 'stripe_subscription_id'    => sanitize_text_field($stripeData->id),
                 'stripe_customer_id'        => sanitize_text_field($stripeData->customer),
                 'stripe_invoice_id'         => $invoice->id ?? null,
@@ -178,7 +336,7 @@ class HLD_UserSubscriptions
                 'cancel_at_period_end'      => $stripeData->cancel_at_period_end ? 1 : 0,
                 'invoice_pdf_url'           => $invoice->invoice_pdf ?? null,
                 'hosted_invoice_url'        => $invoice->hosted_invoice_url ?? null,
-                'subscription_slug' => $subscription_slug,
+                'subscription_slug'         => $subscription_slug,
             ],
             [
                 '%d',
@@ -203,17 +361,10 @@ class HLD_UserSubscriptions
         );
 
         if ($result) {
-            return [
-                'status'  => true,
-                'message' => 'Subscription has been purchased successfully'
-            ];
+            return ['status' => true, 'message' => 'Subscription saved successfully'];
         } else {
-            // Log and return DB error
             error_log("Database insert failed: " . $wpdb->last_error);
-            return [
-                'status'  => false,
-                'message' => 'Database error: ' . $wpdb->last_error
-            ];
+            return ['status' => false, 'message' => 'DB error: ' . $wpdb->last_error];
         }
     }
 
@@ -305,6 +456,12 @@ class HLD_UserSubscriptions
     {
         // Validate input
         if (empty($telegra_order_id)) {
+            error_log("[Healsend Error] Telegra Order id should not be empty. when we update that subscription table");
+            return false;
+        }
+
+        if (empty($stripe_subscription_id)) {
+            error_log("[Healsend Error] stripe_subscription_id should not be empty. when we update that subscription table with update_order_telegra_id");
             return false;
         }
 
@@ -314,7 +471,6 @@ class HLD_UserSubscriptions
             return false;
         }
 
-        $patient_email = $current_user->user_email;
 
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;
@@ -425,6 +581,111 @@ class HLD_UserSubscriptions
     }
 
 
+    public static function update_subscription_data($payment_intent_id, $data)
+    {
+        if (empty($payment_intent_id)) {
+            error_log("[Healsend Error] stripe_subscription_id (payment_intent_id) is empty");
+            return false;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // If no data passed, nothing to update
+        if (empty($data) || !is_array($data)) {
+            error_log("[Healsend Error] No data provided for update.");
+            return false;
+        }
+
+        // Build format array dynamically (default all to %s)
+        $formats = array_fill(0, count($data), "%s");
+
+        // WHERE condition
+        $where = ["stripe_subscription_id" => $payment_intent_id];
+        $where_format = ["%s"];
+
+        // Perform update
+        $updated = $wpdb->update(
+            $table,
+            $data,           // dynamic data array
+            $where,
+            $formats,        // dynamic formats
+            $where_format
+        );
+
+        if ($updated === false) {
+            error_log("[Healsend Error] DB update failed for $payment_intent_id");
+            return false;
+        }
+
+        error_log("[Healsend Notify] Subscription updated successfully for $payment_intent_id");
+        return true;
+    }
+
+
+
+
+    /**
+     * this function will prepare the data to update in subscription 
+     * the reason prepare data is important is that so update_subscription function can become reuseable
+     */
+    public static function prepare_subscription_data($prefunnel_data, $payment_intent_id)
+    {
+        // here we can put or operator 
+        $subscription_duration = 0;
+
+        // dropdown_3 is actually contain the duration
+        if ($prefunnel_data['dropdown_3'] == "Monthly") {
+            error_log("[Healsend Notify] plan duration is for 1 months");
+            $subscription_duration = 1;
+        } else if ($prefunnel_data['dropdown_3'] == "3-Month") {
+            error_log("[Healsend Notify] plan duration is for 3 months");
+            $subscription_duration = 3;
+        }
+        $data = [
+            "subscription_duration" => $subscription_duration,
+            "medication_telegra_id" => $prefunnel_data["telegra_product_id"],
+            "medication_name" => $prefunnel_data["dropdown_4"],
+        ];
+        self::update_subscription_data($payment_intent_id, $data);
+    }
+
+    public static function is_klarna_afterpay($payment_intent_id)
+    {
+        if (empty($payment_intent_id)) {
+            error_log("is_klarna_afterpay: payment_intent_id is empty");
+            return false;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . self::$table_name;
+
+        // Get payment method from DB based on the payment intent
+        $payment_method = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT payment_method_types 
+             FROM $table 
+             WHERE stripe_subscription_id = %s
+             LIMIT 1",
+                $payment_intent_id
+            )
+        );
+
+        if ($payment_method === null) {
+            error_log("is_klarna_afterpay: No record found for payment_intent_id = $payment_intent_id");
+            return false;
+        }
+
+        // Normalize the value
+        $payment_method = strtolower(trim($payment_method));
+
+        // Return TRUE if it's Klarna or Afterpay
+        if ($payment_method === 'klarna' || $payment_method === 'afterpay_clearpay') {
+            return true;
+        }
+
+        return false;
+    }
 
 
     /**

@@ -161,6 +161,27 @@ if (!class_exists('hldAssets')) {
         /**
          * Enqueue Stripe specific assets
          */
+        // public function enqueue_stripe()
+        // {
+        //     wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/', [], HLD_PLUGIN_VERSION, true);
+
+        //     wp_enqueue_script(
+        //         'my-stripe-handler',
+        //         plugin_dir_url(__FILE__) . '../js/stripe-handler.js',
+        //         ['stripe-js'],
+        //         HLD_PLUGIN_VERSION,
+        //         true
+        //     );
+
+        //     wp_localize_script('my-stripe-handler', 'MyStripeData', [
+        //         'ajax_url'       => admin_url('admin-ajax.php'),
+        //         'return_url'    =>  get_permalink(),
+        //         'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
+        //     ]);
+        // }
+
+
+
         public function enqueue_stripe()
         {
             wp_enqueue_script('stripe-js', 'https://js.stripe.com/v3/', [], HLD_PLUGIN_VERSION, true);
@@ -173,11 +194,21 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
-            wp_localize_script('my-stripe-handler', 'MyStripeData', [
+            // Prepare the default data
+            $stripe_data = [
                 'ajax_url'       => admin_url('admin-ajax.php'),
-                'return_url'    =>  get_permalink(),
+                'return_url'     => get_permalink(),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
-            ]);
+                'payment_intent_id' => '', // default empty
+            ];
+
+            /**
+             * Allow other parts of the plugin to add/modify Stripe JS data
+             * Example: you can pass $payment_intent_id dynamically
+             */
+            $stripe_data = apply_filters('hld_stripe_js_data', $stripe_data);
+
+            wp_localize_script('my-stripe-handler', 'MyStripeData', $stripe_data);
         }
     }
 }

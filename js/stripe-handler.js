@@ -28,9 +28,40 @@ class hldStripeHandler {
   }
 
   init() {
+    // // temporary testing
+    //       hldNavigation.toggleLoader(true);
+
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
+
+      console.log("function called the init in stripehandler.");
+      console.log(MyStripeData.payment_intent_id);
+      if (
+        MyStripeData?.payment_intent_id &&
+        MyStripeData.payment_intent_id.startsWith("pi_")
+      ) {
+        hldNavigation.toggleLoader(true);
+        let input = document.querySelector(
+          'input[name="my_stripe_subscription_id"]'
+        );
+
+        // If input doesn't exist, create it
+        if (!input) {
+          input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "payment_intent_id";
+          document.querySelector("form").appendChild(input); // append to the form
+        }
+
+        // Set the value
+        input.value = MyStripeData.payment_intent_id;
+        console.log("Hidden input value set:", input.value);
+        setTimeout(function () {
+          stripeHandler.submitForm();
+          hldNavigation.toggleLoader(false);
+        }, 4000);
+      }
     });
   }
 

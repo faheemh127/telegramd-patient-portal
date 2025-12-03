@@ -473,8 +473,8 @@ if (! class_exists('hldFluentHandler')) {
                     $loc_id = str_replace('___', ':', $loc_id);
                     $loc_id = str_replace('__', '.', $loc_id);
                     $loc_id = str_replace('_', '-', $loc_id);
-                    
-                    
+
+
 
                     $answers[] = [
                         'location' => "loc::{$loc_id}",
@@ -719,9 +719,14 @@ if (! class_exists('hldFluentHandler')) {
 
 
             $gender     = isset($form['dropdown_1']) ? strtolower(sanitize_text_field($form['dropdown_1'])) : '';
+
+
+            // just to see data while testing
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
+
+
             // No need to do processing if user is not a patient and have not signed up
             if (! is_user_logged_in()) {
                 error_log("[Healsend Error] user is not logged in ");
@@ -749,13 +754,20 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
+            if (HLD_UserSubscriptions::is_klarna_afterpay($this->stripe_subscription_id)) {
+                // it means user have purchased the subscription from klarna or afterpay
+                error_log("[Healsend Notify] User purchased the subscription from klarna or afterpay");
+                HLD_UserSubscriptions::prepare_subscription_data($form, $this->stripe_subscription_id);
+            }
+
+
 
 
             // For security reasons also save the duplicate copy of fluent form submission
             if ($this->is_prefunnel($form_id)) {
                 $this->save_patient_form_submission($insertData);
             } else {
-                error_log($form_id . " is not a prefunnel [line 876]");
+                error_log($form_id . " is not a prefunnel");
             }
 
             // $this->save_patient_form_answers($submission_id, $form);

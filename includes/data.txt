@@ -357,3 +357,9 @@ insert for 30 minutes
 in stripe we should display influencer
 
 
+
+
+
+shortcode for apple sign in 
+summary 
+hidden field new
