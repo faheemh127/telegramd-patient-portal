@@ -99,6 +99,7 @@ class hldStripeHandler {
     // );
     // paymentMessageElement.mount("#payment-method-messaging-element");
     //  Card Element (keep existing flow)
+
     this.card = this.elements.create("card");
 
     const cardElement = document.getElementById(this.cardElementId);
