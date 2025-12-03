@@ -59,7 +59,7 @@ class hldStripeHandler {
         console.log("Hidden input value set:", input.value);
         setTimeout(function () {
           stripeHandler.submitForm();
-          hldNavigation.toggleLoader(false);
+          
         }, 4000);
       }
     });
@@ -574,6 +574,7 @@ class hldStripeHandler {
       console.log("✅ telegra_product_id set to:", this.telegraProdID);
     } else {
       console.warn("⚠️ Hidden input 'telegra_product_id' not found in DOM");
+      hldNavigation.toggleLoader(false);
     }
 
     // its important to call this function to avoid fluent form error while submit becuase fluent form only accept select values we add from fluent form settings so it do not accept
@@ -585,6 +586,8 @@ class hldStripeHandler {
       if (submitButton) {
         submitButton.click();
       }
+    }else{
+      hldNavigation.toggleLoader(false);
     }
   }
 

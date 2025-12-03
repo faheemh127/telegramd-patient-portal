@@ -262,7 +262,7 @@ class HLD_UserSubscriptions
                     'medication_name'           => sanitize_text_field($medication_name),
                     'stripe_product_id'         => '',
                     'subscription_monthly_amount' => $amount,
-                    'stripe_subscription_id'    => '', // no subscription ID for Afterpay/Klarna
+                    'stripe_subscription_id'    => $stripeData->id, // no subscription ID for Afterpay/Klarna
                     'stripe_customer_id'        => sanitize_text_field($stripeData->customer),
                     'stripe_invoice_id'         => '', // PI doesn’t have invoice
                     'subscription_status'       => sanitize_text_field($stripeData->status),
@@ -272,6 +272,7 @@ class HLD_UserSubscriptions
                     'invoice_pdf_url'           => '',
                     'hosted_invoice_url'        => '',
                     'subscription_slug'         => sanitize_text_field($subscription_slug),
+                    'payment_method_types'      => $payment_method,
                 ],
                 [
                     '%d',
