@@ -56,13 +56,9 @@ class HldFluentFormHandler {
           }, 8000);
 
         function executeLastStepCode() {
-          console.log("function called exec,..... ", hldFormHandler.hasFired);
           hldFormHandler.getAmount();
           hldFormHandler.setStripeData();
-          console.log(hldFormHandler.hasFired);
           if ($("body").hasClass("logged-in") && !hldFormHandler.hasFired) {
-            console.log("ajax called hasfired", hldFormHandler.hasFired);
-
             // todo origional number of patietn
             const phone = "+923068493810";
 
@@ -169,13 +165,8 @@ class HldFluentFormHandler {
               });
 
               if ($lastStep.hasClass("active") || $lastStep.is(":visible")) {
-                console.log("has fired 105", hldFormHandler.hasFired);
                 if (!hldFormHandler.hasFired) {
-                  console.log("has fired 106", hldFormHandler.hasFired);
-
                   executeLastStepCode.call(that);
-                  hldFormHandler.hasFired = true;
-                  console.log("has fired 107", hldFormHandler.hasFired);
                 }
               }
             }

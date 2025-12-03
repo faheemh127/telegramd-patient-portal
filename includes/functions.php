@@ -17,7 +17,7 @@ if (!function_exists('hld_log')) {
 
 function hld_action_item($title, $msg, $link)
 {
-?>
+    ?>
     <div class="hld_action_item_wrap">
         <p class="title"><?php echo  $title; ?></p>
         <p class="desc"><?php echo $msg;  ?></p>
@@ -30,10 +30,11 @@ function hld_not_found($msg)
     // Build a dynamic URL for the "Find a Treatment" page
     $treatment_url = home_url('/glp-1-form/'); // relative path
 
-?>
+    ?>
     <div class="hld_no_found_wrap">
         <p><?php echo esc_html($msg); ?></p>
-        <a href="<?php echo esc_url($treatment_url); ?>">Find a Treatment</a>
+        <a id="make-column-clickable-open-dynamic" href="#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjE1NDQ5IiwidG9nZ2xlIjpmYWxzZX0%3D">Find a Treatment</a>
+        <!-- <a href="<?php echo esc_url($treatment_url); ?>">Find a Treatment</a> -->
     </div>
 <?php
 }
@@ -120,7 +121,7 @@ function hld_table_exists($table_name)
     //     error_log("Healsend Error: Table does not exist: {$table}");
     //     return false;
     // }
-    
+
     global $wpdb;
 
     // Use prepare for safety
@@ -131,7 +132,9 @@ function hld_table_exists($table_name)
     // Return true if the table name matches
     return ($result === $table_name);
 }
-function get_logged_in_username() {
+function get_logged_in_username()
+{
     $user = wp_get_current_user();
     return ($user && $user->ID) ? $user->user_login : null;
 }
+
