@@ -195,7 +195,6 @@ function my_create_payment_intent()
         error_log(print_r($e->getMessage(), true));
         wp_send_json_error(['message' => $e->getMessage()]);
     }
-
     wp_die();
 }
 
