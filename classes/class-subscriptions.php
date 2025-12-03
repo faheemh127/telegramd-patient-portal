@@ -127,6 +127,7 @@ class HLD_UserSubscriptions
         hosted_invoice_url TEXT NULL,
         subscription_slug VARCHAR(100) NOT NULL,
         refund_status ENUM('created', 'requested', 'refunded') DEFAULT 'created',
+        payment_method_types ENUM('afterpay_clearpay','klarna', 'card', 'google_pay', 'apple_pay'),
         PRIMARY KEY (id),
         UNIQUE KEY user_order_unique (telegra_order_id)
     ) $charset_collate;";
@@ -138,7 +139,7 @@ class HLD_UserSubscriptions
     /**
      * Insert Stripe subscription data into custom table
      */
-    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData, $subscription_slug)
+    public static function add_subscription($user_id, $patient_email, $subscription_duration, $medication_telegra_id, $medication_name, $stripeData, $subscription_slug, $payment_method_types = "card")
     {
         error_log("function add_subscription is called");
         error_log("user_id" . $user_id);

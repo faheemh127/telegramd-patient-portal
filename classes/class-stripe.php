@@ -92,6 +92,28 @@ class HLD_Stripe
                 error_log("Currency: " . $pi->currency);
                 error_log("Payment Method Type: " . json_encode($pi->payment_method_types));
                 error_log("Full PaymentIntent: " . print_r($pi, true));
+
+
+
+
+                $user_id = get_current_user_id();
+                $patient_email = '';
+
+                if ($user_id) {
+                    $user = wp_get_current_user();
+                    $patient_email = $user->user_email;
+
+                    $response = HLD_UserSubscriptions::add_subscription(
+                        $user_id,
+                        $patient_email,
+                        0,
+                        "", // Example: pov::.....
+                        "", // Example: Tirzepatide
+                        $subscription,
+                        $slug, // metabolic, glp_1_prefunnel
+                        $pi->payment_method_types,
+                    );
+                }
             } else {
                 error_log("⚠ Stripe Payment FAILED or NOT completed");
                 error_log("PI Status: " . ($pi->status ?? 'unknown'));

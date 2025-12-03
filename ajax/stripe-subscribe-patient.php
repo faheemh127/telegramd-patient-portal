@@ -116,7 +116,7 @@ function hld_subscribe_patient_handler()
         if (is_user_logged_in()) {
             // Make sure the patient exists
             HLD_Patient::ensure_patient_by_email($patient_email);
-
+ 
             // Extract card details
             $card_last4 = $pm->card->last4 ?? null;
             $card_brand = $pm->card->brand ?? null;
