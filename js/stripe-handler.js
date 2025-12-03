@@ -99,6 +99,7 @@ class hldStripeHandler {
     // );
     // paymentMessageElement.mount("#payment-method-messaging-element");
     //  Card Element (keep existing flow)
+
     this.card = this.elements.create("card");
 
     const cardElement = document.getElementById(this.cardElementId);
@@ -141,6 +142,8 @@ class hldStripeHandler {
         prButton.mount(`#${this.prButtonId}`);
         // console.log("Google Pay / Apple Pay is available");
       } else {
+        document.getElementById("payment-request-button").style.display =
+          "none";
         console.log("Google Pay / Apple Pay not available on this device.");
       }
     });
@@ -240,8 +243,8 @@ class hldStripeHandler {
     if (
       !form ||
       !this.paymentButton ||
-      !this.afterPayButton
-      // !this.klarnaButton
+      !this.afterPayButton ||
+      !this.klarnaButton
     ) {
       console.warn("Form or payment button not found.");
       return;
@@ -251,7 +254,11 @@ class hldStripeHandler {
       this.handleCardPayment(e, "afterpay")
     );
 
-    //   this.handleCardPayment(e, "klarna")
+    this.klarnaButton.addEventListener("click", (e) =>
+      this.handleCardPayment(e, "klarna")
+    );
+
+    // this.handleCardPayment(e, "klarna");
     // );
 
     this.paymentButton.addEventListener("click", (e) =>
@@ -481,7 +488,13 @@ class hldStripeHandler {
       response = await fetch(this.ajaxUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `action=create_payment_intent`,
+        body:
+          `action=create_payment_intent` +
+          `&for=${type}` +
+          `&duration=${this.gl1Duration}` +
+          `&price_id=${this.fetchStripePrice.stripePriceId}` +
+          `&product_name=${medicationName}` +
+          `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
 
     if (type == "afterpay")

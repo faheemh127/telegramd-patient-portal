@@ -228,6 +228,17 @@ nav.hld-navbar {
 .hld_form_wrap .nsl-button-label-container b {
   margin-left: 3px;
 }
+.hld_form_wrap .nsl-button-apple {
+  color: white !important;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 50px !important;
+  height: 50px;
+}
+.hld_form_wrap .nsl-button-apple .nsl-button-label-container {
+  color: white !important;
+}
 /* .hld_form_wrap .fluentform form.ff-form-has-steps .ff_submit_btn_wrapper {
   display: none;
 } */
@@ -701,6 +712,12 @@ nav.hld-navbar {
   color: black;
   align-items: center;
   width: 100%;
+}
+.hld_apple_signin .nsl-button {
+  background-color: black !important;
+}
+.hld_apple_signin .nsl-button-label-container {
+  color: white !important;
 }
 .hld_login_wrapper .nsl-container {
   width: 100%;
@@ -1575,6 +1592,124 @@ nav.hld-navbar {
   color: var(--hld-color-primary);
 }
 
+/************* Style start for summary page **********************/
+div.ff-summary-wrapper {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  max-width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+div.ff-summary-inner-wrapper {
+  padding: 10px 25px 0 25px;
+}
+
+h3.ff-summary-title {
+  margin-top: 0;
+  background: #f2f2f2;
+  padding: 20px 20px;
+
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+div.ff-summary-box {
+  border-radius: 8px;
+}
+
+p.ff-summary-section-title {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Helvetica;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+div.ff-summary-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+div.ff-summary-label {
+  flex: 1;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  max-width: 70%;
+}
+
+div.ff-summary-value {
+  text-align: right;
+  min-width: 60px;
+  color: rgb(0, 0, 0);
+  font-size: 17px;
+}
+
+div.ff-summary-note {
+  margin-bottom: 10px;
+  color: gray;
+  font-size: 13px;
+}
+
+hr.ff-summary-divider {
+  margin: 15px 0;
+}
+
+div.ff-summary-row.ff-total-row {
+  font-size: 16px;
+}
+
+div.ff-summary-value.ff-free {
+  color: green;
+  font-weight: bold;
+}
+
+.ff-summary-label .ff-subtitle {
+  font-weight: normal;
+  font-size: 13px;
+  color: #6d6ffc;
+}
+
+.ff-summary-row.ff-total-row {
+  padding-top: 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.ff-summary-total-wrap {
+  font-size: 20px !important;
+  font-weight: bold;
+  color: black !important;
+}
+.hld-summary .hld-description {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+.hld-summary .hld-summary-items {
+  color: rgba(0, 0, 0, 0.8);
+}
+.hld-summary .hld-small-txt {
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #7c7c7c;
+}
+.hld-summary .secure-wrap {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #7c7c7c;
+}
+/************* summary_design *********************?
+
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
 
@@ -1898,6 +2033,9 @@ nav.hld-navbar {
 }
 .hld-dob-desktop-wrap {
   display: block;
+}
+.hld_login_button {
+  background: var(--hld-color-primary);
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;

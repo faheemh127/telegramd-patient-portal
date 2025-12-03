@@ -77,7 +77,7 @@ function hld_ghl_activate_reminder()
     $patient = HLD_Patient::get_patient_info();
     $patient_phone = $patient['phone'];
 
-    $patient_email = "faheemh127@gmail.com";
+    $patient_email = "vineethsreddy@gmail.com";
     hld_ghl_execute_webhook_logic($patient_email, $phone);
     // $args = [$patient_email, $patient_phone];
     // $hook_name = 'hld_send_ghl_webhook_event';

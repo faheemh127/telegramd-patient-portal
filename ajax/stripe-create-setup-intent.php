@@ -133,9 +133,6 @@ function my_create_payment_intent()
     $discount =  HLD_Discount::getDiscount($product_name, $duration);
     error_log("Discount is " . $discount);
 
-    // error_log(var_dump($is_first_order, true));
-    error_log("is_first_order");
-    error_log($is_first_order);
     $calculated_discount = 0;
     if ($is_first_order) {
         $price = $details['price'] * $duration;
@@ -158,7 +155,7 @@ function my_create_payment_intent()
                 'product_name' => $details['title'],
                 'unit_cost' =>   $details['price'],
                 'quantity' => $duration,
-                'discount_amount'   => intval($calculated_discount),
+               // 'discount_amount'   => intval($calculated_discount),
               ],
             ],
           ],
@@ -193,6 +190,8 @@ function my_create_payment_intent()
           'customerId'   => $customer_id,
         ]);
     } catch (Exception $e) {
+        error_log("Error in stripe setup intent");
+        error_log(print_r($e, true));
         error_log(print_r($e->getMessage(), true));
         wp_send_json_error(['message' => $e->getMessage()]);
     }
