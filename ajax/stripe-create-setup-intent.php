@@ -70,7 +70,7 @@ function my_create_payment_intent()
   \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
   $duration = isset($_POST['duration']) ? sanitize_text_field($_POST['duration']) : '';
-  $price_id = isset($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
+  $price_id = isset($_POST['price_id']) ? sanitize_text_field($_POST['price_id']) : '';
   $product_name = isset($_POST['product_name']) ? sanitize_text_field($_POST['product_name']) : '';
 
   // Read shipping info JSON
@@ -86,8 +86,8 @@ function my_create_payment_intent()
 
   $bank = sanitize_text_field($_POST['for'] ?? '');
 
-  $price_id = "price_1SVPuyAcgi1hKyLWgjOYvTcm";
-  $duration = 3;
+  // $price_id = "price_1SVPuyAcgi1hKyLWgjOYvTcm";
+  // $duration = 3;
 
   if (empty($duration) || empty($price_id)) {
     wp_send_json_error(['message' => 'Error processing your payment.']);

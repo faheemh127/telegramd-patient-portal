@@ -466,18 +466,25 @@ nav.hld-navbar {
 .ff-message-success + div {
   padding: 0 !important;
 }
-#hldPayWithAP {
+.hld-summary .payment-btn {
   width: 100%;
   border-radius: 50px;
-  background: #b4fce5;
+  background: #ffffff;
   color: black;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  padding: 25px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
 }
-#hldPayWithKlarna {
+.hld-summary .payment-btn:hover{
+  background-color: var(--hld-color-primary);
+  color: white;
+}
+/* #hldPayWithKlarna {
   width: 100%;
   border-radius: 50px;
   background: #feaace;
@@ -487,7 +494,7 @@ nav.hld-navbar {
   justify-content: center;
   align-items: center;
   margin: 10px 0;
-}
+} */
 .ff-btn-submit {
   visibility: visible;
   width: 100%;
@@ -1717,7 +1724,7 @@ div.ff-summary-value.ff-free {
   display: inline;
 }
 .discount-title {
-  margin-bottom: 14px;
+  margin-bottom: 14px !important;
   margin-top: 15px;
   font-weight: bold;
   color: #848484;

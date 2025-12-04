@@ -33,9 +33,6 @@ class hldStripeHandler {
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
-      
-      
-      
 
       if (
         MyStripeData?.payment_intent_id &&
@@ -77,7 +74,7 @@ class hldStripeHandler {
     return MyStripeData.isNewPatient;
   }
   calculateDiscountedPercentage(medicationName, duration, totalAmount) {
-    // All discount rules 
+    // All discount rules
     const discountRules = MyStripeData.discounts;
     // Validate medication exists
     if (!discountRules[medicationName]) {
@@ -331,6 +328,7 @@ class hldStripeHandler {
     if (type == "card") intent = await this.createIntent("setup");
     if (type == "klarna") intent = await this.createIntent("klarna");
     if (type == "afterpay") intent = await this.createIntent("afterpay");
+    // hldNavigation.toggleLoader(true);
 
     try {
       if (!intent.success) {
@@ -546,7 +544,7 @@ class hldStripeHandler {
           `action=create_payment_intent` +
           `&for=${type}` +
           `&duration=${this.packageDuration}` +
-          `&price_id=${this.fetchStripePrice.stripePriceId}` +
+          `&price_id=${this.stripePriceId}` +
           `&product_name=${medicationName}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
@@ -559,7 +557,7 @@ class hldStripeHandler {
           `action=create_payment_intent` +
           `&for=${type}` +
           `&duration=${this.packageDuration}` +
-          `&price_id=${this.fetchStripePrice.stripePriceId}` +
+          `&price_id=${this.stripePriceId}` +
           `&product_name=${medicationName}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });

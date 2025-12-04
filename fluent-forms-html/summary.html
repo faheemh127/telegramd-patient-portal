@@ -31,25 +31,29 @@
         </div>
         <!-- Total Row -->
 
-       
-
         <!-- Total Row -->
         <div class="ff-summary-row ff-total-row">
-          <div class="ff-summary-label"><strong>Due today</strong></div>
+          <div class="ff-summary-label">
+            <strong>Due today</strong>
+          </div>
+
           <div class="ff-summary-value ff-summary-total-wrap">
-            <div><span id="hldSummaryTotalToday">0</span> <span id="hldNewPatientDiscount" class="discounted-amount"> </div></div>
+            <div>
+              <span id="hldSummaryTotalToday">0</span>
+              <span id="hldNewPatientDiscount" class="discounted-amount"></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<div id="hldNewPatientDiscountWrap" class="hidden">
-  <p class="discount-title">Discounts <span>(first order discount)</span></p>  
+  <div id="hldNewPatientDiscountWrap" class="hidden">
+    <p class="discount-title">Discounts <span>(New patient introductory pricing applied)</span></p>
     <div class="hld-discount">
-        NAD+: <span id="hldDiscountPercentage"></span>% Off
+      NAD+: <span id="hldDiscountPercentage"></span>% Off
     </div>
-</div>
+  </div>
 
   <ul style="margin-top: 20px; padding-left: 5px">
     <div class="hld-summary-items">
@@ -103,17 +107,19 @@
   <h2
     style="
       text-align: left;
-    font-weight: bold;
-    margin-top: 60px;
-    margin-bottom: 5px;
-    font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 60px;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
     "
   >
     Select Payment method
   </h2>
   <div class="hld-payment-btns-wrap">
-    <button id="hldPayWithKlarna" type="button">Klarna</button>
-    <button id="hldPayWithAP" type="button">After Pay</button>
+    <button id="hldBtnGoogleApplePay" class="payment-btn" type="button">Google Pay</button>
+    <button id="hldBtnPayWithCard" class="payment-btn" type="button">Credit Card</button>
+    <button id="hldPayWithKlarna" class="payment-btn" type="button">Klarna</button>
+    <button id="hldPayWithAP" class="payment-btn" type="button">After Pay</button>
   </div>
   <!-- Google Pay / Apple Pay Button -->
   <div

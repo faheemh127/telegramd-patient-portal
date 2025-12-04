@@ -2,21 +2,21 @@
   {
     "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
     "medication_name": "NAD+ Injections",
-    "description": "Supports recovery from workouts and long days, Sharpens focus and mental stamina, Helps restore NAD+ levels depleted by stress and aging, Steady all-day cellular energy support, Fast NAD+ rise for deep mitochondrial activation, High bioavailability with no digestive loss, Supports mitochondrial energy and DNA repair",
+    "description": "Highest bioavailability of any NAD⁺ format, Fastest rise in NAD⁺ levels, Most noticeable energy + recovery improvement, Preferred by athletes & high-performers",
     "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
-    "labels": "Better Sleep, Stress Tolerance",
+    "labels": "Most Popular, Most Effective",
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "45",
-        "desc": "Short-term boost, ideal for beginners, fast recovery support",
-        "stripe_price_id": "price_1SVPuyAcgi1hKyLWgjOYvTcm"
+        "monthly_price": "219",
+        "desc": "Flexible month-to-month option, Medication + provider care, Free 2-day delivery",
+        "stripe_price_id": "price_1SaQgVAcgi1hKyLWzztDBiW7"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "42",
-        "desc": "Long-term cellular support, deeper NAD+ restoration, consistent wellness improvement",
-        "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
+        "monthly_price": "199",
+        "desc": "Stronger more consistent results, Follow-ups + dose adjustments, Priority refills & support,Free 2-day delivery,Best long-term value",
+        "stripe_price_id": "price_1SaQhXAcgi1hKyLWXnZMj8W6"
       }
     ]
   }

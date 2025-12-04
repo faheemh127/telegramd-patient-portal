@@ -14,7 +14,7 @@ class HLD_Discount
         ],
         "NAD+ Injections" => [
             "first_month" => 21,
-            "three_month" => 14
+            "three_month" => 13 
         ],
         "NAD+ Nasal Spray" => [
             "first_month" => 21,
