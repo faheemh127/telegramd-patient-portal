@@ -43,6 +43,7 @@ class HldFluentFormHandler {
 
         if (!hasCookie) {
           jQuery(".hld_form_wrap_hidden").removeClass("hld_form_wrap_hidden");
+          hldNavigation.toggleLoader(false);
         }
         //This is a bad  workaround to use setTimeout to to unhide the element. There is
         //no way to detect this is the right time to show the user the element.I am
@@ -66,7 +67,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone
+                phone,
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -123,7 +124,7 @@ class HldFluentFormHandler {
 
                 if (hasData) {
                   const nextBtn = step.querySelector(
-                    'button[data-action="next"]'
+                    'button[data-action="next"]',
                   );
 
                   if (nextBtn) {
@@ -140,7 +141,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]'
+                    'button[data-action="next"]',
                   );
                   nextButton.click();
                 }
@@ -151,15 +152,16 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active"
+                    ".fluentform-step.active",
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
                 }
 
                 if ($(step).hasClass("active")) {
+                  hldNavigation.toggleLoader(false);
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden"
+                    "hld_form_wrap_hidden",
                   );
                 }
               });
@@ -177,7 +179,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          })
+          }),
         );
       }
     });
@@ -199,7 +201,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
       );
     }
 
@@ -244,8 +246,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-      }
+              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+            }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -383,7 +385,7 @@ class HldFluentFormHandler {
     if (stripeHandler.isNewPatient()) {
       try {
         const discountWrap = document.getElementById(
-          "hldNewPatientDiscountWrap"
+          "hldNewPatientDiscountWrap",
         );
         const discountEl = document.getElementById("hldNewPatientDiscount");
         const discountPerEl = document.getElementById("hldDiscountPercentage");
@@ -391,7 +393,7 @@ class HldFluentFormHandler {
         // Validate DOM elements
         if (!discountWrap || !discountPerEl) {
           console.error(
-            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountPercentage not found"
+            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountPercentage not found",
           );
           return;
         }
@@ -419,7 +421,7 @@ class HldFluentFormHandler {
           medication,
           duration,
           orderTotal,
-          false
+          false,
         );
 
         if (isNaN(discountPercent)) {
@@ -559,12 +561,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration
+          (p) => parseInt(p.monthly_duration, 10) === duration,
         );
 
         if (pkg) {
@@ -576,7 +578,7 @@ class HldFluentFormHandler {
           // ✅ Update UI
           const todayDiv = document.getElementById("hldSummaryTotalToday");
           if (todayDiv) {
-            todayDiv.textContent = "$" + selectedPrice;
+            todayDiv.textContent = selectedPrice;
           }
         }
       }
@@ -609,7 +611,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine)
+      m.medication_name.includes(medicine),
     );
     if (!med) return;
 
@@ -693,10 +695,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]'
+      'input[name="names[first_name]"]',
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]'
+      'input[name="names[last_name]"]',
     );
 
     // Get values safely
@@ -747,6 +749,7 @@ class HldFluentFormHandler {
 var hldFormHandler = new HldFluentFormHandler();
 
 document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => hldNavigation.toggleLoader(false), 3000);
   // setTimeout(() => {
   //   if (typeof hldFormHandler !== "undefined") {
   //     hldFormHandler.getAmount();
