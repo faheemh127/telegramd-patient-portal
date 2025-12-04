@@ -9,6 +9,7 @@ class HldNavigation {
     // commenting this because now we are moving the login page before checkout so its not need  at the moment
     // this.checkNextEndLoginAndNavigate(); // don't need here  its now called in mutation observer function
     // this.initLoginWrapListener();
+    this.toggleLoader(true);
     this.hideNextBtnLoginWrap();
     this.initActionItemSidebar();
     // this.showActionItemSidebar();
@@ -225,7 +226,7 @@ class HldNavigation {
 
   showAllPrevButtons() {
     const stepContainers = document.querySelectorAll(
-      ".ff-step-container .fluentform-step"
+      ".ff-step-container .fluentform-step",
     );
 
     stepContainers.forEach((step) => {
@@ -335,7 +336,7 @@ class HldNavigation {
 
         // If one is already selected (page reload case)
         const alreadyChecked = step.querySelector(
-          'input[type="radio"]:checked'
+          'input[type="radio"]:checked',
         );
         if (alreadyChecked) showBtn();
 
