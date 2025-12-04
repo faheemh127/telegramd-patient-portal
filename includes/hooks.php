@@ -33,6 +33,45 @@ function hld_handle_custom_login()
 
             if (in_array('subscriber', (array)$user->roles)) {
 
+
+
+
+
+                // ********** GHL Hook Starts
+
+                if (!is_wp_error($user)) {
+                    $email = $user->user_email;
+                    echo $email;
+                }
+
+
+                // hook removed told by abubakar
+                $patient_email = $email;
+
+
+                try {
+                    $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+                    $data = [
+                        "email" => $patient_email,
+                        "phone" => ""
+                    ];
+
+                    //TODO change the webook to match the reminder hook created at GHL-CRM;
+                    // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                    $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/31052ffb-0d9a-4964-93f1-7daab5973eeb', $data);
+                    return true;
+                } catch (Exception $e) {
+                    error_log('GHL Webhook Failed: ' . $e->getMessage());
+                    return false;
+                }
+
+
+
+
+
+
+
+
                 // clean redirect (allowed in init)
                 wp_safe_redirect(home_url('/my-account'));
                 exit;

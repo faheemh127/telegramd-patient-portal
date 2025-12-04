@@ -338,28 +338,48 @@ if (! class_exists('HLD_Patient')) {
         public static function prepareGHLContact()
         {
 
-
-            // $GhlApiClient = new GhlApiClient(api_key);
-            // $data = [
-            //     "firstName"   => "Rosan",
-            //     "lastName"    => "Deo",
-            //     "name"        => "Rosan Deo",
-            //     "email"       => "rosan@deos.com",
-            //     "locationId"  => "tqGhhCGePHa1hQkrrOQY",
-            //     "gender"      => "male",
-            //     "phone"       => "+1 888-888-8888",
-            //     "address1"    => "3535 1st St N",
-            //     "city"        => "Dolomite",
-            //     "state"       => "AL",
-            //     "postalCode"  => "35061",
-            //     "website"     => "https://www.tesla.com",
-            //     "timezone"    => "America/Chihuahua"
-            // ];
-            // // (object) $data;
-            // $GhlApiClient->createContact($data);
+            // Fetch patient info
+            $patient = HLD_Patient::get_patient_info();
+            if (empty($patient)) {
+                error_log("GHL Contact Error: No patient data found.");
+                return false;
+            }
 
 
-            // $patient = HLD_Patient::get_patient_info();
+            $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+
+
+
+            // Build dynamic name
+            $full_name = trim(($patient['first_name'] ?? '') . ' ' . ($patient['last_name'] ?? ''));
+
+            // Prepare GHL contact data (replace only the values we have)
+            $data = [
+                "firstName"   => $patient['first_name'] ?? "Unknown",
+                "lastName"    => $patient['last_name'] ?? "",
+                "name"        => $full_name,
+                "email"       => $patient['email'],
+                "locationId"  => "tqGhhCGePHa1hQkrrOQY",   // KEEP AS IT IS
+                "gender"      => $patient['gender'] ?? "unknown",
+                "phone"       => $patient['phone'] ?? "",
+                "address1"    => $patient['address'] ?? "",
+                "city"        => $patient['city'] ?? "",
+                "state"       => $patient['state'] ?? "",
+                "postalCode"  => $patient['zip_code'] ?? "",
+                "website"     => "https://www.healsend.com",  // KEEP AS IT IS
+                "timezone"    => "America/Chihuahua"       // KEEP AS IT IS
+            ];
+
+
+
+
+
+        
+            $GhlApiClient->createContact($data);
+
+
+
+            // hook removed told by abubakar
             // $patient_email = $patient['email'];
             // $patient_phone = $patient['phone'];
 
