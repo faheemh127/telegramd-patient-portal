@@ -66,7 +66,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone,
+                phone
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -123,7 +123,7 @@ class HldFluentFormHandler {
 
                 if (hasData) {
                   const nextBtn = step.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
 
                   if (nextBtn) {
@@ -140,7 +140,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
                   nextButton.click();
                 }
@@ -151,7 +151,7 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active",
+                    ".fluentform-step.active"
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
@@ -159,7 +159,7 @@ class HldFluentFormHandler {
 
                 if ($(step).hasClass("active")) {
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden",
+                    "hld_form_wrap_hidden"
                   );
                 }
               });
@@ -177,7 +177,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          }),
+          })
         );
       }
     });
@@ -199,7 +199,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
+          med.medication.toLowerCase() === selectedMedication.toLowerCase()
       );
     }
 
@@ -244,8 +244,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-            }
+        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+      }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -286,21 +286,21 @@ class HldFluentFormHandler {
   //       : "No medication selected";
   //   }
 
-  //   // ✅ Set package duration and update window.stripeHandler.gl1Duration
+  //   // ✅ Set package duration and update window.stripeHandler.packageDuration
   //   const durationDiv = document.getElementById("hldSummaryPackageDuration");
   //   if (durationDiv) {
   //     if (value3 === "Monthly") {
   //       durationDiv.textContent = "1 Month";
-  //       window.stripeHandler.gl1Duration = 1;
+  //       window.stripeHandler.packageDuration = 1;
   //     } else if (value3 === "3-Month") {
   //       durationDiv.textContent = "3 Months";
-  //       window.stripeHandler.gl1Duration = 3;
+  //       window.stripeHandler.packageDuration = 3;
   //     } else if (value3 === "6-Month") {
   //       durationDiv.textContent = "6 Months";
-  //       window.stripeHandler.gl1Duration = 6;
+  //       window.stripeHandler.packageDuration = 6;
   //     } else {
   //       durationDiv.textContent = "No plan selected";
-  //       window.stripeHandler.gl1Duration = 1; // fallback default
+  //       window.stripeHandler.packageDuration = 1; // fallback default
   //     }
   //   } else {
   //     console.log("Duration div not found");
@@ -365,13 +365,13 @@ class HldFluentFormHandler {
       if (durationDiv) {
         if (value3 === "Monthly") {
           durationDiv.textContent = "1 Month";
-          window.stripeHandler.gl1Duration = 1;
+          window.stripeHandler.packageDuration = 1;
         } else if (value3 === "3-Month") {
           durationDiv.textContent = "3 Months";
-          window.stripeHandler.gl1Duration = 3;
+          window.stripeHandler.packageDuration = 3;
         } else if (value3 === "6-Month") {
           durationDiv.textContent = "6 Months";
-          window.stripeHandler.gl1Duration = 6;
+          window.stripeHandler.packageDuration = 6;
         } else {
           console.log("Invalid plan selected");
         }
@@ -379,8 +379,81 @@ class HldFluentFormHandler {
         console.log("Duration div not found");
       }
     }
+
+    if (stripeHandler.isNewPatient()) {
+      try {
+        const discountWrap = document.getElementById(
+          "hldNewPatientDiscountWrap"
+        );
+        const discountEl = document.getElementById("hldNewPatientDiscount");
+        const discountPerEl = document.getElementById("hldDiscountPercentage");
+
+        // Validate DOM elements
+        if (!discountWrap || !discountPerEl) {
+          console.error(
+            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountPercentage not found"
+          );
+          return;
+        }
+        if (!discountEl) {
+          console.error("❌ Element #hldNewPatientDiscount not found in DOM");
+          return;
+        }
+
+        discountWrap.classList.remove("hidden");
+
+        const duration = stripeHandler.packageDuration;
+        const orderTotal = this.getAmount();
+
+        if (!medication) {
+          console.error("❌ Medication is undefined when calculating discount");
+          return;
+        }
+
+        if (typeof stripeHandler.calculateDiscountedPercentage !== "function") {
+          console.error("❌ calculateDiscountedPercentage is not a function");
+          return;
+        }
+
+        const discountPercent = stripeHandler.calculateDiscountedPercentage(
+          medication,
+          duration,
+          orderTotal,
+          false
+        );
+
+        if (isNaN(discountPercent)) {
+          console.error("❌ Discount calculation returned NaN", {
+            medication,
+            duration,
+            orderTotal,
+          });
+          return;
+        }
+
+        // calclate discount amount
+        const discountedAmount =
+          orderTotal - orderTotal * (discountPercent / 100);
+
+        // setting prices
+        discountEl.innerHTML = "$" + discountedAmount;
+        discountPerEl.innerHTML = discountedAmount;
+        hldFormHandler.blurOrigionalPrice();
+      } catch (err) {
+        console.error("❌ Error applying discount:", err);
+      }
+    }
   }
 
+  blurOrigionalPrice() {
+    const elem = document.getElementById("hldSummaryTotalToday");
+
+    if (elem) {
+      elem.classList.add("hld-line-through");
+    } else {
+      console.error("Element with ID 'hldSummaryTotalToday' not found.");
+    }
+  }
   removeOptinLabelBorder() {
     // Find all elements with the class "optin_cb_container"
     const containers = document.querySelectorAll(".optin_cb_container");
@@ -416,8 +489,8 @@ class HldFluentFormHandler {
   //     duration = 6;
   //   }
 
-  //   // ✅ Update window.stripeHandler.gl1Duration
-  //   window.stripeHandler.gl1Duration = duration;
+  //   // ✅ Update window.stripeHandler.packageDuration
+  //   window.stripeHandler.packageDuration = duration;
 
   //   let selectedPrice = 0;
 
@@ -478,20 +551,20 @@ class HldFluentFormHandler {
       duration = 6;
     }
 
-    // ✅ Update window.stripeHandler.gl1Duration
-    window.stripeHandler.gl1Duration = duration;
+    // ✅ Update window.stripeHandler.packageDuration
+    window.stripeHandler.packageDuration = duration;
 
     let selectedPrice = 0;
 
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
+        m.medication_name.toLowerCase().includes(medication.toLowerCase())
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration,
+          (p) => parseInt(p.monthly_duration, 10) === duration
         );
 
         if (pkg) {
@@ -503,7 +576,7 @@ class HldFluentFormHandler {
           // ✅ Update UI
           const todayDiv = document.getElementById("hldSummaryTotalToday");
           if (todayDiv) {
-            todayDiv.textContent = selectedPrice;
+            todayDiv.textContent = "$" + selectedPrice;
           }
         }
       }
@@ -536,7 +609,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine),
+      m.medication_name.includes(medicine)
     );
     if (!med) return;
 
@@ -620,10 +693,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]',
+      'input[name="names[first_name]"]'
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]',
+      'input[name="names[last_name]"]'
     );
 
     // Get values safely

@@ -194,12 +194,25 @@ if (!class_exists('hldAssets')) {
                 true
             );
 
+
+            $patient_email = null;
+            if (is_user_logged_in()) {
+                $current_user = wp_get_current_user();
+                $patient_email = $current_user->user_email;
+
+                error_log("Logged in user's email = " . $patient_email);
+            } else {
+                error_log("User is not logged in");
+            }
+
             // Prepare the default data
             $stripe_data = [
                 'ajax_url'       => admin_url('admin-ajax.php'),
                 'return_url'     => get_permalink(),
                 'publishableKey' => defined('STRIPE_PUBLISHABLE_KEY') ? STRIPE_PUBLISHABLE_KEY : '',
                 'payment_intent_id' => '', // default empty
+                'discounts' => HLD_Discount::get_discounts(),
+                'isNewPatient' => HLD_Patient::is_patient_new($patient_email),
             ];
 
             /**

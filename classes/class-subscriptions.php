@@ -292,6 +292,7 @@ class HLD_UserSubscriptions
                     '%d',
                     '%s',
                     '%s',
+                    '%s',
                     '%s'
                 ]
             );
@@ -647,6 +648,9 @@ class HLD_UserSubscriptions
             "subscription_duration" => $subscription_duration,
             "medication_telegra_id" => $prefunnel_data["telegra_product_id"],
             "medication_name" => $prefunnel_data["dropdown_4"],
+            
+            "subscription_slug" => $prefunnel_data["hld_plan_slug"],
+            
         ];
         self::update_subscription_data($payment_intent_id, $data);
     }

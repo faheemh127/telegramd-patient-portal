@@ -427,6 +427,75 @@ class HldNavigation {
     console.log("Login wrap listener initialized.");
   }
 
+  // toggleLoader(show) {
+  //   let loader = document.getElementById("global-loading-overlay");
+
+  //   console.log("toggleLoader called");
+  //   // Create overlay if it doesn't exist
+  //   if (!loader) {
+  //     loader = document.createElement("div");
+  //     loader.id = "global-loading-overlay";
+
+  //     // Inline CSS for overlay + loading bar
+  //     loader.style.position = "fixed";
+  //     loader.style.top = "0";
+  //     loader.style.left = "0";
+  //     loader.style.width = "100%";
+  //     loader.style.height = "100%";
+  //     loader.style.background = "rgba(0, 0, 0, 0.55)";
+  //     loader.style.backdropFilter = "blur(2px)";
+  //     loader.style.display = "flex";
+  //     loader.style.alignItems = "center";
+  //     loader.style.justifyContent = "center";
+  //     loader.style.zIndex = "999999";
+  //     loader.style.pointerEvents = "auto";
+
+  //     // Loading bar container
+  //     const barWrapper = document.createElement("div");
+  //     barWrapper.style.width = "250px";
+  //     barWrapper.style.height = "6px";
+  //     barWrapper.style.background = "rgba(255, 255, 255, 0.2)";
+  //     barWrapper.style.borderRadius = "10px";
+  //     barWrapper.style.overflow = "hidden";
+
+  //     // Animated loading bar
+  //     const bar = document.createElement("div");
+  //     bar.id = "loader-bar";
+  //     bar.style.width = "0%";
+  //     bar.style.height = "100%";
+  //     bar.style.background = "white";
+  //     bar.style.borderRadius = "10px";
+  //     bar.style.animation = "loaderBarAnim 10s ease-in-out infinite";
+
+  //     barWrapper.appendChild(bar);
+  //     loader.appendChild(barWrapper);
+
+  //     // Add keyframes via JS
+  //     // const styleSheet = document.createElement("style");
+  //     // styleSheet.innerHTML = `
+  //     //       @keyframes loaderBarAnim {
+  //     //           0%   { width: 0%; transform: translateX(0); }
+  //     //           50%  { width: 80%; transform: translateX(20%); }
+  //     //           100% { width: 0%; transform: translateX(100%); }
+  //     //       }
+  //     //   `;
+  //     // console.log(styleSheet);
+  //     // console.log(loader);
+  //     // document.head.appendChild(styleSheet);
+
+  //     document.body.appendChild(loader);
+  //   }
+
+  //   // Show overlay
+  //   if (show === true) {
+  //     loader.style.display = "flex";
+  //     document.body.style.pointerEvents = "none"; // Disable page clicks
+  //   } else {
+  //     loader.style.display = "none";
+  //     document.body.style.pointerEvents = "auto"; // Enable page clicks
+  //   }
+  // }
+
   toggleLoader(show) {
     let loader = document.getElementById("global-loading-overlay");
 
@@ -441,9 +510,9 @@ class HldNavigation {
       loader.style.top = "0";
       loader.style.left = "0";
       loader.style.width = "100%";
-      loader.style.height = "100%";
-      loader.style.background = "rgba(0, 0, 0, 0.55)";
-      loader.style.backdropFilter = "blur(2px)";
+      loader.style.height = "6px";
+      loader.style.background = "white";
+      // loader.style.backdropFilter = "blur(2px)";
       loader.style.display = "flex";
       loader.style.alignItems = "center";
       loader.style.justifyContent = "center";
@@ -452,7 +521,7 @@ class HldNavigation {
 
       // Loading bar container
       const barWrapper = document.createElement("div");
-      barWrapper.style.width = "250px";
+      barWrapper.style.width = "100%";
       barWrapper.style.height = "6px";
       barWrapper.style.background = "rgba(255, 255, 255, 0.2)";
       barWrapper.style.borderRadius = "10px";
@@ -463,25 +532,12 @@ class HldNavigation {
       bar.id = "loader-bar";
       bar.style.width = "0%";
       bar.style.height = "100%";
-      bar.style.background = "white";
+      bar.style.background = "var(--hld-color-primary)";
       bar.style.borderRadius = "10px";
-      bar.style.animation = "loaderBarAnim 1.2s infinite";
+      bar.style.animation = "loaderBarAnim 7s ease-in-out infinite";
 
       barWrapper.appendChild(bar);
       loader.appendChild(barWrapper);
-
-      // Add keyframes via JS
-      const styleSheet = document.createElement("style");
-      styleSheet.innerHTML = `
-            @keyframes loaderBarAnim {
-                0%   { width: 0%; transform: translateX(0); }
-                50%  { width: 80%; transform: translateX(20%); }
-                100% { width: 0%; transform: translateX(100%); }
-            }
-        `;
-      console.log(styleSheet);
-      console.log(loader);
-      document.head.appendChild(styleSheet);
 
       document.body.appendChild(loader);
     }

@@ -1708,7 +1708,56 @@ div.ff-summary-value.ff-free {
   margin-bottom: 20px;
   color: #7c7c7c;
 }
-/************* summary_design *********************?
+.hld-discount {
+  background: #e1e1e1;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 50px;
+  padding: 4px 14px;
+  max-width: 200px;
+  display: inline;
+}
+.discount-title {
+  margin-bottom: 14px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #848484;
+}
+.hld-line-through {
+  text-decoration: line-through;
+  color: red;
+}
+/************* summary_design *********************/
+
+@keyframes loaderBarAnim {
+  /* Start: bar grows quickly */
+  0% {
+    width: 0%;
+    transform: translateX(0);
+  }
+
+  /* FAST movement – first 50% happens quickly */
+  30% {
+    width: 70%; /* grow fast */
+    /* transform: translateX(15%); */
+  }
+
+  /* Midpoint at 50% */
+  50% {
+    width: 80%;
+    /* transform: translateX(20%); */
+  }
+
+  /* SLOW movement for the remaining duration */
+  75% {
+    width: 90%;
+    /* transform: translateX(40%); */
+  }
+
+  100% {
+    width: 100%;
+    /* transform: translateX(100%); */
+  }
+}
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
@@ -1829,7 +1878,7 @@ div.ff-summary-value.ff-free {
   }
   .hld_no_found_wrap p,
   .hld_action_item_wrap p {
-    font-size: 1.125rem;
+    font-size: 1rem !important;
   }
   .profile-container .hld-patient-info {
     padding-top: 0px;
@@ -1894,6 +1943,9 @@ div.ff-summary-value.ff-free {
   }
   .hld_form_wrap {
     padding: 15px 20px;
+  }
+  .container {
+    max-width: 100% !important;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

@@ -12,7 +12,7 @@ class HLD_Discount
             "first_month" => 34,
             "three_month" => 11
         ],
-        "NAD Injections" => [
+        "NAD+ Injections" => [
             "first_month" => 21,
             "three_month" => 14
         ],
@@ -34,6 +34,10 @@ class HLD_Discount
         ],
     ];
 
+    public static function get_discounts()
+    {
+        return self::$discounts;
+    }
     /**
      * Get discount percentage for a product and duration.
      *

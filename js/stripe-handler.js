@@ -21,7 +21,7 @@ class hldStripeHandler {
     this.isSubscription = false; // <-- set to true for subscription flow
     this.stripePriceId = ""; // dummy Price ID for testing
     this.telegraProdID = ""; // dummy Price ID for testing
-    this.gl1Duration = 1; // 1 is default
+    this.packageDuration = 1; // 1 is default
     this.init();
     this.submitWrapperClass =
       config.submitWrapperClass || ".hld_form_main_submit_button";
@@ -29,14 +29,14 @@ class hldStripeHandler {
 
   init() {
     // // temporary testing
-    //       hldNavigation.toggleLoader(true);
 
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
+      
+      
+      
 
-      console.log("function called the init in stripehandler.");
-      console.log(MyStripeData.payment_intent_id);
       if (
         MyStripeData?.payment_intent_id &&
         MyStripeData.payment_intent_id.startsWith("pi_")
@@ -59,7 +59,6 @@ class hldStripeHandler {
         console.log("Hidden input value set:", input.value);
         setTimeout(function () {
           stripeHandler.submitForm();
-          
         }, 4000);
       }
     });
@@ -73,6 +72,30 @@ class hldStripeHandler {
 
     // If found, return its data-telegra-id
     return element ? element.getAttribute("data-telegra-id") : null;
+  }
+  isNewPatient() {
+    return MyStripeData.isNewPatient;
+  }
+  calculateDiscountedPercentage(medicationName, duration, totalAmount) {
+    // All discount rules 
+    const discountRules = MyStripeData.discounts;
+    // Validate medication exists
+    if (!discountRules[medicationName]) {
+      console.error("Unknown medication:", medicationName);
+      return totalAmount; // no discount
+    }
+
+    // Determine correct discount key
+    let discountPercent = 0;
+    if (duration == 1) {
+      discountPercent = discountRules[medicationName]["first_month"];
+    } else if (duration == 3) {
+      discountPercent = discountRules[medicationName]["three_month"];
+    }
+
+    console.log("discountPercent ", discountPercent);
+    return discountPercent;
+    // Calculate discount
   }
 
   async fetchStripePrice() {
@@ -237,7 +260,7 @@ class hldStripeHandler {
             ev.paymentMethod.id
           )}&price_id=${encodeURIComponent(
             this.stripePriceId
-          )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+          )}&duration=${encodeURIComponent(this.packageDuration)}`,
         });
 
         const subResponse = await subResult.json();
@@ -378,7 +401,7 @@ class hldStripeHandler {
         //     planSlug
         //   )}&price_id=${encodeURIComponent(
         //     this.stripePriceId
-        //   )}&duration=${encodeURIComponent(this.gl1Duration)}`,
+        //   )}&duration=${encodeURIComponent(this.packageDuration)}`,
         // });
 
         // Call subscription AJAX instead of charge_now
@@ -391,7 +414,7 @@ class hldStripeHandler {
           slug: planSlug,
           medication: planMedication,
           price_id: this.stripePriceId,
-          duration: this.gl1Duration,
+          duration: this.packageDuration,
           telegra_product_id: this.telegraProdID,
         });
 
@@ -522,7 +545,7 @@ class hldStripeHandler {
         body:
           `action=create_payment_intent` +
           `&for=${type}` +
-          `&duration=${this.gl1Duration}` +
+          `&duration=${this.packageDuration}` +
           `&price_id=${this.fetchStripePrice.stripePriceId}` +
           `&product_name=${medicationName}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
@@ -535,7 +558,7 @@ class hldStripeHandler {
         body:
           `action=create_payment_intent` +
           `&for=${type}` +
-          `&duration=${this.gl1Duration}` +
+          `&duration=${this.packageDuration}` +
           `&price_id=${this.fetchStripePrice.stripePriceId}` +
           `&product_name=${medicationName}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
@@ -586,7 +609,7 @@ class hldStripeHandler {
       if (submitButton) {
         submitButton.click();
       }
-    }else{
+    } else {
       hldNavigation.toggleLoader(false);
     }
   }

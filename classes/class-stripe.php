@@ -323,6 +323,21 @@ class HLD_Stripe
     // }
 
 
+   public static function hld_prepare_line_item($details, $duration, $calculated_discount)
+    {
+        $line_item = [
+            'product_name' => $details['title'],
+            'unit_cost'    => $details['price'],
+            'quantity'     => $duration,
+        ];
+
+        // Only add discount_amount if it is greater than zero
+        if (intval($calculated_discount) > 0) {
+            $line_item['discount_amount'] = intval($calculated_discount);
+        }
+
+        return $line_item;
+    }
 
     public static function get_or_create_stripe_customer($email, $first_name = '', $last_name = '')
     {

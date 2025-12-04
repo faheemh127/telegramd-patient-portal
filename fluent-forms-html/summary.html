@@ -20,6 +20,7 @@
             <div id="hldSummaryMedication"> </div>
           </div>
         </div>
+        <!-- Row -->
         <div class="ff-summary-row ff-treatment-row">
           <div class="ff-summary-label">
             <div><strong>Your Plan</strong></div>
@@ -29,15 +30,27 @@
           </div>
         </div>
         <!-- Total Row -->
+
+       
+
+        <!-- Total Row -->
         <div class="ff-summary-row ff-total-row">
           <div class="ff-summary-label"><strong>Due today</strong></div>
           <div class="ff-summary-value ff-summary-total-wrap">
-            <div>$<span id="hldSummaryTotalToday">0</span></div>
+            <div><span id="hldSummaryTotalToday">0</span> <span id="hldNewPatientDiscount" class="discounted-amount"> </div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<div id="hldNewPatientDiscountWrap" class="hidden">
+  <p class="discount-title">Discounts <span>(first order discount)</span></p>  
+    <div class="hld-discount">
+        NAD+: <span id="hldDiscountPercentage"></span>% Off
+    </div>
+</div>
+
   <ul style="margin-top: 20px; padding-left: 5px">
     <div class="hld-summary-items">
       <svg
@@ -90,9 +103,10 @@
   <h2
     style="
       text-align: left;
-      font-weight: bold;
-      margin-top: 15px;
-      margin-bottom: 5px;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
     "
   >
     Select Payment method

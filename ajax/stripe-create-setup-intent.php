@@ -144,46 +144,88 @@ function my_create_payment_intent()
 
   try {
     // Create SetupIntent for this customer
+
+
+    // $paymentIntent = \Stripe\PaymentIntent::create([
+    //   'payment_method_types' => [$intent_for],
+    //   'customer' => $customer_id,
+    //   'amount' => $price,
+    //   'currency' => HLD_CURRENCY,
+    //   'amount_details' => [
+    //     'line_items' => [
+    //       [
+    //         'product_name' => $details['title'],
+    //         'unit_cost' =>   $details['price'],
+    //         'quantity' => $duration,
+    //         'discount_amount'   => intval($calculated_discount),
+    //       ],
+    //     ],
+    //   ],
+    //   'shipping' => [
+    //     'name' => $user_name,
+    //     'address' => [
+    //       'city' => $city,
+    //       'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+    //       'line1' => $street,
+    //       'postal_code' => $zip,
+    //       'state' => $state,
+    //     ],
+    //   ],
+    //   'payment_method_data' => [
+    //     'type' => $intent_for,
+    //     'billing_details' => [
+    //       'address' => [
+    //         'city' => $city,
+    //         'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+    //         'line1' => $street,
+    //         'postal_code' => $zip,
+    //         'state' => $state,
+    //       ],
+    //       'email' => $user_email,
+    //       'name' => $user_name,
+    //     ],
+    //   ],
+    // ]);
+
+    $line_item = HLD_Stripe::hld_prepare_line_item($details, $duration, $calculated_discount);
+
     $paymentIntent = \Stripe\PaymentIntent::create([
       'payment_method_types' => [$intent_for],
-      'customer' => $customer_id,
-      'amount' => $price,
-      'currency' => HLD_CURRENCY,
-      'amount_details' => [
+      'customer'             => $customer_id,
+      'amount'               => $price,
+      'currency'             => HLD_CURRENCY,
+      'amount_details'       => [
         'line_items' => [
-          [
-            'product_name' => $details['title'],
-            'unit_cost' =>   $details['price'],
-            'quantity' => $duration,
-            'discount_amount'   => intval($calculated_discount),
-          ],
+          $line_item
         ],
       ],
       'shipping' => [
         'name' => $user_name,
         'address' => [
-          'city' => $city,
-          'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
-          'line1' => $street,
+          'city'        => $city,
+          'country'     => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+          'line1'       => $street,
           'postal_code' => $zip,
-          'state' => $state,
+          'state'       => $state,
         ],
       ],
       'payment_method_data' => [
         'type' => $intent_for,
         'billing_details' => [
           'address' => [
-            'city' => $city,
-            'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
-            'line1' => $street,
+            'city'        => $city,
+            'country'     => HLD_BUISNESS_OPERATIONAL_COUNTRY,
+            'line1'       => $street,
             'postal_code' => $zip,
-            'state' => $state,
+            'state'       => $state,
           ],
           'email' => $user_email,
-          'name' => $user_name,
+          'name'  => $user_name,
         ],
       ],
     ]);
+
+
 
     wp_send_json_success([
       'clientSecret' => $paymentIntent->client_secret,
@@ -202,6 +244,8 @@ function is_user_order_first($email)
 {
   return HLD_Patient::is_patient_new($email);
 }
+
+
 
 function fetch_stripe_product_details($price_id)
 {
