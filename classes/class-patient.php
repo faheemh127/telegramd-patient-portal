@@ -380,24 +380,24 @@ if (! class_exists('HLD_Patient')) {
 
 
             // hook removed told by abubakar
-            // $patient_email = $patient['email'];
-            // $patient_phone = $patient['phone'];
+            $patient_email = $patient['email'];
+            $patient_phone = $patient['phone'];
 
-            // try {
-            //     $GhlApiClient = new GhlApiClient(GHL_API_KEY);
-            //     $data = [
-            //         "email" => $patient_email,
-            //         "phone" => $patient_phone
-            //     ];
+            try {
+                $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+                $data = [
+                    "email" => $patient_email,
+                    "phone" => $patient_phone
+                ];
 
-            //     //TODO change the webook to match the reminder hook created at GHL-CRM;
-            //     // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
-            //     $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/7355769a-474b-4198-a795-dddfe8eed813', $data);
-            //     return true;
-            // } catch (Exception $e) {
-            //     error_log('GHL Webhook Failed: ' . $e->getMessage());
-            //     return false;
-            // }
+                //TODO change the webook to match the reminder hook created at GHL-CRM;
+                // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/7355769a-474b-4198-a795-dddfe8eed813', $data);
+                return true;
+            } catch (Exception $e) {
+                error_log('GHL Webhook Failed: ' . $e->getMessage());
+                return false;
+            }
         }
 
         public static function cancel_email_reminders_to_add_card()

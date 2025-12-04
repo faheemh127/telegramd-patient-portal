@@ -50,14 +50,16 @@ function hld_handle_custom_login()
 
 
                 try {
+                    error_log("GHL Hook trying when login.....");
                     $GhlApiClient = new GhlApiClient(GHL_API_KEY);
                     $data = [
                         "email" => $patient_email,
-                        "phone" => ""
+                        "phone" => "+923068493810"
                     ];
 
                     //TODO change the webook to match the reminder hook created at GHL-CRM;
                     // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
+                    error_log("Sent data to hook");
                     $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/31052ffb-0d9a-4964-93f1-7daab5973eeb', $data);
                     return true;
                 } catch (Exception $e) {

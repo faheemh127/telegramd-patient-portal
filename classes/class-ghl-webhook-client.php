@@ -41,6 +41,7 @@ class GhlApiClient
             'Content-Length: ' . strlen($jsonData)
         ];
 
+        error_log("in sendToWebhook executeCurlRequest called");
         $result = self::executeCurlRequest($webhookUrl, 'POST', $jsonData, $headers);
 
         if ($result['httpCode'] >= 300) {
