@@ -70,7 +70,7 @@ class GhlApiClient
         ];
 
         if ($version !== "") {
-            $headers['Version'] = $version;
+            $headers[] = 'Version: ' . $version;
         }
 
         $result = self::executeCurlRequest($url, $method, $jsonData, $headers);
@@ -120,5 +120,3 @@ class GhlApiClient
         ];
     }
 }
-
-

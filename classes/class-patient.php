@@ -374,10 +374,6 @@ if (! class_exists('HLD_Patient')) {
 
 
 
-        
-            $GhlApiClient->createContact($data);
-
-
 
             // hook removed told by abubakar
             $patient_email = $patient['email'];
@@ -398,6 +394,13 @@ if (! class_exists('HLD_Patient')) {
                 error_log('GHL Webhook Failed: ' . $e->getMessage());
                 return false;
             }
+
+
+            // then create contact
+        
+            $GhlApiClient->createContact($data);
+
+
         }
 
         public static function cancel_email_reminders_to_add_card()

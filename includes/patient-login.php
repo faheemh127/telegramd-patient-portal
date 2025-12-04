@@ -73,7 +73,7 @@ function hld_render_custom_login_form()
         <div class="hld_create_wrap">
             <p>First time here?
                 <a href="<?php echo esc_url(home_url('/patient-signup/')); ?>">Create an account</a>
-            </p>
+            </p>    
         </div>
     </div>
 

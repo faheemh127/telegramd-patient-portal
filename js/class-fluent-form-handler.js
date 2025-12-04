@@ -60,7 +60,7 @@ class HldFluentFormHandler {
           hldFormHandler.getAmount();
           hldFormHandler.setStripeData();
           if ($("body").hasClass("logged-in") && !hldFormHandler.hasFired) {
-            // todo origional number of patietn
+            // todoGHL origional number of patietn
             const phone = "+923068493810";
 
             const subResult = fetch(MyStripeData.ajax_url, {

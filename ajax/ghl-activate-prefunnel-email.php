@@ -65,8 +65,8 @@ function hld_ghl_activate_reminder()
         wp_die();
     }
 
-    error_log("execution of remainders is paused due to testing on faheem side");
-    return;
+    // error_log("execution of remainders is paused due to testing on faheem side");
+    // return;
     $phone = $_POST['phone'];
 
     $delay_seconds = 900; // 15 minutes
@@ -77,7 +77,8 @@ function hld_ghl_activate_reminder()
     $patient = HLD_Patient::get_patient_info();
     $patient_phone = $patient['phone'];
 
-    $patient_email = "vineethsreddy@gmail.com";
+    // $patient_email = "vineethsreddy@gmail.com";
+    $patient_email = $patient['email'];
     hld_ghl_execute_webhook_logic($patient_email, $phone);
     // $args = [$patient_email, $patient_phone];
     // $hook_name = 'hld_send_ghl_webhook_event';
