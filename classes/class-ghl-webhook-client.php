@@ -18,6 +18,10 @@ class GhlApiClient
     }
     public function createContact(array $contactData)
     {
+
+        if(HLD_PAUSE_GHL){
+            return;
+        }
         $contactDataUrl = $this->apiBaseUrl . 'contacts/';
 
         if (empty($contactData['email']) && empty($contactData['phone'])) {
@@ -35,6 +39,10 @@ class GhlApiClient
             throw new InvalidArgumentException("Invalid webhook URL provided.");
         }
 
+        if(HLD_PAUSE_GHL){
+            error_log("GoHighLevel is Paused");
+            return;
+        }
         $jsonData = json_encode($data);
         $headers = [
             'Content-Type: application/json',

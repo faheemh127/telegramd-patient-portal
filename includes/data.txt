@@ -208,6 +208,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 --  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
 --  at this moment if user fillout prefunnel first we create a subscription but if due to some reason the fluent form become failed the subscription still remain created we should make it not like that
 -- make subscriptions data in stripe dynamic especially stripe-create-setup-intent.php
+-- first it should display the email field then password for signup
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
@@ -369,3 +370,6 @@ hidden field new
  save15
  he should get discount on the other products
  redirect to the portal
+ 
+
+ 1) cybersource setup correctly 

@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 :root {
   --hld-color-primary: #6d6ffc;
   --hld-color-primary-dark: #5758d6; /* slightly darker shade for hover */
+  --hld-font-primary: "Inter", sans-serif;
+  --font-optical-sizing: auto;
 }
 .hld_form_container {
   min-height: 100vh;
@@ -9,6 +12,8 @@
 .hld_form_wrap {
   max-width: 700px !important;
   margin-top: 35px;
+  font-family: var(--hld-font-primary);
+  font-optical-sizing: var(--font-optical-sizing);
 }
 
 .container {
@@ -466,9 +471,17 @@ nav.hld-navbar {
 .ff-message-success + div {
   padding: 0 !important;
 }
+.hld-summary .title-select-payment {
+  text-align: left;
+  font-weight: 600;
+  margin-top: 60px;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+  font-family: var(--hld-font-primary);
+  font-optical-sizing: var(--font-optical-sizing);
+}
 .hld-summary .payment-btn {
   width: 100%;
-  border-radius: 50px;
   background: #ffffff;
   color: black;
   height: 40px;
@@ -476,11 +489,21 @@ nav.hld-navbar {
   justify-content: center;
   align-items: center;
   margin: 10px 0;
-  padding: 25px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 20px 20px;
   transition: all 0.3s ease-in-out;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", sans-serif !important;
+  font-optical-sizing: var(--font-optical-sizing);
 }
-.hld-summary .payment-btn:hover{
+.hld-summary .payment-btn img {
+  width: 20px;
+  margin-right: 5px;
+  border-radius: 20px;
+}
+.hld-summary .payment-btn:hover {
   background-color: var(--hld-color-primary);
   color: white;
 }
@@ -510,6 +533,11 @@ nav.hld-navbar {
   text-align: center;
   margin-top: 30px;
   font-size: 1.5rem;
+}
+.btn-google-apple-pay {
+  margin-bottom: 20px;
+  border-radius: 10px !important;
+  overflow: hidden;
 }
 .hld-order-item {
   padding: 30px 40px !important;
@@ -543,7 +571,17 @@ nav.hld-navbar {
 .hld-order-id {
   color: darkgray;
 }
-
+.hld-summary .txt-agreement {
+  font-family: var(--hld-font-primary);
+  text-align: center;
+  font-size: 14px;
+  max-width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
 .hld-order-item .hld-sub-desc {
   font-size: 1rem;
   font-weight: 500;
@@ -580,7 +618,7 @@ nav.hld-navbar {
 }
 #hdlMakeStipePayment {
   background-color: var(--hld-color-primary);
-  border-radius: 10px;
+  border-radius: 12px;
   margin-top: 0px;
 }
 
@@ -1360,6 +1398,13 @@ nav.hld-navbar {
   border-radius: 12px;
   margin-bottom: 20px;
 }
+.hld-summary .hld-summary-title {
+  font-family: var(--hld-font-primary);
+  font-optical-sizing: var(--font-optical-sizing);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
 
 .hld_disqualify_btn {
   display: inline-block;
@@ -1533,12 +1578,12 @@ nav.hld-navbar {
   flex-direction: row !important;
   align-items: flex-start !important;
 }
-. {
+/* . {
   display: inline-block;
   border-radius: 30px;
   padding: 7px 29px;
   background: var(--bs-primary);
-}
+} */
 .optin_cb_container input {
   height: auto !important;
 }
@@ -1573,6 +1618,10 @@ nav.hld-navbar {
   padding: 10px 18px;
   transition: all 300ms ease; /* smooth 300ms hover effect */
 }
+.discount-sub-desc {
+  display: block;
+  font-size: 12px;
+}
 
 /* Hover Effect */
 .hld-login-buttons-wrapper .hld-get-started-btn:hover {
@@ -1601,16 +1650,24 @@ nav.hld-navbar {
 
 /************* Style start for summary page **********************/
 div.ff-summary-wrapper {
-  font-family: Arial, sans-serif;
-  background-color: white;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  font-family: "Inter", sans-serif;
   max-width: 100%;
-  border-radius: 10px;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  font-optical-sizing: var(--font-optical-sizing);
+  margin-top: 15px;
 }
 
+.hld-summary .discount {
+  font-size: 1rem;
+  color: #28a745;
+}
 div.ff-summary-inner-wrapper {
-  padding: 10px 25px 0 25px;
+  padding: 0;
 }
 
 h3.ff-summary-title {
@@ -1647,8 +1704,8 @@ div.ff-summary-row {
 div.ff-summary-label {
   flex: 1;
   color: rgba(0, 0, 0, 0.7);
-  font-size: 16px;
-  max-width: 70%;
+  font-size: 15px;
+  max-width: 65%;
 }
 
 div.ff-summary-value {
@@ -1699,8 +1756,12 @@ div.ff-summary-value.ff-free {
   margin-bottom: 20px;
   margin-top: 5px;
 }
+.hld-summary .discount-sub-desc {
+  color: rgba(0, 0, 0, 0.5);
+}
 .hld-summary .hld-summary-items {
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
 }
 .hld-summary .hld-small-txt {
   margin-bottom: 5px;
@@ -1710,10 +1771,10 @@ div.ff-summary-value.ff-free {
 }
 .hld-summary .secure-wrap {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 6px;
   font-size: 14px;
   margin-bottom: 20px;
-  color: #7c7c7c;
+  color: rgba(0, 0, 0, 0.6);
 }
 .hld-discount {
   background: #e1e1e1;
@@ -1732,6 +1793,26 @@ div.ff-summary-value.ff-free {
 .hld-line-through {
   text-decoration: line-through;
   color: red;
+}
+.hld_form_wrap div.ff-summary-inner-wrapper {
+  padding: 0 !important;
+}
+.hld-summary .med-label {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.hld-summary .med-name {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.hld-summary .align-item-normal {
+  align-items: normal;
+}
+.hld-summary .hld-month-supply {
+  color: black;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 /************* summary_design *********************/
 
@@ -1953,6 +2034,9 @@ div.ff-summary-value.ff-free {
   }
   .container {
     max-width: 100% !important;
+  }
+  div.ff-summary-wrapper {
+    padding: 25px 20px;
   }
 } /* Responsive mobile_device****************************************************************************** */
 

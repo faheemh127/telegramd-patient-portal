@@ -1,35 +1,51 @@
 <div class="hld-summary">
-  <p style="font-size: 20px; font-weight: bold; margin-bottom: 0">
-    <b>Start Your Transformation Today</b>
-  </p>
-
-  <div class="hld-description">
-    Your first payment includes your first month of medication + provider
-    evaluation.<br />Not prescribed? 100% refund, no questions asked<b>.</b>
-  </div>
+  <p class="hld-summary-title">Start Your Transformation Today</p>
 
   <div class="ff-summary-wrapper">
     <div class="ff-summary-inner-wrapper">
       <div class="ff-summary-box">
+        <div class="hld-description">
+          Your first payment covers your initial month of
+          <b>medication and a provider evaluation</b>. If you are not prescribed
+          medication, you will receive a 100% refund—no questions asked.
+        </div>
+        <hr class="hld-break" />
         <!-- Total Row -->
-        <div class="ff-summary-row ff-treatment-row">
+        <div class="ff-summary-row ff-treatment-row align-item-normal">
           <div class="ff-summary-label">
-            <div><strong>Medication</strong></div>
+            <div class="med-label">Medication</div>
+            <div class="med-name" id="hldSummaryMedication"> </div>
+            <div class="med-package">
+              <span id="hldSummaryPackageDuration"></span> Plan
+            </div>
           </div>
-          <div class="ff-summary-value">
-            <div id="hldSummaryMedication"> </div>
+          <div class="med-supply">
+            <div class="med-label">One Month Supply</div>
+            <div class="hld-month-supply">
+              $<span id="hldOneMonthSupply">219</span>
+            </div>
           </div>
         </div>
-        <!-- Row -->
-        <div class="ff-summary-row ff-treatment-row">
+        <hr class="hld-break" />
+        <!-- Total Row -->
+
+        <!-- hidden add hidden later -->
+        <div class="ff-summary-row ff-total-row" id="hldNewPatientDiscountWrap">
           <div class="ff-summary-label">
-            <div><strong>Your Plan</strong></div>
+            <strong
+              >Discount <span class="discount" id="hldDiscountPercentage"></span
+            ></strong>
+            <span class="discount-sub-desc">
+              New patient introductory pricing applied</span
+            >
           </div>
-          <div class="ff-summary-value">
-            <div id="hldSummaryPackageDuration"> </div>
+
+          <div class="ff-summary-value ff-summary-total-wrap">
+            <div>
+              <span class="discount" id="hldDiscountAmount">$81.25</span>
+            </div>
           </div>
         </div>
-        <!-- Total Row -->
 
         <!-- Total Row -->
         <div class="ff-summary-row ff-total-row">
@@ -44,110 +60,62 @@
             </div>
           </div>
         </div>
+
+        <ul style="margin-top: 20px; padding-left: 5px">
+          <div class="hld-summary-items">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 19 19"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
+                fill="currentColor"
+              />
+            </svg>
+            Licensed US medical providers &amp; accredited pharmacies
+          </div>
+
+          <div class="hld-summary-items">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 19 19"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
+                fill="currentColor"
+              />
+            </svg>
+            Free, expedited 2-day shipping in discreet packaging
+          </div>
+
+          <div class="hld-summary-items">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 19 19"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
+                fill="currentColor"
+              />
+            </svg>
+            Money-back guarantee if you’re not prescribed
+          </div>
+        </ul>
+
+        <!-- card ends -->
       </div>
     </div>
   </div>
-
-  <div id="hldNewPatientDiscountWrap" class="hidden">
-    <p class="discount-title">Discounts <span>(New patient introductory pricing applied)</span></p>
-    <div class="hld-discount">
-      NAD+: <span id="hldDiscountPercentage"></span>% Off
-    </div>
-  </div>
-
-  <ul style="margin-top: 20px; padding-left: 5px">
-    <div class="hld-summary-items">
-      <svg
-        width="19"
-        height="19"
-        viewBox="0 0 19 19"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
-          fill="currentColor"
-        />
-      </svg>
-      Licensed US medical providers &amp; accredited pharmacies
-    </div>
-
-    <div class="hld-summary-items">
-      <svg
-        width="19"
-        height="19"
-        viewBox="0 0 19 19"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
-          fill="currentColor"
-        />
-      </svg>
-      Free, expedited 2-day shipping in discreet packaging
-    </div>
-
-    <div class="hld-summary-items">
-      <svg
-        width="19"
-        height="19"
-        viewBox="0 0 19 19"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.083 1.58325C9.4033 1.58325 7.79239 2.25051 6.60466 3.43824C5.41693 4.62597 4.74967 6.23688 4.74967 7.91659C4.74967 9.59629 5.41693 11.2072 6.60466 12.3949C7.79239 13.5827 9.4033 14.2499 11.083 14.2499C12.7627 14.2499 14.3736 13.5827 15.5614 12.3949C16.7491 11.2072 17.4163 9.59629 17.4163 7.91659H15.833C15.833 10.5449 13.7113 12.6666 11.083 12.6666C9.82323 12.6666 8.61505 12.1661 7.72425 11.2753C6.83345 10.3845 6.33301 9.17636 6.33301 7.91659C6.33301 6.65681 6.83345 5.44863 7.72425 4.55783C8.61505 3.66703 9.82323 3.16659 11.083 3.16659C11.4234 3.16659 11.7638 3.20617 12.0884 3.27742L13.363 2.01075C12.6347 1.72575 11.8747 1.58325 11.083 1.58325ZM16.3001 2.83409L11.083 8.05117L9.19884 6.167L8.08259 7.29117L11.083 10.2916L17.4163 3.95825M3.90259 4.60742C3.17879 5.20114 2.59542 5.94775 2.19437 6.79365C1.79332 7.63955 1.58453 8.56376 1.58301 9.49992C1.58301 11.1796 2.25027 12.7905 3.438 13.9783C4.62573 15.166 6.23664 15.8333 7.91634 15.8333C8.42301 15.8333 8.92176 15.7699 9.40467 15.6512C8.01134 15.3424 6.72884 14.6458 5.67592 13.6878C4.91774 13.2823 4.28386 12.6785 3.84189 11.941C3.39992 11.2034 3.16644 10.3598 3.16634 9.49992C3.16634 9.26242 3.19009 9.03284 3.22176 8.79534C3.19009 8.50242 3.16634 8.2095 3.16634 7.91659C3.16634 6.77659 3.41967 5.6445 3.90259 4.60742Z"
-          fill="currentColor"
-        />
-      </svg>
-      Money-back guarantee if you’re not prescribed
-    </div>
-  </ul>
-  <h2
-    style="
-      text-align: left;
-      font-weight: bold;
-      margin-top: 60px;
-      margin-bottom: 5px;
-      font-size: 1.2rem;
-    "
-  >
-    Select Payment method
-  </h2>
-  <div class="hld-payment-btns-wrap">
-    <button id="hldBtnGoogleApplePay" class="payment-btn" type="button">Google Pay</button>
-    <button id="hldBtnPayWithCard" class="payment-btn" type="button">Credit Card</button>
-    <button id="hldPayWithKlarna" class="payment-btn" type="button">Klarna</button>
-    <button id="hldPayWithAP" class="payment-btn" type="button">After Pay</button>
-  </div>
-  <!-- Google Pay / Apple Pay Button -->
-  <div
-    id="payment-request-button"
-    style="
-      margin-bottom: 20px;
-      border-radius: 10px !important;
-      overflow: hidden;
-    "
-  >
-     
-  </div>
-  <!-- Wrap Stripe Card -->
-  <div
-    id="stripe-container"
-    class="hld_stripe_container"
-    style="margin-top: 20px"
-  >
-    <label for="card-element">Enter your card details</label>
-    <div
-      id="card-element"
-      style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
-    >
-       
-    </div>
-    <div id="card-errors" style="color: red; margin-top: 8px"> </div>
-  </div>
-  <p class="hld-small-txt">
+  <p class="txt-agreement">
     By making a purchase you accept a Self Pay arrangment. Your Subscription
     will automaticaly renew and your credit card will be charged the
     subscription fee. You can cancel or modify your plan at any time in your
@@ -172,8 +140,47 @@
         fill="#000000"
       />
     </svg>
-    256-BIT TLS SECURITY
+    Secure & Trusted
   </div>
+  <h2 class="title-select-payment">Payment methods</h2>
+  <div class="hld-payment-btns-wrap">
+    <button id="hldPayWithKlarna" class="payment-btn" type="button">
+      <img
+        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/klarna.jpeg"
+        alt=""
+      />
+      Continue with Klarna
+    </button>
+    <button id="hldPayWithAP" class="payment-btn" type="button">
+      <img
+        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/afterpay.jpeg"
+        alt=""
+      />
+      Continue with Afterpay
+    </button>
+    <button
+      id="payment-request-button"
+      class="payment-btn btn-google-apple-pay"
+    ></button>
+  </div>
+  <!-- Google Pay / Apple Pay Button -->
+
+  <!-- Wrap Stripe Card -->
+  <div
+    id="stripe-container"
+    class="hld_stripe_container"
+    style="margin-top: 20px"
+  >
+    <label for="card-element">Enter your card details</label>
+    <div
+      id="card-element"
+      style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
+    >
+       
+    </div>
+    <div id="card-errors" style="color: red; margin-top: 8px"> </div>
+  </div>
+
   <!-- Payment Button -->
   <button id="hdlMakeStipePayment" type="button">
     Make Payment and Submit

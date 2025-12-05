@@ -19,11 +19,14 @@ if (! defined('ABSPATH')) {
 define('HLD_LIVE', false);
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
+define('HLD_PAUSE_GHL', true);
+
 
 
 define('HLD_PLUGIN_VERSION', '2.0');
 define('HLD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('HLD_PLUGIN_URL', plugin_dir_url(__FILE__));
+
 
 
 
