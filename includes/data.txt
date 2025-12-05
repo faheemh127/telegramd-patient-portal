@@ -373,3 +373,6 @@ hidden field new
  
 
  1) cybersource setup correctly 
+
+
+1) Summary Page UI/UX improved

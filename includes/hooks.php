@@ -236,7 +236,18 @@ function hld_login_button_shortcode()
         $get_started_url = home_url('glp-1-form');
     } elseif ($current_slug === 'weight-loss-products') {
         $get_started_url = home_url('/weight-loss-form');
+    } elseif ($current_slug === 'semaglutide-injections') {
+        $get_started_url = home_url('/glp-1-form');
+    } elseif ($current_slug === 'tirzepatide-injection' || $current_slug == "tirzepatide-sublingual" || $current_slug == "oral-glp-form" || $current_slug == "lipotropic-injections" || $current_slug == "mic-injection") {
+        $get_started_url = home_url('/glp-1-form');
+    } elseif ($current_slug === 'nad-nasal-spray' || $current_slug == 'mic-injection' || $current_slug == 'nad-patches') {
+        $get_started_url = home_url('/nad-therapy');
+    } else if ($current_slug == "pt-141-nasal-spray") {
+        $get_started_url = home_url('/pt-141-form');
     }
+
+
+
 
     // --- Output HTML ---
 ?>

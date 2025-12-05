@@ -92,12 +92,15 @@
 .hld_form_wrap .ff-el-form-check-label span {
   padding-left: 5px;
   font-weight: 600;
+  font-optical-sizing: var(--font-optical-sizing);
+  font-family: var(--hld-font-primary);
 }
 
 .hld_form_wrap .ff-default .ff-el-input--label label {
   font-size: 26px;
   font-weight: 600;
   margin-bottom: 15px;
+  font-family: var(--hld-color-primary);
 }
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   accent-color: var(--hld-color-primary) !important;
@@ -405,7 +408,6 @@ nav.hld-navbar {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-family: Arial, sans-serif;
 }
 
 .hld_patient_packages .package-option {
@@ -498,7 +500,7 @@ nav.hld-navbar {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  font-family: "Inter", sans-serif !important;
+  font-family: var(--hld-font-primary) !important;
   font-optical-sizing: var(--font-optical-sizing);
 }
 .hld-summary .payment-btn img {
@@ -671,7 +673,7 @@ nav.hld-navbar {
 .hld_login_wrapper {
   max-width: 400px !important;
   background: #fff;
-  font-family: sans-serif;
+  font-family: var(--hld-font-primary);
   padding: 0 0 100px 0;
   margin-top: 5rem;
 }
@@ -810,7 +812,7 @@ nav.hld-navbar {
   margin: 0 auto;
   padding: 0px 0px;
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: var(--hld-font-primary);
 }
 
 .hld_section-title {
@@ -880,7 +882,7 @@ nav.hld-navbar {
 .hld_bmi-section {
   max-width: 100%;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
+  font-family: var(--hld-font-primary);
   text-align: center;
   width: 100%;
 }
@@ -1368,7 +1370,7 @@ nav.hld-navbar {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  font-family: Arial, sans-serif;
+  font-family: var(--hld-font-primary);
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -1492,7 +1494,7 @@ nav.hld-navbar {
   flex-direction: column;
   gap: 10px;
   max-width: 100%;
-  font-family: "Inter", sans-serif;
+  font-family: var(--hld-font-primary);
 }
 
 .hld_optin_box {
@@ -1658,7 +1660,7 @@ div.ff-summary-wrapper {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   padding: 30px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--hld-font-primary);
   max-width: 100%;
   overflow: hidden;
   font-optical-sizing: var(--font-optical-sizing);
@@ -1816,6 +1818,7 @@ div.ff-summary-value.ff-free {
   color: black;
   font-size: 1.4rem;
   font-weight: 600;
+  text-align: right;
 }
 /************* summary_design *********************/
 
