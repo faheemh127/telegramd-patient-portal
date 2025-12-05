@@ -861,8 +861,6 @@ if (! class_exists('hldFluentHandler')) {
                 // 5️⃣ Call prepare_questionare_for_telegra for each object
 
 
-
-
                 $this->prepare_questionare_for_telegra(
                     $form,
                     $quest_inst,

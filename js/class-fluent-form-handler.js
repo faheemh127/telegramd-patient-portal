@@ -578,7 +578,7 @@ class HldFluentFormHandler {
           // ✅ Update UI
           const todayDiv = document.getElementById("hldSummaryTotalToday");
           if (todayDiv) {
-            todayDiv.textContent = selectedPrice;
+            todayDiv.textContent = "$"+selectedPrice;
           }
         }
       }

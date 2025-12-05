@@ -1820,6 +1820,11 @@ div.ff-summary-value.ff-free {
   font-weight: 600;
   text-align: right;
 }
+#payment-request-button{
+  display: inline;
+    width: 100%;
+    padding: 0;
+}
 /************* summary_design *********************/
 
 @keyframes loaderBarAnim {
