@@ -375,4 +375,7 @@ hidden field new
  1) cybersource setup correctly 
 
 
-1) Summary Page UI/UX improved
+1) Summary Page UI/UX improved 
+2) Get started linked to the correspondent pages
+3) GHL flow email flows tested
+4) Prefunnel questions are added that are provided in the docs
