@@ -358,9 +358,12 @@ nav.hld-navbar {
 }
 
 #stripe-container label {
-  font-size: 16px !important;
-  font-weight: bold;
-  margin-bottom: 12px;
+  font-size: 1.2rem !important;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-family: var(--hld-font-primary);
+  font-optical-sizing: var(--font-optical-sizing);
 }
 
 #card-element {
@@ -474,7 +477,7 @@ nav.hld-navbar {
 .hld-summary .title-select-payment {
   text-align: left;
   font-weight: 600;
-  margin-top: 60px;
+  margin-top: 40px;
   margin-bottom: 5px;
   font-size: 1.2rem;
   font-family: var(--hld-font-primary);
@@ -1620,7 +1623,7 @@ nav.hld-navbar {
 }
 .discount-sub-desc {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* Hover Effect */
@@ -1761,7 +1764,7 @@ div.ff-summary-value.ff-free {
 }
 .hld-summary .hld-summary-items {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 12px;
+  font-size: 13px;
 }
 .hld-summary .hld-small-txt {
   margin-bottom: 5px;
@@ -2037,6 +2040,10 @@ div.ff-summary-value.ff-free {
   }
   div.ff-summary-wrapper {
     padding: 25px 20px;
+  }
+  .hld-summary .txt-agreement {
+    max-width: 100%;
+    color: rgba(0, 0, 0, 0.5);
   }
 } /* Responsive mobile_device****************************************************************************** */
 
