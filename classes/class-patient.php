@@ -338,12 +338,16 @@ if (! class_exists('HLD_Patient')) {
         public static function prepareGHLContact()
         {
 
+            error_log("prepareGHLContact called ");
             // Fetch patient info
             $patient = HLD_Patient::get_patient_info();
             if (empty($patient)) {
                 error_log("GHL Contact Error: No patient data found.");
                 return false;
             }
+
+            error_log("below is the data we get to prepare data for GHL");
+            error_log(print_r($patient, true));
 
 
             $GhlApiClient = new GhlApiClient(GHL_API_KEY);
@@ -372,7 +376,8 @@ if (! class_exists('HLD_Patient')) {
 
 
 
-
+            error_log("Prepared data for GHL below");
+            error_log(print_r($data, true));
 
 
             // hook removed told by abubakar
@@ -389,6 +394,9 @@ if (! class_exists('HLD_Patient')) {
                 //TODO change the webook to match the reminder hook created at GHL-CRM;
                 // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);
                 $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/7355769a-474b-4198-a795-dddfe8eed813', $data);
+                $response =  $GhlApiClient->createContact($data);
+                error_log("Response From GHL when try to create contact");
+                error_log(print_r($response, true));
                 return true;
             } catch (Exception $e) {
                 error_log('GHL Webhook Failed: ' . $e->getMessage());
@@ -396,9 +404,8 @@ if (! class_exists('HLD_Patient')) {
             }
 
 
-            // then create contact
-        
-            $GhlApiClient->createContact($data);
+
+
 
 
         }

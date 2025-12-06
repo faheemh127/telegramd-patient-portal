@@ -22,6 +22,7 @@ class GhlApiClient
         if(HLD_PAUSE_GHL){
             return;
         }
+        error_log("createContact is called in ghl-webhook client");
         $contactDataUrl = $this->apiBaseUrl . 'contacts/';
 
         if (empty($contactData['email']) && empty($contactData['phone'])) {
