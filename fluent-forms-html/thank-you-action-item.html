@@ -1,9 +1,7 @@
-<div style="width: 100%; box-sizing: border-box; padding: 16px">
+<div style="width: 100%; padding: 16px; box-sizing: border-box">
   <div
-    role="status"
     style="
       width: 100%;
-      box-sizing: border-box;
       background: #ffffff;
       border: 1px solid rgba(0, 0, 0, 0.06);
       border-radius: 12px;
@@ -14,58 +12,47 @@
       box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
         'Helvetica Neue', Arial, sans-serif;
+      flex-wrap: wrap;
     "
+    role="status"
   >
-    <!-- Left icon -->
-    <div
-      aria-hidden="true"
-      style="
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 56px;
-        height: 56px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #e6f6f1 0%, #f7fff9 100%);
-      "
-    >
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="display: block"
-      >
-        <path
-          d="M20 6L9 17l-5-5"
-          stroke="#06A77D"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div>
-
-    <!-- Content -->
-    <div style="flex: 1; min-width: 0">
+    <!-- Text Content -->
+    <div style="flex: 1; min-width: 200px">
       <h2
         style="
           margin: 0 0 6px 0;
           font-size: 18px;
-          line-height: 1.2;
-          color: #0f172a;
           font-weight: 600;
+          color: #0f172a;
+          line-height: 1.2;
+          text-align: center;
+          margin-top: 10px;
         "
       >
         Thank you
       </h2>
-      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #374151">
+      <p
+        style="
+          margin: 0;
+          font-size: 15px;
+          line-height: 1.5;
+          color: #374151;
+          text-align: center;
+        "
+      >
         Thank you for submitting your questionnaire. Our medical team will
         review your information and connect with you shortly.
       </p>
     </div>
+    <!-- Button -->
+    <div style="flex: 0 0 100%; margin-top: 14px; text-align: left">
+      <a
+      
+        class="hld-btn hld-btn-back-to-home"
+        href="https://healsend.com/my-account"
+      >
+        Go to Dashboard
+      </a>
+    </div>
   </div>
 </div>
-

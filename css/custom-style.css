@@ -1884,6 +1884,9 @@ div.ff-summary-value.ff-free {
   padding: 3rem 2rem;
   max-width: 900px !important;
 }
+.ff-message-success+div{
+  padding: 0 !important;
+}
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
