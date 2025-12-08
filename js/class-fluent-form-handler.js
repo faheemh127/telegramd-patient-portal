@@ -67,7 +67,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone,
+                phone
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -124,7 +124,7 @@ class HldFluentFormHandler {
 
                 if (hasData) {
                   const nextBtn = step.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
 
                   if (nextBtn) {
@@ -141,7 +141,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
                   nextButton.click();
                 }
@@ -152,7 +152,7 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active",
+                    ".fluentform-step.active"
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
@@ -161,7 +161,7 @@ class HldFluentFormHandler {
                 if ($(step).hasClass("active")) {
                   hldNavigation.toggleLoader(false);
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden",
+                    "hld_form_wrap_hidden"
                   );
                 }
               });
@@ -179,7 +179,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          }),
+          })
         );
       }
     });
@@ -201,7 +201,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
+          med.medication.toLowerCase() === selectedMedication.toLowerCase()
       );
     }
 
@@ -246,8 +246,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-            }
+        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+      }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -335,6 +335,35 @@ class HldFluentFormHandler {
       // selectDay.dispatchEvent(new Event("change"));
     }
   }
+
+  getMedicationCoupon(med, discounts) {
+    // Check if medication exists in the discounts object
+    console.log("getMedicationCoupon medication", med);
+    console.log("discounts ", discounts);
+    if (discounts.hasOwnProperty(med)) {
+      const data = discounts[med];
+
+      // Return coupon only if it exists
+      if (data.coupon) {
+        return data.coupon;
+      }
+    }
+
+    return null; // No coupon found
+  }
+
+  setCouponIfShouldApplied(med) {
+    const isNewPatient = MyStripeData.isNewPatient;
+    if (isNewPatient != 1 || isNewPatient != "1") {
+      console.log("discount is not applicable");
+      return;
+    }
+    const el = document.getElementById("hldDiscountCoupon");
+    el.classList.remove("hidden");
+    const coupon = this.getMedicationCoupon(med, MyStripeData.discounts);
+    console.log("coupon is ", coupon);
+    el.innerHTML = coupon;
+  }
   setStripeData() {
     const dropdown3 = document.querySelector('[name="dropdown_3"]');
 
@@ -385,15 +414,14 @@ class HldFluentFormHandler {
     if (stripeHandler.isNewPatient()) {
       try {
         const discountWrap = document.getElementById(
-          "hldNewPatientDiscountWrap",
+          "hldNewPatientDiscountWrap"
         );
         const discountEl = document.getElementById("hldNewPatientDiscount");
-        
 
         // Validate DOM elements
         if (!discountWrap) {
           console.error(
-            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found",
+            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found"
           );
           return;
         }
@@ -417,11 +445,12 @@ class HldFluentFormHandler {
           return;
         }
 
+        this.setCouponIfShouldApplied(medication);
         const discountPercent = stripeHandler.calculateDiscountedPercentage(
           medication,
           duration,
           orderTotal,
-          false,
+          false
         );
 
         if (isNaN(discountPercent)) {
@@ -439,12 +468,25 @@ class HldFluentFormHandler {
 
         // setting prices
         discountEl.innerHTML = "$" + discountedAmount;
-        
+
+        this.setDiscountIfApplicable(discountedAmount, orderTotal);
         hldFormHandler.blurOrigionalPrice();
       } catch (err) {
         console.error("❌ Error applying discount:", err);
       }
     }
+  }
+
+  setDiscountIfApplicable(orderTotal, discountedAmount) {
+    const discountEl = document.getElementById("hldDiscountAmount");
+    if (!discountEl) return; // Exit if element not found
+
+    // Remove hidden class if present
+    discountEl.classList.remove("hidden");
+
+    // Calculate discount and remove negative sign
+    const value = Number(orderTotal) - Number(discountedAmount);
+    discountEl.innerHTML = "$" + Math.abs(value).toFixed(2);
   }
 
   blurOrigionalPrice() {
@@ -561,12 +603,12 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
+        m.medication_name.toLowerCase().includes(medication.toLowerCase())
       );
 
       if (med) {
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration,
+          (p) => parseInt(p.monthly_duration, 10) === duration
         );
 
         if (pkg) {
@@ -575,14 +617,15 @@ class HldFluentFormHandler {
           // const discountCouponEl = document.getElementById("hldDiscountCoupon");
           // discountCouponEl.innerHTML(med.coupon);
 
-          document.getElementById("hldOneMonthSupply").textContent = Number(selectedPrice).toFixed(2);
+          document.getElementById("hldOneMonthSupply").textContent =
+            Number(selectedPrice).toFixed(2);
           // ✅ Set window.stripeHandler.priceId
           window.stripeHandler.stripePriceId = pkg.stripe_price_id;
 
           // ✅ Update UI
           const todayDiv = document.getElementById("hldSummaryTotalToday");
           if (todayDiv) {
-            todayDiv.textContent = "$"+selectedPrice;
+            todayDiv.textContent = "$" + Number(selectedPrice).toFixed(2);
           }
         }
       }
@@ -615,7 +658,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine),
+      m.medication_name.includes(medicine)
     );
     if (!med) return;
 
@@ -699,10 +742,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]',
+      'input[name="names[first_name]"]'
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]',
+      'input[name="names[last_name]"]'
     );
 
     // Get values safely

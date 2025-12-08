@@ -374,6 +374,7 @@ nav.hld-navbar {
   background-color: white;
   padding: 15px 19px !important;
   border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 #hdlMakeStipePayment {
   width: 100%;
@@ -580,9 +581,6 @@ nav.hld-navbar {
   font-family: var(--hld-font-primary);
   text-align: center;
   font-size: 14px;
-  max-width: 80%;
-  margin-right: auto;
-  margin-left: auto;
   color: rgba(0, 0, 0, 0.6);
   margin-top: 10px;
   margin-bottom: 0;
@@ -1765,8 +1763,9 @@ div.ff-summary-value.ff-free {
   color: rgba(0, 0, 0, 0.5);
 }
 .hld-summary .hld-summary-items {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 13px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 16px;
+  margin-top: 3px;
 }
 .hld-summary .hld-small-txt {
   margin-bottom: 5px;
@@ -1797,7 +1796,9 @@ div.ff-summary-value.ff-free {
 }
 .hld-line-through {
   text-decoration: line-through;
-  color: red;
+  color: #474747;
+  font-weight: 400;
+  font-size: 1rem;
 }
 .hld_form_wrap div.ff-summary-inner-wrapper {
   padding: 0 !important;
@@ -1873,7 +1874,7 @@ div.ff-summary-value.ff-free {
   align-items: center;
   text-decoration: none;
 }
-.hld-btn:hover{
+.hld-btn:hover {
   color: white;
 }
 .hld-btn-back-to-home {
@@ -1884,8 +1885,16 @@ div.ff-summary-value.ff-free {
   padding: 3rem 2rem;
   max-width: 900px !important;
 }
-.ff-message-success+div{
+.ff-message-success + div {
   padding: 0 !important;
+}
+.hld-summary .coupon {
+  font-size: 12px;
+  margin-left: 10px;
+  padding: 3px 7px;
+  border-radius: 50px;
+  background: #28a745;
+  color: white;
 }
 
 /************** Design for healsend.com home page slider starts ****************/

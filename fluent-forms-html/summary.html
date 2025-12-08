@@ -33,8 +33,11 @@
         <div class="ff-summary-row ff-total-row" id="hldNewPatientDiscountWrap">
           <div class="ff-summary-label">
             <strong
-              >Discount <span class="discount" id="hldDiscountCoupon"></span
-            ></strong>
+              >Discount
+              <span class="coupon hidden" id="hldDiscountCoupon"
+                >NAD20 APPLIED</span
+              ></strong
+            >
             <span class="discount-sub-desc">
               New patient introductory pricing applied</span
             >
@@ -42,7 +45,7 @@
 
           <div class="ff-summary-value ff-summary-total-wrap">
             <div>
-              <span class="discount" id="hldDiscountAmount">$81.25</span>
+              <span class="discount hidden" id="hldDiscountAmount">$81.25</span>
             </div>
           </div>
         </div>
@@ -122,6 +125,48 @@
     subscription fee. You can cancel or modify your plan at any time in your
     patient portal
   </p>
+  
+  
+  <div class="hld-payment-btns-wrap">
+    <button id="hldPayWithKlarna" class="payment-btn" type="button">
+      <img
+        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/klarna.jpeg"
+        alt=""
+      />
+      Continue with Klarna
+    </button>
+    <button id="hldPayWithAP" class="payment-btn" type="button">
+      <img
+        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/afterpay.jpeg"
+        alt=""
+      />
+      Continue with Afterpay
+    </button>
+    <button id="payment-request-button" class="btn-google-apple-pay"></button>
+  </div>
+  <!-- Google Pay / Apple Pay Button -->
+  
+
+  <!-- Wrap Stripe Card -->
+  <div
+    id="stripe-container"
+    class="hld_stripe_container"
+    style="margin-top: 20px"
+  >
+    
+    <div
+      id="card-element"
+      style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
+    >
+       
+    </div>
+    <div id="card-errors" style="color: red; margin-top: 8px"> </div>
+  </div>
+
+  <!-- Payment Button -->
+  <button id="hdlMakeStipePayment" type="button">
+    Pay Now
+  </button>
   <div class="secure-wrap">
     <svg
       width="20px"
@@ -143,48 +188,4 @@
     </svg>
     Secure & Trusted
   </div>
-  <h2 class="title-select-payment">Payment methods</h2>
-  <div class="hld-payment-btns-wrap">
-    <button id="hldPayWithKlarna" class="payment-btn" type="button">
-      <img
-        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/klarna.jpeg"
-        alt=""
-      />
-      Continue with Klarna
-    </button>
-    <button id="hldPayWithAP" class="payment-btn" type="button">
-      <img
-        src="https://healsend.com/wp-content/plugins/telegramd-patient-portal/images/afterpay.jpeg"
-        alt=""
-      />
-      Continue with Afterpay
-    </button>
-    <button
-      id="payment-request-button"
-      class="btn-google-apple-pay"
-    ></button>
-  </div>
-  <!-- Google Pay / Apple Pay Button -->
-  <hr class="hld-break" />
-
-  <!-- Wrap Stripe Card -->
-  <div
-    id="stripe-container"
-    class="hld_stripe_container"
-    style="margin-top: 20px"
-  >
-    <label for="card-element">Or pay with card</label>
-    <div
-      id="card-element"
-      style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
-    >
-       
-    </div>
-    <div id="card-errors" style="color: red; margin-top: 8px"> </div>
-  </div>
-
-  <!-- Payment Button -->
-  <button id="hdlMakeStipePayment" type="button">
-    Make Payment and Submit
-  </button>
 </div>
