@@ -406,7 +406,7 @@ nav.hld-navbar {
 
 .hld_patient_packages {
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   gap: 8px;
 }
 
@@ -1820,10 +1820,10 @@ div.ff-summary-value.ff-free {
   font-weight: 600;
   text-align: right;
 }
-#payment-request-button{
+#payment-request-button {
   display: inline;
-    width: 100%;
-    padding: 0;
+  width: 100%;
+  padding: 0;
 }
 /************* summary_design *********************/
 
@@ -1858,6 +1858,29 @@ div.ff-summary-value.ff-free {
   }
 }
 
+.hld-medication-wrap {
+  flex-direction: column;
+}
+.hld-btn {
+  text-align: center;
+  margin: auto;
+  display: block;
+  max-width: 200px;
+  text-decoration: none;
+  background: var(--hld-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.hld-btn-back-to-home {
+  max-width: 200px !important;
+  color: white;
+}
+.hld-thank-you-wrap {
+  padding: 3rem 2rem;
+}
+
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
 
@@ -1866,7 +1889,7 @@ div.ff-summary-value.ff-free {
 
 /* ***************** sidebar code ends for action item sidebar */
 
-/* Mobile only (up to 767px) */
+/* Mobile only (up to 767px) mobile_device_start */
 @media screen and (max-width: 767px) {
   /* mobile styles */
 

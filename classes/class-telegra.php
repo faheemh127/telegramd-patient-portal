@@ -29,6 +29,14 @@ class HLD_Telegra
             return new WP_Error('order_id_invalid', 'Invalid order id.');
         }
 
+
+        if (strpos($order_id, 'order::') !== 0) {
+            error_log("Invalid order_id: {$order_id}. Unable to fetch error from Telegra.");
+            return null;
+        }
+
+
+
         $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
         $endpoint     = TELEGRA_BASE_URL . '/orders/' . urlencode($order_id);
 

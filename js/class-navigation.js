@@ -137,9 +137,86 @@ class HldNavigation {
   //     }
   // }
 
+  isValidDate(day, month, year) {
+    // Check basic numeric rules
+    if (
+      isNaN(day) ||
+      isNaN(month) ||
+      isNaN(year) ||
+      month < 1 ||
+      month > 12 ||
+      day < 1 ||
+      day > 31 ||
+      year < 1
+    ) {
+      return false;
+    }
+
+    // Create a Date object
+    const date = new Date(year, month - 1, day);
+
+    // Check if the Date object actually matches the inputs
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  isValidDateStr(dateStr) {
+    // Split input: month-day-year
+    const parts = dateStr.split("-");
+
+    if (parts.length !== 3) return false;
+
+    const month = Number(parts[0]);
+    const day = Number(parts[1]);
+    const year = Number(parts[2]);
+
+    // Basic numeric validation
+    if (
+      isNaN(month) ||
+      isNaN(day) ||
+      isNaN(year) ||
+      month < 1 ||
+      month > 12 ||
+      day < 1 ||
+      day > 31 ||
+      year < 1
+    ) {
+      return false;
+    }
+
+    // Create JS date object
+    const date = new Date(year, month - 1, day);
+
+    // Validate date by comparing parts
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   disqualifyLessThan18(date) {
     // return;
     console.log("date in disqualifyLessThan18 ", date);
+    if (date == undefined || date == "") {
+      console.log("date is null or undefined");
+      return;
+    }
+    if (!this.isValidDateStr(date)) {
+      console.log("the date passed in this function is invalid");
+      return;
+    }
     console.log("function disqualifyLessThan18 called");
 
     const dobSteps = document.querySelectorAll(".hld_dob_wrap");
@@ -226,7 +303,7 @@ class HldNavigation {
 
   showAllPrevButtons() {
     const stepContainers = document.querySelectorAll(
-      ".ff-step-container .fluentform-step",
+      ".ff-step-container .fluentform-step"
     );
 
     stepContainers.forEach((step) => {
@@ -336,7 +413,7 @@ class HldNavigation {
 
         // If one is already selected (page reload case)
         const alreadyChecked = step.querySelector(
-          'input[type="radio"]:checked',
+          'input[type="radio"]:checked'
         );
         if (alreadyChecked) showBtn();
 
@@ -501,29 +578,31 @@ class HldNavigation {
     let loader = document.getElementById("global-loading-overlay");
 
     console.log("toggleLoader called");
+
     // Create overlay if it doesn't exist
     if (!loader) {
       loader = document.createElement("div");
       loader.id = "global-loading-overlay";
 
-      // Inline CSS for overlay + loading bar
+      // Inline CSS for top loader bar only (no screen blocking)
       loader.style.position = "fixed";
       loader.style.top = "0";
       loader.style.left = "0";
       loader.style.width = "100%";
-      loader.style.height = "6px";
+      loader.style.height = "4px";
       loader.style.background = "white";
-      // loader.style.backdropFilter = "blur(2px)";
       loader.style.display = "flex";
       loader.style.alignItems = "center";
       loader.style.justifyContent = "center";
       loader.style.zIndex = "999999";
-      loader.style.pointerEvents = "auto";
+
+      // VERY IMPORTANT → do not block clicks
+      loader.style.pointerEvents = "none";
 
       // Loading bar container
       const barWrapper = document.createElement("div");
       barWrapper.style.width = "100%";
-      barWrapper.style.height = "6px";
+      barWrapper.style.height = "4px";
       barWrapper.style.background = "rgba(255, 255, 255, 0.2)";
       barWrapper.style.borderRadius = "10px";
       barWrapper.style.overflow = "hidden";
@@ -543,14 +622,8 @@ class HldNavigation {
       document.body.appendChild(loader);
     }
 
-    // Show overlay
-    if (show === true) {
-      loader.style.display = "flex";
-      document.body.style.pointerEvents = "none"; // Disable page clicks
-    } else {
-      loader.style.display = "none";
-      document.body.style.pointerEvents = "auto"; // Enable page clicks
-    }
+    // Show or hide the loader WITHOUT affecting page clicks
+    loader.style.display = show ? "flex" : "none";
   }
 
   showActionItemSidebar() {

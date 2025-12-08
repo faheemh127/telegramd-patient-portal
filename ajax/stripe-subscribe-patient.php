@@ -28,6 +28,8 @@ function hld_subscribe_patient_handler()
         wp_die();
     }
     $plan_exists = HLD_UserSubscriptions::is_subscription_active($slug);
+
+    
     if ($plan_exists) {
         wp_send_json_error([
             'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.'
@@ -116,7 +118,7 @@ function hld_subscribe_patient_handler()
         if (is_user_logged_in()) {
             // Make sure the patient exists
             HLD_Patient::ensure_patient_by_email($patient_email);
- 
+
             // Extract card details
             $card_last4 = $pm->card->last4 ?? null;
             $card_brand = $pm->card->brand ?? null;

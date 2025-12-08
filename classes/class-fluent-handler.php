@@ -695,9 +695,13 @@ if (! class_exists('hldFluentHandler')) {
             error_log("✅ Patient info updated successfully for logged-in user.");
         }
 
-        private function is_prefunnel($form_id)
+        private function is_prefunnel($form_type)
         {
-            return in_array($form_id, $this->prefunnel_forms_ids, true);
+            if ($form_type == "prefunnel") {
+                return true;
+            }
+            return false;
+            // return in_array($form_id, $this->prefunnel_forms_ids, true);
         }
 
         private function is_action_item($form_id)
@@ -746,7 +750,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
 
-            if ($this->is_prefunnel($form_id) && (!isset($form['my_stripe_subscription_id']) && empty($form['my_stripe_subscription_id']))) {
+            if ($this->is_prefunnel($form['form_type']) && (!isset($form['my_stripe_subscription_id']) && empty($form['my_stripe_subscription_id']))) {
                 error_log("[Healsend Error] Subscription_id has not been set for form submission of " . $form_id);
                 return;
             } else {
@@ -764,7 +768,7 @@ if (! class_exists('hldFluentHandler')) {
 
 
             // For security reasons also save the duplicate copy of fluent form submission
-            if ($this->is_prefunnel($form_id)) {
+            if ($this->is_prefunnel($form['form_type'])) {
                 $this->save_patient_form_submission($insertData);
             } else {
                 error_log($form_id . " is not a prefunnel");
@@ -773,7 +777,7 @@ if (! class_exists('hldFluentHandler')) {
             // $this->save_patient_form_answers($submission_id, $form);
 
             // if not form can create patient create telegra order return
-            if ($this->is_prefunnel($form_id)) {
+            if ($this->is_prefunnel($form['form_type'])) {
                 error_log("form is prefunnel so proceed");
                 $this->update_patient_info($form);
                 //

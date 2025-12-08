@@ -2,8 +2,6 @@
 $hasCardAttached = false;
 $hasCardAttached = HLD_Patient::get_card_status();
 
-
-$hasCardAttached = false;
 $client_secret = "";
 if (!$hasCardAttached) {
     $hasRemiderScheduled = HLD_Patient::create_email_reminders_to_add_card();
@@ -82,19 +80,29 @@ if (!$hasCardAttached) {
     })
 </script>
 
-<h3 class="hld-thank-you-title">Thank you for choosing us.</h3>
-<p class="hld-thank-you-desc">Please add the credit card for future transactions....</p>
-<div class="w-100 hld-card hld-subscription-card">
-    <div class="card-body hld-card-body hld-add-card-wrap">
-        <?php if (!$hasCardAttached) : ?>
-            <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
+<div class="hld-thank-you-wrap">
+    <h3 class="hld-thank-you-title">Thank you for choosing us.</h3>
+    <?php
+    if (!$hasCardAttached) {
+        echo '<p class="hld-thank-you-desc">Please add the credit card for future transactions....</p>';
+    } else {
+        echo '<p class="hld-thank-you-desc">Kindly check your dashboard; you may have some pending action items that need to be completed so we can proceed with your medication.</p>';
+        echo '<a class="hld-btn hld-btn-back-to-home" href="' . esc_url(HLD_PATIENT_DASHBOARD_URL) . '" class="button">Go to Dashboard</a>';
+    }
+    ?>
 
-                <form id="payment-form">
-                    <div id="add-payment-card"></div>
-                    <button id="submit-button" class="hld-btn-save-card" style="display: none">Save Card</button>
-                    <div id="payment-message" style="color: red;"></div>
-                </form>
-            </div>
-        <?php endif; ?>
+    <div class="w-100 hld-card hld-subscription-card">
+        <div class="card-body hld-card-body hld-add-card-wrap">
+            <?php if (!$hasCardAttached) : ?>
+                <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
+
+                    <form id="payment-form">
+                        <div id="add-payment-card"></div>
+                        <button id="submit-button" class="hld-btn-save-card" style="display: none">Save Card</button>
+                        <div id="payment-message" style="color: red;"></div>
+                    </form>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </div>

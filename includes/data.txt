@@ -385,6 +385,8 @@ Date and year
 1940
 
 
+
+It did not let to move farword on prefunnel multi select question
 it did not pick a gender and do not let forward
 without state
 questionnare UI should be improved when disqualify
@@ -395,11 +397,8 @@ we need to change the message of Thankyou page
 after saving card we should redirect to patient dashboard
 It should give them the option to skip card too
 action item for add a card if they skip
-Remove Upload signature  and action item should not be there 
 agreement twice
-upload signature
-take photo or choose file draw signature  (first i will double check) just message them
-take the photo there  
+take the photo there
 not double check
 it should be billing them monthly
 username field should be removed
@@ -408,8 +407,10 @@ summary page setup prices were
 add later
 if they select these thirteen states then in the post funnalswe need to submit 
 in abdulcode we need to add delivery
-
 if patient add the details we need to save his information
 text message for lab orders
 posthog
 we will built dashboard to analyze all the matrics
+Remove Upload signature  and action item should not be there 
+upload signature
+take photo or choose file draw signature  (first i will double check) just message them

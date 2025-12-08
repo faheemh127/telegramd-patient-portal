@@ -322,17 +322,17 @@ class HldFluentFormHandler {
 
     if (selectYear) {
       selectYear.value = year;
-      selectYear.dispatchEvent(new Event("change"));
+      // selectYear.dispatchEvent(new Event("change"));
     }
 
     if (selectMonth) {
       selectMonth.value = month;
-      selectMonth.dispatchEvent(new Event("change"));
+      // selectMonth.dispatchEvent(new Event("change"));
     }
 
     if (selectDay) {
       selectDay.value = day;
-      selectDay.dispatchEvent(new Event("change"));
+      // selectDay.dispatchEvent(new Event("change"));
     }
   }
   setStripeData() {
@@ -388,12 +388,12 @@ class HldFluentFormHandler {
           "hldNewPatientDiscountWrap",
         );
         const discountEl = document.getElementById("hldNewPatientDiscount");
-        const discountPerEl = document.getElementById("hldDiscountPercentage");
+        
 
         // Validate DOM elements
-        if (!discountWrap || !discountPerEl) {
+        if (!discountWrap) {
           console.error(
-            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountPercentage not found",
+            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found",
           );
           return;
         }
@@ -439,7 +439,7 @@ class HldFluentFormHandler {
 
         // setting prices
         discountEl.innerHTML = "$" + discountedAmount;
-        discountPerEl.innerHTML = discountedAmount;
+        
         hldFormHandler.blurOrigionalPrice();
       } catch (err) {
         console.error("❌ Error applying discount:", err);
@@ -572,6 +572,10 @@ class HldFluentFormHandler {
         if (pkg) {
           selectedPrice = parseInt(pkg.monthly_price, 10);
 
+          // const discountCouponEl = document.getElementById("hldDiscountCoupon");
+          // discountCouponEl.innerHTML(med.coupon);
+
+          document.getElementById("hldOneMonthSupply").textContent = Number(selectedPrice).toFixed(2);
           // ✅ Set window.stripeHandler.priceId
           window.stripeHandler.stripePriceId = pkg.stripe_price_id;
 

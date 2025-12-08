@@ -577,6 +577,7 @@ class hldStripeHandler {
   submitForm() {
     // set the telegra_id
 
+    console.log("submit function called");
     const dropdown = document.querySelector('select[name="dropdown_4"]');
     const selectedValue = dropdown.value; // example: "NAD+ Injections"
     const telegraId = this.getTelegraIdByValue(selectedValue);

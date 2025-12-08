@@ -200,8 +200,8 @@ add_action('wp_login', function ($user_login, $user) {
     error_log("patient logged in or signup");
 
     if (class_exists('HLD_Patient')) {
-        error_log("class HLD_Patient exists 81");
-        error_log(print_r($user, true));
+        error_log("user logged in and synced with healsend database");
+        
         HLD_Patient::sync_user_to_patient($user); // Pass the user directly
     }
 }, 10, 2);

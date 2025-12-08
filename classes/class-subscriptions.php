@@ -233,6 +233,10 @@ class HLD_UserSubscriptions
         error_log("user_id: " . $user_id);
 
         if (empty($user_id) || empty($stripeData)) {
+
+            error_log("StripeData or User_id should not empty");
+            error_log($user_id);
+            error_log($stripeData);
             return false;
         }
 

@@ -25,7 +25,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
         if (!empty($orders) && is_array($orders)) {
             foreach ($orders as $order_id) {
                 $order = $hld_telegra->get_order($order_id, "");
-                if (!is_wp_error($order)) {
+                if (!is_wp_error($order) && !$order == null) {
                     $product = $order['productVariations'][0]['productVariation'] ?? [];
                     $keywords = $product['description'] ?? 'Medicine Not found';
                     $orderNumber = $order['orderNumber'] ?? 'N/A';

@@ -14,9 +14,13 @@ class hldFluentFormClass {
     if (!yearEl || !monthEl || !dayEl || !outputEl) return;
 
     function updateDob() {
+      console.log("function updateDOB called");
       const y = yearEl.value;
       const m = monthEl.value;
       const d = dayEl.value;
+
+      console.log(m,d,y);
+      
 
       hldNavigation.disqualifyLessThan18("");
 
@@ -366,7 +370,7 @@ jQuery(function ($) {
     dOb_Y: ".dOb_Y", // element year
     dOb_M: ".dOb_M", // element month
     dOb_D: ".dOb_D", // element day
-    from_Y: 1960, // from year (default: 2000)
+    from_Y: 1940, // from year (default: 2000)
     to_Y: 2025, // to year (default: 2023)
     isPadding: true, // is padding zero (default: true)
   });
