@@ -1873,12 +1873,16 @@ div.ff-summary-value.ff-free {
   align-items: center;
   text-decoration: none;
 }
+.hld-btn:hover{
+  color: white;
+}
 .hld-btn-back-to-home {
   max-width: 200px !important;
   color: white;
 }
 .hld-thank-you-wrap {
   padding: 3rem 2rem;
+  max-width: 900px !important;
 }
 
 /************** Design for healsend.com home page slider starts ****************/

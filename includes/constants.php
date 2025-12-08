@@ -8,48 +8,6 @@ $prefix = $wpdb->prefix . "healsend_";
 define("HLD_CURRENCY", "usd");
 define("HLD_BUISNESS_OPERATIONAL_COUNTRY", "US");
 
-
-//  Prefunnels Forms
-
-// 1)
-if (! defined('HLD_GLP_1_PREFUNNEL_FORM_ID')) {
-    define('HLD_GLP_1_PREFUNNEL_FORM_ID', HLD_LIVE ? 84 : 60);
-}
-
-// 2)
-if (! defined('HLD_METABOLIC_PREFUNNEL_FORM_ID')) {
-    define('HLD_METABOLIC_PREFUNNEL_FORM_ID', HLD_LIVE ? 83 : 57);
-}
-
-// 3)
-if (! defined('HLD_PT_141_PREFUNNEL_FORM_ID')) {
-    define('HLD_PT_141_PREFUNNEL_FORM_ID', HLD_LIVE ? 85 : 61);
-}
-
-// 5)
-if (! defined('HLD_TRT_PREFUNNEL_FORM_ID')) {
-    define('HLD_TRT_PREFUNNEL_FORM_ID', HLD_LIVE ? 0 : 55);
-}
-
-
-
-
-// Action Items -  Questionnaires
-
-if (! defined('HLD_CLINICAL_DIFFERENCE_FORM_ID')) {
-    define('HLD_CLINICAL_DIFFERENCE_FORM_ID', HLD_LIVE ? 77 : 59);
-}
-
-if (! defined('HLD_METABOLIC_ACTION_ITEM_FORM_ID')) {
-    define('HLD_METABOLIC_ACTION_ITEM_FORM_ID', HLD_LIVE ? 79 : 58);
-}
-
-if (! defined('HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID')) {
-    define('HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID', HLD_LIVE ? 81 : 64);
-}
-
-
-
 // ******************** Action Items Ends
 
 

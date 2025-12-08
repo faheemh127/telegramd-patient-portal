@@ -12,21 +12,17 @@ if (! class_exists('hldFluentHandler')) {
          * If a form ID is not in this array, no Telegra order will be created.
          */
 
-        protected $prefunnel_forms_ids = [
-            HLD_GLP_1_PREFUNNEL_FORM_ID,
-            HLD_METABOLIC_PREFUNNEL_FORM_ID,
-            HLD_PT_141_PREFUNNEL_FORM_ID,
-            HLD_TRT_PREFUNNEL_FORM_ID,
+        protected $plan_slugs = [
+            HLD_GLP_WEIGHT_LOSS_SLUG,
+            HLD_METABOLIC_SLUG,
+            HLD_PT_141_SLUG,
+            HLD_OXYTOCIN_SLUG
+        ];
 
-        ];
-        protected $action_items = [
-            HLD_CLINICAL_DIFFERENCE_FORM_ID,
-            HLD_METABOLIC_ACTION_ITEM_FORM_ID,
-            HLD_PT_OXYTOCIN_ACTION_ITEM_FORM_ID
-        ];
         protected $telegra_product_id = null;
         protected $stripe_subscription_id = null;
         protected $medication_name = null;
+        protected $plan_slug = null;
 
 
         public function __construct($telegra)
@@ -411,17 +407,8 @@ if (! class_exists('hldFluentHandler')) {
 
             // Assign General Action item that will be for all plans
             HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GENERAL_ACTION_ITEM, $order_id);
-
-            // todo replace with one liner hidden field
-            if ($form_id == HLD_GLP_1_PREFUNNEL_FORM_ID) {
-                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_GLP_WEIGHT_LOSS_SLUG, $order_id);
-            } elseif ($form_id == HLD_METABOLIC_PREFUNNEL_FORM_ID) {
-                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_METABOLIC_SLUG, $order_id);
-            } else if ($form_id == HLD_PT_141_PREFUNNEL_FORM_ID) {
-                HLD_ActionItems_Manager::assign_pending_actions_for_plan(HLD_PT_141_SLUG, $order_id);
-            } else {
-                error_log("[Healsend Error]: we cannot fill any action item as form id" . $form_id . " do not match any prefunnel");
-            }
+            // Action item
+            HLD_ActionItems_Manager::assign_pending_actions_for_plan($this->plan_slug, $order_id);
         }
 
 
@@ -701,16 +688,7 @@ if (! class_exists('hldFluentHandler')) {
                 return true;
             }
             return false;
-            // return in_array($form_id, $this->prefunnel_forms_ids, true);
         }
-
-        private function is_action_item($form_id)
-        {
-            return in_array($form_id, $this->action_items, true);
-        }
-
-
-
 
         /**
          * Callback for FluentForm before insert submission
@@ -765,6 +743,19 @@ if (! class_exists('hldFluentHandler')) {
             }
 
 
+            if (empty($form['hld_plan_slug']) || !isset($form['hld_plan_slug'])) {
+                error_log("Plan slug required to create an order. so sytem can generate action items according to the plan");
+                wp_die();
+            }
+
+            if (!in_array($form["hld_plan_slug"], $this->plan_slugs, true)) {
+                error_log("Please enter a valid plan slug to create a prefunnel order");
+                wp_die();
+            }
+
+
+
+            $this->plan_slug = $form['hld_plan_slug'];
 
 
             // For security reasons also save the duplicate copy of fluent form submission
@@ -781,8 +772,8 @@ if (! class_exists('hldFluentHandler')) {
                 error_log("form is prefunnel so proceed");
                 $this->update_patient_info($form);
                 //
-                switch ($form_id) {
-                    case HLD_METABOLIC_PREFUNNEL_FORM_ID:
+                switch ($this->plan_slug) {
+                    case HLD_METABOLIC_SLUG:
                         $data = [];
                         $data[] = ['location' => 'loc::metabolic-enhancement-1', 'value' => $form['checkbox']];
 
