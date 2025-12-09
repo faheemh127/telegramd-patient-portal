@@ -343,7 +343,7 @@ class HLD_UserSubscriptions
                 'invoice_pdf_url'           => $invoice->invoice_pdf ?? null,
                 'hosted_invoice_url'        => $invoice->hosted_invoice_url ?? null,
                 'subscription_slug'         => $subscription_slug,
-                'payment_method_types'      => $$payment_method_types,
+                'payment_method_types'      => $payment_method_types,
             ],
             [
                 '%d',

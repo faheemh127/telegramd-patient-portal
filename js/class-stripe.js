@@ -22,6 +22,8 @@ class hldStripeHandler {
     this.stripePriceId = ""; // dummy Price ID for testing
     this.telegraProdID = ""; // dummy Price ID for testing
     this.packageDuration = 1; // 1 is default
+    this.promo = null;
+    this.stripeData = null;
     this.init();
     this.submitWrapperClass =
       config.submitWrapperClass || ".hld_form_main_submit_button";
@@ -59,6 +61,68 @@ class hldStripeHandler {
         }, 4000);
       }
     });
+  }
+
+  /**
+   * Both functions have similar functions but this function is used to get realtime price data and show in summary * so we directly show to customer that we are going to charge him
+   * @param {*} priceId
+   * @param {*} promoCode
+   * @returns
+   */
+  async fetchStripePriceData(priceId, promoCode = null) {
+    const payload = new URLSearchParams({
+      action: "hld_get_stripe_price_data",
+      price_id: priceId,
+      promo_code: promoCode ? promoCode : "",
+    });
+
+    const response = await fetch(MyStripeData.ajax_url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: payload.toString(),
+    });
+
+    const data = await response.json();
+    return data;
+  }
+
+  async getPriceData(priceId, promo) {
+    if (this.stripeData != null) {
+      return this.stripeData;
+    }
+
+    const stripePrice = await stripeHandler.fetchStripePriceData(
+      priceId,
+      promo
+    );
+    console.log("[Stripe Price Info**] ", stripePrice);
+    this.stripeData = stripePrice;
+    this.showSummary();
+    return stripePrice;
+  }
+
+  showSummary() {
+    const data = this.stripeData.data;
+    const discountAmount = document.getElementById("hldDiscountAmount");
+    const monthSupply = document.getElementById("hldOneMonthSupply");
+    const dueWas = document.getElementById("hldDueWas");
+    const finalPayable = document.getElementById("hldDueToday");
+
+    // setup UI Elements
+    if (data.discount_applied != 0) {
+      discountAmount.classList.remove("hidden");
+      hldDueWas.classList.remove("hidden");
+      discountAmount.innerHTML = "$" + data.discount_display;
+      dueWas.innerHTML = "$" + (data.original_amount / 100).toFixed(2);
+    }
+
+    // setup Prices
+
+    monthSupply.innerHTML = (data.original_amount / 100).toFixed(2);
+    dueWas.innerHTML = "$" + (data.original_amount / 100).toFixed(2);
+
+    finalPayable.innerHTML =
+      "$" + ((data.original_amount - data.discount_applied) / 100).toFixed(2);
   }
 
   getTelegraIdByValue(selectedValue) {
@@ -255,9 +319,10 @@ class hldStripeHandler {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `action=subscribe_patient&payment_method=${encodeURIComponent(
             ev.paymentMethod.id
-          )}&price_id=${encodeURIComponent(
-            this.stripePriceId
-          )}&duration=${encodeURIComponent(this.packageDuration)}`,
+          )}
+          &promo=${encodeURIComponent(this.promo)}
+          &price_id=${encodeURIComponent(this.stripePriceId)}
+          &duration=${encodeURIComponent(this.packageDuration)}`,
         });
 
         const subResponse = await subResult.json();
@@ -414,6 +479,7 @@ class hldStripeHandler {
           price_id: this.stripePriceId,
           duration: this.packageDuration,
           telegra_product_id: this.telegraProdID,
+          promo: this.promo,
         });
 
         const subResult = await fetch(MyStripeData.ajax_url, {

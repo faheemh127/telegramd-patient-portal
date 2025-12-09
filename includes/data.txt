@@ -414,3 +414,25 @@ we will built dashboard to analyze all the matrics
 Remove Upload signature  and action item should not be there 
 upload signature
 take photo or choose file draw signature  (first i will double check) just message them
+
+
+First Month	189	139		
+Renewal	239	219		
+         21    14
+
+
+Hamare pas is cheez ka koi quick solution nahi hai. solution is ka ye banta hai k hum stripe par subscription
+pehly create karain gy us k baad jab doctor prescribe kare ga to then hum stripe par us ki subscription start kar dain gy
+lekin stripe par esa koi tareeqa nahi hai k stripe 72 ghanty pehly charge karne ki  koshish kare is k lie 
+humain single source of truth apna healsend kar server ko manna ho ga matlab healsend kar server hi decide kare 
+ga k kis patient ko kab charge karna hai lekin pehly hum stripe par munhasir thy jesa k hum subscriptions bana rahe handling
+or stripe khud bakhud charge karta hai har maheeny baad. jab server par hum har cheez khud handle karain gy 
+to tab hum telegra ko kahain gy k is patient ki payment fail ho gai hai medicaion rok lo us lie humain infrastructure 
+change karna pare ga or is cheez k lie waqat darkar ho ga no quick solution. ik solution ye hai k 
+stripe subscription k akhir par  hi payment cut karne ka try kare or agar payment fail ho to tab
+
+
+300 * 1 = 300
+219 * 3 = 657
+
+
