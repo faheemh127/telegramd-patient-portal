@@ -82,9 +82,18 @@
         canvas.addEventListener('pointerout', drawStop);
         canvas.addEventListener('pointerup', drawStop);
 
+        canvas.addEventListener('touchstart', drawStart);
+        canvas.addEventListener('touchend', drawStop);
+        canvas.addEventListener('touchcancel', drawStop);
+
         function drawStart(event){
           canvas.addEventListener('pointermove', draw);
+          canvas.addEventListener('touchmove', draw);
           reposition(event);
+        }
+
+        function getTouchOrMouse(event) {
+            return event.touches && event.touches.length ? event.touches[0] : event;
         }
 
         function drawStop(){
@@ -92,9 +101,10 @@
         }
 
         function reposition(event){
+          const point = getTouchOrMouse(event);
           const rect = event.target.getBoundingClientRect();
-          coord.x = event.clientX - rect.left;
-          coord.y = event.clientY - rect.top;
+          coord.x = point.clientX - rect.left;
+          coord.y = point.clientY - rect.top;
         }
 
         function draw(event) {
