@@ -121,7 +121,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                         </div>
                         <!-- Order Detail Section -->
                         <?php
-                        if (!empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
+                        if (isset($_GET["disable-this-if-temporarily"]) && !empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
                         ?>
                             <hr>
                             <div class="hld_prescription_wrap">

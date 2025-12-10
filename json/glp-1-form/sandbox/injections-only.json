@@ -11,13 +11,15 @@
         "monthly_duration": "1",
         "monthly_price": "299",
         "desc": "Start anytime — cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access",
-        "stripe_price_id": "price_1SUND5Acgi1hKyLWwrejRKsq"
+        "stripe_price_id": "price_1ScrFLAcgi1hKyLWldmctDu0",
+        "promo": "promo_1ScrJLAcgi1hKyLWnrf7BmCE"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "249",
+        "monthly_price": "279",
         "desc": "Clinician-guided 90-day protocol,Includes medication + ongoing provider care, Priority dosing & refill management, Free rapid shipping",
-        "stripe_price_id": "price_1SUND5Acgi1hKyLWTsxpuy7p"
+        "stripe_price_id": "price_1ScrEbAcgi1hKyLWeJUPP8cC",
+        "promo": "promo_1ScrK4Acgi1hKyLWBTU3TZql"
       }
     ]
   },

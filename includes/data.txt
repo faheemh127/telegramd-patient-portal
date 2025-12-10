@@ -1,5 +1,5 @@
 // website that will be used to make the shortcode base64 String
-https://codebeautify.org/json-to-base64-converter#
+https://codebeautify.org/json-to-base64-converter
 
 ---- Priority Sheet
 https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hgv4E/edit?gid=0#gid=0

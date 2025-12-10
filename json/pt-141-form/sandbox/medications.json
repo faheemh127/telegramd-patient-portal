@@ -9,15 +9,17 @@
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "169",
+        "monthly_price": "229",
         "desc": "Great for first-time users, Provides fast-acting enhancement, Helps assess individual response, Ideal for short-term boost in desire",
-        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
+        "stripe_price_id": "price_1ScszqAcgi1hKyLWQGNcxdkJ",
+        "promo": "promo_1Sct1qAcgi1hKyLWQxHJLWaN"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "149",
+        "monthly_price": "219",
         "desc": "Best value for long-term support, More consistent improvement over time, Enhanced overall satisfaction, Ideal for ongoing performance and confidence",
-        "stripe_price_id": "price_1SAT92Acgi1hKyLWqx2vGtIn"
+        "stripe_price_id": "price_1Sct0JAcgi1hKyLWUEBPOdZy",
+        "promo": "promo_1Sct37Acgi1hKyLWdpVx7Q6x"
       }
     ]
   }

@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) {
 
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
-define('HLD_PAUSE_GHL', false);
+define('HLD_PAUSE_GHL', true);
 
 
 

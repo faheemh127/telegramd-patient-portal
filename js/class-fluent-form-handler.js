@@ -601,12 +601,18 @@ class HldFluentFormHandler {
         if (pkg) {
           selectedPrice = parseInt(pkg.monthly_price, 10);
 
+          const isNewPatient = stripeHandler.isNewPatient();
+
           if (stripeHandler.isNewPatient()) {
             // if patient is new set promo code that he is going to get
             /**
              * Dangerous only set if patient should get promocode
              */
             stripeHandler.promo = pkg.promo;
+          } else {
+            document
+              .getElementById("hldNewPatientDiscountWrap")
+              .classList.add("hidden");
           }
 
           // get price from stripe

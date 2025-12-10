@@ -2309,7 +2309,7 @@ div.ff-summary-value.ff-free {
   font-size: 16px !important;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 .hld-dob-mobile {
   display: none;

@@ -10,7 +10,8 @@ class HLD_Discount
         ],
         "Tirzepatide injection" => [
             "first_month" => 34,
-            "three_month" => 11
+            "three_month" => 11,
+            "coupon" => "Tirzep34Off",
         ],
         "NAD+ Injections" => [
             "first_month" => 21,
@@ -28,6 +29,11 @@ class HLD_Discount
         "MIC+B12" => [
             "first_month" => 8,
             "three_month" => 6
+        ],
+        "PT-141" => [
+            "first_month" => 8,
+            "three_month" => 6,
+            "coupon" => "PT1STCOUNT"
         ],
         "Tirzepatide drops" => [
             "first_month" => 18,
