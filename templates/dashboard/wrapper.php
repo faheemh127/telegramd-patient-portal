@@ -95,6 +95,10 @@ if (isset($_GET["payment-succeeded"])) {
     include HLD_PLUGIN_PATH . 'templates/dashboard/payment-succeeded.php';
     return;
 }
+if (isset($_GET["questionnaire-answered"])) {
+    include HLD_PLUGIN_PATH . 'templates/dashboard/questionnaire-answered.php';
+    return;
+}
 
 
 ?>

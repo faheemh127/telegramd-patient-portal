@@ -13,6 +13,60 @@ if (! class_exists('HLD_Patient')) {
             return HEALSEND_PATIENTS_TABLE;
         }
 
+
+
+        /**
+         * Check if logged-in patient's state qualifies for phone call
+         */
+        public static function is_phone_call_state()
+        {
+            // Must be logged in
+            if (!is_user_logged_in()) {
+                error_log('HLD_Patient Error: is_phone_call_state() called but patient not logged in.');
+                return false;
+            }
+
+            // Get logged-in patient email
+            $current_user     = wp_get_current_user();
+            $patient_email    = $current_user->user_email;
+
+            global $wpdb;
+            $table = self::get_table_name();
+
+            // Fetch state from database
+            $state = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT state FROM {$table} WHERE patient_email = %s AND is_deleted = 0 LIMIT 1",
+                    $patient_email
+                )
+            );
+
+            if (!$state) {
+                return false; // no state found
+            }
+
+            // Dummy allowed states (you can change later)
+            $allowed_states = [
+                'Alaska',
+                'Arizona',
+                'Connecticut',
+                'Delaware',
+                'District of Columbia',
+                'Idaho',
+                'Kansas',
+                'Louisiana',
+                'Maine',
+                'Mississippi',
+                'New Mexico',
+                'West Virginia'
+            ];
+
+            // Return true if state is allowed
+            return in_array($state, $allowed_states, true);
+        }
+
+
+
         /**
          * Update patient DOB for logged-in user
          */
@@ -402,12 +456,6 @@ if (! class_exists('HLD_Patient')) {
                 error_log('GHL Webhook Failed: ' . $e->getMessage());
                 return false;
             }
-
-
-
-
-
-
         }
 
         public static function cancel_email_reminders_to_add_card()
