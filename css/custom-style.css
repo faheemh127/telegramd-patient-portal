@@ -1953,9 +1953,11 @@ div.ff-summary-value.ff-free {
   font-weight: 600;
   color: #0f172a;
 }
-
+.hld_questionnaire_wrap .need-help p{
+  margin-bottom: 7px;
+}
 .hld_thankyou_box p {
-  margin: 0 0 20px;
+  margin: 0 0 0px;
   font-size: 15px;
   color: #4b5563;
   line-height: 1.55;

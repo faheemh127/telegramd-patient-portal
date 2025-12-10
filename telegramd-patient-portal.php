@@ -72,6 +72,7 @@ require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-revoke-subscription.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-get-subscription-price.php';

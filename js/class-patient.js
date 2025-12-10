@@ -238,7 +238,7 @@ class HldPatientLogin {
       url: MyPatientLogin.ajaxurl,
       type: "POST",
       data: {
-        action: "hld_patient_login",
+        action: "hld_patient_signup",
         username: username,
         password: password,
         nonce: MyPatientLogin.nonce,
@@ -246,7 +246,7 @@ class HldPatientLogin {
       success: (response) => {
         if (response.success) {
           // Reload with parameter ?login=success
-          window.location.href = window.location.pathname + "?login=success";
+          window.location.href = window.location.pathname + "?signup=success";
         } else {
           alert(response.data || "Login failed. Please try again.");
         }

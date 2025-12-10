@@ -18,8 +18,7 @@
             <div class="hld_phone_state_text">
                 <h3>Quick Provider Call Required in Your State</h3>
                 <p>
-                    To stay compliant with state rules, your provider will complete a short live consultation
-                    with you after your intake. No delay — it only takes a few minutes.
+                    To stay compliant with state rules, your provider will complete a quick live consultation after your intake. This call will come from a 509 area code, To prevent delays, please complete any remaining action items in your account so you can be routed to a doctor right away.
                 </p>
             </div>
         </div>
@@ -28,9 +27,22 @@
     <div class="hld_thankyou_box">
         <h2>Thank you</h2>
         <p>
-            Thank you for submitting your questionnaire. Our medical team will review your information
-            and connect with you shortly.
+            Thank you for submitting your questionnaire. Our medical team will review your information and connect with you shortly. To prevent delays, please complete any remaining action items in your account so you can be routed to a doctor right away .
         </p>
+
+        <div class="need-help">
+            <p>If you need help at any point, our Clinical Support Team is available:</p>
+            <p>Phone</p>
+            <p>📞 (855) 983-5347</p>
+            <p>🕗 11:00 AM – 7:00 PM EST</p>
+
+            <p>Chat</p>
+            <p>💬 10:00 AM – 7:00 PM PT</p>
+        </div>
+
+
+
+
 
         <a class="hld_btn_dashboard" href="https://healsend.com/my-account">
             Go to Dashboard
