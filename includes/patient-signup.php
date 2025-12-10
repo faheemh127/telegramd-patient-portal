@@ -6,8 +6,8 @@ function hld_render_custom_signup_form()
 
     ob_start();
 
-    $error_message = '';
-    $success_message = '';
+    $error = ''; // or any string
+    $error_message = apply_filters('hld_login_error_message', $error);
 
 
 ?>
@@ -19,13 +19,6 @@ function hld_render_custom_signup_form()
         <h2 class="hld_patient_login_title">Create an Account</h2>
 
         <form method="post" class="hld_login_form">
-
-            <input
-                type="text"
-                name="hld_username"
-                id="hld_username"
-                placeholder="Username"
-                required />
 
             <input
                 type="email"
@@ -73,7 +66,7 @@ function hld_render_custom_signup_form()
         </div>
     </div>
 
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Check if body has class "logged-in"
@@ -81,6 +74,27 @@ function hld_render_custom_signup_form()
                 // Redirect to My Account page
                 window.location.href = "<?php echo esc_url(home_url('/my-account')); ?>";
             }
+
+
+            // Handle login button loading state
+            const form = document.querySelector(".hld_login_form");
+            const button = document.querySelector(".hld_login_button");
+
+            if (form && button) {
+                form.addEventListener("submit", function() {
+                    button.disabled = true;
+                    button.innerHTML = "Creating account…"; // 🔥 Update text instantly
+
+                    // Optional small style upgrade
+                    button.style.opacity = "0.7";
+                    button.style.cursor = "not-allowed";
+
+                    // Optional: add a spinner
+                    // button.innerHTML = '<span class="spinner"></span> Logging in…';
+                });
+            }
+
+
         });
     </script>
 

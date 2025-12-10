@@ -20,7 +20,7 @@ function hld_render_custom_login_form()
 
     <div class="hld_login_wrapper">
         <?php if (!empty($error_message)) : ?>
-            <!-- <div class="hld_error_message"><?php echo esc_html($error_message); ?></div> -->
+            <div class="hld_error_message"><?php echo esc_html($error_message); ?></div>
         <?php endif; ?>
 
         <h2 class="hld_patient_login_title">Welcome Back</h2>
@@ -73,17 +73,36 @@ function hld_render_custom_login_form()
         <div class="hld_create_wrap">
             <p>First time here?
                 <a href="<?php echo esc_url(home_url('/patient-signup/')); ?>">Create an account</a>
-            </p>    
+            </p>
         </div>
     </div>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Check if body has class "logged-in"
+
+            // Redirect if already logged in
             if (document.body.classList.contains("logged-in")) {
-                // Redirect to My Account page
                 window.location.href = "<?php echo esc_url(home_url('/my-account')); ?>";
+                return;
+            }
+
+            // Handle login button loading state
+            const form = document.querySelector(".hld_login_form");
+            const button = document.querySelector(".hld_login_button");
+
+            if (form && button) {
+                form.addEventListener("submit", function() {
+                    button.disabled = true;
+                    button.innerHTML = "Logging in…"; // 🔥 Update text instantly
+
+                    // Optional small style upgrade
+                    button.style.opacity = "0.7";
+                    button.style.cursor = "not-allowed";
+
+                    // Optional: add a spinner
+                    // button.innerHTML = '<span class="spinner"></span> Logging in…';
+                });
             }
         });
     </script>
