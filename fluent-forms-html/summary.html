@@ -22,7 +22,7 @@
           <div class="med-supply">
             <div class="med-label">One Month Supply</div>
             <div class="hld-month-supply">
-              $<span id="hldOneMonthSupply">219</span>
+              $<span id="hldOneMonthSupply">0</span>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
 
           <div class="ff-summary-value ff-summary-total-wrap">
             <div>
-              <span class="discount hidden" id="hldDiscountAmount">$81.25</span>
+              <span class="discount hidden" id="hldDiscountAmount"></span>
             </div>
           </div>
         </div>
@@ -58,8 +58,9 @@
 
           <div class="ff-summary-value ff-summary-total-wrap">
             <div>
-              <span id="hldSummaryTotalToday">0</span>
-              <span id="hldNewPatientDiscount" class="discounted-amount"></span>
+              <span id="hldDueWas" class="hld-line-through hidden"
+                >0</span>
+              <span id="hldDueToday" class="discounted-amount"></span>
             </div>
           </div>
         </div>
@@ -125,8 +126,7 @@
     subscription fee. You can cancel or modify your plan at any time in your
     patient portal
   </p>
-  
-  
+
   <div class="hld-payment-btns-wrap">
     <button id="hldPayWithKlarna" class="payment-btn" type="button">
       <img
@@ -145,7 +145,6 @@
     <button id="payment-request-button" class="btn-google-apple-pay"></button>
   </div>
   <!-- Google Pay / Apple Pay Button -->
-  
 
   <!-- Wrap Stripe Card -->
   <div
@@ -153,7 +152,6 @@
     class="hld_stripe_container"
     style="margin-top: 20px"
   >
-    
     <div
       id="card-element"
       style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
@@ -164,9 +162,7 @@
   </div>
 
   <!-- Payment Button -->
-  <button id="hdlMakeStipePayment" type="button">
-    Pay Now
-  </button>
+  <button id="hdlMakeStipePayment" type="button">Pay Now</button>
   <div class="secure-wrap">
     <svg
       width="20px"

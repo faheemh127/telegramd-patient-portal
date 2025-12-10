@@ -9,7 +9,7 @@ function hld_subscribe_patient_handler()
 
     // @todo check nonce here
 
-    if (!isset($_POST['payment_method']) || !isset($_POST['price_id']) || !isset($_POST['duration'])) {
+    if (!isset($_POST['payment_method']) || !isset($_POST['price_id']) || !isset($_POST['duration']) || !isset($_POST['promo'])) {
         wp_send_json_error(['message' => 'Missing parameters']);
         wp_die();
     }
@@ -29,7 +29,7 @@ function hld_subscribe_patient_handler()
     }
     $plan_exists = HLD_UserSubscriptions::is_subscription_active($slug);
 
-    
+
     if ($plan_exists) {
         wp_send_json_error([
             'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.'
@@ -46,9 +46,11 @@ function hld_subscribe_patient_handler()
     $payment_method     = sanitize_text_field($_POST['payment_method']);
     $price_id           = sanitize_text_field($_POST['price_id']);
     $duration           = (int) sanitize_text_field($_POST['duration']);
-    $months             = max(1, $duration); // ensure positive integer
+    $months             = max(1, $duration);
     $medication         = sanitize_text_field($_POST['medication']);
     $telegra_product_id = sanitize_text_field($_POST['telegra_product_id']);
+    $promo              = sanitize_text_field($_POST['promo']);
+
 
     try {
         /**
@@ -99,18 +101,46 @@ function hld_subscribe_patient_handler()
         ]);
 
 
+
+
+
+
         /**
          * STEP 3: Create subscription that cancels automatically after N months
          */
-        $subscription = \Stripe\Subscription::create([
+        // $subscription = \Stripe\Subscription::create([
+        //     'customer' => $customer_id,
+        //     'items' => [['price' => $price_id]],
+        //     'discounts' => [[
+        //         'promotion_code' => 'promo_1ScNtmAcgi1hKyLWaHc5MWbi' // e.g. "25OFF_FIRST_MONTH"
+        //     ]],
+        //     'cancel_at' => strtotime("+{$months} months"),
+        //     'expand' => ['latest_invoice.payment_intent'],
+        // ]);
+
+
+
+        // Base subscription data
+        $subscription_data = [
             'customer' => $customer_id,
-            'items' => [['price' => $price_id]],
-            // 'discounts' => [[
-            //     'promotion_code' => 'promo_1SZwPPAcgi1hKyLW9HK73dQP' // e.g. "25OFF_FIRST_MONTH"
-            // ]],
+            'items' => [
+                ['price' => $price_id]
+            ],
             'cancel_at' => strtotime("+{$months} months"),
             'expand' => ['latest_invoice.payment_intent'],
-        ]);
+        ];
+
+        // If patient is new → add discount
+        if (HLD_Patient::is_patient_new($patient_email) && !empty($promo)) {
+            $subscription_data['discounts'] = [[
+                'promotion_code' => $promo
+            ]];
+        }
+
+        // Create subscription
+        $subscription = \Stripe\Subscription::create($subscription_data);
+
+
 
         /**
          * STEP 4: Store locally in custom tables

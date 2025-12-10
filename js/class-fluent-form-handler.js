@@ -416,19 +416,19 @@ class HldFluentFormHandler {
         const discountWrap = document.getElementById(
           "hldNewPatientDiscountWrap"
         );
-        const discountEl = document.getElementById("hldNewPatientDiscount");
+        // const discountEl = document.getElementById("hldNewPatientDiscount");
 
         // Validate DOM elements
-        if (!discountWrap) {
-          console.error(
-            "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found"
-          );
-          return;
-        }
-        if (!discountEl) {
-          console.error("❌ Element #hldNewPatientDiscount not found in DOM");
-          return;
-        }
+        // if (!discountWrap) {
+        //   console.error(
+        //     "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found"
+        //   );
+        //   return;
+        // }
+        // if (!discountEl) {
+        //   console.error("❌ Element #hldNewPatientDiscount not found in DOM");
+        //   return;
+        // }
 
         discountWrap.classList.remove("hidden");
 
@@ -467,37 +467,24 @@ class HldFluentFormHandler {
           orderTotal - orderTotal * (discountPercent / 100);
 
         // setting prices
-        discountEl.innerHTML = "$" + discountedAmount;
+        // discountEl.innerHTML = "$" + discountedAmount;
 
-        this.setDiscountIfApplicable(discountedAmount, orderTotal);
-        hldFormHandler.blurOrigionalPrice();
+        // hldFormHandler.blurOrigionalPrice();
       } catch (err) {
         console.error("❌ Error applying discount:", err);
       }
     }
   }
 
-  setDiscountIfApplicable(orderTotal, discountedAmount) {
-    const discountEl = document.getElementById("hldDiscountAmount");
-    if (!discountEl) return; // Exit if element not found
+  // blurOrigionalPrice() {
+  //   const elem = document.getElementById("hldSummaryTotalToday");
 
-    // Remove hidden class if present
-    discountEl.classList.remove("hidden");
-
-    // Calculate discount and remove negative sign
-    const value = Number(orderTotal) - Number(discountedAmount);
-    discountEl.innerHTML = "$" + Math.abs(value).toFixed(2);
-  }
-
-  blurOrigionalPrice() {
-    const elem = document.getElementById("hldSummaryTotalToday");
-
-    if (elem) {
-      elem.classList.add("hld-line-through");
-    } else {
-      console.error("Element with ID 'hldSummaryTotalToday' not found.");
-    }
-  }
+  //   if (elem) {
+  //     elem.classList.add("hld-line-through");
+  //   } else {
+  //     console.error("Element with ID 'hldSummaryTotalToday' not found.");
+  //   }
+  // }
   removeOptinLabelBorder() {
     // Find all elements with the class "optin_cb_container"
     const containers = document.querySelectorAll(".optin_cb_container");
@@ -567,7 +554,7 @@ class HldFluentFormHandler {
   //   return selectedPrice;
   // }
 
-  getAmount() {
+  async getAmount() {
     const dropdown2 = document.querySelector('[name="dropdown_4"]');
     const dropdown3 = document.querySelector('[name="dropdown_3"]');
 
@@ -614,19 +601,37 @@ class HldFluentFormHandler {
         if (pkg) {
           selectedPrice = parseInt(pkg.monthly_price, 10);
 
+          if (stripeHandler.isNewPatient()) {
+            // if patient is new set promo code that he is going to get
+            /**
+             * Dangerous only set if patient should get promocode
+             */
+            stripeHandler.promo = pkg.promo;
+          }
+
+          // get price from stripe
+          if (stripeHandler.stripeData == null) {
+            await stripeHandler.getPriceData(
+              pkg.stripe_price_id,
+              stripeHandler.promo
+            );
+          }
+
+          // stripeHandler.showSummary();
+
           // const discountCouponEl = document.getElementById("hldDiscountCoupon");
           // discountCouponEl.innerHTML(med.coupon);
 
-          document.getElementById("hldOneMonthSupply").textContent =
-            Number(selectedPrice).toFixed(2);
+          // document.getElementById("hldOneMonthSupply").textContent =
+          //   Number(selectedPrice).toFixed(2);
           // ✅ Set window.stripeHandler.priceId
           window.stripeHandler.stripePriceId = pkg.stripe_price_id;
 
           // ✅ Update UI
-          const todayDiv = document.getElementById("hldSummaryTotalToday");
-          if (todayDiv) {
-            todayDiv.textContent = "$" + Number(selectedPrice).toFixed(2);
-          }
+          // const todayDiv = document.getElementById("hldSummaryTotalToday");
+          // if (todayDiv) {
+          // todayDiv.textContent = "$" + Number(selectedPrice).toFixed(2);
+          // }
         }
       }
     }

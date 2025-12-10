@@ -188,7 +188,7 @@ if (!class_exists('hldAssets')) {
 
             wp_enqueue_script(
                 'my-stripe-handler',
-                plugin_dir_url(__FILE__) . '../js/stripe-handler.js',
+                plugin_dir_url(__FILE__) . '../js/class-stripe.js',
                 ['stripe-js'],
                 HLD_PLUGIN_VERSION,
                 true

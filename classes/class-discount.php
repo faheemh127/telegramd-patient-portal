@@ -15,7 +15,7 @@ class HLD_Discount
         "NAD+ Injections" => [
             "first_month" => 21,
             "three_month" => 13,
-            "coupon" =>"NAD20"
+            "coupon" => "NAD20FIRST"
         ],
         "NAD+ Nasal Spray" => [
             "first_month" => 21,
