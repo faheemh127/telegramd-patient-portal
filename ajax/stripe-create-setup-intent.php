@@ -130,60 +130,16 @@ function my_create_payment_intent()
 
     $price = 0;
     if ($is_first_order) {
-        $price_details = hld_get_stripe_price_data(false, $price_id, $promo_code, $duration);
+        $price_details = HLD_Stripe::hld_calculate_stripe_price($price_id, $promo_code, $duration);
         $price = $price_details['final_amount'];
         error_log("price after discount" . $price);
     } else {
-        $price_details = hld_get_stripe_price_data(false, $price_id, "", $duration);
+        $price_details =  HLD_Stripe::hld_calculate_stripe_price($price_id, "", $duration);
         $price = $price_details['final_amount'];
     }
     //
 
     try {
-        // Create SetupIntent for this customer
-
-
-        // $paymentIntent = \Stripe\PaymentIntent::create([
-        //   'payment_method_types' => [$intent_for],
-        //   'customer' => $customer_id,
-        //   'amount' => $price,
-        //   'currency' => HLD_CURRENCY,
-        //   'amount_details' => [
-        //     'line_items' => [
-        //       [
-        //         'product_name' => $details['title'],
-        //         'unit_cost' =>   $details['price'],
-        //         'quantity' => $duration,
-        //         'discount_amount'   => intval($calculated_discount),
-        //       ],
-        //     ],
-        //   ],
-        //   'shipping' => [
-        //     'name' => $user_name,
-        //     'address' => [
-        //       'city' => $city,
-        //       'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
-        //       'line1' => $street,
-        //       'postal_code' => $zip,
-        //       'state' => $state,
-        //     ],
-        //   ],
-        //   'payment_method_data' => [
-        //     'type' => $intent_for,
-        //     'billing_details' => [
-        //       'address' => [
-        //         'city' => $city,
-        //         'country' => HLD_BUISNESS_OPERATIONAL_COUNTRY,
-        //         'line1' => $street,
-        //         'postal_code' => $zip,
-        //         'state' => $state,
-        //       ],
-        //       'email' => $user_email,
-        //       'name' => $user_name,
-        //     ],
-        //   ],
-        // ]);
-
         $line_item = HLD_Stripe::hld_prepare_line_item($details, $duration, $price_details['final_amount']);
 
         $paymentIntent = \Stripe\PaymentIntent::create([

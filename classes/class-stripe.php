@@ -131,7 +131,7 @@ class HLD_Stripe
 
 
 
-    public static function hld_calculate_stripe_price($price_id, $promo_code = "", $duration = 1)
+    public static function hld_calculate_stripe_price($price_id, $promo_code, $duration = 1)
     {
         require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
         \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
