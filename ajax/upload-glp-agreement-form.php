@@ -9,18 +9,20 @@ function hld_glp_agreement_upload_handler()
     global $hld_telegra;
 
     // Validate file
-    if (!isset($_FILES['patient_id']) || $_FILES['patient_id']['error'] !== UPLOAD_ERR_OK) {
-        wp_send_json_error(['message' => 'No file uploaded or file error']);
+
+    if (empty($_POST['signature'])) {
+        wp_send_json_error(['message' => 'Missing Signature.']);
     }
 
     if (empty($_POST['telegra_order_id'])) {
         wp_send_json_error(['message' => 'Missing order ID']);
     }
 
+    $signature = sanitize_text_field($_POST['signature']);
     $telegra_order_id = sanitize_text_field($_POST['telegra_order_id']);
     $order_detail = $hld_telegra->get_order($telegra_order_id);
 
-    // @todo make it dynamic quinstn id 
+    // @todo make it dynamic quinstn id
     if (
         !isset($order_detail["questionnaireInstances"][2]["id"])
     ) {
@@ -29,26 +31,6 @@ function hld_glp_agreement_upload_handler()
 
     $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
 
-    // Validate file size
-    $file = $_FILES['patient_id'];
-    if ($file['size'] > 25 * 1024 * 1024) {
-        wp_send_json_error(['message' => 'File size exceeds 25MB']);
-    }
-
-    // Validate mime
-    $allowed = ['image/jpeg', 'image/png', 'application/pdf'];
-    if (!in_array($file['type'], $allowed)) {
-        wp_send_json_error(['message' => 'Invalid file type']);
-    }
-
-    // Upload file
-    $attachment_id = media_handle_upload('patient_id', 0);
-
-    if (is_wp_error($attachment_id)) {
-        wp_send_json_error(['message' => $attachment_id->get_error_message()]);
-    }
-
-    $file_url = wp_get_attachment_url($attachment_id);
 
     // Build API payload
     $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
@@ -58,7 +40,7 @@ function hld_glp_agreement_upload_handler()
         'agreementData' => [
             'consent' => true,
             'consentDate' => gmdate('Y-m-d\TH:i:s.v\Z'),
-            'signature' => $file_url,
+            'signature' => $signature,
         ]
     ];
 
