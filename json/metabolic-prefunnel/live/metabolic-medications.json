@@ -1,49 +1,24 @@
 [
   {
-    "telegra_code": "pvt::9fa261db-3d40-4f9d-b2be-80000c2e6a02",
+    "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
     "medication_name": "NAD+ Injections",
-    "description": "Waiting to be provided.",
-    "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
-    "labels": "to be provided, to be provided",
+    "description": "Highest bioavailability of any NAD⁺ format, Fastest rise in NAD⁺ levels, Most noticeable energy + recovery improvement, Preferred by athletes & high-performers",
+    "stripe_product_id": "prod_TakbDYC3wodaIC",
+    "labels": "Most Popular, Most Effective",
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "45",
-        "desc": "to be provided, to be provided, to be provided",
-        "stripe_price_id": "price_1SVPuyAcgi1hKyLWgjOYvTcm"
+        "monthly_price": "1",
+        "desc": "Flexible month-to-month option, Medication + provider care, Free 2-day delivery",
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "42",
-        "desc": "to be provided, to be provided, to be provided",
-        "stripe_price_id": "price_1SVPwbAcgi1hKyLWqHcaeiGl"
-      }
-    ]
-  },
-  {
-    "telegra_code": "pvt::87803044-1615-490d-ac20-1d0ac7f83915",
-    "medication_name": "NAD+ Nasal Spray",
-    "description": "Waiting to be provided.",
-    "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "Free Evaluation, Daily Tablets",
-    "packages": [
-      {
-        "monthly_duration": "1",
-        "monthly_price": "0",
-        "desc": "Ideal for newcomers. One-month supply to experience the benefits of Sermorelin tablets without a long-term commitment.",
-        "stripe_price_id": "price_dummy_tab_1M"
-      },
-      {
-        "monthly_duration": "3",
-        "monthly_price": "0",
-        "desc": "Three-month package offering better savings while maintaining consistent daily dosing and visible results.",
-        "stripe_price_id": "price_dummy_tab_3M"
-      },
-      {
-        "monthly_duration": "6",
-        "monthly_price": "0",
-        "desc": "Best value plan — six-month supply designed for patients dedicated to sustained hormone support and long-term improvement.",
-        "stripe_price_id": "price_dummy_tab_6M"
+        "monthly_price": "1",
+        "desc": "Stronger more consistent results, Follow-ups + dose adjustments, Priority refills & support,Free 2-day delivery,Best long-term value",
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       }
     ]
   }

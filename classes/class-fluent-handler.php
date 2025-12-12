@@ -16,7 +16,6 @@ if (! class_exists('hldFluentHandler')) {
             HLD_GLP_WEIGHT_LOSS_SLUG,
             HLD_METABOLIC_SLUG,
             HLD_PT_141_SLUG,
-            HLD_OXYTOCIN_SLUG
         ];
 
         protected $telegra_product_id = null;
