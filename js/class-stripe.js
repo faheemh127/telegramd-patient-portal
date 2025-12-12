@@ -612,6 +612,7 @@ class hldStripeHandler {
           `&duration=${this.packageDuration}` +
           `&price_id=${this.stripePriceId}` +
           `&product_name=${medicationName}` +
+          `&promo=${this.promo}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
 
@@ -625,6 +626,7 @@ class hldStripeHandler {
           `&duration=${this.packageDuration}` +
           `&price_id=${this.stripePriceId}` +
           `&product_name=${medicationName}` +
+          `&promo=${this.promo}` +
           `&shipping_info=${encodeURIComponent(JSON.stringify(shippingInfo))}`,
       });
 
