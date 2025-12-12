@@ -131,7 +131,67 @@ class HLD_Stripe
 
 
 
+    public static function hld_calculate_stripe_price($price_id, $promo_code = "", $duration = 1)
+    {
+        require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
+        \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
+        try {
+            // Get base price from Stripe
+            $price = \Stripe\Price::retrieve($price_id);
+            $unit_amount = $price->unit_amount; // in cents
+
+            $original_total = $unit_amount * intval($duration);
+            $discountAmount = 0;
+
+            // If no promo code → return base
+            if (empty($promo_code)) {
+
+                return [
+                    'price_id'             => $price_id,
+                    'currency'             => $price->currency,
+                    'original_amount'      => $original_total,
+                    'final_amount'         => $original_total,
+                    'final_amount_display' => number_format($original_total / 100, 2),
+                    'discount_applied'     => 0,
+                    'discount_display'     => '0.00',
+                    'message'              => 'Base price returned'
+                ];
+            }
+
+            // Retrieve promo code
+            $promo  = \Stripe\PromotionCode::retrieve($promo_code);
+            $coupon = $promo->coupon;
+
+            // Percent discount
+            if (!empty($coupon->percent_off)) {
+                $discountAmount = ($original_total * $coupon->percent_off) / 100;
+            }
+
+            // Flat discount
+            if (!empty($coupon->amount_off)) {
+                $discountAmount = $coupon->amount_off;
+            }
+
+            $finalAmount = max($original_total - $discountAmount, 0);
+
+            return [
+                'price_id'             => $price_id,
+                'currency'             => $price->currency,
+                'original_amount'      => $original_total,
+                'final_amount'         => $finalAmount,
+                'final_amount_display' => number_format($finalAmount / 100, 2),
+                'discount_applied'     => $discountAmount,
+                'discount_display'     => number_format($discountAmount / 100, 2),
+                'message'              => 'Price returned with discount'
+            ];
+        } catch (Exception $e) {
+            return [
+                'error'   => true,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
 
 
     /**

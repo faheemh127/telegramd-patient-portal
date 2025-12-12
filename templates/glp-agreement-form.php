@@ -139,4 +139,130 @@
              });
          });
      });
+
+
+
+
+
+
+
+
+
+
+
+    //  ******* New code
+     let canvas = jQuery('#canvas-signature')[0];
+    let clearSignature = jQuery('#signature-clear')[0];
+
+    jQuery(document).ready(function($) {
+        $("#idUploadForm").on("submit", function(e) {
+            e.preventDefault();
+
+            let base64Image = getCanvasBase64();
+            let form = $(this);
+            let button = form.find("button[type=submit]");
+            let formData = new FormData(this);
+            
+            formData.append('signature', base64Image);
+            formData.append("action", "id_upload"); // WP AJAX action name
+
+            $.ajax({
+                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    console.log("Uploading...");
+                    // Disable button and show processing text
+                    button.prop("disabled", true).text("Processing...");
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.data && response.data.patient_dashboard_url) {
+                        window.location.href = response.data.patient_dashboard_url;
+                    } else {
+                        console.warn("No redirect URL returned from server.");
+                    }
+                },
+                error: function(err) {
+                    console.error(err);
+                    alert("Upload failed!");
+                },
+                complete: function() {
+                    // Re-enable button after request finishes
+                    button.prop("disabled", false).text("Submit");
+                }
+            });
+        });
+    });
+
+    clearSignature.addEventListener('click', (e)=>{
+      e.preventDefault();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    })
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let coord = { x: 0, y: 0};
+    let ctx;
+
+    if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+        canvas.addEventListener('pointerdown', drawStart);
+        canvas.addEventListener('pointerout', drawStop);
+        canvas.addEventListener('pointerup', drawStop);
+
+        canvas.addEventListener('touchstart', drawStart);
+        canvas.addEventListener('touchend', drawStop);
+        canvas.addEventListener('touchcancel', drawStop);
+
+        function getCanvasBase64() {
+            if (!canvas) {
+                console.error("Canvas element not found!");
+                return null;
+            }
+            return canvas.toDataURL('image/png', 1.0);
+        }
+
+        function drawStart(event){
+          document.body.style.overflow = 'hidden'
+          canvas.addEventListener('pointermove', draw);
+          canvas.addEventListener('touchmove', draw);
+          reposition(event);
+        }
+
+        function getTouchOrMouse(event) {
+            return event.touches && event.touches.length ? event.touches[0] : event;
+        }
+
+        function drawStop(){
+          canvas.removeEventListener('pointermove', draw);
+          document.body.style.overflow = ''
+        }
+
+        function reposition(event){
+          const point = getTouchOrMouse(event);
+          const rect = event.target.getBoundingClientRect();
+          coord.x = point.clientX - rect.left;
+          coord.y = point.clientY - rect.top;
+        }
+
+        function draw(event) {
+          ctx.beginPath()
+          ctx.lineWidth = 5;
+          ctx.lineCap = "round";
+          ctx.strokeStyle = '#000000';
+          ctx.moveTo(coord.x, coord.y);
+          reposition(event);
+          ctx.lineTo(coord.x, coord.y);
+          ctx.stroke();
+        }
+    } else {
+        // Fallback content for unsupported browsers
+        alert('Your browser does not support the Canvas element.');
+    }
+
+
  </script>

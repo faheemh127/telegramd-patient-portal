@@ -398,16 +398,22 @@ take photo or choose file draw signature  (first i will double check) just messa
 
 3) fix next button
 4) add save progress
+12) remove ( and numbers from all the questions
 5) fix conditional logic
+7) fix require_waiting_room
+
+
 1) setup stripe
 2) setup telegra
-6) select all should select all logic
-7) fix require_waiting_room
-8) hide action item if user have not purchased the action item
-9) show revoke button on disqualify &  show add card action item
+
+
+
+
+
 10) test GHL with abubakar
+6) select all should select all logic
+9) show revoke button on disqualify &  show add card action item
 11) GLP-1 Follow-Up form after 56 days
-12) remove ( and numbers from all the questions
 
 
 [healsend_form id="" slug="" type="postfunnel"]
