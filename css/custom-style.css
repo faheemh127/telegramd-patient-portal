@@ -11,7 +11,7 @@
 }
 .hld_form_wrap {
   max-width: 700px !important;
-  margin-top: 35px;
+  margin-top: 70px;
   font-family: var(--hld-font-primary);
   font-optical-sizing: var(--font-optical-sizing);
 }
@@ -1362,7 +1362,7 @@ nav.hld-navbar {
 /* css for disqualify page */
 
 .hld_disqualify_wrapper {
-  max-width: 600px;
+  max-width: 100%;
   margin: 40px auto;
   padding: 35px 30px;
   background: #fff;

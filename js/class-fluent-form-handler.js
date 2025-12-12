@@ -4,12 +4,10 @@ class HldFluentFormHandler {
 
     this.hasFired = false;
     this.hideBmiNextBtn();
-    this.hldhideNext("hld_gender_wrap");
-    this.hldhideNext("hld_state_wrap");
-    this.hldhideNext("hld_medication_wrap");
-    this.hldhideNext("hld_packages_wrap");
+
     this.initCustomizedData();
     this.removeOptinLabelBorder();
+    this.insertDisqualifyContent();
     // on page refresh or on nextendsocial login its importalt to call this function so it can pass price to strip handler class and show data on summary page
     // hldFormHandler.getAmount();
     // hldFormHandler.setStripeData();
@@ -123,15 +121,14 @@ class HldFluentFormHandler {
                 }
 
                 if (hasData) {
-                  const nextBtn = step.querySelector(
-                    'button[data-action="next"]'
-                  );
-
-                  if (nextBtn) {
-                    nextBtn.classList.remove("hld-hidden");
-                    nextBtn.style.visibility = "visible";
-                    nextBtn.style.display = "block";
-                  }
+                  // const nextBtn = step.querySelector(
+                  //   'button[data-action="next"]'
+                  // );
+                  // if (nextBtn) {
+                  //   nextBtn.classList.remove("hld-hidden");
+                  //   nextBtn.style.visibility = "visible";
+                  //   nextBtn.style.display = "block";
+                  // }
                 }
 
                 if (
@@ -259,14 +256,21 @@ class HldFluentFormHandler {
     wrap.innerHTML = html;
   }
 
-  hldhideNext(wrapperClass) {
-    const parent = document.querySelector(`.${wrapperClass}`);
-    if (parent) {
-      const btn = parent.querySelector("div .ff-btn-next");
-      if (btn) {
-        btn.classList.add("hld-hidden");
-      }
-    }
+  insertDisqualifyContent() {
+    const wrappers = document.querySelectorAll(".hld_disqualify_wrapper");
+
+    const htmlContent = `
+    <h1 class="hld_disqualify_title">Program Eligibility</h1>
+    <p class="hld_disqualify_description">
+      Thank you for sharing your information with us. Based on your responses, it looks like you don’t meet the program requirements right now.
+      We truly appreciate your interest, and we encourage you to check back in the future as eligibility criteria may change.
+    </p>
+    <a class="hld_disqualify_btn" href="https://healsend.com/">Return to Homepage</a>
+  `;
+
+    wrappers.forEach((wrapper) => {
+      wrapper.innerHTML = htmlContent;
+    });
   }
 
   // setStripeData() {

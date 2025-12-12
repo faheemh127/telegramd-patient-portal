@@ -913,18 +913,50 @@ if (! class_exists('HLD_Patient')) {
 
             $email = sanitize_email($email);
 
-            error_log($email." in is_patietn_new");
+            error_log($email . " in is_patietn_new");
             // Check if patient already exists
             $existing = $wpdb->get_var(
                 $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
             );
-            error_log($existing." existing");
+            error_log($existing . " existing");
 
             if ($existing) {
                 return false;
             }
             return true;
         }
+        public static function is_postfunnel_eligible($slug)
+        {
+            // Check user login first
+            if (! is_user_logged_in()) {
+                return false;
+            }
+
+            $current_user = wp_get_current_user();
+            $email = $current_user->user_email;
+
+            if (empty($email) || empty($slug)) {
+                return false;
+            }
+
+            global $wpdb;
+            $table = HEALSEND_SUBSCRIPTIONS_TABLE;
+
+            // Prepare secure SQL query
+            $query = $wpdb->prepare(
+                "SELECT COUNT(*) FROM $table 
+         WHERE patient_email = %s 
+         AND subscription_slug = %s",
+                $email,
+                $slug
+            );
+
+            $count = $wpdb->get_var($query);
+
+            // If a record exists → eligible
+            return ($count > 0);
+        }
+
         public static function register_actions()
         {
             add_action(

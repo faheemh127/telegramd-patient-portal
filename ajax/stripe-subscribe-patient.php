@@ -171,7 +171,7 @@ function hld_subscribe_patient_handler()
                 $telegra_product_id, // Example: pov::.....
                 $medication, // Example: Tirzepatide
                 $subscription,
-                $slug // metabolic, glp_1_prefunnel
+                $slug
             );
 
 
