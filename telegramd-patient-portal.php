@@ -43,6 +43,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-ghl-webhook-client.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
+require_once plugin_dir_path(__FILE__) . 'ajax/get-stripe-price-data.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
@@ -83,7 +84,6 @@ require_once plugin_dir_path(__FILE__) . 'ajax/upload-glp-agreement-form.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/request-refund.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/ghl-activate-prefunnel-email.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/hld-cancel-user-card-reminders.php';
-require_once plugin_dir_path(__FILE__) . 'ajax/get-stripe-price-data.php';
 
 register_activation_hook(__FILE__, function () {
     HLD_DB_Tables::create_tables();

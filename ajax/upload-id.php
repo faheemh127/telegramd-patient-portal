@@ -9,31 +9,11 @@ add_action('wp_ajax_nopriv_id_upload', 'hld_id_upload_handler');
 function hld_id_upload_handler()
 {
     global $hld_telegra;
-    if (!isset($_FILES['patient_id']) || $_FILES['patient_id']['error'] !== UPLOAD_ERR_OK) {
-        error_log("No file uploaded or file error");
-        wp_send_json_error(['message' => 'No file uploaded or file error']);
-    }
 
+    $file = isset($_POST['signature']) ? sanitize_text_field($_POST['signature']) : '';
     $telegra_order_id = isset($_POST['telegra_order_id']) ? sanitize_text_field($_POST['telegra_order_id']) : '';
     $order_detail = $hld_telegra->get_order($telegra_order_id);
     $quest_inst = $order_detail["questionnaireInstances"][1]["id"];
-
-    $file      = $_FILES['patient_id'];
-    $file_name = sanitize_file_name($file['name']);
-    $file_tmp  = $file['tmp_name'];
-
-    if ($file['size'] > 25 * 1024 * 1024) {
-        wp_send_json_error(['message' => 'File size exceeds 25MB']);
-    }
-
-    $file_url = "";
-    $attachment_id = media_handle_upload('patient_id', 0);
-
-    if (is_wp_error($attachment_id)) {
-        error_log('Error uploading file: ' . $attachment_id->get_error_message());
-    } else {
-        $file_url = wp_get_attachment_url($attachment_id);
-    }
 
     $bearer_token = 'Bearer ' . TELEGRAMD_BEARER_TOKEN;
     $api_url = TELEGRA_BASE_URL . '/questionnaireInstances/' . rawurlencode($quest_inst) . '/actions/answerLocation';
@@ -42,7 +22,7 @@ function hld_id_upload_handler()
 
     $body = [
         "location" => "loc::identification-questionnaire:2",
-        "value" => $file_url
+        "value" => $file
     ];
 
     $response = wp_remote_request($api_url, [

@@ -1,4 +1,5 @@
 <?php
+
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
@@ -10,7 +11,6 @@ use Stripe\Exception\ApiErrorException;
 
 class HLD_Stripe
 {
-
     /**
      * Initialize Stripe
      */
@@ -323,7 +323,7 @@ class HLD_Stripe
     // }
 
 
-   public static function hld_prepare_line_item($details, $duration, $calculated_discount)
+    public static function hld_prepare_line_item($details, $duration, $calculated_discount)
     {
         $line_item = [
             'product_name' => $details['title'],
