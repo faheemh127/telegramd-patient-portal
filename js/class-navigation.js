@@ -17,7 +17,7 @@ class HldNavigation {
     this.hideNextBtnDisqualifyStep();
     this.disqualifyLessThan18();
     this.hideLayoutIfForm();
-    this.showNextButtonAfterSelectSelection();
+    // this.showNextButtonAfterSelectSelection();
     this.showNextButtonOnRadioSelection();
     this.hideNextBtnOnDOB();
     // this.showAllPrevButtons();
@@ -324,7 +324,10 @@ class HldNavigation {
 
     disqualifySteps.forEach((step) => {
       const nextBtn = step.querySelector("button.ff-btn-next");
-      if (nextBtn) nextBtn.style.display = "none";
+      if (nextBtn) {
+        nextBtn.style.display = "none";
+        nextBtn.style.visibility = "hidden";
+      }
     });
   }
 
@@ -338,6 +341,7 @@ class HldNavigation {
         const nextBtn = wrap.querySelector("button.ff-btn-next");
         if (nextBtn) {
           nextBtn.style.display = "none";
+          nextBtn.style.visibility = "hidden";
         }
       });
     } else {

@@ -1,3 +1,27 @@
+/**
+ * This class is from now is a single source of truth for nextbtn hanlding of fluent form
+ */
+class HLD_FFNextBtn {
+  constuctor() {
+    this.hldhideNext("hld_gender_wrap");
+    this.hldhideNext("hld_state_wrap");
+    this.hldhideNext("hld_medication_wrap");
+    this.hldhideNext("hld_packages_wrap");
+  }
+  hldhideNext(wrapperClass) {
+    const parent = document.querySelector(`.${wrapperClass}`);
+    if (parent) {
+      const btn = parent.querySelector("div .ff-btn-next");
+      if (btn) {
+        btn.classList.add("hld-hidden");
+      }
+    }
+  }
+}
+
+/**
+ * Class Custom Checkbox Handling Starts
+ */
 class hldCustomCheckbox {
   constructor(containerSelector, callback) {
     this.container = document.querySelector(containerSelector);
@@ -55,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (value) => {
       console.log("Selected:", value);
       hldFormHandler.setDropdownValue("dropdown_1", value);
-    },
+    }
   );
 
   window.hldMedicineOptions = new hldCustomCheckbox(
@@ -65,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_2", value);
       hldFormHandler.setPackagePrice(value);
       hldFormHandler.initMedications(value);
-    },
+    }
   );
 
   window.hldMedicineOptions = new hldCustomCheckbox(
@@ -74,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Selected medicine:", value);
       hldFormHandler.setDropdownValue("dropdown_4", value);
       hldFormHandler.setPackagePrice(value);
-    },
+    }
   );
 
   window.hldPatientPackages = new hldCustomCheckbox(
@@ -84,6 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
       hldFormHandler.setDropdownValue("dropdown_3", value);
       hldFormHandler.setStripeData();
       hldFormHandler.getAmount();
-    },
+    }
   );
 });

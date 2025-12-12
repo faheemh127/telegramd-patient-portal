@@ -6,7 +6,8 @@ class HLD_Discount
     private static $discounts = [
         "Semaglutide injection" => [
             "first_month" => 42,
-            "three_month" => 20
+            "three_month" => 20,
+            "coupon" => "Sema34Off",
         ],
         "Tirzepatide injection" => [
             "first_month" => 34,

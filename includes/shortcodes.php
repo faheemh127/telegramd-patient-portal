@@ -10,22 +10,31 @@ if (! class_exists('hldShortcode')) {
 
         public function register_shortcodes()
         {
-            add_shortcode('hld_glp_prefunnel', [$this, 'hld_glp_prefunnel_shortcode']);
+            add_shortcode('healsend_form', [$this, 'healsend_form_shortcode']);
         }
 
 
         /**
          * Shortcode handler
-         * Usage: [hld_glp_prefunnel form_id="21" payment="later" medications='[...]']
+         * Usage: [healsend_form id="21" payment="later" medications='[...]']
          */
-        public function hld_glp_prefunnel_shortcode($atts)
+        public function healsend_form_shortcode($atts)
         {
             $atts = shortcode_atts([
-                'form_id'     => '',
-                'pay'         => '',
-                'medications' => '[]' // Default to an empty JSON array
-            ], $atts, 'hld_glp_prefunnel');
+                'id'     => '',
+                'medications' => '[]', // Default to an empty JSON array
+                'slug'        => '',
+                'type'        => 'prefunnel',
+            ], $atts, 'healsend_form');
 
+            if ($atts['type'] != "prefunnel") {
+                $eligible = HLD_Patient::is_postfunnel_eligible($atts["slug"]);
+                if (!$eligible) {
+                    ob_start();
+                    require_once HLD_PLUGIN_PATH . 'templates/post-funnel-eligibility.php';
+                    return ob_get_clean();
+                }
+            }
 
             $decoded_json = base64_decode($atts['medications']);
             $medications_data = json_decode($decoded_json, true); // object
@@ -35,8 +44,8 @@ if (! class_exists('hldShortcode')) {
                 'fluentFormData', // JS object name
                 [
                     'medications' => $medications_data,
-                    'form_id'     => $atts['form_id'] ?? '',
-                    'pay'     => $atts['pay'] ?? '',
+                    'form_id'     => $atts['id'] ?? '',
+                    'slug' => $atts['slug'] ?? ''
                 ]
             );
 
@@ -46,7 +55,7 @@ if (! class_exists('hldShortcode')) {
                 <div class="hld_form_wrap">
                     <div class="hld_form_wrap_hidden">
                         <?php
-                        echo do_shortcode('[fluentform id="' . intval($atts['form_id']) . '"]');
+                        echo do_shortcode('[fluentform id="' . intval($atts['id']) . '"]');
                         echo do_shortcode('[hld_footer]');
                         ?>
                     </div>
