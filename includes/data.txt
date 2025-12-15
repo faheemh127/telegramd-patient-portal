@@ -423,16 +423,49 @@ need to test datepicker issue date is invalid
 
 
 How to cancel order
+https://telegra-vfmh.readme.io/reference/cancelorder
+
 how to pause order
+we can add a status (required order submission, after provider review, requires_order_processing)
+
 how to change the duration of the order (1 month three month)
+different productvariations (month three)
+they offer different projects - 
+
+
 how to renew the order for one month and 3 months
+subscription logic - we can use external order
+can we create another order
+
+Does each order contain only 1 doctor visit ? 
+1 consultation 
+
+
+completed proivider
+
 how we will get to know that the follow up form we need to show? 
 when these questions will be appear to order response?
 how to test glp follow up form?
+
+Only for the first time
+after 1 year questionnare expired
+
+action items required al the time
 how many test orders we can create? 
 the important things we need to keep in mind while creating a test order
 Do telegra provide any pharmecy events?
 how to test a telegra webhook? 
 when we will consider that an order is fully completed? 
-what information we can store on vineeth server #hippa complient? 
+
+
+what information we can store on vineeth server #hippa complient?
+
+
 Do signatures really required in the action item or checkbox enough only?
+
+
+
+aff::8c8a9c2e-c46c-49e9-ac54-a15f0fe74e19
+https://telegramd-rest.telegramd.com/
+healsendline@gmail.com
+@Healsend26

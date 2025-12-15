@@ -729,32 +729,35 @@ if (! class_exists('hldFluentHandler')) {
             error_log("form: " . print_r($form, true));
 
 
-            $telegra_quinst_data_raw = isset($form['telegra_quinst_data']) ? $form['telegra_quinst_data'] : '';
-            $decoded_json = base64_decode($telegra_quinst_data_raw, true);
-            if ($decoded_json === false) {
-                error_log("[TelegraMD] Failed to base64 decode telegra_quinst_data");
-                return;
-            }
+            // if form is not prefunnel means its postfunnel so check for questionnares
+            if (!$this->is_prefunnel($form['form_type'])) {
+                $telegra_quinst_data_raw = isset($form['telegra_quinst_data']) ? $form['telegra_quinst_data'] : '';
+                $decoded_json = base64_decode($telegra_quinst_data_raw, true);
+                if ($decoded_json === false) {
+                    error_log("[TelegraMD] Failed to base64 decode telegra_quinst_data");
+                    return;
+                }
 
-            $telegra_quinst_data = json_decode($decoded_json, true);
-            if (json_last_error() !== JSON_ERROR_NONE || !is_array($telegra_quinst_data)) {
-                error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
-                return;
-            }
+                $telegra_quinst_data = json_decode($decoded_json, true);
+                if (json_last_error() !== JSON_ERROR_NONE || !is_array($telegra_quinst_data)) {
+                    error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
+                    return;
+                }
 
-            // Get disqualifiers to double check
-            $disqualifiers = $this->get_disqualifiers();
+                // Get disqualifiers to double check
+                $disqualifiers = $this->get_disqualifiers();
 
-            // 4️⃣ Loop through each object and process
-            foreach ($telegra_quinst_data as $item) {
-                $search_string =  isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
-                foreach ($form as $key => $value) {
-                    if (in_array($value, $disqualifiers)) {
-                        wp_send_json_error([
-                            'errors' => [
-                                'NotAllowed' => 'You are disqualified and are unfit for this treatment.',
-                            ],
-                        ]);
+                // 4️⃣ Loop through each object and process
+                foreach ($telegra_quinst_data as $item) {
+                    $search_string =  isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
+                    foreach ($form as $key => $value) {
+                        if (in_array($value, $disqualifiers)) {
+                            wp_send_json_error([
+                                'errors' => [
+                                    'NotAllowed' => 'You are disqualified and are unfit for this treatment.',
+                                ],
+                            ]);
+                        }
                     }
                 }
             }

@@ -2047,6 +2047,8 @@ div.ff-summary-value.ff-free {
     padding: 64px 24px;
     margin-top: 0;
   }
+
+
   .hld_terms_consent span {
     font-size: 0.875rem;
   }
@@ -2186,7 +2188,7 @@ div.ff-summary-value.ff-free {
   .hld_questionnaire_wrap {
     padding: 20px;
   }
-  .hld-summary .desc-header{
+  .hld-summary .desc-header {
     margin-bottom: 25px;
   }
 } /* Responsive mobile_device****************************************************************************** */

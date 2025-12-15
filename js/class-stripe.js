@@ -447,7 +447,7 @@ class hldStripeHandler {
         this.toggleButtonState(false, "Save and Continue", this.paymentButton);
         return;
       }
-
+      hldNavigation.toggleLoader(true);
       const { clientSecret, customerId } = intent.data;
       const customerName = hldFormHandler.getFullNameFromContainer();
 
@@ -486,6 +486,7 @@ class hldStripeHandler {
       if (result.error) {
         this.errorDisplay.textContent = result.error.message;
         this.toggleButtonState(false, stateButtonText, stateButton);
+        hldNavigation.toggleLoader(false);
         return;
       }
 
