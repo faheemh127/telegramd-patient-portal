@@ -303,7 +303,7 @@ class HldNavigation {
 
   showAllPrevButtons() {
     const stepContainers = document.querySelectorAll(
-      ".ff-step-container .fluentform-step"
+      ".ff-step-container .fluentform-step",
     );
 
     stepContainers.forEach((step) => {
@@ -417,7 +417,7 @@ class HldNavigation {
 
         // If one is already selected (page reload case)
         const alreadyChecked = step.querySelector(
-          'input[type="radio"]:checked'
+          'input[type="radio"]:checked',
         );
         if (alreadyChecked) showBtn();
 
@@ -579,6 +579,8 @@ class HldNavigation {
   // }
 
   toggleLoader(show) {
+    if (!fluentFormData.showProgressBar) return;
+
     let loader = document.getElementById("global-loading-overlay");
 
     console.log("toggleLoader called");

@@ -2,7 +2,6 @@
 if (! class_exists('hldShortcode')) {
     class hldShortcode
     {
-
         public function __construct()
         {
             add_action('init', [$this, 'register_shortcodes']);
@@ -45,8 +44,9 @@ if (! class_exists('hldShortcode')) {
                 [
                     'medications' => $medications_data,
                     'form_id'     => $atts['id'] ?? '',
-                    'slug' => $atts['slug'] ?? ''
-                ]
+                    'showLoadingBar' => true,
+                    'slug' => $atts['slug'] ?? '',
+                ],
             );
 
             ob_start();
@@ -56,8 +56,8 @@ if (! class_exists('hldShortcode')) {
                     <div class="hld_form_wrap_hidden">
                         <?php
                         echo do_shortcode('[fluentform id="' . intval($atts['id']) . '"]');
-                        echo do_shortcode('[hld_footer]');
-                        ?>
+            echo do_shortcode('[hld_footer]');
+            ?>
                     </div>
                 </div>
             </div>
