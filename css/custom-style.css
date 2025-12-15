@@ -578,7 +578,7 @@ nav.hld-navbar {
 .hld-summary .txt-agreement {
   font-family: var(--hld-font-primary);
   text-align: center;
-  font-size: 14px;
+  font-size: 10px;
   color: rgba(0, 0, 0, 0.6);
   margin-top: 10px;
   margin-bottom: 0;

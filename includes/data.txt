@@ -420,3 +420,19 @@ need to test datepicker issue date is invalid
 
 
 1) Fix Date to Day
+
+
+How to cancel order
+how to pause order
+how to change the duration of the order (1 month three month)
+how to renew the order for one month and 3 months
+how we will get to know that the follow up form we need to show? 
+when these questions will be appear to order response?
+how to test glp follow up form?
+how many test orders we can create? 
+the important things we need to keep in mind while creating a test order
+Do telegra provide any pharmecy events?
+how to test a telegra webhook? 
+when we will consider that an order is fully completed? 
+what information we can store on vineeth server #hippa complient? 
+Do signatures really required in the action item or checkbox enough only?
