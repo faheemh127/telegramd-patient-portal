@@ -248,6 +248,10 @@ class HldFluentFormHandler {
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
+          <img width="${med.image.width}px" src="${med.image.url}" style="
+          right: ${med.image.right}px;
+          bottom: ${med.image.bottom}px;
+          " class="med-image" />
         </div>
       </div>
     `;
@@ -557,6 +561,7 @@ class HldFluentFormHandler {
   //   console.log("Amount to charge today:", selectedPrice);
   //   return selectedPrice;
   // }
+  
 
   async getAmount() {
     const dropdown2 = document.querySelector('[name="dropdown_4"]');
@@ -598,6 +603,11 @@ class HldFluentFormHandler {
       );
 
       if (med) {
+
+        // set style for checkout image
+        stripeHandler.setCheckoutImage(med);
+        
+
         const pkg = med.packages.find(
           (p) => parseInt(p.monthly_duration, 10) === duration
         );

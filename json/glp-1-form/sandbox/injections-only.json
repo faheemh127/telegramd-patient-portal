@@ -6,6 +6,17 @@
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
     "labels": "Highest success rate, Patient favorite",
     "medication": "tirzepatide",
+    "image": {
+      "url": "https://i.ibb.co/DgC2qX1c/Tirzepatide-injection.png",
+      "width": 100,
+      "right": 0,
+      "bottom": 0,
+      "checkout_style": {
+        "width": 100,
+        "right": -7,
+        "top": -19
+      }
+    },
     "packages": [
       {
         "monthly_duration": "1",
@@ -30,6 +41,17 @@
     "stripe_product_id": "prod_TP9SZtKGH1vimR",
     "labels": "To be added soon, Proven & Reliable",
     "medication": "semaglutide",
+    "image": {
+      "url": "https://i.ibb.co/bMP4kxdy/Tirzepatide-drops.png",
+      "width": 50,
+      "right": 19,
+      "bottom": 15,
+      "checkout_style": {
+        "width": 50,
+        "right": 8,
+        "top": 0
+      }
+    },
     "packages": [
       {
         "monthly_duration": "1",

@@ -159,6 +159,26 @@ class hldStripeHandler {
     // Calculate discount
   }
 
+  setCheckoutImage(med) {
+    const image = document.getElementById("checkoutImg");
+    if (!image || !med?.image) {
+      console.log(
+        "image url and style or something else missing about checkout image"
+      );
+      return;
+    }
+
+    // Set image URL
+    image.src = med.image.url;
+
+    // Apply checkout styles
+    const styles = med.image.checkout_style || {};
+    Object.keys(styles).forEach((key) => {
+      image.style[key] =
+        typeof styles[key] === "number" ? `${styles[key]}px` : styles[key];
+    });
+  }
+
   async fetchStripePrice() {
     if (!this.stripePriceId) {
       console.warn("Stripe Price ID is missing.");

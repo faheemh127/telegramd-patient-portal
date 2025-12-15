@@ -140,6 +140,9 @@ function hld_subscribe_patient_handler()
         // Create subscription
         $subscription = \Stripe\Subscription::create($subscription_data);
 
+        error_log("a subscription was trying to be created with card");
+        error_log(print_r($subscription, true));
+
 
 
         /**
