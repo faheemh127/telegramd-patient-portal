@@ -1,4 +1,5 @@
 <?php
+
 // Subscribe Patient (auto-cancel after X months)
 add_action('wp_ajax_subscribe_patient', 'hld_subscribe_patient_handler');
 add_action('wp_ajax_nopriv_subscribe_patient', 'hld_subscribe_patient_handler');
@@ -23,7 +24,7 @@ function hld_subscribe_patient_handler()
     $slug  = sanitize_text_field($_POST['slug']);
     if (empty($_POST['slug'])) { // covers both not set and empty
         wp_send_json_error([
-            'message' => 'Plan slug is required.'
+            'message' => 'Plan slug is required.',
         ]);
         wp_die();
     }
@@ -32,7 +33,7 @@ function hld_subscribe_patient_handler()
 
     if ($plan_exists) {
         wp_send_json_error([
-            'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.'
+            'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.',
         ]);
         wp_die();
     }
@@ -52,6 +53,7 @@ function hld_subscribe_patient_handler()
     $promo              = sanitize_text_field($_POST['promo']);
 
 
+    $response = HLD_Stripe::hld_calculate_stripe_price($price_id, $promo, $duration);
     try {
         /**
          * STEP 1: Get or Create Stripe Customer
@@ -89,7 +91,7 @@ function hld_subscribe_patient_handler()
             // Optional: check if it's attached to the same one
             if ($pm->customer !== $customer_id) {
                 wp_send_json_error([
-                    'message' => 'This payment method is already attached to another customer. Please use a new card.'
+                    'message' => 'This payment method is already attached to another customer. Please use a new card.',
                 ]);
                 wp_die();
             }
@@ -97,7 +99,7 @@ function hld_subscribe_patient_handler()
 
         // Always set as default
         \Stripe\Customer::update($customer_id, [
-            'invoice_settings' => ['default_payment_method' => $payment_method]
+            'invoice_settings' => ['default_payment_method' => $payment_method],
         ]);
 
 
@@ -124,7 +126,7 @@ function hld_subscribe_patient_handler()
         $subscription_data = [
             'customer' => $customer_id,
             'items' => [
-                ['price' => $price_id]
+                ['price' => $price_id],
             ],
             'cancel_at' => strtotime("+{$months} months"),
             'expand' => ['latest_invoice.payment_intent'],
@@ -133,7 +135,7 @@ function hld_subscribe_patient_handler()
         // If patient is new → add discount
         if (HLD_Patient::is_patient_new($patient_email) && !empty($promo)) {
             $subscription_data['discounts'] = [[
-                'promotion_code' => $promo
+                'promotion_code' => $promo,
             ]];
         }
 
@@ -161,7 +163,7 @@ function hld_subscribe_patient_handler()
                 $patient_email,
                 $payment_method,
                 $card_last4,
-                $card_brand
+                $card_brand,
             );
 
             // Optional custom actions
@@ -174,7 +176,7 @@ function hld_subscribe_patient_handler()
                 $telegra_product_id, // Example: pov::.....
                 $medication, // Example: Tirzepatide
                 $subscription,
-                $slug
+                $slug,
             );
 
 
@@ -193,6 +195,7 @@ function hld_subscribe_patient_handler()
             'subscription_id' => $subscription->id,
             'status' => $subscription->status,
             'customer_id' => $customer_id,
+            'clientSecret' => $subscription->latest_invoice->payment_intent->client_secret,
         ]);
     } catch (Exception $e) {
         wp_send_json_error(['message' => $e->getMessage()]);

@@ -32,14 +32,14 @@ if (! class_exists('hldFluentHandler')) {
                 'fluentform/before_insert_submission',
                 [$this, 'handle_before_insert_submission'],
                 10,
-                2
+                2,
             );
 
             add_action(
                 'fluentform/submission_inserted',
                 [$this, 'handle_after_insert_submission'],
                 10,
-                3
+                3,
             );
 
             add_action('wp_enqueue_scripts', [$this, 'pass_action_item_to_js']);
@@ -82,7 +82,7 @@ if (! class_exists('hldFluentHandler')) {
                 [
                     'glp1Prefunnel' => $this->is_action_item_active() ? true : false,
                     'userInfo'      => $user_info,
-                ]
+                ],
             );
         }
 
@@ -101,7 +101,7 @@ if (! class_exists('hldFluentHandler')) {
             // Fetch entries from Fluent Forms submissions table
             $entries = $wpdb->get_results($wpdb->prepare(
                 "SELECT * FROM {$wpdb->prefix}fluentform_submissions WHERE user_id = %d",
-                $current_user_id
+                $current_user_id,
             ));
 
             // Return entries if found, otherwise return null
@@ -142,8 +142,8 @@ if (! class_exists('hldFluentHandler')) {
                AND telegra_order_id != '' 
                AND telegra_order_id LIKE 'order::%%'
              LIMIT 1",
-                    $email
-                )
+                    $email,
+                ),
             );
 
             return $order_id;
@@ -172,7 +172,7 @@ if (! class_exists('hldFluentHandler')) {
 
             // ✅ Check if table exists
             $table_exists = $wpdb->get_var(
-                $wpdb->prepare("SHOW TABLES LIKE %s", $table_name)
+                $wpdb->prepare("SHOW TABLES LIKE %s", $table_name),
             );
 
             if ($table_exists !== $table_name) {
@@ -187,8 +187,8 @@ if (! class_exists('hldFluentHandler')) {
              WHERE patient_email = %s 
              AND status = 'pending'
              LIMIT 1",
-                    $email
-                )
+                    $email,
+                ),
             );
 
             return (bool) $has_pending_action;
@@ -228,11 +228,11 @@ if (! class_exists('hldFluentHandler')) {
             $current_user_id = get_current_user_id();
 
             // Prepare data to update
-            $userdata = array(
+            $userdata = [
                 'ID'         => $current_user_id,
                 'first_name' => sanitize_text_field($response['names']['first_name']),
-                'last_name'  => sanitize_text_field($response['names']['last_name'])
-            );
+                'last_name'  => sanitize_text_field($response['names']['last_name']),
+            ];
 
             // Update the user
             $user_id = wp_update_user($userdata);
@@ -393,7 +393,7 @@ if (! class_exists('hldFluentHandler')) {
             // ["symp::9d65e74b-caed-4b38-b343-d7f84946da60"]
             $order_id = $this->telegra->create_order(
                 $telegra_patient_id,
-                $medication_id
+                $medication_id,
             );
 
             if (is_user_logged_in()) {
@@ -490,7 +490,7 @@ if (! class_exists('hldFluentHandler')) {
                     $order_id,
                     $quest_inst,
                     $answers,
-                    $last_location
+                    $last_location,
                 );
 
                 // Debug log for submission result
@@ -581,7 +581,7 @@ if (! class_exists('hldFluentHandler')) {
                         'question_key'  => sanitize_text_field($key),
                         'answer'        => sanitize_textarea_field($value),
                     ],
-                    ['%d', '%s', '%s', '%s']
+                    ['%d', '%s', '%s', '%s'],
                 );
 
                 if ($wpdb->last_error) {
@@ -681,6 +681,12 @@ if (! class_exists('hldFluentHandler')) {
             error_log("✅ Patient info updated successfully for logged-in user.");
         }
 
+
+        public function hld_get_disqualifiers()
+        {
+            return ['ASDF', ASDFASDF];
+        }
+
         private function is_prefunnel($form_type)
         {
             if ($form_type == "prefunnel") {
@@ -688,6 +694,7 @@ if (! class_exists('hldFluentHandler')) {
             }
             return false;
         }
+
 
         /**
          * Callback for FluentForm before insert submission
@@ -697,15 +704,42 @@ if (! class_exists('hldFluentHandler')) {
          */
         public function handle_before_insert_submission($insertData, $form)
         {
-
-
             $gender     = isset($form['dropdown_1']) ? strtolower(sanitize_text_field($form['dropdown_1'])) : '';
-
 
             // just to see data while testing
             error_log("handle_before_insert_submission called");
             error_log("insertData: " . print_r($insertData, true));
             error_log("form: " . print_r($form, true));
+
+
+            $telegra_quinst_data_raw = isset($form['telegra_quinst_data']) ? $form['telegra_quinst_data'] : '';
+            $decoded_json = base64_decode($telegra_quinst_data_raw, true);
+            if ($decoded_json === false) {
+                error_log("[TelegraMD] Failed to base64 decode telegra_quinst_data");
+                return;
+            }
+
+            $telegra_quinst_data = json_decode($decoded_json, true);
+            if (json_last_error() !== JSON_ERROR_NONE || !is_array($telegra_quinst_data)) {
+                error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
+                return;
+            }
+
+            $disqualifiers = $this->hld_get_disqualifiers();
+
+            // 4️⃣ Loop through each object and process
+            foreach ($telegra_quinst_data as $item) {
+                $search_string =  isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
+                foreach ($form as $key => $value) {
+                    if (in_array($value, $disqualifiers)) {
+                        wp_send_json_error([
+                            'errors' => [
+                                'NotAllowed' => 'You are disqualified and are unfit for this treatment.',
+                            ],
+                        ]);
+                    }
+                }
+            }
 
 
             // No need to do processing if user is not a patient and have not signed up
@@ -809,7 +843,6 @@ if (! class_exists('hldFluentHandler')) {
 
             // 1️⃣ Retrieve and sanitize order ID
             $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
-            $telegra_order_id = isset($form['telegra_order_id']) ? sanitize_text_field($form['telegra_order_id']) : '';
             if (empty($telegra_order_id)) {
                 error_log("[TelegraMD] Order ID not found. Cannot submit questionnaire.");
                 return;
@@ -853,14 +886,12 @@ if (! class_exists('hldFluentHandler')) {
                 $quest_inst = $order_detail["questionnaireInstances"][$quinst_index]["id"];
 
                 // 5️⃣ Call prepare_questionare_for_telegra for each object
-
-
                 $this->prepare_questionare_for_telegra(
                     $form,
                     $quest_inst,
                     $telegra_location_key,
                     $telegra_order_id,
-                    $last_location
+                    $last_location,
                 );
 
 
