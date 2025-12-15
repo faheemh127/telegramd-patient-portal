@@ -5,6 +5,18 @@
     "description": "Highest bioavailability of any NAD⁺ format, Fastest rise in NAD⁺ levels, Most noticeable energy + recovery improvement, Preferred by athletes & high-performers",
     "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
     "labels": "Most Popular, Most Effective",
+    "medication": "nad+injections",
+    "image": {
+      "url": "https://i.ibb.co/YBQy1JvY/semaglutide-vials-NAD-vials-MIC-b12-Sermorelin.png",
+      "width": 100,
+      "right": 16,
+      "bottom": 12,
+      "checkout_style": {
+        "width": 85,
+        "right": -7,
+        "top": -19
+      }
+    },
     "packages": [
       {
         "monthly_duration": "1",

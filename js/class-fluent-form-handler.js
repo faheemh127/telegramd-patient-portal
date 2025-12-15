@@ -662,7 +662,7 @@ class HldFluentFormHandler {
           </div>`;
         } else if (duration === "3") {
           headerTitle = "3-Month Commitment";
-          headerLabel = `<span class="save-label">Best Value</span>`;
+          // headerLabel = `<span class="save-label">Best Value</span>`;
           dataValue = "3-Month";
           priceHTML = `
           <div class="package-price">

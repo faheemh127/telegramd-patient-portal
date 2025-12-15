@@ -682,11 +682,11 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
-        public function hld_get_disqualifiers()
+        public function get_disqualifiers()
         {
             return [
                 "FD3F29E3",
-                "54FC4B7C", 
+                "54FC4B7C",
                 "363A13D3",
                 "4420B5BA",
                 "BC0D12F7",
@@ -742,7 +742,8 @@ if (! class_exists('hldFluentHandler')) {
                 return;
             }
 
-            $disqualifiers = $this->hld_get_disqualifiers();
+            // Get disqualifiers to double check
+            $disqualifiers = $this->get_disqualifiers();
 
             // 4️⃣ Loop through each object and process
             foreach ($telegra_quinst_data as $item) {

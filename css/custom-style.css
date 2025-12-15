@@ -2034,6 +2034,7 @@ div.ff-summary-value.ff-free {
   }
   .med-features li {
     margin-bottom: 0.275rem;
+    max-width: 70%;
   }
   .hld_tabs_hint {
     display: block;

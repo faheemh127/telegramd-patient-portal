@@ -6,6 +6,17 @@
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
     "labels": "No Needles, Fast absorption",
     "medication": "pt_141",
+    "image": {
+      "url": "https://i.ibb.co/m5rZR3Vb/PT-141-nasal-spray-nad-nasal-spray.png",
+      "width": 100,
+      "right": 0,
+      "bottom": 0,
+      "checkout_style": {
+        "width": 100,
+        "right": -7,
+        "top": -19
+      }
+    },
     "packages": [
       {
         "monthly_duration": "1",
