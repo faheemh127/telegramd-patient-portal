@@ -684,7 +684,24 @@ if (! class_exists('hldFluentHandler')) {
 
         public function hld_get_disqualifiers()
         {
-            return ['ASDF', ASDFASDF];
+            return [
+                "FD3F29E3",
+                "54FC4B7C", 
+                "363A13D3",
+                "4420B5BA",
+                "BC0D12F7",
+                "471E037F",
+                "D5EE45FE",
+                "27317480",
+                "51A87089",
+                "E35F4190",
+                "4B985DA8",
+                "CC449746",
+                "1318857C",
+                "F1FED52A",
+                "E89683E4",
+                "5FEC7310",
+            ];
         }
 
         private function is_prefunnel($form_type)
