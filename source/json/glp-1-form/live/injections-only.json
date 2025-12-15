@@ -1,0 +1,46 @@
+[
+  {
+    "telegra_code": "pvt::b04cabe5-2acc-4b8c-aacd-eea3a48b65bb",
+    "medication_name": "Tirzepatide Injection",
+    "description": "15–22% average weight loss, Dual-action GLP-1 + GIP formula, Faster and more powerful results, Clinically shown to outperform Semaglutide",
+    "stripe_product_id": "prod_TP9z4TeHz1mTIs",
+    "labels": "Highest success rate, Patient favorite",
+    "medication": "tirzepatide",
+    "packages": [
+      {
+        "monthly_duration": "1",
+        "monthly_price": "299",
+        "desc": "Start anytime — cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access",
+        "stripe_price_id": "price_1SSLftKc7YcIzkWpyWTouFza"
+      },
+      {
+        "monthly_duration": "3",
+        "monthly_price": "249",
+        "desc": "Clinician-guided 90-day protocol,Includes medication + ongoing provider care, Priority dosing & refill management, Free rapid shipping",
+        "stripe_price_id": "price_1SSLgsKc7YcIzkWpQDCtH4YF"
+      }
+    ]
+  },
+  {
+    "telegra_code": "pvt::4332bc52-5f54-4c8f-bf5c-f1ef2bb95fa0",
+    "medication_name": "Semaglutide Injection",
+    "description": "10–15% average weight loss, Trusted GLP-1 pathway, Steady, consistent progress",
+    "stripe_product_id": "prod_TP9SZtKGH1vimR",
+    "labels": "To be added soon, Proven & Reliable",
+    "medication": "semaglutide",
+    "packages": [
+      {
+        "monthly_duration": "1",
+        "monthly_price": "229",
+        "desc": "Start anytime — cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access",
+        "stripe_price_id": "price_1SSLJaKc7YcIzkWpGjmdLElr"
+      },
+      {
+        "monthly_duration": "3",
+        "monthly_price": "199",
+        "desc": "Clinician-guided 90-day protocol,Includes medication + ongoing provider care, Priority dosing & refill management, Free rapid shipping",
+        "stripe_price_id": "price_1SSL9SKc7YcIzkWpoLm0a8ve"
+      }
+    ]
+  }
+]

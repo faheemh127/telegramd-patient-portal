@@ -248,6 +248,10 @@ class HldFluentFormHandler {
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
+          <img width="${med.image.width}px" src="${med.image.url}" style="
+          right: ${med.image.right}px;
+          bottom: ${med.image.bottom}px;
+          " class="med-image" />
         </div>
       </div>
     `;
@@ -382,10 +386,6 @@ class HldFluentFormHandler {
       return;
     }
 
-    console.log("Function setStripeData");
-    console.log("dropdown_2 selected value:", medication);
-    console.log("dropdown_3 selected value:", value3);
-
     // ✅ Only update medication div if dropdown2 has a value
     if (medication) {
       const summaryDiv = document.getElementById("hldSummaryMedication");
@@ -420,60 +420,13 @@ class HldFluentFormHandler {
         const discountWrap = document.getElementById(
           "hldNewPatientDiscountWrap"
         );
-        // const discountEl = document.getElementById("hldNewPatientDiscount");
-
-        // Validate DOM elements
-        // if (!discountWrap) {
-        //   console.error(
-        //     "❌ Element #hldNewPatientDiscountWrap not found in DOM or #hldDiscountCoupon not found"
-        //   );
-        //   return;
-        // }
-        // if (!discountEl) {
-        //   console.error("❌ Element #hldNewPatientDiscount not found in DOM");
-        //   return;
-        // }
-
         discountWrap.classList.remove("hidden");
-
-        const duration = stripeHandler.packageDuration;
-        const orderTotal = this.getAmount();
-
+        this.getAmount();
         if (!medication) {
           console.error("❌ Medication is undefined when calculating discount");
           return;
         }
-
-        if (typeof stripeHandler.calculateDiscountedPercentage !== "function") {
-          console.error("❌ calculateDiscountedPercentage is not a function");
-          return;
-        }
-
         this.setCouponIfShouldApplied(medication);
-        const discountPercent = stripeHandler.calculateDiscountedPercentage(
-          medication,
-          duration,
-          orderTotal,
-          false
-        );
-
-        if (isNaN(discountPercent)) {
-          console.error("❌ Discount calculation returned NaN", {
-            medication,
-            duration,
-            orderTotal,
-          });
-          return;
-        }
-
-        // calclate discount amount
-        const discountedAmount =
-          orderTotal - orderTotal * (discountPercent / 100);
-
-        // setting prices
-        // discountEl.innerHTML = "$" + discountedAmount;
-
-        // hldFormHandler.blurOrigionalPrice();
       } catch (err) {
         console.error("❌ Error applying discount:", err);
       }
@@ -598,6 +551,9 @@ class HldFluentFormHandler {
       );
 
       if (med) {
+        // set style for checkout image
+        stripeHandler.setCheckoutImage(med);
+
         const pkg = med.packages.find(
           (p) => parseInt(p.monthly_duration, 10) === duration
         );

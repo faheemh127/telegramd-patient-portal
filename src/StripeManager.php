@@ -2,8 +2,10 @@
 // File: src/StripeManager.php
 namespace Faheem\TelegramdPatientPortalPlugin;
 
-class StripeManager {
-    public function charge() {
+class StripeManager
+{
+    public function charge()
+    {
         \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
         $paymentIntent = \Stripe\PaymentIntent::create([
@@ -14,4 +16,3 @@ class StripeManager {
         return $paymentIntent;
     }
 }
- 

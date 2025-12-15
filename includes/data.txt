@@ -187,6 +187,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- first it should display the email field then password for signup
 -- Add PHP and more javascript checks those will double check that patient cannot submit any questionnnare based on selections. i see fluent form can mistakenly submit the qeustionnaries
 -- on file stripe-create-setup-intent.php file we need to make the plan dynamic  'plan' => 'glp_1_prefunnel',
+-- we only need to create subscription and everything else on telegra if patietns payment successfull.
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
@@ -405,7 +406,7 @@ take photo or choose file draw signature  (first i will double check) just messa
 
 1) setup stripe
 2) setup telegra
-
+need to test datepicker issue date is invalid
 
 
 
@@ -416,5 +417,6 @@ take photo or choose file draw signature  (first i will double check) just messa
 11) GLP-1 Follow-Up form after 56 days
 
 
-[healsend_form id="" slug="" type="postfunnel"]
-[healsend_form id="" slug="" type="prefunnel"  medications=""]
+
+
+1) Fix Date to Day

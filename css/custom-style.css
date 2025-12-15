@@ -14,6 +14,8 @@
   margin-top: 70px;
   font-family: var(--hld-font-primary);
   font-optical-sizing: var(--font-optical-sizing);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .container {
@@ -110,11 +112,7 @@
   display: none !important;
 }
 
-.hld_glp_1_prefunnel_wrap
-  .hld_form_wrap
-  .fluentform
-  .ff-el-form-check-label
-  .ff-el-form-check-input {
+.hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   display: none;
 }
 .hld_btn_edit_profile {
@@ -1081,6 +1079,7 @@ nav.hld-navbar {
   width: 100%;
   text-align: left;
   height: 100%;
+  position: relative;
 }
 /* 
 .hld-custom-checkbox.active .med-box {
@@ -1758,6 +1757,14 @@ div.ff-summary-value.ff-free {
   color: rgba(0, 0, 0, 0.8);
   margin-bottom: 20px;
   margin-top: 5px;
+  width: 70%;
+}
+.hld-summary .desc-header {
+  position: relative;
+  margin-bottom: 50px;
+}
+.hld-summary .checkout-img {
+  position: absolute;
 }
 .hld-summary .discount-sub-desc {
   color: rgba(0, 0, 0, 0.5);
@@ -1953,7 +1960,7 @@ div.ff-summary-value.ff-free {
   font-weight: 600;
   color: #0f172a;
 }
-.hld_questionnaire_wrap .need-help p{
+.hld_questionnaire_wrap .need-help p {
   margin-bottom: 7px;
 }
 .hld_thankyou_box p {
@@ -2175,8 +2182,11 @@ div.ff-summary-value.ff-free {
     max-width: 100%;
     color: rgba(0, 0, 0, 0.5);
   }
-  .hld_questionnaire_wrap{
+  .hld_questionnaire_wrap {
     padding: 20px;
+  }
+  .hld-summary .desc-header{
+    margin-bottom: 25px;
   }
 } /* Responsive mobile_device****************************************************************************** */
 
@@ -2319,6 +2329,9 @@ div.ff-summary-value.ff-free {
 }
 .hld_login_button {
   background: var(--hld-color-primary);
+}
+.hld-medicine .med-image {
+  position: absolute;
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;
