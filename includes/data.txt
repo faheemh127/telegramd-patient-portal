@@ -191,6 +191,8 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- improve the design of purchased subscription and add more relevant data and professional options
 -- we need to fix medication issue specially on page refresh etc
 -- need to fix the loader issue completely
+-- on prefunnel now its signup we need to make a way to sign in in easy way
+-- tighten the security of if (!isset($form['form_type']))  in before insert hook for disqualifier checks
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
