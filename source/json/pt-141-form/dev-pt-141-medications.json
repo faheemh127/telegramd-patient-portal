@@ -8,12 +8,12 @@
     "medication": "pt_141",
     "image": {
       "url": "https://i.ibb.co/m5rZR3Vb/PT-141-nasal-spray-nad-nasal-spray.png",
-      "width": 100,
-      "right": 0,
-      "bottom": 0,
+      "width": 60,
+      "right": 10,
+      "bottom": 8,
       "checkout_style": {
-        "width": 100,
-        "right": -7,
+        "width": 45,
+        "right": 0,
         "top": -19
       }
     },

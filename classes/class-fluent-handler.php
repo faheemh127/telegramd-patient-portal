@@ -612,24 +612,21 @@ if (! class_exists('hldFluentHandler')) {
             $city       = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["city"]) : '';
             $zip_code   = isset($prefunnel_form_data['address_1']) ? sanitize_text_field($prefunnel_form_data['address_1']["zip"]) : '';
 
-
-
-            error_log("DOB is" . $dob);
             // Physical metrics
             $height_feet  = isset($prefunnel_form_data['input_text_2']) ? floatval($prefunnel_form_data['input_text_2']) : 0;
             $height_inches = isset($prefunnel_form_data['input_text_4']) ? floatval($prefunnel_form_data['input_text_4']) : 0;
             $weight_lbs   = isset($prefunnel_form_data['input_text_3']) ? floatval($prefunnel_form_data['input_text_3']) : 0;
 
 
-            $date = DateTime::createFromFormat('m-d-Y', $dob);
+            // $date = DateTime::createFromFormat('m-d-Y', $dob);
 
-            $formatted_dob = "";
-            if ($date) {
-                $formatted_dob = $date->format('Y-m-d');
-                error_log("Formatted DOB: " . $formatted_dob);
-            } else {
-                error_log("Failed to format DOB: " . $dob);
-            }
+            // $formatted_dob = "";
+            // if ($date) {
+            //     $formatted_dob = $date->format('Y-m-d');
+            //     error_log("Formatted DOB: " . $formatted_dob);
+            // } else {
+            //     error_log("Failed to format DOB: " . $dob);
+            // }
 
 
 
@@ -638,7 +635,7 @@ if (! class_exists('hldFluentHandler')) {
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'gender' => $gender,
-                'dob' => $formatted_dob,
+                
                 'state' => $state,
                 'phone' => $phone,
                 'height_feet' => $height_feet,
@@ -653,8 +650,8 @@ if (! class_exists('hldFluentHandler')) {
             if ($gender) {
                 HLD_Patient::update_gender($gender);
             }
-            if ($formatted_dob) {
-                HLD_Patient::update_dob($formatted_dob);
+            if ($dob) {
+                HLD_Patient::update_dob($dob);
             }
             if ($height_feet || $height_inches || $weight_lbs) {
                 HLD_Patient::update_physical_metrics($height_feet, $height_inches, $weight_lbs);

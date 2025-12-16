@@ -435,6 +435,7 @@ class hldStripeHandler {
 
     let intent;
     this.toggleButtonState(true, "Processing...", this.paymentButton);
+    hldNavigation.toggleLoader(true);
 
     if (type == "card") intent = await this.createIntent("setup");
     if (type == "klarna") intent = await this.createIntent("klarna");
@@ -444,10 +445,11 @@ class hldStripeHandler {
     try {
       if (!intent.success) {
         this.showError("Error creating SetupIntent.");
+        hldNavigation.toggleLoader(false);
         this.toggleButtonState(false, "Save and Continue", this.paymentButton);
         return;
       }
-      hldNavigation.toggleLoader(true);
+      
       const { clientSecret, customerId } = intent.data;
       const customerName = hldFormHandler.getFullNameFromContainer();
 

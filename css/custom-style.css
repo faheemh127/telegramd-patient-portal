@@ -1166,11 +1166,13 @@ nav.hld-navbar {
 .hld_action_item_wrap p {
   font-size: 24px;
   color: black;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
   text-align: center;
+  font-family: var(--hld-font-primary);
+  font-optical-sizing: var(--font-optical-sizing);
 }
 .hld_action_item_wrap .desc {
-  color: black;
+  color: rgba(0, 0, 0, 0.7);
   margin-bottom: 15px;
   text-align: center;
   max-width: 800px;
@@ -1981,6 +1983,7 @@ div.ff-summary-value.ff-free {
   text-decoration: none;
   border-radius: 34px;
   transition: background 0.25s ease;
+  margin-top: 15px;
 }
 
 .hld_btn_dashboard:hover {
@@ -2042,6 +2045,8 @@ div.ff-summary-value.ff-free {
   .hld_no_found_wrap a,
   .hld_action_item_wrap a {
     font-size: 0.875rem;
+    width: 100%;
+    text-align: center;
   }
   .hld_login_wrapper {
     padding: 64px 24px;
@@ -2339,6 +2344,8 @@ div.ff-summary-value.ff-free {
   border-radius: 50px !important;
   height: 50px;
   text-align: center;
+  background: var(--hld-color-primary);
+  opacity: 1 !important;
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;

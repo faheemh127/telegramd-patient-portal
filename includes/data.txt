@@ -188,6 +188,9 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- Add PHP and more javascript checks those will double check that patient cannot submit any questionnnare based on selections. i see fluent form can mistakenly submit the qeustionnaries
 -- on file stripe-create-setup-intent.php file we need to make the plan dynamic  'plan' => 'glp_1_prefunnel',
 -- we only need to create subscription and everything else on telegra if patietns payment successfull.
+-- improve the design of purchased subscription and add more relevant data and professional options
+-- we need to fix medication issue specially on page refresh etc
+-- need to fix the loader issue completely
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode

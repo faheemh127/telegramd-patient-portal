@@ -66,6 +66,53 @@ if (! class_exists('HLD_Patient')) {
         }
 
 
+        public static function format_dob($dob)
+        {
+
+            $formatted_dob = "";
+
+            if (!empty($dob)) {
+                $formats = [
+                    'm-d-Y',
+                    'm/d/Y',
+                    'd-m-Y',
+                    'd/m/Y',
+                    'Y-m-d',
+                    'Y/m/d',
+                    'M d, Y',
+                    'F d, Y',
+                    'd M Y',
+                    'd F Y'
+                ];
+
+                $date = false;
+
+                foreach ($formats as $format) {
+                    $date = DateTime::createFromFormat($format, $dob);
+                    if ($date instanceof DateTime) {
+                        break;
+                    }
+                }
+
+                // Final fallback: let PHP try to guess
+                if (!$date) {
+                    try {
+                        $date = new DateTime($dob);
+                    } catch (Exception $e) {
+                        $date = false;
+                    }
+                }
+
+                if ($date) {
+                    $formatted_dob = $date->format('Y-m-d');
+                    error_log("Formatted DOB: " . $formatted_dob);
+                    return $formatted_dob;
+                } else {
+                    error_log("Failed to format DOB: " . $dob);
+                    return $dob;
+                }
+            }
+        }
 
         /**
          * Update patient DOB for logged-in user
@@ -76,6 +123,7 @@ if (! class_exists('HLD_Patient')) {
                 error_log('HLD_Patient Error: update_dob() called but patient not logged in.');
                 return false;
             }
+            $dob = self::format_dob($dob);
 
             $current_user = wp_get_current_user();
             $patient_email = $current_user->user_email;
