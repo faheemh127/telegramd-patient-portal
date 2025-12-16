@@ -2048,7 +2048,6 @@ div.ff-summary-value.ff-free {
     margin-top: 0;
   }
 
-
   .hld_terms_consent span {
     font-size: 0.875rem;
   }
@@ -2335,6 +2334,11 @@ div.ff-summary-value.ff-free {
 }
 .hld-medicine .med-image {
   position: absolute;
+}
+.ff-btn.ff-btn-submit {
+  border-radius: 50px !important;
+  height: 50px;
+  text-align: center;
 }
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;

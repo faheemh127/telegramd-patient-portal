@@ -121,6 +121,9 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                         </div>
                         <!-- Order Detail Section -->
                         <?php
+                        /**
+                         * The reason we disable this if statement is because this information is already showing in another tab
+                         */
                         if (isset($_GET["disable-this-if-temporarily"]) && !empty($order['prescriptionFulfillments']) && is_array($order['prescriptionFulfillments'])) {
                         ?>
                             <hr>
