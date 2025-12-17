@@ -80,7 +80,7 @@ if (! class_exists('hldFluentHandler')) {
                 'hld-class-navigation',
                 'hldActionItem',
                 [
-                    'glp1Prefunnel' => $this->is_action_item_active() ? true : false,
+                    'glp1Prefunnel' => $this->is_postfunnel_active() ? true : false,
                     'userInfo'      => $user_info,
                 ],
             );
@@ -150,7 +150,7 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
-        public function is_action_item_active()
+        public function is_postfunnel_active()
         {
             global $wpdb;
 
@@ -635,7 +635,7 @@ if (! class_exists('hldFluentHandler')) {
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'gender' => $gender,
-                
+
                 'state' => $state,
                 'phone' => $phone,
                 'height_feet' => $height_feet,
@@ -698,12 +698,28 @@ if (! class_exists('hldFluentHandler')) {
                 "F1FED52A",
                 "E89683E4",
                 "5FEC7310",
+                // metabolic
+                "79566778",
+                "82757da7",
+                "d24c914b",
+                "c6f94c86",
+                "d8f4b76c",
+                "0d91aee2",
+                "e7dec91d",
             ];
         }
 
         private function is_prefunnel($form_type)
         {
             if ($form_type == "prefunnel") {
+                return true;
+            }
+            return false;
+        }
+
+        private function is_postfunnel($form)
+        {
+            if (!isset($form['form_type']) && isset($form['telegra_quinst_data'])) {
                 return true;
             }
             return false;
@@ -727,7 +743,11 @@ if (! class_exists('hldFluentHandler')) {
 
 
             // if form is not prefunnel means its postfunnel so check for questionnares
-            if (!$this->is_prefunnel($form['form_type'])) {
+            /**
+             * If form_type is not isset means its not a prefunnel and a post funnel questionnaire
+             */
+            if ($this->is_postfunnel($form)) {
+                error_log("disqualifier if working");
                 $telegra_quinst_data_raw = isset($form['telegra_quinst_data']) ? $form['telegra_quinst_data'] : '';
                 $decoded_json = base64_decode($telegra_quinst_data_raw, true);
                 if ($decoded_json === false) {
@@ -735,6 +755,7 @@ if (! class_exists('hldFluentHandler')) {
                     return;
                 }
 
+                error_log(print_r($telegra_quinst_data_raw, true));
                 $telegra_quinst_data = json_decode($decoded_json, true);
                 if (json_last_error() !== JSON_ERROR_NONE || !is_array($telegra_quinst_data)) {
                     error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
@@ -743,12 +764,16 @@ if (! class_exists('hldFluentHandler')) {
 
                 // Get disqualifiers to double check
                 $disqualifiers = $this->get_disqualifiers();
+                error_log(print_r($disqualifiers, true));
+
 
                 // 4️⃣ Loop through each object and process
                 foreach ($telegra_quinst_data as $item) {
                     $search_string =  isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
                     foreach ($form as $key => $value) {
+                        error_log("Loop works and value was $value");
                         if (in_array($value, $disqualifiers)) {
+                            error_log("one question was a disqualifier");
                             wp_send_json_error([
                                 'errors' => [
                                     'NotAllowed' => 'You are disqualified and are unfit for this treatment.',

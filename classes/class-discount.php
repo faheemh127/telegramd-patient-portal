@@ -4,12 +4,12 @@ class HLD_Discount
 {
     // Discount data must be static to use inside a static method
     private static $discounts = [
-        "Semaglutide injection" => [
+        "Semaglutide Injection" => [
             "first_month" => 42,
             "three_month" => 20,
             "coupon" => "Sema34Off",
         ],
-        "Tirzepatide injection" => [
+        "Tirzepatide Injection" => [
             "first_month" => 34,
             "three_month" => 11,
             "coupon" => "Tirzep34Off",
