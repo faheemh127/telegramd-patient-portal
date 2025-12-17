@@ -23,6 +23,10 @@ steps to export a funnel from localhost to live
 
 
 
+1) copy past latest dev medications
+2) copy telegra ids, 
+3) stripe prices & promos, and prices
+
 
 
 
