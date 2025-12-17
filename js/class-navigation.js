@@ -579,7 +579,7 @@ class HldNavigation {
   // }
 
   toggleLoader(show) {
-    if (!fluentFormData.showProgressBar) return;
+    if (!fluentFormData || !fluentFormData.showLoadingBar) return;
 
     let loader = document.getElementById("global-loading-overlay");
 

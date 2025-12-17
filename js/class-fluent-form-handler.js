@@ -4,7 +4,7 @@ class HldFluentFormHandler {
 
     this.hasFired = false;
     this.hideBmiNextBtn();
-
+    this.resetCheckBoxkes();
     this.initCustomizedData();
     this.removeOptinLabelBorder();
     this.insertDisqualifyContent();
@@ -13,6 +13,54 @@ class HldFluentFormHandler {
     // hldFormHandler.setStripeData();
   }
 
+  resetCheckBoxkes() {
+    jQuery(document).ready(function ($) {
+      var soloValues = [
+        "none of the above",
+        "other",
+        "others",
+        "all of the above",
+      ];
+
+      $(document).on("change", 'input[type="checkbox"]', function (e) {
+        var $this = $(this);
+        var rawVal = $this.siblings("span").text().trim();
+        // var rawVal = $this.val();
+
+        if (!rawVal) return;
+
+        var val = rawVal.trim().toLowerCase();
+        var name = $this.attr("name");
+
+        if (!name) return;
+
+        var $group = $(
+          'input[name="' + name.replace(/(:|\.|\[|\]|,|=|@)/g, "\\$1") + '"]',
+        );
+
+        if (soloValues.includes(val)) {
+          if ($this.is(":checked")) {
+            $group.not($this).prop("checked", false).trigger("change");
+          }
+        } else {
+          if ($this.is(":checked")) {
+            $group.each(function () {
+              var $sib = $(this);
+              var sibVal = $sib.siblings("span").text().trim()
+                ? $sib.siblings("span").text().trim().toLowerCase()
+                : "";
+
+              if (soloValues.includes(sibVal)) {
+                if ($sib.is(":checked")) {
+                  $sib.prop("checked", false).trigger("change");
+                }
+              }
+            });
+          }
+        }
+      });
+    });
+  }
   initCustomizedData() {
     this.initMedications();
     let that = this;
@@ -65,7 +113,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone
+                phone,
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -138,7 +186,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]'
+                    'button[data-action="next"]',
                   );
                   nextButton.click();
                 }
@@ -149,7 +197,7 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active"
+                    ".fluentform-step.active",
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
@@ -158,7 +206,7 @@ class HldFluentFormHandler {
                 if ($(step).hasClass("active")) {
                   hldNavigation.toggleLoader(false);
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden"
+                    "hld_form_wrap_hidden",
                   );
                 }
               });
@@ -176,7 +224,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          })
+          }),
         );
       }
     });
@@ -198,7 +246,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase()
+          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
       );
     }
 
@@ -243,8 +291,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-      }
+              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+            }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -418,7 +466,7 @@ class HldFluentFormHandler {
     if (stripeHandler.isNewPatient()) {
       try {
         const discountWrap = document.getElementById(
-          "hldNewPatientDiscountWrap"
+          "hldNewPatientDiscountWrap",
         );
         discountWrap.classList.remove("hidden");
         this.getAmount();
@@ -547,7 +595,7 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase())
+        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
       );
 
       if (med) {
@@ -555,7 +603,7 @@ class HldFluentFormHandler {
         stripeHandler.setCheckoutImage(med);
 
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration
+          (p) => parseInt(p.monthly_duration, 10) === duration,
         );
 
         if (pkg) {
@@ -579,7 +627,7 @@ class HldFluentFormHandler {
           if (stripeHandler.stripeData == null) {
             await stripeHandler.getPriceData(
               pkg.stripe_price_id,
-              stripeHandler.promo
+              stripeHandler.promo,
             );
           }
 
@@ -629,7 +677,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine)
+      m.medication_name.includes(medicine),
     );
     if (!med) return;
 
@@ -713,10 +761,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]'
+      'input[name="names[first_name]"]',
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]'
+      'input[name="names[last_name]"]',
     );
 
     // Get values safely
@@ -766,12 +814,12 @@ class HldFluentFormHandler {
 
 var hldFormHandler = new HldFluentFormHandler();
 
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => hldNavigation.toggleLoader(false), 3000);
-  // setTimeout(() => {
-  //   if (typeof hldFormHandler !== "undefined") {
-  //     hldFormHandler.getAmount();
-  //     hldFormHandler.setStripeData();
-  //   }
-  // }, 6000); // 5000ms = 5 seconds
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   setTimeout(() => hldNavigation.toggleLoader(false), 3000);
+//   // setTimeout(() => {
+//   //   if (typeof hldFormHandler !== "undefined") {
+//   //     hldFormHandler.getAmount();
+//   //     hldFormHandler.setStripeData();
+//   //   }
+//   // }, 6000); // 5000ms = 5 seconds
+// });
