@@ -4,7 +4,7 @@ class HldFluentFormHandler {
 
     this.hasFired = false;
     this.hideBmiNextBtn();
-    this.resetCheckBoxkes();
+    this.resetCheckBoxes();
     this.initCustomizedData();
     this.removeOptinLabelBorder();
     this.insertDisqualifyContent();
@@ -13,7 +13,7 @@ class HldFluentFormHandler {
     // hldFormHandler.setStripeData();
   }
 
-  resetCheckBoxkes() {
+  resetCheckBoxes() {
     jQuery(document).ready(function ($) {
       var soloValues = [
         "none of the above",
