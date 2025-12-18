@@ -70,8 +70,8 @@ jQuery.fn.dOb = function (opts) {
         dateTime = new Date(def_YD, def_MD, 0), // get last date of month
         D = dd == 1 ? 1 : 0;
 
-      if (D && !$.isNumeric(def_D))
-        _D.append($(option).attr({ value: def_D, selected: true }).text(def_D));
+      // if (D && !$.isNumeric(def_D))
+      //   _D.append($(option).attr({ value: def_D, selected: true }).text(def_D));
 
       _D.children().each(function () {
         // remove days of month
