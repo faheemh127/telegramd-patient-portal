@@ -59,7 +59,18 @@ class hldStripeHandler {
         setTimeout(function () {
           stripeHandler.submitForm();
         }, 4000);
+      }else if(
+        MyStripeData?.afterpay_klarna_payment &&
+        MyStripeData.afterpay_klarna_payment == 'failed'
+      ){
+        // if this part executed means klarna or afterpay payment failed
+        // now we need to display error message and do not submit the form
+        const errMsg = MyStripeData.afterpay_klarna_msg;
+        this.errorDisplay.textContent = errMsg;
       }
+
+
+      // if ends
     });
   }
 

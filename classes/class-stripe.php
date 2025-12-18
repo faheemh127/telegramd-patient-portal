@@ -75,8 +75,8 @@ class HLD_Stripe
             return; // nothing to verify
         }
 
+        // $client_secret      = sanitize_text_field($_GET['payment_intent_client_secret']);
         $payment_intent_id  = sanitize_text_field($_GET['payment_intent']);
-        $client_secret      = sanitize_text_field($_GET['payment_intent_client_secret']);
 
         self::init();
 
@@ -108,7 +108,7 @@ class HLD_Stripe
                     $user = wp_get_current_user();
                     $patient_email = $user->user_email;
 
-                    $response = HLD_UserSubscriptions::add_subscription(
+                    HLD_UserSubscriptions::add_subscription(
                         $user_id,
                         $patient_email,
                         0,
@@ -121,8 +121,15 @@ class HLD_Stripe
                 }
             } else {
                 error_log("⚠ Stripe Payment FAILED or NOT completed");
-                error_log("PI Status: " . ($pi->status ?? 'unknown'));
-                error_log("Full PI Response: " . print_r($pi, true));
+                error_log("Payment Intent Status: " . ($pi->status ?? 'unknown'));
+                error_log("Full Payment Intent Response: " . print_r($pi, true));
+                add_filter('hld_stripe_js_data', function ($data) use ($pi) {
+                    // Inject that payment failed to display notification to the user
+
+                    $data['afterpay_klarna_payment'] = 'failed';
+                    $data['afterpay_klarna_msg'] = $pi->last_payment_error->message;
+                    return $data;
+                });
             }
         } catch (\Exception $e) {
             error_log("❌ Stripe Payment Verification ERROR: " . $e->getMessage());
