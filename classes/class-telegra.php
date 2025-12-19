@@ -372,6 +372,92 @@ class HLD_Telegra
     }
     // function ends
 
+    /**
+     * Get Identification questionnaire instance ID from order detail
+     *
+     * @param array $order_detail
+     * @return string|false
+     */
+    public static function get_identification_quinst_id(array $order_detail)
+    {
+        if (
+            empty($order_detail['questionnaireInstances']) ||
+            !is_array($order_detail['questionnaireInstances'])
+        ) {
+            return false;
+        }
+
+        foreach ($order_detail['questionnaireInstances'] as $instance) {
+
+            // Primary match: questionnaire id
+            if (
+                isset($instance['questionnaire']['id']) &&
+                $instance['questionnaire']['id'] === 'identification-questionnaire'
+            ) {
+                return $instance['_id'] ?? false;
+            }
+
+            // Secondary fallback: location id check (extra safety)
+            if (
+                !empty($instance['questionnaire']['locations']) &&
+                is_array($instance['questionnaire']['locations'])
+            ) {
+                foreach ($instance['questionnaire']['locations'] as $location) {
+                    if (
+                        isset($location['id']) &&
+                        $location['id'] === 'loc::identification-questionnaire:2'
+                    ) {
+                        return $instance['_id'] ?? false;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
+
+
+
+    /**
+     * Get informed consent questionnaire instance ID from order detail
+     *
+     * @param array $order_detail
+     * @return string|false
+     */
+    public static function get_informed_consent_quinst_id(array $order_detail)
+    {
+        if (
+            empty($order_detail['questionnaireInstances']) ||
+            !is_array($order_detail['questionnaireInstances'])
+        ) {
+            return false;
+        }
+
+        foreach ($order_detail['questionnaireInstances'] as $instance) {
+
+            if (
+                empty($instance['questionnaire']['locations']) ||
+                !is_array($instance['questionnaire']['locations'])
+            ) {
+                continue;
+            }
+
+            foreach ($instance['questionnaire']['locations'] as $location) {
+                if (
+                    isset($location['id']) &&
+                    $location['id'] === 'loc::informed-consent:1'
+                ) {
+                    // Return quinst ID
+                    return $instance['_id'] ?? false;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
 

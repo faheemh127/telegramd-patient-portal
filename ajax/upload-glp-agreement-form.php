@@ -4,6 +4,9 @@
 add_action('wp_ajax_glp_agreement_upload', 'hld_glp_agreement_upload_handler');
 add_action('wp_ajax_nopriv_glp_agreement_upload', 'hld_glp_agreement_upload_handler');
 
+
+
+
 function hld_glp_agreement_upload_handler()
 {
     global $hld_telegra;
@@ -20,16 +23,42 @@ function hld_glp_agreement_upload_handler()
 
     $signature = sanitize_text_field($_POST['signature']);
     $telegra_order_id = sanitize_text_field($_POST['telegra_order_id']);
-    $order_detail = $hld_telegra->get_order($telegra_order_id);
 
-    // @todo make it dynamic quinstn id
-    if (
-        !isset($order_detail["questionnaireInstances"][2]["id"])
-    ) {
-        wp_send_json_error(['message' => 'Invalid questionnaire instance']);
+
+
+
+
+
+
+
+
+
+    $order_detail = $hld_telegra->get_order($telegra_order_id);
+    $quinst_id = HLD_Telegra::get_informed_consent_quinst_id($order_detail);
+
+    if (!$quinst_id) {
+        wp_send_json_error(['message' => 'Questionnaire Instance ID not found']);
+        wp_die();
     }
 
-    $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
+
+
+    // // @todo make it dynamic quinstn id
+    // if (
+    //     !isset($order_detail["questionnaireInstances"][2]["id"])
+    // ) {
+    //     wp_send_json_error(['message' => 'Invalid questionnaire instance']);
+    // }
+
+    // $quest_inst = $order_detail["questionnaireInstances"][2]["id"];
+
+
+
+
+
+
+    $quest_inst = $quinst_id;
+
 
 
     // Build API payload

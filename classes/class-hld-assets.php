@@ -210,6 +210,8 @@ if (!class_exists('hldAssets')) {
                 'payment_intent_id' => '', // default empty
                 'discounts' => HLD_Discount::get_discounts(),
                 'isNewPatient' => HLD_Patient::is_patient_new($patient_email),
+                // subscription slugs are active subscription slugs
+                'subscriptions_slugs' => HLD_UserSubscriptions::get_user_active_subscriptions_slugs(),
             ];
 
             /**

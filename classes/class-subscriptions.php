@@ -537,6 +537,43 @@ class HLD_UserSubscriptions
 
 
 
+    /**
+     * Get subscription slugs for the logged-in user
+     *
+     * @return array
+     */
+    public static function get_user_active_subscriptions_slugs()
+    {
+        if (!is_user_logged_in()) {
+            return [];
+        }
+
+        global $wpdb;
+
+        $current_user = wp_get_current_user();
+        $patient_email = $current_user->user_email;
+
+        if (empty($patient_email)) {
+            return [];
+        }
+
+        // Table name from constant
+        $table =  HEALSEND_SUBSCRIPTIONS_TABLE;
+
+        // Fetch distinct slugs for this user
+        $slugs = $wpdb->get_col(
+            $wpdb->prepare(
+                "
+            SELECT DISTINCT subscription_slug
+            FROM {$table}
+            WHERE patient_email = %s
+            ",
+                $patient_email
+            )
+        );
+
+        return !empty($slugs) ? $slugs : [];
+    }
 
 
 
@@ -654,9 +691,9 @@ class HLD_UserSubscriptions
             "subscription_duration" => $subscription_duration,
             "medication_telegra_id" => $prefunnel_data["telegra_product_id"],
             "medication_name" => $prefunnel_data["dropdown_4"],
-            
+
             "subscription_slug" => $prefunnel_data["hld_plan_slug"],
-            
+
         ];
         self::update_subscription_data($payment_intent_id, $data);
     }

@@ -10,10 +10,11 @@ class HldPatientLogin {
 
     if (this.loginBtn) {
       this.loginBtn.addEventListener("click", (e) => {
+        hldNavigation.toggleLoader(true);
         e.preventDefault();
         // Disable the button
         this.loginBtn.disabled = true;
-        this.loginBtn.innerText = "Logging in..."; // optional feedback
+        this.loginBtn.innerText = "Creating Your Account..."; // optional feedback
         this.login();
       });
     }
@@ -103,22 +104,28 @@ class HldPatientLogin {
       });
   }
 
+  // get patient shipping information from prefunnel fields
+  getShippingInfo() {
+    const street =
+      document
+        .querySelector('input[name="address_1[address_line_1]"]')
+        ?.value?.trim() || "";
+    const city =
+      document.querySelector('input[name="address_1[city]"]')?.value?.trim() ||
+      "";
+    const zip =
+      document.querySelector('input[name="address_1[zip]"]')?.value?.trim() ||
+      "";
+    const state =
+      document.querySelector("#ff_61_dropdown")?.value?.trim() || "";
 
- // get patient shipping information from prefunnel fields
-    getShippingInfo() {
-        const street = document.querySelector('input[name="address_1[address_line_1]"]')?.value?.trim() || "";
-        const city   = document.querySelector('input[name="address_1[city]"]')?.value?.trim() || "";
-        const zip    = document.querySelector('input[name="address_1[zip]"]')?.value?.trim() || "";
-        const state  = document.querySelector('#ff_61_dropdown')?.value?.trim() || "";
-
-        return {
-            street_address: street,
-            city: city,
-            zip: zip,
-            state: state,
-        };
-    }
-
+    return {
+      street_address: street,
+      city: city,
+      zip: zip,
+      state: state,
+    };
+  }
 
   enableProfileEditing() {
     // List of editable fields
@@ -229,7 +236,8 @@ class HldPatientLogin {
 
     // Validation
     if (!username || !password) {
-      alert("Username and password are required.");
+      hldNavigation.toggleLoader(false);
+      alert("Username and password cannot be empty.");
       return;
     }
 
@@ -248,16 +256,23 @@ class HldPatientLogin {
           // Reload with parameter ?login=success
           window.location.href = window.location.pathname + "?signup=success";
         } else {
-          alert(response.data || "Login failed. Please try again.");
+          hldNavigation.toggleLoader(false);
+          alert(
+            response.data ||
+              "We were unable to create your account at this time. Please try again or contact support if the issue persists."
+          );
         }
         hldPatientLogin.loginBtn.disabled = false;
-        hldPatientLogin.loginBtn.innerText = "Login";
+        hldPatientLogin.loginBtn.innerText = "Create an Account";
       },
 
       error: () => {
-        alert("Something went wrong. Please try again.");
+        hldNavigation.toggleLoader(false);
+        alert(
+          "We were unable to create your account at this time. Please try again or contact support if the issue persists."
+        );
         hldPatientLogin.loginBtn.disabled = false;
-        hldPatientLogin.loginBtn.innerText = "Login";
+        hldPatientLogin.loginBtn.innerText = "Create an Account";
       },
     });
   }

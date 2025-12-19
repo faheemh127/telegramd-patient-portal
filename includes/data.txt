@@ -195,6 +195,7 @@ on prefunnel login page fix the hover color of the button and QA the functionali
 -- tighten the security of if (!isset($form['form_type']))  in before insert hook for disqualifier checks
 -- display correct type of error message in prefunnel signup page
 -- NAD medication id did not save to the MySQl subscription table with i create order with ryahtest1@gmail.com
+-- when click on klarna or afterpay you just need to show processing in that button instead of main card payment btn at this moment it display processing to below processing button
 Hi vineeth before launch Please do following things today
 1) provide us telegra product Id's
 2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode

@@ -159,7 +159,7 @@ function hld_subscribe_patient_handler()
                 $clientSecret = $invoice->payment_intent->client_secret;
                 $requiresAction = true;
             }
-        }}
+        }
 
         error_log("a subscription was trying to be created with card");
         error_log(print_r($subscription, true));
