@@ -199,10 +199,7 @@ if (!class_exists('hldAssets')) {
             if (is_user_logged_in()) {
                 $current_user = wp_get_current_user();
                 $patient_email = $current_user->user_email;
-
-                error_log("Logged in user's email = " . $patient_email);
             } else {
-                error_log("User is not logged in so we cannot pass userdata to stripe-handler");
             }
 
             // Prepare the default data

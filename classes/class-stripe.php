@@ -94,6 +94,8 @@ class HLD_Stripe
                 error_log("Payment Method Type: " . json_encode($pi->payment_method_types));
                 error_log("Full PaymentIntent: " . print_r($pi, true));
 
+                set_transient('afterpay_klarna_payment_success', $payment_intent_id, 60);
+
                 add_filter('hld_stripe_js_data', function ($data) use ($payment_intent_id) {
                     // Inject your dynamic payment intent ID
                     $data['payment_intent_id'] = $payment_intent_id ?? '';
@@ -238,6 +240,17 @@ class HLD_Stripe
             error_log('Stripe Delete Product Error: ' . $e->getMessage());
             return false;
         }
+    }
+    public static function get_loading_class()
+    {
+
+        $transient = get_transient('afterpay_klarna_payment_success');
+        $class = "";
+        if ($transient != false) {
+            $class = "payment-success";
+            error_log('Selected package: ' . esc_html($transient));
+        }
+        return $class;
     }
 
     /**

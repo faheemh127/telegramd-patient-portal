@@ -1,18 +1,11 @@
 class HldFluentFormHandler {
   constructor() {
-    // @todo uncomment this on production
-
     this.hasFired = false;
     this.hideBmiNextBtn();
     this.resetCheckBoxes();
     this.initCustomizedData();
     this.removeOptinLabelBorder();
     this.insertDisqualifyContent();
-    // this.initPackages();
-    
-    // on page refresh or on nextendsocial login its importalt to call this function so it can pass price to strip handler class and show data on summary page
-    // hldFormHandler.getAmount();
-    // hldFormHandler.setStripeData();
   }
 
   resetCheckBoxes() {
@@ -37,7 +30,7 @@ class HldFluentFormHandler {
         if (!name) return;
 
         var $group = $(
-          'input[name="' + name.replace(/(:|\.|\[|\]|,|=|@)/g, "\\$1") + '"]',
+          'input[name="' + name.replace(/(:|\.|\[|\]|,|=|@)/g, "\\$1") + '"]'
         );
 
         if (soloValues.includes(val)) {
@@ -115,7 +108,7 @@ class HldFluentFormHandler {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: `action=activate_reminder&phone=${encodeURIComponent(
-                phone,
+                phone
               )}`,
             });
             hldFormHandler.hasFired = true;
@@ -188,7 +181,7 @@ class HldFluentFormHandler {
                 ) {
                   const stepElement = document.querySelector(".hld_login_wrap");
                   const nextButton = stepElement.querySelector(
-                    'button[data-action="next"]',
+                    'button[data-action="next"]'
                   );
                   nextButton.click();
                 }
@@ -199,7 +192,7 @@ class HldFluentFormHandler {
                   $($lastStep).hasClass("active")
                 ) {
                   const activeStep = document.querySelector(
-                    ".fluentform-step.active",
+                    ".fluentform-step.active"
                   );
                   const prevButton = activeStep.querySelector(".ff-btn-prev");
                   prevButton.click(); // Trigger FluentForm's previous step
@@ -208,7 +201,7 @@ class HldFluentFormHandler {
                 if ($(step).hasClass("active")) {
                   hldNavigation.toggleLoader(false);
                   $(".hld_form_wrap_hidden").removeClass(
-                    "hld_form_wrap_hidden",
+                    "hld_form_wrap_hidden"
                   );
                 }
               });
@@ -226,7 +219,7 @@ class HldFluentFormHandler {
           observer.observe(step, {
             attributes: true,
             attributeFilter: ["class"],
-          }),
+          })
         );
       }
     });
@@ -248,7 +241,7 @@ class HldFluentFormHandler {
     } else {
       filteredMeds = fluentFormData.medications.filter(
         (med) =>
-          med.medication.toLowerCase() === selectedMedication.toLowerCase(),
+          med.medication.toLowerCase() === selectedMedication.toLowerCase()
       );
     }
 
@@ -293,8 +286,8 @@ class HldFluentFormHandler {
           <div class="badges">${badgesHTML}</div>
           <div class="med-title">
             ${medName} ${
-              extraLabel ? `<span class="star">${extraLabel}</span>` : ""
-            }
+        extraLabel ? `<span class="star">${extraLabel}</span>` : ""
+      }
           </div>
           <div class="med-price">${price}</div>
           <ul class="med-features">${featuresHTML}</ul>
@@ -305,7 +298,7 @@ class HldFluentFormHandler {
         </div>
       </div>
     `;
-    }); 
+    });
 
     wrap.innerHTML = html;
   }
@@ -468,7 +461,7 @@ class HldFluentFormHandler {
     if (stripeHandler.isNewPatient()) {
       try {
         const discountWrap = document.getElementById(
-          "hldNewPatientDiscountWrap",
+          "hldNewPatientDiscountWrap"
         );
         discountWrap.classList.remove("hidden");
         this.getAmount();
@@ -597,7 +590,7 @@ class HldFluentFormHandler {
     // ✅ Only proceed if medication has a valid value
     if (medication && fluentFormData.medications) {
       const med = fluentFormData.medications.find((m) =>
-        m.medication_name.toLowerCase().includes(medication.toLowerCase()),
+        m.medication_name.toLowerCase().includes(medication.toLowerCase())
       );
 
       if (med) {
@@ -605,7 +598,7 @@ class HldFluentFormHandler {
         stripeHandler.setCheckoutImage(med);
 
         const pkg = med.packages.find(
-          (p) => parseInt(p.monthly_duration, 10) === duration,
+          (p) => parseInt(p.monthly_duration, 10) === duration
         );
 
         if (pkg) {
@@ -629,7 +622,7 @@ class HldFluentFormHandler {
           if (stripeHandler.stripeData == null) {
             await stripeHandler.getPriceData(
               pkg.stripe_price_id,
-              stripeHandler.promo,
+              stripeHandler.promo
             );
           }
 
@@ -679,7 +672,7 @@ class HldFluentFormHandler {
 
     // find the full medicine object
     const med = fluentFormData.medications.find((m) =>
-      m.medication_name.includes(medicine),
+      m.medication_name.includes(medicine)
     );
     if (!med) return;
 
@@ -763,10 +756,10 @@ class HldFluentFormHandler {
 
     // Get first and last name inputs using the name attribute
     const firstNameInput = container.querySelector(
-      'input[name="names[first_name]"]',
+      'input[name="names[first_name]"]'
     );
     const lastNameInput = container.querySelector(
-      'input[name="names[last_name]"]',
+      'input[name="names[last_name]"]'
     );
 
     // Get values safely
