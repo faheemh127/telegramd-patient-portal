@@ -129,7 +129,12 @@ function hld_subscribe_patient_handler()
             'items' => [
                 ['price' => $price_id],
             ],
-            'cancel_at' => strtotime("+{$months} months"),
+
+            /***********************************************************/
+            // WE HAVE TO KEEP THE SUBSCRIPTION ACTIVE AT ALL COST */
+            // 'cancel_at' => strtotime("+{$months} months"),
+            /***********************************************************/
+
             'payment_settings' => ['save_default_payment_method' => 'on_subscription'],
             'payment_behavior' => 'default_incomplete', // required for client_secret
             'expand' => ['latest_invoice.payment_intent', 'pending_setup_intent'],
@@ -150,10 +155,10 @@ function hld_subscribe_patient_handler()
         error_log(print_r($invoice, true));
 
         if (!isset($invoice->payment_intent) || $invoice->payment_intent === null) {
-            $invoice = \Stripe\Invoice::retrieve([
-                'id' => $invoice->id,
-                'expand' => ['payment_intent'],
-            ]);
+            $invoice = \Stripe\Invoice::retrieve(
+                $invoice->id,
+                ['expand' => ['payment_intent']],
+            );
             error_log("Main Inner");
             error_log(print_r($invoice, true));
         }
@@ -203,7 +208,6 @@ function hld_subscribe_patient_handler()
                 'message' => $response['message'],
             ]);
         }
-
 
         /**
          * STEP 5: Return success response
