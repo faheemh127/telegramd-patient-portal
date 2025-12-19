@@ -59,16 +59,15 @@ class hldStripeHandler {
         setTimeout(function () {
           stripeHandler.submitForm();
         }, 4000);
-      }else if(
+      } else if (
         MyStripeData?.afterpay_klarna_payment &&
-        MyStripeData.afterpay_klarna_payment == 'failed'
-      ){
+        MyStripeData.afterpay_klarna_payment == "failed"
+      ) {
         // if this part executed means klarna or afterpay payment failed
         // now we need to display error message and do not submit the form
         const errMsg = MyStripeData.afterpay_klarna_msg;
         this.errorDisplay.textContent = errMsg;
       }
-
 
       // if ends
     });
@@ -294,117 +293,145 @@ class hldStripeHandler {
       }
     });
 
-    // // Handle payment method selection
+    // Google Pay / Apple Pay Charge
     // paymentRequest.on("paymentmethod", async (ev) => {
     //   try {
-    //     const setupIntent = await this.createSetupIntent();
+    //     //  Create subscription directly
+    //     const subResult = await fetch(MyStripeData.ajax_url, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //       body: `action=subscribe_patient&payment_method=${encodeURIComponent(
+    //         ev.paymentMethod.id
+    //       )}
+    //       &promo=${encodeURIComponent(this.promo)}
+    //       &price_id=${encodeURIComponent(this.stripePriceId)}
+    //       &slug=${encodeURIComponent(this.slug)}
+    //       &duration=${encodeURIComponent(this.packageDuration)}`,
+    //     });
 
-    //     if (!setupIntent.success) {
+    //     const subResponse = await subResult.json();
+
+    //     const { error: stripeError, paymentIntent } =
+    //       await this.stripe.confirmCardPayment(
+    //         subResponse.clientSecret,
+    //         {
+    //           payment_method: ev.paymentMethod.id,
+    //         },
+    //         {
+    //           handleActions: false,
+    //         }
+    //       );
+
+    //     if (stripeError) {
     //       ev.complete("fail");
-    //       this.showError("Failed to create SetupIntent");
+    //       alert("Payment failed: " + stripeError.message);
     //       return;
+    //     } else {
+    //       ev.complete("success");
+
+    //       if (paymentIntent.status === "succeeded") {
+    //         alert("Payment successful!");
+    //         console.log(paymentIntent);
+    //       } else {
+    //         alert("Payment processing or requires action.");
+    //         return;
+    //       }
     //     }
+    //     // if (!subResponse.success) {
+    //     //   ev.complete("fail");
+    //     //   this.showError(
+    //     //     "Failed to create subscription: " +
+    //     //       (subResponse.data?.message || ""),
+    //     //   );
+    //     //   return;
+    //     // }
 
-    //     const { clientSecret, customerId } = setupIntent.data;
+    //     // console.log(" Subscription created:", subResponse.data);
 
-    //     // Confirm setup with Google Pay method
-    //     const { error, setupIntent: confirmedIntent } =
-    //       await this.stripe.confirmCardSetup(clientSecret, {
-    //         payment_method: ev.paymentMethod.id,
-    //       });
-
-    //     if (error) {
-    //       ev.complete("fail");
-    //       this.showError(error.message);
-    //       return;
-    //     }
-
-    //     ev.complete("success");
-
-    //     // Save method in backend
-    //     const saveResult = await this.savePaymentMethod(
-    //       customerId,
-    //       confirmedIntent.payment_method
-    //     );
-
-    //     if (!saveResult.success) {
-    //       this.showError("Failed to save Google Pay method.");
-    //       return;
-    //     }
-
-    //     console.log("Google Pay method saved successfully!");
+    //     // ev.complete("success");
     //     this.submitForm();
     //   } catch (err) {
-    //     console.error("Error in Google Pay flow:", err);
+    //     console.error("Error in Google/Apple Pay subscription flow:", err);
     //     ev.complete("fail");
-    //     this.showError("Something went wrong with Google Pay.");
+    //     this.showError("Something went wrong with Google/Apple Pay.");
     //   }
     // });
 
-    // Google Pay / Apple Pay Charge
     paymentRequest.on("paymentmethod", async (ev) => {
       try {
-        //  Create subscription directly
-        const subResult = await fetch(MyStripeData.ajax_url, {
+        // 1. Create subscription on server
+        const res = await fetch(MyStripeData.ajax_url, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: `action=subscribe_patient&payment_method=${encodeURIComponent(
-            ev.paymentMethod.id
-          )}
-          &promo=${encodeURIComponent(this.promo)}
-          &price_id=${encodeURIComponent(this.stripePriceId)}
-          &duration=${encodeURIComponent(this.packageDuration)}`,
+          body: new URLSearchParams({
+            action: "subscribe_patient",
+            payment_method: ev.paymentMethod.id,
+            promo: this.promo,
+            price_id: this.stripePriceId,
+            slug: this.slug,
+            duration: this.packageDuration,
+          }),
         });
 
-        const subResponse = await subResult.json();
+        const subResponse = await res.json();
 
-        const { error: stripeError, paymentIntent } =
-          await stripe.confirmCardPayment(
-            subResponse.clientSecret,
-            {
-              payment_method: ev.paymentMethod.id,
-            },
-            {
-              handleActions: false,
-            }
+        if (!subResponse.success) {
+          ev.complete("fail");
+          console.log(subResponse.data?.message || "Subscription failed")
+          return;
+        }
+
+        // 2. Confirm payment (NO payment_method passed here)
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          subResponse.data.clientSecret,
+          {
+            // VERY IMPORTANT
+            payment_method: ev.paymentMethod.id,
+          },
+          {
+            handleActions: false,
+          }
+        );
+
+        if (error) {
+          ev.complete("fail");
+          alert(error.message);
+          return;
+        }
+
+        // 3. Complete Payment Request
+        ev.complete("success");
+
+        // 4. Handle next actions (3DS, SCA)
+        if (paymentIntent.status === "requires_action") {
+          const { error: actionError } = await stripe.confirmCardPayment(
+            subResponse.data.clientSecret
           );
 
-        if (stripeError) {
-          ev.complete("fail");
-          alert("Payment failed: " + stripeError.message);
-          return;
-        } else {
-          ev.complete("success");
-
-          if (paymentIntent.status === "succeeded") {
-            alert("Payment successful!");
-            console.log(paymentIntent);
-          } else {
-            alert("Payment processing or requires action.");
+          if (actionError) {
+            alert(actionError.message);
             return;
           }
         }
-        // if (!subResponse.success) {
-        //   ev.complete("fail");
-        //   this.showError(
-        //     "Failed to create subscription: " +
-        //       (subResponse.data?.message || ""),
-        //   );
-        //   return;
-        // }
 
-        // console.log(" Subscription created:", subResponse.data);
-
-        // ev.complete("success");
+        // 5. Success
+        alert("Payment successful!");
         this.submitForm();
       } catch (err) {
-        console.error("Error in Google/Apple Pay subscription flow:", err);
         ev.complete("fail");
-        this.showError("Something went wrong with Google/Apple Pay.");
+        console.error(err);
+        alert("Payment failed");
       }
     });
+
+    // ends google appley code here
   }
 
+  setSlug() {
+    const slugField = document.querySelector('[name="hld_plan_slug"]');
+    const slug = slugField ? slugField.value : "";
+    this.slug = slug;
+  }
   bindEvents() {
     const form = document.getElementById(this.formId);
     this.errorDisplay = document.getElementById(this.errorElementId);
@@ -412,6 +439,7 @@ class hldStripeHandler {
     this.revokeButton = document.getElementById(this.revokeButtonId);
     this.klarnaButton = document.getElementById(this.klarnaBtnId);
     this.afterPayButton = document.getElementById(this.afterPayBtnId);
+    this.setSlug();
     console.log("bindEvents function called");
     if (
       !form ||
@@ -460,7 +488,7 @@ class hldStripeHandler {
         this.toggleButtonState(false, "Save and Continue", this.paymentButton);
         return;
       }
-      
+
       const { clientSecret, customerId } = intent.data;
       const customerName = hldFormHandler.getFullNameFromContainer();
 

@@ -60,6 +60,7 @@ class HLD_Admin_Settings
             'affiliate_id'       => 'Telegram Affiliate ID',
             'base_url'           => 'Telegram Base URL',
             'google_places'      => 'Google Places API Key',
+            'ghl_api_key'        => 'GHL API Key',
         ];
 
         foreach ($fields as $id => $label) {
@@ -115,6 +116,7 @@ class HLD_Admin_Settings
             'TELEGRAMD_AFFLIATE_ID'  => 'affiliate_id',
             'TELEGRA_BASE_URL'       => 'base_url',
             'GOOGLE_PLACES_API_KEY'  => 'google_places',
+            'GHL_API_KEY'            => 'ghl_api_key',
         ];
 
         foreach ($map as $const => $key) {

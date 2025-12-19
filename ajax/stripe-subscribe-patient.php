@@ -8,9 +8,17 @@ function hld_subscribe_patient_handler()
 {
 
 
+    error_log("function hld_subscribe_patient_handler called");
+    if (!is_user_logged_in()) {
+        error_log("[Stripe-Subscripbe-Patient] Only logged in patients are allowed to purchase subscription");
+        wp_send_json_error(['message' => 'Only logged in patients are allowed to purchase subscription']);
+        wp_die();
+    }
+
     // @todo check nonce here
 
     if (!isset($_POST['payment_method']) || !isset($_POST['price_id']) || !isset($_POST['duration']) || !isset($_POST['promo'])) {
+        error_log("Missing paramters - stripe subscripbe patient");
         wp_send_json_error(['message' => 'Missing parameters']);
         wp_die();
     }
@@ -31,12 +39,12 @@ function hld_subscribe_patient_handler()
     $plan_exists = HLD_UserSubscriptions::is_subscription_active($slug);
 
 
-    if ($plan_exists) {
-        wp_send_json_error([
-            'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.',
-        ]);
-        wp_die();
-    }
+    // if ($plan_exists) {
+    //     wp_send_json_error([
+    //         'message' => 'It looks like you are already subscribed to this plan. Please check your active subscriptions.',
+    //     ]);
+    //     wp_die();
+    // }
 
 
 
@@ -121,6 +129,7 @@ function hld_subscribe_patient_handler()
         // ]);
 
 
+        error_log("Before creating subscription N2c");
 
         // Base subscription data
         $subscription_data = [
@@ -129,7 +138,9 @@ function hld_subscribe_patient_handler()
                 ['price' => $price_id],
             ],
             'cancel_at' => strtotime("+{$months} months"),
+            // 'payment_behavior' => 'default_incomplete', // required for client_secret
             'expand' => ['latest_invoice.payment_intent'],
+
         ];
 
         // If patient is new → add discount
@@ -150,43 +161,43 @@ function hld_subscribe_patient_handler()
         /**
          * STEP 4: Store locally in custom tables
          */
-        if (is_user_logged_in()) {
-            // Make sure the patient exists
-            HLD_Patient::ensure_patient_by_email($patient_email);
 
-            // Extract card details
-            $card_last4 = $pm->card->last4 ?? null;
-            $card_brand = $pm->card->brand ?? null;
+        // Make sure the patient exists
+        HLD_Patient::ensure_patient_by_email($patient_email);
 
-            // Save into payments table
-            HLD_Payments::add_payment_method(
-                $patient_email,
-                $payment_method,
-                $card_last4,
-                $card_brand,
-            );
+        // Extract card details
+        $card_last4 = $pm->card->last4 ?? null;
+        $card_brand = $pm->card->brand ?? null;
 
-            // Optional custom actions
-            // HLD_Telegra::create_patient();
+        // Save into payments table
+        HLD_Payments::add_payment_method(
+            $patient_email,
+            $payment_method,
+            $card_last4,
+            $card_brand,
+        );
 
-            $response = HLD_UserSubscriptions::add_subscription(
-                $user_id,
-                $patient_email,
-                $months,
-                $telegra_product_id, // Example: pov::.....
-                $medication, // Example: Tirzepatide
-                $subscription,
-                $slug,
-            );
+        // Optional custom actions
+        // HLD_Telegra::create_patient();
+
+        $response = HLD_UserSubscriptions::add_subscription(
+            $user_id,
+            $patient_email,
+            $months,
+            $telegra_product_id, // Example: pov::.....
+            $medication, // Example: Tirzepatide
+            $subscription,
+            $slug,
+        );
 
 
-            // If the current patient already have the subscription with the same plan don't allow him to purchase that subscription again
-            if (!$response['status']) {
-                wp_send_json_error([
-                    'message' => $response['message'],
-                ]);
-            }
+        // If the current patient already have the subscription with the same plan don't allow him to purchase that subscription again
+        if (!$response['status']) {
+            wp_send_json_error([
+                'message' => $response['message'],
+            ]);
         }
+
 
         /**
          * STEP 5: Return success response
