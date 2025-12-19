@@ -40,7 +40,7 @@ class hldStripeHandler {
       ) {
         hldNavigation.toggleLoader(true);
         let input = document.querySelector(
-          'input[name="my_stripe_subscription_id"]'
+          'input[name="my_stripe_subscription_id"]',
         );
 
         // If input doesn't exist, create it
@@ -101,7 +101,7 @@ class hldStripeHandler {
 
     const stripePrice = await stripeHandler.fetchStripePriceData(
       priceId,
-      promo
+      promo,
     );
     console.log("[Stripe Price Info**] ", stripePrice);
     this.stripeData = stripePrice;
@@ -134,7 +134,7 @@ class hldStripeHandler {
   getTelegraIdByValue(selectedValue) {
     // Find the div that matches the data-value
     const element = document.querySelector(
-      `.hld-custom-checkbox.hld-medicine[data-value="${selectedValue}"]`
+      `.hld-custom-checkbox.hld-medicine[data-value="${selectedValue}"]`,
     );
 
     // If found, return its data-telegra-id
@@ -148,7 +148,7 @@ class hldStripeHandler {
     const image = document.getElementById("checkoutImg");
     if (!image || !med?.image) {
       console.log(
-        "image url and style or something else missing about checkout image"
+        "image url and style or something else missing about checkout image",
       );
       return;
     }
@@ -333,50 +333,47 @@ class hldStripeHandler {
 
         if (!subResponse.success) {
           ev.complete("fail");
-          console.log(subResponse.data?.message || "Subscription failed");
+          setTimeout(() => {
+            alert(subResponse.data?.message || "Subscription failed");
+          }, 500);
           return;
         }
 
-        // 2. Confirm payment (NO payment_method passed here)
-        const { error, paymentIntent } = await this.stripe.confirmCardPayment(
-          subResponse.data.clientSecret,
-          {
-            // VERY IMPORTANT
-            payment_method: ev.paymentMethod.id,
-          },
-          {
-            handleActions: false,
+        const { status, clientSecret, requires_action } = subResponse.data;
+
+        if (status === "active") {
+          ev.complete("success");
+          this.submitForm();
+          return;
+        }
+
+        if (requires_action && clientSecret) {
+          const { error, paymentIntent } =
+            await this.stripe.confirmCardPayment(clientSecret);
+
+          if (error) {
+            ev.complete("fail");
+            console.error(error);
+            returnsetTimeout(() => {
+              alert(error.message);
+            }, 500);
           }
-        );
 
-        if (error) {
-          ev.complete("fail");
-          alert(error.message);
-          return;
-        }
-
-        // 3. Complete Payment Request
-        ev.complete("success");
-
-        // 4. Handle next actions (3DS, SCA)
-        if (paymentIntent.status === "requires_action") {
-          const { error: actionError } = await this.stripe.confirmCardPayment(
-            subResponse.data.clientSecret
-          );
-
-          if (actionError) {
-            alert(actionError.message);
+          if (paymentIntent.status === "succeeded") {
+            ev.complete("success");
+            this.submitForm();
             return;
           }
         }
 
-        // 5. Success
-        alert("Payment successful!");
-        this.submitForm();
+        ev.complete("fail");
+        // setTimeout(() => {
+        //   alert("Payment could not be confirmed. Please try a different card.");
+        // }, 500);
       } catch (err) {
         ev.complete("fail");
         console.error(err);
-        alert("Payment failed", err);
+        // alert("Payment failed", err);
       }
     });
 
@@ -408,18 +405,18 @@ class hldStripeHandler {
     }
 
     this.afterPayButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "afterpay")
+      this.handleCardPayment(e, "afterpay"),
     );
 
     this.klarnaButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "klarna")
+      this.handleCardPayment(e, "klarna"),
     );
 
     // this.handleCardPayment(e, "klarna");
     // );
 
     this.paymentButton.addEventListener("click", (e) =>
-      this.handleCardPayment(e, "card")
+      this.handleCardPayment(e, "card"),
     );
   }
 
@@ -476,7 +473,7 @@ class hldStripeHandler {
             clientSecret,
             {
               return_url: MyStripeData.return_url,
-            }
+            },
           );
       }
 
@@ -537,12 +534,12 @@ class hldStripeHandler {
         if (!subResponse.success) {
           this.showError(
             "Failed to create subscription: " +
-              (subResponse.data?.message || "")
+              (subResponse.data?.message || ""),
           );
           this.toggleButtonState(
             false,
             "Save and Continue",
-            this.paymentButton
+            this.paymentButton,
           );
           return;
         }
@@ -552,7 +549,7 @@ class hldStripeHandler {
          * then of fluent form submit we will update telegra_id to subscription table based on this id
          */
         const subIdInput = document.querySelector(
-          '[name="my_stripe_subscription_id"]'
+          '[name="my_stripe_subscription_id"]',
         );
 
         if (subIdInput) {
@@ -560,7 +557,7 @@ class hldStripeHandler {
           console.log("my_stripe_subscription_id set:", subIdInput.value);
         } else {
           console.warn(
-            '⚠️ No element found with name="my_stripe_subscription_id" — VERY IMPORTANT: this prevents saving Telegra order_id in the patient table.'
+            '⚠️ No element found with name="my_stripe_subscription_id" — VERY IMPORTANT: this prevents saving Telegra order_id in the patient table.',
           );
         }
 
@@ -574,9 +571,9 @@ class hldStripeHandler {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `action=charge_now&customer_id=${encodeURIComponent(
-            setupIntent.data.customerId
+            setupIntent.data.customerId,
           )}&payment_method=${encodeURIComponent(
-            paymentMethod
+            paymentMethod,
           )}&amount=${encodeURIComponent(amount)}`,
         });
 
@@ -584,25 +581,26 @@ class hldStripeHandler {
 
         if (!chargeResponse.success) {
           this.showError(
-            "Failed to charge the card: " + (chargeResponse.data?.message || "")
+            "Failed to charge the card: " +
+              (chargeResponse.data?.message || ""),
           );
           this.toggleButtonState(
             false,
             "Save and Continue",
-            this.paymentButton
+            this.paymentButton,
           );
           return;
         }
 
         console.log(
           "Payment charged immediately! PaymentIntent ID:",
-          chargeResponse.data.payment_intent
+          chargeResponse.data.payment_intent,
         );
       } else {
         // Just save for later
         const saveResult = await this.savePaymentMethod(
           setupIntent.data.customerId,
-          paymentMethod
+          paymentMethod,
         );
 
         if (!saveResult.success) {
@@ -610,7 +608,7 @@ class hldStripeHandler {
           this.toggleButtonState(
             false,
             "Save and Continue",
-            this.paymentButton
+            this.paymentButton,
           );
           return;
         }
@@ -682,7 +680,7 @@ class hldStripeHandler {
     this.telegraProdID = telegraId;
     if (this.telegraProdID == "") {
       console.error(
-        "Telegra Product Variation ID is empty! cannot submit the form"
+        "Telegra Product Variation ID is empty! cannot submit the form",
       );
     }
 

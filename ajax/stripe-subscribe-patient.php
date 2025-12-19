@@ -136,7 +136,7 @@ function hld_subscribe_patient_handler()
             /***********************************************************/
 
             'payment_settings' => ['save_default_payment_method' => 'on_subscription'],
-            'payment_behavior' => 'default_incomplete', // required for client_secret
+            'payment_behavior' => 'allow_incomplete',
             'expand' => ['latest_invoice.payment_intent', 'pending_setup_intent'],
         ];
 
@@ -148,24 +148,18 @@ function hld_subscribe_patient_handler()
         }
 
         $subscription = \Stripe\Subscription::create($subscription_data);
-
+        $status = $subscription->status;
         $clientSecret = null;
-        $invoice = $subscription->latest_invoice;
-        error_log("Main invoice");
-        error_log(print_r($invoice, true));
+        $requiresAction = false;
 
-        if (!isset($invoice->payment_intent) || $invoice->payment_intent === null) {
-            $invoice = \Stripe\Invoice::retrieve(
-                $invoice->id,
-                ['expand' => ['payment_intent']],
-            );
-            error_log("Main Inner");
-            error_log(print_r($invoice, true));
-        }
-
-        if ($invoice->payment_intent) {
-            $clientSecret = $invoice->payment_intent->client_secret;
-        }
+        if ($status === 'incomplete') {
+            $invoice = $subscription->latest_invoice;
+            
+            if ($invoice && $invoice->payment_intent) {
+                $clientSecret = $invoice->payment_intent->client_secret;
+                $requiresAction = true;
+            }
+        }}
 
         error_log("a subscription was trying to be created with card");
         error_log(print_r($subscription, true));
@@ -216,6 +210,8 @@ function hld_subscribe_patient_handler()
             'subscription_id' => $subscription->id,
             'status' => $subscription->status,
             'customer_id' => $customer_id,
+            'status'          => $status,
+            'requires_action' => $requiresAction,
             'clientSecret' => $clientSecret,
         ]);
     } catch (Exception $e) {
