@@ -146,12 +146,16 @@ function hld_subscribe_patient_handler()
 
         $clientSecret = null;
         $invoice = $subscription->latest_invoice;
+        error_log("Main invoice");
+        error_log(print_r($invoice, true));
 
         if (!isset($invoice->payment_intent) || $invoice->payment_intent === null) {
             $invoice = \Stripe\Invoice::retrieve([
                 'id' => $invoice->id,
                 'expand' => ['payment_intent'],
             ]);
+            error_log("Main Inner");
+            error_log(print_r($invoice, true));
         }
 
         if ($invoice->payment_intent) {

@@ -30,8 +30,6 @@ class hldStripeHandler {
   }
 
   init() {
-    // // temporary testing
-
     document.addEventListener("DOMContentLoaded", () => {
       this.setupStripe();
       this.bindEvents();
@@ -126,8 +124,6 @@ class hldStripeHandler {
       dueWas.innerHTML = "$" + (data.original_amount / 100).toFixed(2);
     }
 
-    // setup Prices
-
     monthSupply.innerHTML = (data.original_amount / 100).toFixed(2);
     dueWas.innerHTML = "$" + (data.original_amount / 100).toFixed(2);
 
@@ -147,27 +143,6 @@ class hldStripeHandler {
   isNewPatient() {
     return MyStripeData.isNewPatient;
   }
-  // calculateDiscountedPercentage(medicationName, duration, totalAmount) {
-  //   // All discount rules
-  //   const discountRules = MyStripeData.discounts;
-  //   // Validate medication exists
-  //   if (!discountRules[medicationName]) {
-  //     console.error("Unknown medication:", medicationName);
-  //     return totalAmount; // no discount
-  //   }
-
-  //   // Determine correct discount key
-  //   let discountPercent = 0;
-  //   if (duration == 1) {
-  //     discountPercent = discountRules[medicationName]["first_month"];
-  //   } else if (duration == 3) {
-  //     discountPercent = discountRules[medicationName]["three_month"];
-  //   }
-
-  //   console.log("discountPercent ", discountPercent);
-  //   return discountPercent;
-  //   // Calculate discount
-  // }
 
   setCheckoutImage(med) {
     const image = document.getElementById("checkoutImg");
@@ -230,21 +205,6 @@ class hldStripeHandler {
     }
     const currency = priceData?.currency?.toLowerCase() || "usd";
 
-    // const options = {
-    //   amount,
-    //   currency: currency.toUpperCase(),
-    //   paymentMethodTypes: ["klarna", "afterpay_clearpay", "affirm"],
-    //   countryCode: "US",
-    // };
-
-    //** We will only need that when we will deal with klarna and after pay below two lines */
-    // const paymentMessageElement = this.elements.create(
-    //   "paymentMethodMessaging",
-    //   options
-    // );
-    // paymentMessageElement.mount("#payment-method-messaging-element");
-    //  Card Element (keep existing flow)
-
     this.card = this.elements.create("card");
 
     const cardElement = document.getElementById(this.cardElementId);
@@ -253,10 +213,6 @@ class hldStripeHandler {
     } else {
       console.warn(`Card element with ID "${this.cardElementId}" not found.`);
     }
-
-    // const amount = hldFormHandler.getAmount();
-
-    // const amount = priceData?.amount || 0; x 100 amount should be multipy by 100 when pass real amount
 
     const paymentRequest = this.stripe.paymentRequest({
       country: "US",
@@ -377,12 +333,12 @@ class hldStripeHandler {
 
         if (!subResponse.success) {
           ev.complete("fail");
-          console.log(subResponse.data?.message || "Subscription failed")
+          console.log(subResponse.data?.message || "Subscription failed");
           return;
         }
 
         // 2. Confirm payment (NO payment_method passed here)
-        const { error, paymentIntent } = await stripe.confirmCardPayment(
+        const { error, paymentIntent } = await this.stripe.confirmCardPayment(
           subResponse.data.clientSecret,
           {
             // VERY IMPORTANT
@@ -404,7 +360,7 @@ class hldStripeHandler {
 
         // 4. Handle next actions (3DS, SCA)
         if (paymentIntent.status === "requires_action") {
-          const { error: actionError } = await stripe.confirmCardPayment(
+          const { error: actionError } = await this.stripe.confirmCardPayment(
             subResponse.data.clientSecret
           );
 
@@ -420,7 +376,7 @@ class hldStripeHandler {
       } catch (err) {
         ev.complete("fail");
         console.error(err);
-        alert("Payment failed");
+        alert("Payment failed", err);
       }
     });
 
@@ -784,7 +740,6 @@ if (cardElement) {
     submitWrapperClass: ".hld_form_main_submit_button",
     prButtonId: "payment-request-button", // NEW: add this container in HTML
   });
-  // console.log("hldStripeHandler initialized!");
 } else {
-  // console.log("#card-element not found. Stripe handler not initialized.");
+  console.log("#card-element not found. Stripe handler not initialized.");
 }

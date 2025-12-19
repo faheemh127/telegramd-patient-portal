@@ -8,6 +8,8 @@ class HldFluentFormHandler {
     this.initCustomizedData();
     this.removeOptinLabelBorder();
     this.insertDisqualifyContent();
+    // this.initPackages();
+    
     // on page refresh or on nextendsocial login its importalt to call this function so it can pass price to strip handler class and show data on summary page
     // hldFormHandler.getAmount();
     // hldFormHandler.setStripeData();
@@ -303,7 +305,7 @@ class HldFluentFormHandler {
         </div>
       </div>
     `;
-    });
+    }); 
 
     wrap.innerHTML = html;
   }
