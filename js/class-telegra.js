@@ -1,6 +1,53 @@
 class HLDTelegra {
   constructor() {
     this.initRefundListener();
+    setTimeout(() => {
+      HLD_Telegra.initPackages();
+    }, 3000);
+  }
+
+  initPackages() {
+    const selectEl = document.querySelector('select[name="dropdown_4"]');
+    if (!selectEl) {
+      console.error("Medication Element is not defined.");
+      return;
+    }
+    const medication = selectEl.value.trim();
+    if (medication !== "") {
+      hldFormHandler.setPackagePrice(medication);
+      HLD_Telegra.activatePackage();
+    }
+  }
+
+  activatePackage() {
+    const packageElem = document.querySelector('select[name="dropdown_3"]');
+    if (!packageElem) {
+      console.error("Packages Element is not defined.");
+      return;
+    }
+
+    const selectedPackage = packageElem.value.trim();
+    console.log("selected package activatePackage", selectedPackage);
+
+    // Do nothing if no package selected
+    if (selectedPackage === "") return;
+
+    const packagesWrap = document.querySelector(".hld_patient_packages");
+    if (!packagesWrap) return;
+
+    // Remove active class from all labels first
+    const allLabels = packagesWrap.querySelectorAll(".hld-custom-checkbox");
+    allLabels.forEach((label) => label.classList.remove("active"));
+
+    // Find matching label by data-value
+    const activeLabel = packagesWrap.querySelector(
+      `.hld-custom-checkbox[data-value="${selectedPackage}"]`
+    );
+
+    // Add active class
+    if (activeLabel) {
+      activeLabel.classList.add("active");
+    }
   }
 
   // Attach click listener to all refund buttons
@@ -53,7 +100,7 @@ class HLDTelegra {
 
 // Initialize class
 jQuery(document).ready(() => {
-  new HLDTelegra();
+  HLD_Telegra = new HLDTelegra();
 });
 
 // class code ends

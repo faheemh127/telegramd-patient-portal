@@ -1971,6 +1971,9 @@ div.ff-summary-value.ff-free {
   color: #4b5563;
   line-height: 1.55;
 }
+.hld_form_wrap.payment-success{
+  display: none;
+}
 
 /* Dashboard button */
 .hld_btn_dashboard {

@@ -961,7 +961,6 @@ if (! class_exists('HLD_Patient')) {
 
             $email = sanitize_email($email);
 
-            error_log($email . " in is_patietn_new");
             // Check if patient already exists
             $existing = $wpdb->get_var(
                 $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
