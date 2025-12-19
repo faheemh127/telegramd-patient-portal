@@ -46,9 +46,6 @@ function hld_subscribe_patient_handler()
     //     wp_die();
     // }
 
-
-
-
     require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
     \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
@@ -61,7 +58,7 @@ function hld_subscribe_patient_handler()
     $promo              = sanitize_text_field($_POST['promo']);
 
 
-    $response = HLD_Stripe::hld_calculate_stripe_price($price_id, $promo, $duration);
+    // $response = HLD_Stripe::hld_calculate_stripe_price($price_id, $promo, $duration);
     try {
         /**
          * STEP 1: Get or Create Stripe Customer
@@ -110,11 +107,6 @@ function hld_subscribe_patient_handler()
             'invoice_settings' => ['default_payment_method' => $payment_method],
         ]);
 
-
-
-
-
-
         /**
          * STEP 3: Create subscription that cancels automatically after N months
          */
@@ -138,9 +130,9 @@ function hld_subscribe_patient_handler()
                 ['price' => $price_id],
             ],
             'cancel_at' => strtotime("+{$months} months"),
-            // 'payment_behavior' => 'default_incomplete', // required for client_secret
-            'expand' => ['latest_invoice.payment_intent'],
-
+            'payment_settings' => ['save_default_payment_method' => 'on_subscription'],
+            'payment_behavior' => 'default_incomplete', // required for client_secret
+            'expand' => ['latest_invoice.payment_intent', 'pending_setup_intent'],
         ];
 
         // If patient is new → add discount
@@ -150,13 +142,24 @@ function hld_subscribe_patient_handler()
             ]];
         }
 
-        // Create subscription
         $subscription = \Stripe\Subscription::create($subscription_data);
+
+        $clientSecret = null;
+        $invoice = $subscription->latest_invoice;
+
+        if (!isset($invoice->payment_intent) || $invoice->payment_intent === null) {
+            $invoice = \Stripe\Invoice::retrieve([
+                'id' => $invoice->id,
+                'expand' => ['payment_intent'],
+            ]);
+        }
+
+        if ($invoice->payment_intent) {
+            $clientSecret = $invoice->payment_intent->client_secret;
+        }
 
         error_log("a subscription was trying to be created with card");
         error_log(print_r($subscription, true));
-
-
 
         /**
          * STEP 4: Store locally in custom tables
@@ -191,7 +194,6 @@ function hld_subscribe_patient_handler()
         );
 
 
-        // If the current patient already have the subscription with the same plan don't allow him to purchase that subscription again
         if (!$response['status']) {
             wp_send_json_error([
                 'message' => $response['message'],
@@ -206,7 +208,7 @@ function hld_subscribe_patient_handler()
             'subscription_id' => $subscription->id,
             'status' => $subscription->status,
             'customer_id' => $customer_id,
-            'clientSecret' => $subscription->latest_invoice->payment_intent->client_secret,
+            'clientSecret' => $clientSecret,
         ]);
     } catch (Exception $e) {
         wp_send_json_error(['message' => $e->getMessage()]);
