@@ -6,7 +6,7 @@ https://codebeautify.org/json-to-base64-converter#
 
 ---- Priority Sheet
 https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hgv4E/edit?gid=0#gid=0
-
+https://docs.google.com/spreadsheets/d/15chMrgqpK0GuhOybX1e74kLfasB1ddt_i5nYjooy_AA/edit?gid=1773746964#gid=1773746964
 
 
 // @todo: before publish
@@ -18,95 +18,16 @@ https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hg
    https://docs.google.com/spreadsheets/d/1EI7tEmOcElbaP3YtdIU98ZKsxwr8ogjBSgv3IWuvkcw/edit?gid=1071605802#gid=1071605802
 // next requirements vineeth shared on 3-Nov-2025
    https://docs.google.com/document/d/1Chwv7ZHIGtkCKfkJ6beqvH9YlGs0sOmCRFvPmLmS1W0/edit?usp=drivesdk
-1) hide the login button on the first step
+
+
 4) test by realtime charge when perscription recieved
-5) recurring charge functionality
 6) Add realtime URL's to telegra later for webhooks
-8) send real name from shipping address to telegra order while creating order get from fluent form
-9) display order information correctly
-10) in profile edit profile professionaly
-11) edit card professionaly
-12) add disqualify professionaly
-13) on long form submit get medications and send them to telegra
-14) Fix Date of birth mobile responsive and as vineeth asked
-15) Based on selected medication also display the true prices on subscriptions page
-16) Display Action items on dashboard
-18) success message in long form submit
-20) make a PDF tutorial for vineeth how to change prices
-21) make the login form changes
-24) select state which will be selected before
-25) check signup errors
-26) product id should pass dynamic at the moment its static in create_order function
 27) add order failed callback
-28) add realtime address in telegra ccreate_order and other information in create_order as well
-2) upload the api keys in wp-admin
-3) upload the medication div to the glp-1-prefunnel
-7) register system using email
-19) Back button in fluent forms
-22) change the hover color of login button in glp-1-prefunnel login button display error messages correctly
-23) test login correctly
-25) hover text color fix on logout 
-26) when create order send the real information
-
-
-todo upload shortcode to live
-make fluent form id in one place of all the plugin
-
-states
-do some conditional logic based on the state they select
-phone call 
-1 or 1 chat
-clinical difference form
-
-healsend_wp45
-
-siteurl: http://localhost/server/healsend-new
-home: http://localhost/server/healsend-new
-
-product adding section in stripe for subscriptions
-apple pay should work
-add images for medications 
-address auto suggestion
-update patient on create order on telegra with ture information
-
-
-
 display subscription data professionally
 glp follow up questions setup
-add medications for metabolic
-add packages for metabolic
-conditioanl logic in action items
-ID upload to the correct route 
+product adding section in stripe for subscriptions
 design ID upload correctly
-also the last one like ID upload make that 
-once action item done stop displaying that action item
-Edit profile information (personal, credit card, shipping information)
-order detail professional and orders responsive and professional
-conditional logic completion for action item for clinical difference form and glp 
-Refund System and Cancel Subscription if Patient disqualify
-
-
-
-
-Missing questions
-10.1.1) Do you have cholesterol greater than 240 or are you on a 
-cholesterol medication? 
-loc::Glp-intakeform-22.16 this question is not available in PDF
-19.1) Are you currently taking any of the following medications? Select all that  apply. (Clinical protocol discourages taking GLPs to treat diabetes via telemedicine.  Patient should receive in-office care to treat diabetes with a GLP-1  medication. ) one option is missing in this question
-this is comming 2 times in response (     "_id": "loc::Glp-intakeform-22.18",)
-
-
-
-
-
-// forms and their medications
-Metabolic - Sermorelin
-GLP-1 weight loss related - Semaglutide, Tirzepatide
-erectile dysfunction-Tadalifil
-TRT-Enclomiphene
-
-
-
+Edit shipping information
 
 If they create an account then action item 
 send email after couple of hours
@@ -117,11 +38,10 @@ auto fill address dob and state, phone number
 upgrade subscription
 Email For prefunnel
 Reminding for action items
-Some states they may call for those states we need to understand either telegra will provide time we need to text patient a time 
 time for doctor appointment
-change this get started  in the header per page?
+get started  Page
 that box half half in prefunnel below all should the same colors
-if patient does not Eligible in action item how to get him removed??
+if patient does not Eligible in action item how to get him removed?
 // update information on telegra as well on patient update
 // do not allowe email update, update 
 if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
@@ -129,13 +49,9 @@ show order detail perfectly and remove order id from patient dashboard
 On prefunnel glp 1 completion the shipping address should shown in patient dashboard
 If patient disqualify in action item make a refund system
 if go back on first step land him on the home page
-
-
-
 If already selected a checkbox show next button by default in that fluent form step
 package name is not displaying correctly
 remove Doctor Assigned: Not assigned
-
 Support Contact: alerts@sysadminalerts.net from the subscription detail in patient dashboard
 we should create a document upload system so if patient have additional documents he can easily upload his documents
 display those documents on patient dashboard
@@ -158,8 +74,6 @@ Find a treatment button should go to treatment section
 There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 Its not going back when moved to checkout page if the user is already login in prefunnel either that's GLP prefunnel or may be other prefunnel
 on prefunnel login page fix the hover color of the button and QA the functionality
-
-
 -- password is sent openly in login page
 -- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
 -- signup button hover color need to be fixed
