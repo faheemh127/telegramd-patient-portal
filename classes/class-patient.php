@@ -949,7 +949,7 @@ if (! class_exists('HLD_Patient')) {
 
         public static function is_patient_new($email)
         {
-            error_log("is_patient_new function called");
+           
             if (empty($email) || !is_email($email)) {
                 error_log("email is empty or is_email");
                 return false;
@@ -965,7 +965,7 @@ if (! class_exists('HLD_Patient')) {
             $existing = $wpdb->get_var(
                 $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
             );
-            error_log($existing . " existing");
+            
 
             if ($existing) {
                 return false;

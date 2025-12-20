@@ -301,6 +301,11 @@ nav.hld-navbar {
   font-weight: initial !important;
   margin-bottom: 0px !important;
 }
+.long-option-mcq .ff-el-form-check-label {
+  display: flex !important;
+  justify-content: left;
+  align-items: center;
+}
 .hdl_input_wrap input {
   border-radius: 7px !important;
   border: 1px solid rgba(0, 0, 0, 0.3) !important;
@@ -1971,7 +1976,7 @@ div.ff-summary-value.ff-free {
   color: #4b5563;
   line-height: 1.55;
 }
-.hld_form_wrap.payment-success{
+.hld_form_wrap.payment-success {
   display: none;
 }
 
@@ -1992,7 +1997,6 @@ div.ff-summary-value.ff-free {
 .hld_btn_dashboard:hover {
   background: #1e4fc7;
 }
-
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{

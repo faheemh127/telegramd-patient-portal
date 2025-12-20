@@ -477,3 +477,10 @@ aff::8c8a9c2e-c46c-49e9-ac54-a15f0fe74e19
 https://telegramd-rest.telegramd.com/
 healsendline@gmail.com
 @Healsend26
+
+
+1) next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
+2) just need to double check the 2 questions in postfunnel of (pt-141) plan
+3) some minor questions UI fix using css is pending
+4) dancing issue of glp post funnel questions when too many steps skip
+5) after logout user was not redirecting from my-account slug
