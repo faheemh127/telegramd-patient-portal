@@ -1,10 +1,10 @@
 [
   {
     "telegra_code": "pvt::a53ff66a-0673-4371-a785-e6906c2176c2",
-    "medication_name": "PT-141",
-    "description": "Enhances sexual desire & arousal, Works for both men and women, Rapid-acting non-hormonal peptide, Increases sensitivity and satisfaction",
+    "medication_name": "PT-141 Nasal Spray",
+    "description": "Fast-acting support, Boosts desire & arousal, Enhances intimacy & confidence, For Men & Women",
     "stripe_product_id": "prod_T6gWAGad8vzvqU",
-    "labels": "No Needles, Fast absorption",
+    "labels": "Needle-Free",
     "medication": "pt_141",
     "image": {
       "url": "https://i.ibb.co/m5rZR3Vb/PT-141-nasal-spray-nad-nasal-spray.png",
@@ -20,14 +20,14 @@
     "packages": [
       {
         "monthly_duration": "1",
-        "monthly_price": "229",
+        "monthly_price": "139",
         "desc": "Great for first-time users, Provides fast-acting enhancement, Helps assess individual response, Ideal for short-term boost in desire",
         "stripe_price_id": "price_1ScszqAcgi1hKyLWQGNcxdkJ",
         "promo": "promo_1Sct1qAcgi1hKyLWQxHJLWaN"
       },
       {
         "monthly_duration": "3",
-        "monthly_price": "219",
+        "monthly_price": "139",
         "desc": "Best value for long-term support, More consistent improvement over time, Enhanced overall satisfaction, Ideal for ongoing performance and confidence",
         "stripe_price_id": "price_1Sct0JAcgi1hKyLWUEBPOdZy",
         "promo": "promo_1Sct37Acgi1hKyLWdpVx7Q6x"

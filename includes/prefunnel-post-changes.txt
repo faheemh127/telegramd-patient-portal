@@ -4,13 +4,6 @@
 
 
 
-
-
-
-
-
-
-
 steps to export a funnel from localhost to live
 1) export and import the form to live
 3) update page form_id in shortcode and shortcode data
@@ -27,6 +20,13 @@ steps to export a funnel from localhost to live
 2) copy telegra ids, 
 3) stripe prices & promos, and prices
 
+
+1) Set everything to dev mode correctly
+2) duplicate the jsons to live file
+3) add telegra product id's
+4) add stripe price_id's 
+5) add stripe promo_id 
+6) upload the base64 to live site
 
 
 
