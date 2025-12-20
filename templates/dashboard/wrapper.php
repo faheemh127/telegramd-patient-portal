@@ -59,7 +59,7 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             }
 
             // Output the card
-            ?>
+?>
             <div
                 class="hld-card"
                 style="background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 50px 50px; max-width: 700px; font-family: Arial, sans-serif; width: 100%; margin: 20px auto;">
@@ -103,7 +103,7 @@ if (isset($_GET["questionnaire-answered"])) {
 
 ?>
 
-<section id="hdlDashboard">
+<section id="hdlDashboard" class="hld-dashboard">
     <div class="container">
 
         <div class="tabs" style="padding-top: 1px;">
@@ -121,7 +121,10 @@ if (isset($_GET["questionnaire-answered"])) {
                 <!-- Wrap the navigation in a scrollable container -->
                 <div class="tabs-nav-wrapper">
                     <ul class="container">
-                        <li class="hld_nav_action_items"><label for="tab0"><span>Action Items</span></label></li>
+                        <li class="hld_nav_action_items"><label for="tab0"><span> <svg style="margin-bottom: 2px;" fill="currentColor" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <title>info</title>
+                                        <path d="M11.188 4.781c6.188 0 11.219 5.031 11.219 11.219s-5.031 11.188-11.219 11.188-11.188-5-11.188-11.188 5-11.219 11.188-11.219zM11.063 8.906c-0.313 0.375-0.469 0.813-0.469 1.281 0 0.375 0.125 0.688 0.313 0.906 0.219 0.219 0.531 0.344 0.844 0.344 0.438 0 0.844-0.188 1.156-0.563 0.281-0.344 0.438-0.844 0.438-1.375 0-0.313-0.094-0.594-0.313-0.813s-0.531-0.344-0.844-0.344c-0.406 0-0.813 0.188-1.125 0.563zM8.219 15.375l0.375 0.406c0.281-0.313 0.563-0.563 0.75-0.719 0.188-0.125 0.344-0.188 0.469-0.188 0.094 0 0.188 0.031 0.25 0.094 0.031 0.094 0.063 0.188 0.063 0.344 0 0.781-0.094 1.281-0.5 3.156s-0.625 3.25-0.625 4.156c0 0.344 0.063 0.594 0.188 0.75 0.094 0.156 0.281 0.281 0.531 0.281 0.406 0 1-0.313 1.688-0.844 0.688-0.563 1.375-1.344 2.125-2.344l-0.406-0.344c-0.25 0.313-0.5 0.531-0.688 0.688-0.188 0.125-0.344 0.25-0.469 0.25-0.094 0-0.188-0.094-0.25-0.156-0.031-0.094-0.063-0.219-0.063-0.406 0-0.125 0.031-0.531 0.156-1.25 0.094-0.719 0.063-0.719 0.25-1.781 0.031-0.313 0.125-0.75 0.219-1.281 0.25-1.594 0.406-2.563 0.406-2.875 0-0.281-0.094-0.531-0.188-0.688-0.125-0.156-0.313-0.219-0.531-0.219-0.375 0-0.875 0.281-1.563 0.781-0.688 0.531-1.375 1.25-2.188 2.188z"></path>
+                                    </svg>Action Items</span></label></li>
                         <li class="hld_nav_subscriptions"><label for="tab1"><span>Subscriptions</span></label></li>
                         <li class="hld_nav_conversations"><label for="tab2"><span>Messages</span></label></li>
                         <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
@@ -146,19 +149,21 @@ if (isset($_GET["questionnaire-answered"])) {
             <?php elseif (isset($_GET['informed-consent-for-treatment'])) : ?>
                 <?php require_once HLD_PLUGIN_PATH . 'templates/glp-agreement-form.php'; ?>
             <?php else : ?>
+
+                <!-- this is will only shown if person will have any action item -->
+
+                <?php include HLD_PLUGIN_PATH . 'templates/dashboard/action-item-notification.php'; ?>
+
                 <div class="content">
                     <!-- Section 1 -->
                     <section class="container">
-
-
-
-
-
-
                         <?php
+
+
                         include HLD_PLUGIN_PATH . 'templates/dashboard/action-items.php';
-                // hdl_get_template('dashboard/home', ['user' => $user]);
-                ?>
+                        // this template was for dashboard that we initially designed
+                        // hdl_get_template('dashboard/home', ['user' => $user]);
+                        ?>
 
                     </section>
                     <!-- Section 2 -->
@@ -176,10 +181,10 @@ if (isset($_GET["questionnaire-answered"])) {
 
                         <?php
 
-                if (HLD_UserSubscriptions::has_any_subscription()) {
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
 
 
-                    ?>
+                        ?>
                             <iframe
                                 id="chat-clinical"
                                 src="https://healsend.com/chat-app/"
@@ -210,7 +215,7 @@ if (isset($_GET["questionnaire-answered"])) {
 
                         <?php
                         if (HLD_UserSubscriptions::has_any_subscription()) {
-                            ?>
+                        ?>
                             <iframe
                                 src="https://healsend.com/visit/"
                                 width="100%"
@@ -238,15 +243,15 @@ if (isset($_GET["questionnaire-answered"])) {
 
                     <section class="container">
                         <?php hdl_get_template('dashboard/lab-orders');
-                ?>
+                        ?>
                     </section>
 
                     <section class="container hld-chat-container">
 
 
                         <?php
-                if (HLD_UserSubscriptions::has_any_subscription()) {
-                    ?>
+                        if (HLD_UserSubscriptions::has_any_subscription()) {
+                        ?>
                             <iframe
                                 id="chat-support"
                                 src="https://healsend.com/chat-app/"
@@ -275,7 +280,7 @@ if (isset($_GET["questionnaire-answered"])) {
 
                         <?php
                         if (HLD_UserSubscriptions::has_any_subscription()) {
-                            ?>
+                        ?>
                             <iframe
                                 id="chat-billing"
                                 src="https://healsend.com/chat-app/"

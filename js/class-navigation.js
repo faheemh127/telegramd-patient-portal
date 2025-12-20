@@ -3,26 +3,26 @@ class HldNavigation {
     this.init();
   }
 
-  // Initialize on page load
-  // use .hld_disqualify_step on each step that is fluent form step
   init() {
-    // commenting this because now we are moving the login page before checkout so its not need  at the moment
-    // this.checkNextEndLoginAndNavigate(); // don't need here  its now called in mutation observer function
-    // this.initLoginWrapListener();
     this.toggleLoader(true);
     this.hideNextBtnLoginWrap();
     this.initActionItemSidebar();
-    // this.showActionItemSidebar();
     this.connectNavItemsWithActionItem();
     this.hideNextBtnDisqualifyStep();
     this.disqualifyLessThan18();
     this.hideLayoutIfForm();
-    // this.showNextButtonAfterSelectSelection();
+    this.initBackButtonListener();
     this.showNextButtonOnRadioSelection();
     this.hideNextBtnOnDOB();
+    this.initActionItemClickListner();
+
+    // commenting this because now we are moving the login page before checkout so its not need  at the moment
+    // don't need here  its now called in mutation observer function
+    // this.showActionItemSidebar();
+    // this.showNextButtonAfterSelectSelection();
     // this.showAllPrevButtons();
-    // 👇 Initialize the back button listener here
-    this.initBackButtonListener();
+    // this.initLoginWrapListener();
+    // this.checkNextEndLoginAndNavigate();
   }
 
   // 👇 Add this new method
@@ -303,7 +303,7 @@ class HldNavigation {
 
   showAllPrevButtons() {
     const stepContainers = document.querySelectorAll(
-      ".ff-step-container .fluentform-step",
+      ".ff-step-container .fluentform-step"
     );
 
     stepContainers.forEach((step) => {
@@ -417,7 +417,7 @@ class HldNavigation {
 
         // If one is already selected (page reload case)
         const alreadyChecked = step.querySelector(
-          'input[type="radio"]:checked',
+          'input[type="radio"]:checked'
         );
         if (alreadyChecked) showBtn();
 
@@ -480,6 +480,16 @@ class HldNavigation {
         }
       });
     }
+  }
+
+  initActionItemClickListner() {
+    document.addEventListener("click", (e) => {
+      const actionItem = e.target.closest(".open_action_item");
+
+      if (actionItem) {
+        this.showActionItemSidebar();
+      }
+    });
   }
 
   initLoginWrapListener() {
@@ -577,8 +587,21 @@ class HldNavigation {
   //     document.body.style.pointerEvents = "auto"; // Enable page clicks
   //   }
   // }
+  isDashboard() {
+    return document.querySelector(".hld-dashboard") !== null;
+  }
 
   toggleLoader(show) {
+    /**
+     * if dashbaord i'm returning reason is the fluentFormData was not available there and this was
+     * causing javascript error if you can solve fluentFormData error you can remove this if if (isDashboard()) return;
+     */
+
+    if (this.isDashboard()) return;
+
+    /**
+     * Actial function code start from here
+     */
     if (!fluentFormData || !fluentFormData.showLoadingBar) return;
 
     let loader = document.getElementById("global-loading-overlay");
@@ -695,3 +718,4 @@ class HldNavigation {
 document.addEventListener("DOMContentLoaded", () => {
   window.hldNavigation = new HldNavigation();
 });
+console.log("class-navigation is loading");

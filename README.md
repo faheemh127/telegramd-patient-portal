@@ -28,44 +28,50 @@ Make sure to put api-keys.php file rightly so in dev environment you do not miss
 
 #use hld_disqualify_step class on the wrapper for fluent form on each step
 Make sure that patient dashboard should always be opened in domain.com/my-account url
+
 ## Covnert the medications data to base64 for shortcode
+
 there is a file medications.json which can be used to modify and update prices you can convert it to base64 from this tool
 https://codebeautify.org/json-to-base64-converter#
 
-
 ## Use this shortcode on prefunnel pages
+
 [healsend_form form_id="3" pay="later" medications=""]
 in medications key you should get the base64 data by converting medications.json file which is in plugin and convert it to base64 and then you can use this shortcode in prefunnel pages
 
 ## Always include the new prefunnel to the array exists in $telegra_forms array in classfluenthandler
 
-
 ## Fluent forms Backup
+
 All fluent forms latest backup is available to fluent-forms folder of this plugin if you find more fluent form in a backup for example for glp-1-prefunnel folder if you find more than 1 then you can choose the latest date of .json it means previous one are the older backup and the latest date means latest backup you should alwasy prefer to import that
 
-
 ## .hld_form_wrap class
-whenever add a fluent form to any wordpress page make sure to add the class .hld_form_wrap as to the container of fluent form shortcode so it can be filled with all the style that is in our custom-style.css file 
 
+whenever add a fluent form to any wordpress page make sure to add the class .hld_form_wrap as to the container of fluent form shortcode so it can be filled with all the style that is in our custom-style.css file
 
 Make sure to add healsend_form shortcode and add your forms there in the provided shortcode above and add the medication json in base64 convert them using online tool
 
-
 ## What is quinst-data.json file and where it is used
+
 basically this .json file can be encoded to base64 and pass in the fluent form in hidden field name the name attribute will be telegra_quinst_data and the data will be base64 json from quinst-data.json file. when action form will be submitted this data will be submitted too and our php code will use this data to upload questionnare to telegra using their REST API.
 
+## what is constants.php
 
-## what is constants.php 
 Constant.php file contain the fluent form id's mainly and especially the tables names of the database this plugin creates and uses
 
-
 ## Medication name in shortcode data and Medication name in fluent from dropdown should be same
+
 Make sure that on a specific prefunnel the medication detail that you pass on shortcode (the medication name) that is actually depending on the fluent form medication dropdown behind the scene. bechase we have built a custom UI for selecting medication that's why you need to make sure that both medication names are same including spelling wise and uppercase and lowercase etc
 
-
 ## Refund REquest
+
 in the fluent form that button should have a class that .hldRequestRefund each button should have that class
 
 ## form type
+
 a fluent form can be of two types prefunnel or postfunnel
 postfunnel form indicates the questionnaire form and prefunnel are all the same just medications are different
+
+## Disqualify step requirement
+
+// use .hld_disqualify_step on each step that is fluent form step

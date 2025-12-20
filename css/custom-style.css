@@ -110,8 +110,31 @@
 
 .hld_form_wrap_hidden {
   display: none !important;
+  margin-top: 1rem;
 }
-
+.hld-complete-action-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.hld-complete-action-item p {
+  margin-bottom: 0;
+}
+.hld-complete-action-item svg {
+  margin-bottom: 2px;
+}
+.hld-complete-action-item span {
+  text-decoration: underline;
+}
+.hld-sidebar-close:hover,
+.hld-sidebar-close:focus{
+  background-color: var(--hld-color-primary-dark);
+}
 .hld_form_wrap .fluentform .ff-el-form-check-label .ff-el-form-check-input {
   display: none;
 }
@@ -1448,6 +1471,11 @@ nav.hld-navbar {
 }
 .btn_payment_method {
   float: right;
+}
+.btn_payment_method:hover,
+.btn_payment_method:focus{
+  background-color: var(--hld-color-primary-dark);
+
 }
 /* Desktop date picker */
 .myBirthDate select {

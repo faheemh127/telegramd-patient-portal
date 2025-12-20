@@ -946,10 +946,19 @@ if (! class_exists('HLD_Patient')) {
 
             return false;
         }
+        
+        public static function format_status(string $status): string
+        {
+            // Replace underscores with spaces
+            $readable = str_replace('_', ' ', $status);
+
+            // Capitalize first letter only
+            return ucfirst($readable);
+        }
 
         public static function is_patient_new($email)
         {
-           
+
             if (empty($email) || !is_email($email)) {
                 error_log("email is empty or is_email");
                 return false;
@@ -965,7 +974,7 @@ if (! class_exists('HLD_Patient')) {
             $existing = $wpdb->get_var(
                 $wpdb->prepare("SELECT id FROM {$table} WHERE patient_email = %s LIMIT 1", $email)
             );
-            
+
 
             if ($existing) {
                 return false;

@@ -86,7 +86,7 @@ $icon_file = '<svg width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
                                         <div class="d-flex align-items-center gap-1 hld-sub-desc">
                                             <?php // echo $icon_calendar 
                                             ?>
-                                            <strong>Order Status:</strong> <?php echo esc_html(ucfirst($order_status)); ?>
+                                            <strong>Order Status:</strong> <?php echo HLD_Patient::format_status($order_status); ?>
                                         </div>
                                     </div>
                                 </div>

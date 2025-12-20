@@ -1,6 +1,5 @@
 <?php
-$pending_items = HLD_ActionItems_Manager::get_user_pending_action_items();
-
+ $pending_items = HLD_ActionItems_Manager::get_user_pending_action_items();
 if ($pending_items) {
     foreach ($pending_items as $item) {
         // Append telegra_order_id to the URL safely

@@ -484,3 +484,4 @@ healsendline@gmail.com
 3) some minor questions UI fix using css is pending
 4) dancing issue of glp post funnel questions when too many steps skip
 5) after logout user was not redirecting from my-account slug
+6) on agreement page there should be not any sidebar opened
