@@ -15,22 +15,24 @@ if (!function_exists('hld_log')) {
 
 
 
-function hld_action_item($title, $msg, $link)
+function hld_action_item($title, $msg, $link, $btn_label = "Complete Visit")
 {
-    ?>
+?>
     <div class="hld_action_item_wrap">
         <p class="title"><?php echo  $title; ?></p>
         <p class="desc"><?php echo $msg;  ?></p>
-        <a href="<?php echo  $link; ?>">Complete Visit</a>
+        <a href="<?php echo  $link; ?>"><?php echo $btn_label; ?></a>
     </div>
 <?php
 }
+
+
 function hld_not_found($msg)
 {
     // Build a dynamic URL for the "Find a Treatment" page
     $treatment_url = home_url('/glp-1-form/'); // relative path
 
-    ?>
+?>
     <div class="hld_no_found_wrap">
         <p><?php echo esc_html($msg); ?></p>
         <a id="make-column-clickable-open-dynamic" href="#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjE1NDQ5IiwidG9nZ2xlIjpmYWxzZX0%3D">Find a Treatment</a>
@@ -137,4 +139,3 @@ function get_logged_in_username()
     $user = wp_get_current_user();
     return ($user && $user->ID) ? $user->user_login : null;
 }
-

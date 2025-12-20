@@ -81,7 +81,12 @@ if (isset($_GET['message'])) {  ?>
 
 
             <h3>Payment Method</h3>
-            <div class="card mb-4 shadow-sm hld-payment-info">
+            <?php
+            include HLD_PLUGIN_PATH . 'templates/dashboard/my-payment-methods.php';
+
+            ?>
+
+            <!-- <div class="card mb-4 shadow-sm hld-payment-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="col-md-8">
                         <div><strong>Debit Card:</strong> <span class="fw-bold"><?php if (HLD_Payments::has_card()) {
@@ -90,14 +95,22 @@ if (isset($_GET['message'])) {  ?>
                                                                                     echo "No payment method on file.";
                                                                                 } ?></span></div>
                     </div>
-                    <!-- <div class="col-md-4">
-                        <button class="btn_payment_method btn_edit_settings">Add Payment Method</button>
-                    </div> -->
+                    <div class="col-md-4">
+                        <a
+                            href="<?php echo esc_url(HLD_PATIENT_DASHBOARD_URL . '?my-payment-methods'); ?>"
+                            class="btn_payment_method btn_edit_settings">
+                            Manage Payment Methods
+                        </a>
+                    </div>
+
 
 
 
                 </div>
-            </div>
+            </div> -->
+
+
+
             <h3>Shipping Address</h3>
 
             <div class="card mb-4 shadow-sm hld-shipping-info">
