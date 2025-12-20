@@ -23,8 +23,8 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
             $wpdb->prepare(
                 "SELECT meta_key, meta_value FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key LIKE %s",
                 $user_id,
-                'fluent_form_%'
-            )
+                'fluent_form_%',
+            ),
         );
 
         if (empty($meta_keys)) {
@@ -88,6 +88,11 @@ if (!function_exists('hld_display_fluent_saved_forms_cards')) {
 // if wanna display the clinical chat in full window
 if (isset($_GET["care-team"])) {
     include HLD_PLUGIN_PATH . 'templates/dashboard/care-team-chat.php';
+    return;
+}
+
+if (isset($_GET["my-payment-methods"])) {
+    include HLD_PLUGIN_PATH . 'templates/dashboard/my-payment-methods.php';
     return;
 }
 

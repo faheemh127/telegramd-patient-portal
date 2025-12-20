@@ -45,6 +45,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-mail.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-stripe.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-telegra-order.php';
 
+require_once plugin_dir_path(__FILE__) . 'ajax/stripe-payment-methods.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-create-setup-intent.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-charge-now.php';
 require_once plugin_dir_path(__FILE__) . 'includes/api-keys.php';
