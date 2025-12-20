@@ -94,7 +94,7 @@ class HLD_Stripe
                 error_log("Payment Method Type: " . json_encode($pi->payment_method_types));
                 error_log("Full PaymentIntent: " . print_r($pi, true));
 
-                set_transient('afterpay_klarna_payment_success', $payment_intent_id, 20);
+                set_transient('afterpay_klarna_payment_success', $payment_intent_id, 7);
 
                 add_filter('hld_stripe_js_data', function ($data) use ($payment_intent_id) {
                     // Inject your dynamic payment intent ID

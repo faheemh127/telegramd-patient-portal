@@ -119,8 +119,8 @@ if (isset($_GET["questionnaire-answered"])) {
                 <input type="radio" id="tab3" name="tab-control" />
                 <input type="radio" id="tab4" name="tab-control" />
                 <input type="radio" id="tab5" name="tab-control" />
-                <input type="radio" id="tab6" name="tab-control" />
-                <input type="radio" id="tab7" name="tab-control" />
+                <!-- <input type="radio" id="tab6" name="tab-control" /> -->
+                <!-- <input type="radio" id="tab7" name="tab-control" /> -->
                 <input type="radio" id="tab8" name="tab-control" />
                 <input type="radio" id="tab9" name="tab-control" />
                 <!-- Wrap the navigation in a scrollable container -->
@@ -128,12 +128,12 @@ if (isset($_GET["questionnaire-answered"])) {
                     <ul class="container">
                         <li class="hld_nav_action_items"><label for="tab0"><span>Action Items</span></label></li>
                         <li class="hld_nav_subscriptions"><label for="tab1"><span>Subscriptions</span></label></li>
-                        <li class="hld_nav_conversations"><label for="tab2"><span>Conversations</span></label></li>
+                        <li class="hld_nav_conversations"><label for="tab2"><span>Messages</span></label></li>
                         <li class="hld_nav_orders"><label for="tab3"><span>Orders</span></label></li>
                         <li class="hld_nav_visits"><label for="tab4"><span>Visits</span></label></li>
                         <li class="hld_nav_profile"><label for="tab5"><span>Profile</span></label></li>
-                        <li class="hld_nav_lab_orders"><label for="tab6"><span>Lab Orders</span></label></li>
-                        <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li>
+                        <!-- <li class="hld_nav_lab_orders"><label for="tab6"><span>Lab Orders</span></label></li> -->
+                        <!-- <li class="hld_nav_support"><label for="tab7"><span>Support</span></label></li> -->
                         <li class="hld_nav_billing"><label for="tab8"><span>Billing</span></label></li>
                         <li class="hld_nav_logout"><label for="tab9"><span class="hld_btn_logout_main"><a href="<?= wp_logout_url(home_url('?message=User+logged+out')); ?>">Logout</a></span></label></li>
                     </ul>

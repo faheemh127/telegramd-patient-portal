@@ -761,19 +761,13 @@ if (! class_exists('hldFluentHandler')) {
                     error_log("[TelegraMD] Invalid JSON in telegra_quinst_data: " . json_last_error_msg());
                     return;
                 }
-
                 // Get disqualifiers to double check
                 $disqualifiers = $this->get_disqualifiers();
-                error_log(print_r($disqualifiers, true));
-
-
                 // 4️⃣ Loop through each object and process
                 foreach ($telegra_quinst_data as $item) {
                     $search_string =  isset($item['telegra_location_key']) ? sanitize_text_field($item['telegra_location_key']) : '';
                     foreach ($form as $key => $value) {
-                        error_log("Loop works and value was $value");
                         if (in_array($value, $disqualifiers)) {
-                            error_log("one question was a disqualifier");
                             wp_send_json_error([
                                 'errors' => [
                                     'NotAllowed' => 'You are disqualified and are unfit for this treatment.',
