@@ -411,3 +411,4 @@ Also we need to put required checks in GLp form but yes we fix to many issues on
 Also on pt-141 i think you show me last time 1 question that was what drug do you use i'll look into it on monday
 Also for now there is by default revoke subscription option is available but later we will only show it on monaday on disqualify only 
 by creating an action item its a quick thing i'll do it on monday
+For now testing please do not left any post funnel question blank means not choosn we will add required logic to all. to fix conditional logic we have remove that
