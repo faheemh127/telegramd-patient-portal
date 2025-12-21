@@ -1,9 +1,9 @@
 [
   {
-    "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
+    "telegra_code": "pvt::9fa261db-3d40-4f9d-b2be-80000c2e6a02",
     "medication_name": "NAD+ Injections",
     "description": "Highest bioavailability of any NAD⁺ format, Fastest rise in NAD⁺ levels, Most noticeable energy + recovery improvement, Preferred by athletes & high-performers",
-    "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
+    "stripe_product_id": "prod_TakbDYC3wodaIC",
     "labels": "Most Popular, Most Effective",
     "medication": "nad+injections",
     "image": {
@@ -22,20 +22,20 @@
         "monthly_duration": "1",
         "monthly_price": "239",
         "desc": "Flexible month-to-month option, Medication + provider care, Free 2-day delivery",
-        "stripe_price_id": "price_1ScNhoAcgi1hKyLWjaYM1wHh",
-        "promo": "promo_1ScNtmAcgi1hKyLWaHc5MWbi"
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "219",
         "desc": "Stronger more consistent results, Follow-ups + dose adjustments, Priority refills & support,Free 2-day delivery,Best long-term value",
-        "stripe_price_id": "price_1SaQhXAcgi1hKyLWXnZMj8W6",
-        "promo": "promo_1ScNtmAcgi1hKyLWaHc5MWbi"
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       }
     ]
   },
   {
-    "telegra_code": "pvt::36d24aa9-177a-4b85-ae31-b477e32b62d9",
+    "telegra_code": "pvt::87803044-1615-490d-ac20-1d0ac7f83915",
     "medication_name": "NAD+ Nasal Spray",
     "description": "Rapid brain delivery, Immediate clarity & alertness, Strong daily focus & clean energy, Easy needle-free alternative",
     "stripe_product_id": "prod_TSKaR8Gv8EnbDw",
@@ -57,15 +57,15 @@
         "monthly_duration": "1",
         "monthly_price": "199",
         "desc": "Flexible month-to-month option, Medication + provider care, Free 2-day delivery",
-        "stripe_price_id": "price_1ScNhoAcgi1hKyLWjaYM1wHh",
-        "promo": "promo_1ScNtmAcgi1hKyLWaHc5MWbi"
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       },
       {
         "monthly_duration": "3",
         "monthly_price": "179",
         "desc": "Stronger more consistent results, Follow-ups + dose adjustments, Priority refills & support,Free 2-day delivery,Best long-term value",
-        "stripe_price_id": "price_1SaQhXAcgi1hKyLWXnZMj8W6",
-        "promo": "promo_1ScNtmAcgi1hKyLWaHc5MWbi"
+        "stripe_price_id": "price_1SdZ66Kc7YcIzkWpwKp8RXOZ",
+        "promo": "promo_1SdZ8vKc7YcIzkWppvQg4ziq"
       }
     ]
   }
