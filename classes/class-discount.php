@@ -23,6 +23,11 @@ class HLD_Discount
             "first_month" => 21,
             "three_month" => 10
         ],
+        "Sermorelin Injection" => [
+            "first_month" => 21,
+            "three_month" => 10,
+            "coupon" => "Sermolin20Off",
+        ],
         "NAD+ Patches (6 week for monthly)" => [
             "first_month" => 10,
             "three_month" => 10

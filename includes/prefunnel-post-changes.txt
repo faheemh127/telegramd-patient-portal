@@ -6,7 +6,7 @@
 
 steps to export a funnel from localhost to live
 1) export and import the form to live
-3) update page form_id in shortcode and shortcode data
+3) update page form_id in shortcode and  (put product price id and promo on all the variations) shortcode data
 4) set constants
 5) Update API keys in wp-admin
 6) if database changes push them too (optional)
