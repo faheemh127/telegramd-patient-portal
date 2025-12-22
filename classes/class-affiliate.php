@@ -19,7 +19,7 @@ class HLD_Affiliate
         $this->maybe_set_affiliate_cookie();
     }
 
-    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0.00)
+    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0)
     {
         // Make sure FluentAffiliate classes exist
         if (!class_exists('\FluentAffiliate\App\Models\Referral')) {
@@ -31,7 +31,7 @@ class HLD_Affiliate
         }
 
         $affiliate_id = intval($affiliate_id);
-        $order_id     = sanitize_text_field($order_id);
+        // $order_id     = sanitize_text_field($order_id);
         $amount       = floatval($amount);
 
 
@@ -43,7 +43,7 @@ class HLD_Affiliate
             }
 
             if ($affiliate) {
-                $existing = \FluentAffiliate\App\Models\Referral::where('provider_id', $order_id)->first();
+                $existing = \FluentAffiliate\App\Models\Referral::where('provider', $order_id)->first();
 
                 if (!$existing) {
                     $rate = floatval($affiliate->rate);
@@ -60,8 +60,8 @@ class HLD_Affiliate
 
                     \FluentAffiliate\App\Models\Referral::create([
                         'affiliate_id'    => $affiliate_id,
-                        'provider'        => 'telegra_doctor_prescription_done',
-                        'provider_sub_id' => $order_id,  // I believe provider is the best place to show $provider_sub_id, I am not sure what theese fields reference internally
+                        'provider'        => $order_id,
+                        'provider_sub_id' => "telegra_doctor_prescription_done",
                         'order_total'     => $amount,
                         'amount'          => $commission,
                         'currency'        => 'USD',
@@ -69,7 +69,7 @@ class HLD_Affiliate
                         'type'            => 'sale',
                         'customer_id'     => wp_get_current_user()->ID, //Should we use userId or telegra user Id or stripe user Id
                         'created_at'      => current_time('mysql'),
-                        'provider_id'     => $order_id,
+                        'provider_id'     => $order_id, //This is the actual order id to show in the order id in referrals edit but it only takes number
                     ]);
                 }
             }
@@ -203,6 +203,6 @@ class HLD_Affiliate
 
 // init the class on each page reload
 add_action('init', function () {
-    new HLD_Affiliate();
-    // HLD_Affiliate::send_fluentaffiliate_referral(1, "asdfasdfas3322", 459);
+    // new HLD_Affiliate();
+    HLD_Affiliate::send_fluentaffiliate_referral(1, 'telegra_order_id_3322', 459);
 });
