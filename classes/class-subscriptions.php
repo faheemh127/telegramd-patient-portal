@@ -11,7 +11,7 @@ class HLD_UserSubscriptions
      */
     public static function init()
     {
-        // add_action('init', [__CLASS__, 'create_table_if_not_exists']);
+        // add_action('init', [__CLASS__, 'create_table']);
     }
 
 
@@ -100,7 +100,7 @@ class HLD_UserSubscriptions
     /**
      * Create table if it doesn't exist
      */
-    public static function create_table_if_not_exists()
+    public static function create_table()
     {
         global $wpdb;
         $table = $wpdb->prefix . self::$table_name;

@@ -14,7 +14,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('HLD_DEVELOPER_ENVIRONMENT', false);
+define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
 define('HLD_PAUSE_GHL', true);
 // define("")
@@ -65,6 +65,7 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-action-item-manager.php'
 require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-affiliate.php';
 
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';

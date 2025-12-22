@@ -36,6 +36,11 @@ if (! defined('HEALSEND_SUBSCRIPTIONS_TABLE')) {
     define('HEALSEND_SUBSCRIPTIONS_TABLE', $wpdb->prefix . "healsend_subscriptions");
 }
 
+if (! defined('HLD_AFFILIATE_TABLE')) {
+    define('HLD_AFFILIATE_TABLE', $wpdb->prefix . "healsend_affiliate");
+}
+
+
 
 
 #***********************GHL API KEY *************************

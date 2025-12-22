@@ -1,0 +1,189 @@
+<?php
+
+class HLD_Affiliate
+{
+    /**
+     * Affiliate token from URL
+     */
+    private $affiliate_token = null;
+    private $affiliate_url_key = "affiliate_id";
+    private static $cookie_name = 'hld_affiliate_token';
+    private static $cookie_duration_days = 7;
+
+    /**
+     * Constructor
+     * Runs on every page load
+     */
+    public function __construct()
+    {
+        $this->maybe_set_affiliate_cookie();
+    }
+
+
+
+    // public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0.00)
+    // {
+    //     if (empty($affiliate_id) || empty($order_id)) {
+    //         return;
+    //     }
+
+    //     // Make sure values are safe
+    //     $affiliate_id = intval($affiliate_id);
+    //     $order_id     = sanitize_text_field($order_id);
+    //     $amount       = floatval($amount);
+
+    //     // Make sure FluentAffiliate classes exist
+    //     if (!class_exists('\Fluent\Affiliate\Classes\Referrals\Referral_Handler')) {
+    //         return;
+    //     }
+
+    //     // Record referral directly
+    //     \Fluent\Affiliate\Classes\Referrals\Referral_Handler::record_referral([
+    //         'affiliate_id' => $affiliate_id,
+    //         'reference'    => $order_id,
+    //         'amount'       => $amount,
+    //         'type'         => 'sale',
+    //         'description'  => 'Prescription approved',
+    //         'provider'     => 'custom',
+    //     ]);
+    // }
+
+
+
+    public static function get_affiliate_for_patient()
+    {
+        // Get logged-in WordPress user
+        $user = wp_get_current_user();
+        if (!$user || !isset($user->user_email) || empty($user->user_email)) {
+            return null;
+        }
+
+        $email = sanitize_email($user->user_email);
+
+        global $wpdb;
+        $table = HLD_AFFILIATE_TABLE;
+
+        // Calculate cutoff date based on static cookie duration
+        $days = self::$cookie_duration_days;
+        $cutoff = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $affiliate_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT affiliate_id FROM {$table} WHERE patient_email = %s AND created_at >= %s ORDER BY created_at DESC LIMIT 1",
+                $email,
+                $cutoff
+            )
+        );
+
+        return $affiliate_id ? $affiliate_id : null;
+    }
+
+
+
+
+    /**
+     * Create affiliate table if it does not exist
+     * Should be called on plugin activation
+     */
+    public static function create_table()
+    {
+        global $wpdb;
+
+        // Table name comes from constant (already prefixed)
+        $table = HLD_AFFILIATE_TABLE;
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$table} (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            patient_email VARCHAR(255) NOT NULL,
+            affiliate_id VARCHAR(255) NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY patient_email_unique (patient_email)
+        ) {$charset_collate};";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta($sql);
+    }
+
+
+
+    /**
+     * Save affiliate info when a user signs up
+     *
+     * @param string $email The user's email
+     */
+    public static function save_affiliate_on_signup($email)
+    {
+        if (empty($email)) {
+            return;
+        }
+
+        // Check if the affiliate cookie is set
+        if (empty($_COOKIE[self::$cookie_name])) {
+            return;
+        }
+
+        global $wpdb;
+        $table = HLD_AFFILIATE_TABLE;
+
+        $affiliate_id = sanitize_text_field($_COOKIE[self::$cookie_name]);
+        $email = sanitize_email($email);
+
+        // Insert or ignore if email already exists
+        $wpdb->insert(
+            $table,
+            [
+                'patient_email' => $email,
+                'affiliate_id' => $affiliate_id,
+                'created_at' => current_time('mysql')
+            ],
+            [
+                '%s',
+                '%s',
+                '%s'
+            ]
+        );
+    }
+
+
+
+
+    /**
+     * Check URL for affiliate token and set cookie
+     */
+    private function maybe_set_affiliate_cookie()
+    {
+        // Change param name if your affiliate plugin uses something else
+        if (!isset($_GET[$this->affiliate_url_key])) {
+            return;
+        }
+
+        $this->affiliate_token = sanitize_text_field($_GET[$this->affiliate_url_key]);
+
+        if (empty($this->affiliate_token)) {
+            return;
+        }
+
+        // Set cookie for 7 days
+        setcookie(
+            self::$cookie_name,
+            $this->affiliate_token,
+            time() + (7 * DAY_IN_SECONDS),
+            COOKIEPATH ?: '/',
+            COOKIE_DOMAIN,
+            is_ssl(),
+            true
+        );
+
+        // Make it available immediately in this request
+        $_COOKIE[self::$cookie_name] = $this->affiliate_token;
+    }
+}
+
+
+// init the class on each page reload
+add_action('init', function () {
+    new HLD_Affiliate();
+});
