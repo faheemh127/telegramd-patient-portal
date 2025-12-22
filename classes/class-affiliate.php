@@ -19,36 +19,62 @@ class HLD_Affiliate
         $this->maybe_set_affiliate_cookie();
     }
 
+    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0.00)
+    {
+        // Make sure FluentAffiliate classes exist
+        if (!class_exists('\FluentAffiliate\App\Models\Referral')) {
+            return;
+        }
+
+        if (empty($affiliate_id) || empty($order_id)) {
+            return;
+        }
+
+        $affiliate_id = intval($affiliate_id);
+        $order_id     = sanitize_text_field($order_id);
+        $amount       = floatval($amount);
 
 
-    // public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0.00)
-    // {
-    //     if (empty($affiliate_id) || empty($order_id)) {
-    //         return;
-    //     }
+        if ($affiliate_id > 0) {
+            $affiliate = \FluentAffiliate\App\Models\Affiliate::find($affiliate_id);
 
-    //     // Make sure values are safe
-    //     $affiliate_id = intval($affiliate_id);
-    //     $order_id     = sanitize_text_field($order_id);
-    //     $amount       = floatval($amount);
+            if (!$affiliate || $affiliate->status !== 'active') {
+                return;
+            }
 
-    //     // Make sure FluentAffiliate classes exist
-    //     if (!class_exists('\Fluent\Affiliate\Classes\Referrals\Referral_Handler')) {
-    //         return;
-    //     }
+            if ($affiliate) {
+                $existing = \FluentAffiliate\App\Models\Referral::where('provider_id', $order_id)->first();
 
-    //     // Record referral directly
-    //     \Fluent\Affiliate\Classes\Referrals\Referral_Handler::record_referral([
-    //         'affiliate_id' => $affiliate_id,
-    //         'reference'    => $order_id,
-    //         'amount'       => $amount,
-    //         'type'         => 'sale',
-    //         'description'  => 'Prescription approved',
-    //         'provider'     => 'custom',
-    //     ]);
-    // }
+                if (!$existing) {
+                    $rate = floatval($affiliate->rate);
+                    $type = $affiliate->rate_type;
 
+                    $commission = 0;
+                    //There is third type called group, no idea how is that used to calculated comission,
+                    //perhaps provider_id between the group member equally,
+                    if ($type === 'percentage') {
+                        $commission = ($amount * ($rate / 100));
+                    } elseif ($type === 'flat') {
+                        $commission = $rate;
+                    }
 
+                    \FluentAffiliate\App\Models\Referral::create([
+                        'affiliate_id'    => $affiliate_id,
+                        'provider'        => 'telegra_doctor_prescription_done',
+                        'provider_sub_id' => $order_id,  // I believe provider is the best place to show $provider_sub_id, I am not sure what theese fields reference internally
+                        'order_total'     => $amount,
+                        'amount'          => $commission,
+                        'currency'        => 'USD',
+                        'status'          => 'unpaid',
+                        'type'            => 'sale',
+                        'customer_id'     => wp_get_current_user()->ID, //Should we use userId or telegra user Id or stripe user Id
+                        'created_at'      => current_time('mysql'),
+                        'provider_id'     => $order_id,
+                    ]);
+                }
+            }
+        }
+    }
 
     public static function get_affiliate_for_patient()
     {
@@ -71,15 +97,12 @@ class HLD_Affiliate
             $wpdb->prepare(
                 "SELECT affiliate_id FROM {$table} WHERE patient_email = %s AND created_at >= %s ORDER BY created_at DESC LIMIT 1",
                 $email,
-                $cutoff
-            )
+                $cutoff,
+            ),
         );
 
         return $affiliate_id ? $affiliate_id : null;
     }
-
-
-
 
     /**
      * Create affiliate table if it does not exist
@@ -106,8 +129,6 @@ class HLD_Affiliate
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
     }
-
-
 
     /**
      * Save affiliate info when a user signs up
@@ -137,18 +158,15 @@ class HLD_Affiliate
             [
                 'patient_email' => $email,
                 'affiliate_id' => $affiliate_id,
-                'created_at' => current_time('mysql')
+                'created_at' => current_time('mysql'),
             ],
             [
                 '%s',
                 '%s',
-                '%s'
-            ]
+                '%s',
+            ],
         );
     }
-
-
-
 
     /**
      * Check URL for affiliate token and set cookie
@@ -174,7 +192,7 @@ class HLD_Affiliate
             COOKIEPATH ?: '/',
             COOKIE_DOMAIN,
             is_ssl(),
-            true
+            true,
         );
 
         // Make it available immediately in this request
@@ -186,4 +204,5 @@ class HLD_Affiliate
 // init the class on each page reload
 add_action('init', function () {
     new HLD_Affiliate();
+    // HLD_Affiliate::send_fluentaffiliate_referral(1, "asdfasdfas3322", 459);
 });
