@@ -20,60 +20,35 @@ https://docs.google.com/spreadsheets/d/15chMrgqpK0GuhOybX1e74kLfasB1ddt_i5nYjooy
    https://docs.google.com/document/d/1Chwv7ZHIGtkCKfkJ6beqvH9YlGs0sOmCRFvPmLmS1W0/edit?usp=drivesdk
 
 
-4) test by realtime charge when perscription recieved
+
 6) Add realtime URL's to telegra later for webhooks
 27) add order failed callback
-display subscription data professionally
 glp follow up questions setup
-product adding section in stripe for subscriptions
 design ID upload correctly
 Edit shipping information
-
-If they create an account then action item 
-send email after couple of hours
-people wo do not complete their prefunnel for
+people wo do not complete their prefunnel for send email after couple of 15 minutes
 show information again on 2nd plain
-if they checkout again add a enw medication if first payment not successfull
 auto fill address dob and state, phone number
 upgrade subscription
-Email For prefunnel
 Reminding for action items
 time for doctor appointment
 get started  Page
-that box half half in prefunnel below all should the same colors
 if patient does not Eligible in action item how to get him removed?
-// update information on telegra as well on patient update
-// do not allowe email update, update 
 if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
-show order detail perfectly and remove order id from patient dashboard
-On prefunnel glp 1 completion the shipping address should shown in patient dashboard
-If patient disqualify in action item make a refund system
-if go back on first step land him on the home page
 If already selected a checkbox show next button by default in that fluent form step
 package name is not displaying correctly
 remove Doctor Assigned: Not assigned
-Support Contact: alerts@sysadminalerts.net from the subscription detail in patient dashboard
 we should create a document upload system so if patient have additional documents he can easily upload his documents
 display those documents on patient dashboard
-pass realtime address of the patient to dashboard and telegra when create order
 Shipping Address display in order detail
 Product information
 perscription fullfillment information
-Implementation of Apple pay
-remove fallback values from create_patient function
-implement udpate patient logic on telegra as well
+remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
 save preference as well in the database messages preference
 if a person selects metabolic recieve updates yes and weight loss no what should we do? 
 fix phone number sending 1 extra to the beginingg to affiliate portal
-DOB not sending correctly to to telegra
 we can add patient notes system to the patient dashboard
-package name not displaying correctly
-Fix Thank you page of action item weight loss intake the long form 
-On first patient create it shows 400 error on chats either create patient before or solve that error in another way
-Find a treatment button should go to treatment section
 There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
-Its not going back when moved to checkout page if the user is already login in prefunnel either that's GLP prefunnel or may be other prefunnel
-on prefunnel login page fix the hover color of the button and QA the functionality
 -- password is sent openly in login page
 -- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
 -- signup button hover color need to be fixed
@@ -118,204 +93,55 @@ Hi vineeth before launch Please do following things today
 
 
 
-Link it to the home page
-need to 
-after select state again if it goes there should be next button
-If they click injection 
-Which 
-link the home things
-hover outline on radio input fields
-customer is checking the validation 
-date picker
-premedication step is going to be replaced completely
-we only havetirezepatide
-most popular in weekly
-remove the compounded 
-tablets are only for tirezepatide so no need to next step
-Wheather they want to take tablet or injection
-
-Two options  Meciation drops, tablets  section removed,
-remove 6 month plans for all
-ignore 
-Choose your plan  (remove the line Please note that to select a specific you can use the above options)
-fix badges
-Only Injectsions now in prefunnel GLP 
-improve the design of packages section
-
-
-
-Show Next button in state
-in placeholder it should say street address
-outlining in blue
-minor steps need to change that 
-full width of anti aging with max-width (not max-width left and right border should touch screen like ro.co)
-add link to the items
-add url on the image 
-vineeth will provide me the pages and where should it goes
-For metabolic there will be two forms
-in NAD we will have two selections
-Need to fix that 
-GHL text messaging
 
 
 
 
-Flow 
-prefunnel 
-Error handling: test invalid data, missing fields
-Error messages when API key is wrong
-Timeouts + retry logic
-
-we need to create seperate product.json for localhost testing
-thankyou page for weight loss action item
 
 
-** remove actions after completion
+
+-- most popular in weekly
+-- Choose your plan  (remove the line Please note that to select a specific you can use the above options)
+-- improve the design of packages section
+-- GHL text messaging
+-- Error handling: test invalid data, missing fields
+-- Error messages when API key is wrong
+-- Timeouts + retry logic
 ** make action item for refund payment
 ** enable action item if disqualify
-** work on GHL logic
-** fix datepicker issue
-** need to work on patient information update to telegra
-** mobile responsive test
-** backup of fluent forms
-
-
-
-## Required stuff from vineeth for metabolic
-1) he need to tell me prices for medications, description , labels, including package description
-2) how much discount he wanna give on metabolic
-3) vineeth need to provide me factual success story for metabolic page
-
 ## Required stuff from abubakar for metabolic
-
-
-
-
-Ryan
-make the auto order next to false as we need to test on live requirements
--- fix update_telegra_order id unique order key error  when add telegra_order_id 
-
-
--- need to setup thankyou page for metabolic action items (same we can use on other questionnares)
--- quinst id should be dynamic
--- DOB 
--- preferred medicaion is not dymaic order is id is not saving in subscription table
-
-
-
-
-
-
-
-
-
-
-
-referrence number
-arrival date 
-departure date
-
-add more applicants
-      (refference number only)
-
-
-
-   --billing 28 days
-   -- popup on find a treatment button
-
-
-
-
-
-   Draw the signature
-   i agree the checkbox in the login page
-   -- we need to remove upload signature field and take the checkbox in prefunnel
-   -- create an account
-   -- Day
-   -- 1930
-   cards vertically of plans
-   copty tryeden klarna afterpay
-   remove numbers from action items 1 -
-   progress bars action item
-   redirect to my-account
-   Requires_waiting_room_egress remove
-
-   
-hide prescrption detail in order detail
-in future auto fill information in 2nd order
-you should agree to receive emails
-and emails (two words removed in the end)
-padding issue on question in action item 19.1 glp weight loss
-fluent form flicker things in action item we need to solve them
-box biggewr for longer text
-26) extra ( 
-Vineeth need to send one question for nad therapy prefunnel
-discount need to fix
-google or apple pay space in checkout
-healsend.com/login //  for patient login
-put afterpay and klarna badge in 3month and 1st month plan
-three month on the 18TUheoRPE
-insert for 30 minutes
-in stripe we should display influencer
-
-
-
-
-
-shortcode for apple sign in 
-summary 
-hidden field new
-
-
- NADOFF ONly 
- save15
- he should get discount on the other products
- redirect to the portal
- 
-
- 1) cybersource setup correctly 
-
-
-1) Summary Page UI/UX improved 
-2) Get started linked to the correspondent pages
-3) GHL flow email flows tested
-4) Prefunnel questions are added that are provided in the docs
-
-Date and year
-
-1940
-
-
+-- Make sure stripe customers are handling properly  and everything is dynamic in stripe
+-- billing 28 days
+-- i agree the checkbox in the login page
+-- padding issue on question in action item 19.1 glp weight loss
+-- fluent form flicker things in action item we need to solve them atleast the below 2 icons
+-- box biggewr for longer text
+-- healsend.com/login //  for patient login
+-- put afterpay and klarna badge in 3month and 1st month plan
+-- insert for 30 minutes doctor timer in checkout
+-- he should get discount on the other products at this moment a patient can only get discount on first order
+-- GHL flow email flows tested
+-- Add skip button in thankyou page if pay with klarna or afterpay
 
 It did not let to move farword on prefunnel multi select question
 it did not pick a gender and do not let forward
 without state
-questionnare UI should be improved when disqualify
-without selecting anything
-after klarna we should loading and not a checkout 
-button is not centered
-we need to change the message of Thankyou page 
-after saving card we should redirect to patient dashboard
-It should give them the option to skip card too
+
+
+
+
+
+-- after saving card we should redirect to patient dashboard
+
 action item for add a card if they skip
-agreement twice
-take the photo there
-not double check
-it should be billing them monthly
-username field should be removed
-setup emails
-summary page setup prices were
-add later
-if they select these thirteen states then in the post funnalswe need to submit 
-in abdulcode we need to add delivery
-if patient add the details we need to save his information
-text message for lab orders
-posthog
-we will built dashboard to analyze all the matrics
+
+-- take the photo there instead of upload or atleast improve the UI
+-- show prices from stripe on product page instead of hardcoded
+-- in abdulcode we need to add delivery
+-- text message for lab orders
 Remove Upload signature  and action item should not be there 
 upload signature
 take photo or choose file draw signature  (first i will double check) just message them
-
 
 
 
@@ -413,3 +239,18 @@ Also for now there is by default revoke subscription option is available but lat
 by creating an action item its a quick thing i'll do it on monday
 For now testing please do not left any post funnel question blank means not choosn we will add required logic to all. to fix conditional logic we have remove that
 for sermolin i face an error (Order Creating Error: Error: ValidationError: expiresAt: Path `expiresAt` is required.\) we will fix it
+
+
+
+
+
+i need to ask telegra some questions
+1) expiresAt error when i try to create order using sermorelin medication
+2) how we can test the prescription approved webhooks
+3) is there any webhook that's documentation is not available in telegra docs? 
+4) when we will again create an order does we require questionnaire to resubmit
+5) Does the postfunnel follow up questionnaire automatically come upon next order?  or after specific duration also how i can test that
+6) If we will create next order does all the questionnaire we need to submit again i think no. if this is the answer tell me how much time those questionnarie will be valid
+7) if an order is place for 3 months how to tell telegra that this order is placed for 3 months? 
+8) in telegra does doctor always visit each month?  
+9) Which pharmacy events do you have?

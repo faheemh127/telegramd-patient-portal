@@ -66,6 +66,8 @@ require_once plugin_dir_path(__FILE__) . 'classes/class-fluent-handler.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-dashboard-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-db-tables.php';
 require_once plugin_dir_path(__FILE__) . 'classes/class-affiliate.php';
+require_once plugin_dir_path(__FILE__) . 'classes/class-webhook.php';
+
 
 require_once plugin_dir_path(__FILE__) . 'ajax/save-payment-method.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/log-payment-success.php';

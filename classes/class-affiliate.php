@@ -14,12 +14,13 @@ class HLD_Affiliate
      * Constructor
      * Runs on every page load
      */
+    
     public function __construct()
     {
         $this->maybe_set_affiliate_cookie();
     }
 
-    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0)
+    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0, $provider_id)
     {
         // Make sure FluentAffiliate classes exist
         if (!class_exists('\FluentAffiliate\App\Models\Referral')) {
@@ -69,7 +70,7 @@ class HLD_Affiliate
                         'type'            => 'sale',
                         'customer_id'     => wp_get_current_user()->ID, //Should we use userId or telegra user Id or stripe user Id
                         'created_at'      => current_time('mysql'),
-                        'provider_id'     => $order_id, //This is the actual order id to show in the order id in referrals edit but it only takes number
+                        'provider_id'     => $provider_id, //This is the actual order id to show in the order id in referrals edit but it only takes number
                     ]);
                 }
             }
@@ -204,5 +205,5 @@ class HLD_Affiliate
 // init the class on each page reload
 add_action('init', function () {
     // new HLD_Affiliate();
-    HLD_Affiliate::send_fluentaffiliate_referral(1, 'telegra_order_id_3322', 459);
+    HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::pov380', 139, 10);
 });
