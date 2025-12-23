@@ -1,55 +1,64 @@
-[healsend_form id="" slug="" type="postfunnel"]
-[healsend_form id="" slug="" type="prefunnel"  medications=""]
-
-// website that will be used to make the shortcode base64 String
-https://codebeautify.org/json-to-base64-converter#
-
----- Priority Sheet
-https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hgv4E/edit?gid=0#gid=0
-https://docs.google.com/spreadsheets/d/15chMrgqpK0GuhOybX1e74kLfasB1ddt_i5nYjooy_AA/edit?gid=1773746964#gid=1773746964
+//*********** Red Zone ***************//
+-- add order failed callback
+-- upgrade subscription
+-- if patient does not Eligible in action item how to get him removed?
 
 
-// @todo: before publish
-// all requirements
-0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
-// form requirements
-0) https://docs.google.com/document/d/1TCHEtMOwhppUonV_z5pwc-qZiz2m7wcev1j5eQUfvmY/edit?tab=t.0
-// medications detail send  by vineeth
-   https://docs.google.com/spreadsheets/d/1EI7tEmOcElbaP3YtdIU98ZKsxwr8ogjBSgv3IWuvkcw/edit?gid=1071605802#gid=1071605802
-// next requirements vineeth shared on 3-Nov-2025
-   https://docs.google.com/document/d/1Chwv7ZHIGtkCKfkJ6beqvH9YlGs0sOmCRFvPmLmS1W0/edit?usp=drivesdk
+//********** Orange Zone *************//
+-- Edit shipping information
+-- time for doctor appointment
+-- get started Page
+-- if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
+-- If already selected a checkbox show next button by default in that fluent form step
+-- fix phone number sending 1 extra to the beginingg to affiliate portal
+-- if a person selects metabolic recieve updates yes and weight loss no what should we do? 
 
 
 
-6) Add realtime URL's to telegra later for webhooks
-27) add order failed callback
-glp follow up questions setup
-design ID upload correctly
-Edit shipping information
-people wo do not complete their prefunnel for send email after couple of 15 minutes
-show information again on 2nd plain
-auto fill address dob and state, phone number
-upgrade subscription
-Reminding for action items
-time for doctor appointment
-get started  Page
-if patient does not Eligible in action item how to get him removed?
-if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
-If already selected a checkbox show next button by default in that fluent form step
-package name is not displaying correctly
-remove Doctor Assigned: Not assigned
-we should create a document upload system so if patient have additional documents he can easily upload his documents
-display those documents on patient dashboard
-Shipping Address display in order detail
-Product information
-perscription fullfillment information
-remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
-save preference as well in the database messages preference
-if a person selects metabolic recieve updates yes and weight loss no what should we do? 
-fix phone number sending 1 extra to the beginingg to affiliate portal
-we can add patient notes system to the patient dashboard
-There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
--- password is sent openly in login page
+
+// ********* Green Zone ***************//
+
+-- glp follow up questions setup
+-- design ID upload correctly
+-- auto fill address dob and state, phone number
+-- we should create a document upload system so if patient have additional documents he can easily upload his documents
+
+
+
+
+
+
+
+
+//************** Abubakar Zone***********//
+-- people wo do not complete their prefunnel for send email after couple of 15 minutes
+
+
+
+-- Add realtime URL's to telegra later for webhooks
+
+
+
+
+-- show information again on 2nd plain
+
+
+-- Reminding for action items
+
+
+
+-- package name is not displaying correctly
+-- remove Doctor Assigned: Not assigned
+
+-- display those documents on patient dashboard
+-- Shipping Address display in order detail
+-- Product information
+-- perscription fullfillment information
+-- remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
+-- save preference as well in the database messages preference
+
+-- we can add patient notes system to the patient dashboard
+-- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 -- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
 -- signup button hover color need to be fixed
 -- need to add sidebar popup of login
@@ -67,8 +76,6 @@ There should be next button in fluent form if user got back and already makes se
 -- prevent action that if form is prefunnel he should not reach to submit questionnare or prepare questionnare code that is in after fluent form submit hook.
 -- if order create failed we do not need to charge do not need to create order and do not need to do anything
 -- we should pass no symptoms
--- make it dynamic quinstn id 
--- add disqualify for states in nad-therapy
 -- need to add loading bar with hld_form_wrap_hidden so on page loads we can show loading bar we can
 --  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
 --  at this moment if user fillout prefunnel first we create a subscription but if due to some reason the fluent form become failed the subscription still remain created we should make it not like that
@@ -85,21 +92,8 @@ There should be next button in fluent form if user got back and already makes se
 -- display correct type of error message in prefunnel signup page
 -- NAD medication id did not save to the MySQl subscription table with i create order with ryahtest1@gmail.com
 -- when click on klarna or afterpay you just need to show processing in that button instead of main card payment btn at this moment it display processing to below processing button
-Hi vineeth before launch Please do following things today
-1) provide us telegra product Id's
-2) Provide medication details and packages detail changes if you wanna to on prefunnel because this data is easily changeable from shortcode
-3) create a new domain i.e staging.healsend.com or dev.healsend.com we will ourself creating clone of this site as staging for development after launch
-4) you can provide me your own stripe account login i'll create glp prefunnel products their i need to add their id's to the shortcode. 
-
-
-
-
-
-
-
-
-
-
+-- Add products to stripe
+-- create staging site with domain for beta development
 -- most popular in weekly
 -- Choose your plan  (remove the line Please note that to select a specific you can use the above options)
 -- improve the design of packages section
@@ -107,9 +101,9 @@ Hi vineeth before launch Please do following things today
 -- Error handling: test invalid data, missing fields
 -- Error messages when API key is wrong
 -- Timeouts + retry logic
-** make action item for refund payment
-** enable action item if disqualify
-## Required stuff from abubakar for metabolic
+-- make action item for refund payment
+-- enable action item if disqualify
+-- Required stuff from abubakar for metabolic
 -- Make sure stripe customers are handling properly  and everything is dynamic in stripe
 -- billing 28 days
 -- i agree the checkbox in the login page
@@ -122,135 +116,55 @@ Hi vineeth before launch Please do following things today
 -- he should get discount on the other products at this moment a patient can only get discount on first order
 -- GHL flow email flows tested
 -- Add skip button in thankyou page if pay with klarna or afterpay
-
-It did not let to move farword on prefunnel multi select question
-it did not pick a gender and do not let forward
-without state
-
-
-
-
-
--- after saving card we should redirect to patient dashboard
-
-action item for add a card if they skip
-
+-- It did not let to move farword on prefunnel multi select question
+-- it did not pick a gender and do not let forward
+-- after saving card we should redirect to patient dashboard also display skip option there
+-- action item for add a card if they skip
 -- take the photo there instead of upload or atleast improve the UI
 -- show prices from stripe on product page instead of hardcoded
 -- in abdulcode we need to add delivery
 -- text message for lab orders
-Remove Upload signature  and action item should not be there 
-upload signature
-take photo or choose file draw signature  (first i will double check) just message them
-
-
-
-3) fix next button
-4) add save progress
-12) remove ( and numbers from all the questions
-5) fix conditional logic
-7) fix require_waiting_room
-
-
-1) setup stripe
-2) setup telegra
-need to test datepicker issue date is invalid
-
-
-
-
-10) test GHL with abubakar
-6) select all should select all logic
-9) show revoke button on disqualify &  show add card action item
-11) GLP-1 Follow-Up form after 56 days
-
-
-
-
-1) Fix Date to Day
-
-
-How to cancel order
-https://telegra-vfmh.readme.io/reference/cancelorder
-
-how to pause order
-we can add a status (required order submission, after provider review, requires_order_processing)
-
-how to change the duration of the order (1 month three month)
-different productvariations (month three)
-they offer different projects - 
-
-
-how to renew the order for one month and 3 months
-subscription logic - we can use external order
-can we create another order
-
-Does each order contain only 1 doctor visit ? 
-1 consultation 
-
-
-completed proivider
-
-how we will get to know that the follow up form we need to show? 
-when these questions will be appear to order response?
-how to test glp follow up form?
-
-Only for the first time
-after 1 year questionnare expired
-
-action items required al the time
-how many test orders we can create? 
-the important things we need to keep in mind while creating a test order
-Do telegra provide any pharmecy events?
-how to test a telegra webhook? 
-when we will consider that an order is fully completed? 
-
-
-what information we can store on vineeth server #hippa complient?
-
-
-Do signatures really required in the action item or checkbox enough only?
-
-
-
-aff::8c8a9c2e-c46c-49e9-ac54-a15f0fe74e19
-https://telegramd-rest.telegramd.com/
-healsendline@gmail.com
-@Healsend26
-
-
-1) next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
-2) just need to double check the 2 questions in postfunnel of (pt-141) plan
-3) some minor questions UI fix using css is pending
-4) dancing issue of glp post funnel questions when too many steps skip
-5) after logout user was not redirecting from my-account slug
-6) on agreement page there should be not any sidebar opened
-submit questionnaire wala button should be hover bg color need to be fixed
-remove prices 
-Submit questionnaire not submit form in pt-141 action item
-improve the UI of pt-141 is not available in your state
-
-
-Kindly bear with Me if GLP action item find issue we are dealing with it and fix it.
-also i need to put check for bmi should not be checkout this is a quick fix i'll do it on monday
-Also we need to put required checks in GLp form but yes we fix to many issues on this form yesterday
-Also on pt-141 i think you show me last time 1 question that was what drug do you use i'll look into it on monday
-Also for now there is by default revoke subscription option is available but later we will only show it on monaday on disqualify only 
-by creating an action item its a quick thing i'll do it on monday
-For now testing please do not left any post funnel question blank means not choosn we will add required logic to all. to fix conditional logic we have remove that
-for sermolin i face an error (Order Creating Error: Error: ValidationError: expiresAt: Path `expiresAt` is required.\) we will fix it
+-- take photo or choose file draw signature  (first i will double check) just message them
+-- fix next button on postfunnel especially
+-- add save progress
+-- need to test datepicker issue date is invalid that vineeth face sometime
+-- test GHL with abubakar
+-- select all should select all logic
+-- show revoke button on disqualify &  show add card action item
+-- GLP-1 Follow-Up form after 56 days
+-- Add an option so patient can request order i.e follow up consultation
+-- how to pause order
+-- we can add a status (required order submission, after provider review, requires_order_processing)
+-- renew the order for one month and 3 months
+-- subscription logic - we can use external order
+-- test glp follow up form?
+-- Do telegra provide any pharmecy events?
+-- when we will consider that an order is fully completed? 
+-- what information we can store on vineeth server #hippa complient?
+-- next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
+-- just need to double check the 2 questions in postfunnel of (pt-141) plan
+-- some minor questions UI fix using css is pending
+-- dancing issue of glp post funnel questions when too many steps skip
+-- after logout user was not redirecting from my-account slug
+-- on agreement page there should be not any sidebar opened
+-- On Upload id and Upload signature there should be dashboard menu bar
+-- submit questionnaire wala button should be hover bg color need to be fixed
+-- remove prices hardcoded from shortcode data and fetch prices from realtime stripe account
+-- Submit questionnaire not submit form in pt-141 action item
+-- improve the UI of pt-141 is not available in your state
+-- after klarna and afterpay success remove 4seconds pause and insert that in abubakar code
+-- Need to add required in follow up questionnaire
+-- Need to fix sermorelin error
+-- Add action item for subscription revoke if patient disqualify
+-- confirm PT-141 questionns if any missing i.e what drug do you use after this 2 questions are missing i think
+-- Add BMI check
 
 
 
 
 
-i need to ask telegra some questions
-1) expiresAt error when i try to create order using sermorelin medication
-2) how we can test the prescription approved webhooks
-3) is there any webhook that's documentation is not available in telegra docs? 
-4) when we will again create an order does we require questionnaire to resubmit
-5) Does the postfunnel follow up questionnaire automatically come upon next order?  or after specific duration also how i can test that
-6) If we will create next order does all the questionnaire we need to submit again i think no. if this is the answer tell me how much time those questionnarie will be valid
-7) if an order is place for 3 months how to tell telegra that this order is placed for 3 months? 
-8) in telegra does doctor always visit each month?  
-9) Which pharmacy events do you have?
+
+
+
+
+

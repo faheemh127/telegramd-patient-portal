@@ -1,5 +1,30 @@
--- add hidden field stripe_subscription_id
--- date picker html fluent form fields copy
+[healsend_form id="" slug="" type="postfunnel"]
+[healsend_form id="" slug="" type="prefunnel"  medications=""]
+
+// website that will be used to make the shortcode base64 String
+https://codebeautify.org/json-to-base64-converter#
+
+
+---- Priority Sheet
+https://docs.google.com/spreadsheets/d/1utECoXGfFDQc-gSj72HDLP7Bwt-LsPqFfN8GG3hgv4E/edit?gid=0#gid=0
+https://docs.google.com/spreadsheets/d/15chMrgqpK0GuhOybX1e74kLfasB1ddt_i5nYjooy_AA/edit?gid=1773746964#gid=1773746964
+
+
+// @todo: before publish
+// all requirements
+0) https://docs.google.com/document/d/18TUheoRPE-yGkeMuBgEEsA7YgDXrrYqHf1VOWJ2ChN4/edit?tab=t.0
+// form requirements
+0) https://docs.google.com/document/d/1TCHEtMOwhppUonV_z5pwc-qZiz2m7wcev1j5eQUfvmY/edit?tab=t.0
+// medications detail send  by vineeth
+   https://docs.google.com/spreadsheets/d/1EI7tEmOcElbaP3YtdIU98ZKsxwr8ogjBSgv3IWuvkcw/edit?gid=1071605802#gid=1071605802
+// next requirements vineeth shared on 3-Nov-2025
+   https://docs.google.com/document/d/1Chwv7ZHIGtkCKfkJ6beqvH9YlGs0sOmCRFvPmLmS1W0/edit?usp=drivesdk
+How to cancel order
+https://telegra-vfmh.readme.io/reference/cancelorder
+
+
+
+
 
 
 

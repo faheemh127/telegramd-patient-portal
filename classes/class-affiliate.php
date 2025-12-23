@@ -8,7 +8,7 @@ class HLD_Affiliate
     private $affiliate_token = null;
     private $affiliate_url_key = "affiliate_id";
     private static $cookie_name = 'hld_affiliate_token';
-    private static $cookie_duration_days = 7;
+    private static $cookie_duration_days = 30;
 
     /**
      * Constructor
