@@ -498,6 +498,10 @@ class HLD_Telegra
                 ]
             ]
         ];
+
+        error_log("Payload for Sermorelin");
+        error_log(print_r($body, true));
+
         $response = wp_remote_post($endpoint, [
             'method'    => 'POST',
             'headers'   => [

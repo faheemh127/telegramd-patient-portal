@@ -10,8 +10,18 @@ if (! class_exists('hldShortcode')) {
         public function register_shortcodes()
         {
             add_shortcode('healsend_form', [$this, 'healsend_form_shortcode']);
+            add_shortcode('get_started', [$this, 'get_started']);
         }
 
+        public function get_started()
+        {
+            ob_start();
+            echo do_shortcode('[hld_navbar logo="full"]');
+            include HLD_PLUGIN_PATH . 'templates/get-started.php';
+            echo do_shortcode('[hld_footer]');
+
+            return ob_get_clean();
+        }
 
         /**
          * Shortcode handler

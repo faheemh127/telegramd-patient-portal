@@ -106,7 +106,6 @@ class HLD_Webhook
     private function telegra_prescription_appraoved($event)
     {
         HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::restorder', 139, 10);
-
     }
 
     private function telegra_order_updated($event) {}

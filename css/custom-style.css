@@ -8,6 +8,7 @@
 .hld_form_container {
   min-height: 100vh;
   background: #f7f5f5;
+  margin-top: 0;
 }
 .hld_form_wrap {
   max-width: 700px !important;
@@ -2038,6 +2039,10 @@ div.ff-summary-value.ff-free {
 /* Mobile only (up to 767px) mobile_device_start */
 @media screen and (max-width: 767px) {
   /* mobile styles */
+  .hld_form_container {
+    margin-top: -30px;
+    padding-top: 0px;
+  }
 
   .hld_login_form input {
     width: 100%;
@@ -2234,6 +2239,13 @@ div.ff-summary-value.ff-free {
   }
 } /* Responsive mobile_device****************************************************************************** */
 
+@media (min-width: 768px) and (max-width: 991px) {
+  /* styles here */
+  .hld_form_container {
+    margin-top: -30px;
+    padding-top: 0px;
+  }
+}
 /* Not Mobile only (768px to 1024px) */
 @media screen and (min-width: 768px) {
   /* tablet styles */

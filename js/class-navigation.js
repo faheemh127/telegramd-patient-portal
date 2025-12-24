@@ -602,7 +602,12 @@ class HldNavigation {
     /**
      * Actial function code start from here
      */
-    if (!fluentFormData || !fluentFormData.showLoadingBar) return;
+    if (
+      typeof fluentFormData === "undefined" ||
+      !fluentFormData.showLoadingBar
+    ) {
+      return;
+    }
 
     let loader = document.getElementById("global-loading-overlay");
 

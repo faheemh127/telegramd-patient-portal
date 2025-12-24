@@ -1,7 +1,11 @@
 <?php
 // === Shortcode: [hld_navbar] ===
-function hld_navbar_shortcode()
+function hld_navbar_shortcode($atts)
 {
+
+    $logo_type = $atts['logo'] ?? 'small';
+
+
     ob_start(); ?>
 
     <!-- HLD Navbar -->
@@ -23,7 +27,21 @@ function hld_navbar_shortcode()
 
             <!-- Center Logo -->
             <div class="hld-logo" id="hld-logo">
-                <img src="<?php echo esc_url(get_site_icon_url(64)); ?>" alt="Logo">
+                <?php
+
+                if ($logo_type === 'full') {
+                    // Full website logo (custom logo from Customizer)
+                    if (has_custom_logo()) {
+                        echo get_custom_logo();
+                    }
+                } else {
+                    // Site icon (64x64)
+                ?>
+                    <img src="<?php echo esc_url(get_site_icon_url(64)); ?>" alt="Logo">
+                <?php
+                }
+                ?>
+
             </div>
 
             <!-- Help Icon -->
