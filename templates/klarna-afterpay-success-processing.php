@@ -1,7 +1,7 @@
 <div class="hld_prefix_loading_wrapper">
     <div class="hld_prefix_loader"></div>
     <p class="hld_prefix_loading_message">
-        Your payment has been succeeded. We are processing your order...
+        Your payment was successful. We are processing your order. Please do not close this window.
     </p>
 </div>
 

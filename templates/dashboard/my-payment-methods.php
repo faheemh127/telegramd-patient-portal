@@ -297,7 +297,7 @@ $payment_nonce = wp_create_nonce('payment_nonce');
                             </button>
                         </div>
                     </div>
-                    ${!canDelete ? '<small style="color: #666; display:block; margin-top:5px;">Add another method to delete this one.</small>' : ''}
+                    ${!canDelete ? '<small style="color: #666; display:block; margin-top:5px;">Add another payment method, or cancel your subscription to this payment method</small>' : ''}
                 </div>
             `).join('');
             }

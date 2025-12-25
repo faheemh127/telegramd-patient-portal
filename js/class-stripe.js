@@ -34,41 +34,76 @@ class hldStripeHandler {
       // this.setupStripe();
       this.bindEvents();
 
-      if (
-        MyStripeData?.payment_intent_id &&
-        MyStripeData.payment_intent_id.startsWith("pi_")
-      ) {
-        hldNavigation.toggleLoader(true);
-        let input = document.querySelector(
-          'input[name="my_stripe_subscription_id"]'
-        );
+      //****** This code will be deleted because its now  in this function if_klarna_afterpay_redirect */
+      // if (
+      //   MyStripeData?.payment_intent_id &&
+      //   MyStripeData.payment_intent_id.startsWith("pi_")
+      // ) {
+      //   hldNavigation.toggleLoader(true);
+      //   let input = document.querySelector(
+      //     'input[name="my_stripe_subscription_id"]'
+      //   );
 
-        // If input doesn't exist, create it
-        if (!input) {
-          input = document.createElement("input");
-          input.type = "hidden";
-          input.name = "payment_intent_id";
-          document.querySelector("form").appendChild(input); // append to the form
-        }
+      //   // If input doesn't exist, create it
+      //   if (!input) {
+      //     input = document.createElement("input");
+      //     input.type = "hidden";
+      //     input.name = "payment_intent_id";
+      //     document.querySelector("form").appendChild(input); // append to the form
+      //   }
 
-        // Set the value
-        input.value = MyStripeData.payment_intent_id;
-        console.log("Hidden input value set:", input.value);
-        setTimeout(function () {
-          stripeHandler.submitForm();
-        }, 4000);
-      } else if (
-        MyStripeData?.afterpay_klarna_payment &&
-        MyStripeData.afterpay_klarna_payment == "failed"
-      ) {
-        // if this part executed means klarna or afterpay payment failed
-        // now we need to display error message and do not submit the form
-        const errMsg = MyStripeData.afterpay_klarna_msg;
-        this.errorDisplay.textContent = errMsg;
+      //   // Set the value
+      //   input.value = MyStripeData.payment_intent_id;
+      //   console.log("Hidden input value set:", input.value);
+      //   setTimeout(function () {
+      //     stripeHandler.submitForm();
+      //   }, 4000);
+      // } else if (
+      //   MyStripeData?.afterpay_klarna_payment &&
+      //   MyStripeData.afterpay_klarna_payment == "failed"
+      // ) {
+      //   // if this part executed means klarna or afterpay payment failed
+      //   // now we need to display error message and do not submit the form
+      //   const errMsg = MyStripeData.afterpay_klarna_msg;
+      //   this.errorDisplay.textContent = errMsg;
+      // }
+
+      //**************************************************** */
+    });
+  }
+
+  if_klarna_afterpay_redirect() {
+    if (
+      MyStripeData?.payment_intent_id &&
+      MyStripeData.payment_intent_id.startsWith("pi_")
+    ) {
+      hldNavigation.toggleLoader(true);
+      let input = document.querySelector(
+        'input[name="my_stripe_subscription_id"]'
+      );
+
+      // If input doesn't exist, create it
+      if (!input) {
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "payment_intent_id";
+        document.querySelector("form").appendChild(input); // append to the form
       }
 
-      // if ends
-    });
+      // Set the value
+      input.value = MyStripeData.payment_intent_id;
+      console.log("Hidden input value set:", input.value);
+
+      stripeHandler.submitForm();
+    } else if (
+      MyStripeData?.afterpay_klarna_payment &&
+      MyStripeData.afterpay_klarna_payment == "failed"
+    ) {
+      // if this part executed means klarna or afterpay payment failed
+      // now we need to display error message and do not submit the form
+      const errMsg = MyStripeData.afterpay_klarna_msg;
+      this.errorDisplay.textContent = errMsg;
+    }
   }
 
   /**

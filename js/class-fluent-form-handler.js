@@ -10,9 +10,6 @@ class HldFluentFormHandler {
     this.insertDisqualifyContent();
     // this.initPackages();
 
-    // on page refresh or on nextendsocial login its importalt to call this function so it can pass price to strip handler class and show data on summary page
-    // hldFormHandler.getAmount();
-    // hldFormHandler.setStripeData();
   }
 
   resetCheckBoxes() {
@@ -109,6 +106,7 @@ class HldFluentFormHandler {
 
           hldFormHandler.getAmount();
           hldFormHandler.setStripeData();
+          stripeHandler.if_klarna_afterpay_redirect();
           //@todo add payment_intentcode here instead of stripe.js
           if ($("body").hasClass("logged-in") && !hldFormHandler.hasFired) {
             // todo GHL origional number of patietn

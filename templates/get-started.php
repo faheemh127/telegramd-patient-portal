@@ -11,7 +11,7 @@
         margin-bottom: 20px;
         text-align: center;
         font-family: var(--hld-font-primary);
-        max-width: 90%;
+        max-width: 100%;
         margin: auto;
         margin-bottom: 15px;
     }
@@ -47,6 +47,12 @@
     .treatment-card .text {
         flex: 1;
         font-family: var(--hld-font-primary);
+    }
+
+    @media screen and (max-width: 767px) {
+        .section-title {
+            font-size: 30px;
+        }
     }
 </style>
 <div class="hld_form_container">

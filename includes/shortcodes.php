@@ -72,7 +72,7 @@ if (! class_exists('hldShortcode')) {
 
 
             ob_start();
-            echo do_shortcode('[hld_navbar]'); ?>
+            echo do_shortcode('[hld_navbar logo="full"]'); ?>
             <div class="hld_form_container">
                 <?php
                 if (!empty($class_payment_success) && $class_payment_success == "payment-success") {

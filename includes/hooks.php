@@ -291,7 +291,7 @@ function hld_login_button_shortcode()
     $current_slug = basename(get_permalink());
 
     // Default "Get Started" link
-    $get_started_url = home_url('/glp-1-form');
+    $get_started_url = home_url('/get-started');
 
     // Customize based on slug
     if ($current_slug === 'weight-loss') {

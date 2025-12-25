@@ -35,28 +35,20 @@
 
 
 
+
+
+
 -- Add realtime URL's to telegra later for webhooks
-
-
-
-
 -- show information again on 2nd plain
-
-
 -- Reminding for action items
-
-
-
 -- package name is not displaying correctly
 -- remove Doctor Assigned: Not assigned
-
 -- display those documents on patient dashboard
 -- Shipping Address display in order detail
 -- Product information
 -- perscription fullfillment information
 -- remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
 -- save preference as well in the database messages preference
-
 -- we can add patient notes system to the patient dashboard
 -- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 -- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
@@ -158,9 +150,13 @@
 -- Add action item for subscription revoke if patient disqualify
 -- confirm PT-141 questionns if any missing i.e what drug do you use after this 2 questions are missing i think
 -- Add BMI check
-
-
-
+-- Add a loading icon when fluent form first flicker solution we wrote using hld_form_wrap_hidden class
+-- add loading bar on klarna button not on processing
+-- If user land to a prefunnel page from getstarted he should go back to getstarted currently its going to home page
+-- BMI Color should be gray by default. then red or green based on selection
+-- On signup Email verification
+-- If api key is not setup accordingly we need to show error in the app
+-- the sidebar that is opened from left side it should be animate slide animate in patient dashbaord
 
 
 

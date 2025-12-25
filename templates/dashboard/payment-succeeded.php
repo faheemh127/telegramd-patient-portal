@@ -61,6 +61,9 @@ if (!$hasCardAttached) {
                     btn.innerText = "Save Card";
                     document.getElementById('payment-message').innerText = error.message;
                 } else {
+
+
+
                     document.getElementById('payment-message').style.color = "green";
                     document.getElementById('payment-message').innerText = "Card saved successfully!";
                     const pm_id = setupIntent.payment_method;
@@ -73,6 +76,11 @@ if (!$hasCardAttached) {
                         body: `action=cancel_card_reminders&pm_id=${pm_id}`
                     });
 
+                    // redirect here
+                    window.location.href = "<?php echo HLD_PATIENT_DASHBOARD_URL; ?>";
+
+
+
                 }
             });
         }
@@ -84,25 +92,30 @@ if (!$hasCardAttached) {
     <h3 class="hld-thank-you-title">Thank you for choosing us.</h3>
     <?php
     if (!$hasCardAttached) {
-        echo '<p class="hld-thank-you-desc">Please add the credit card for future transactions....</p>';
+        echo '<p class="hld-thank-you-desc">Add a card on file to prevent any interruption in care or medication delivery. </p>';
+        echo '<p class="hld-thank-you-desc">Used only for future renewals</p>';
     } else {
         echo '<p class="hld-thank-you-desc">Kindly check your dashboard; you may have some pending action items that need to be completed so we can proceed with your medication.</p>';
-        echo '<a class="hld-btn hld-btn-back-to-home" href="' . esc_url(HLD_PATIENT_DASHBOARD_URL) . '" class="button">Go to Dashboard</a>';
+        echo '<a class="hld-btn hld-btn-back-to-home mt-20" href="' . esc_url(HLD_PATIENT_DASHBOARD_URL) . '" class="button">Go to Dashboard</a>';
     }
     ?>
 
-    <div class="w-100 hld-card hld-subscription-card">
-        <div class="card-body hld-card-body hld-add-card-wrap">
-            <?php if (!$hasCardAttached) : ?>
+    <?php if (!$hasCardAttached) : ?>
+        <div class="w-100 hld-card hld-subscription-card">
+            <div class="card-body hld-card-body hld-add-card-wrap">
+
                 <div class="row hld-row mt-3" style="margin-left: auto;margin-right: auto; margin-top: 20px; ">
 
                     <form id="payment-form">
                         <div id="add-payment-card"></div>
                         <button id="submit-button" class="hld-btn-save-card" style="display: none">Save Card</button>
                         <div id="payment-message" style="color: red;"></div>
+                        <?php echo '<a class="hld-btn-secondary" href="' . esc_url(HLD_PATIENT_DASHBOARD_URL) . '" class="button">I wil add later</a>'; ?>
+
                     </form>
                 </div>
-            <?php endif; ?>
+
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>

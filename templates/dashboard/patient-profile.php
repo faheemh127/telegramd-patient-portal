@@ -113,13 +113,14 @@ if (isset($_GET['message'])) {  ?>
 
             <h3>Shipping Address</h3>
 
+
             <div class="card mb-4 shadow-sm hld-shipping-info">
                 <div class="card-body row row-cols-1 row-cols-md-1 g-3 p-4">
                     <div class="col-md-12">
                         <?php if (isset($patient['address'])) { ?>
                             <strong>The medication will be shipped to the same address. If you have any questions, please contact our support team.</strong>
                             <div>
-                                <span class="fw-bold"><?php echo  $patient['address']; ?>
+                                <span class="fw-bold"><?php echo  HLD_Patient::format_address($patient); ?>
                                 </span>
                             </div>
                         <?php } else {

@@ -125,6 +125,7 @@
 }
 .hld-complete-action-item p {
   margin-bottom: 0;
+  font-size: 1rem;
 }
 .hld-complete-action-item svg {
   margin-bottom: 2px;
@@ -488,15 +489,22 @@ nav.hld-navbar {
   width: 100%;
   margin-top: 30px;
   height: 40px;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   font-size: 14px;
   background: var(--hld-color-primary);
 }
+.hld-btn-save-card:hover {
+  background-color: var(--hld-color-primary-dark);
+}
 .hld-thank-you-desc {
   text-align: center;
   font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: var(--hld-font-primary);
+  margin-bottom: 0 !important;
 }
 .ff-message-success {
   padding: 0 !important;
@@ -558,9 +566,9 @@ nav.hld-navbar {
   font-size: 15px;
 }
 .hld-add-card-wrap {
-  min-width: 650px;
-  width: 700px;
   max-width: 100%;
+  width: 100%;
+  margin: auto;
 }
 .hld-thank-you-title {
   text-align: center;
@@ -620,13 +628,14 @@ nav.hld-navbar {
 
 .hld-subscription-card {
   background: white;
-  padding: 30px 25px 30px 25px;
+  padding: 50px 30px;
   display: flex;
   flex-direction: column;
-
   border-radius: 20px;
   box-shadow: var(--bs-box-shadow-sm) !important;
   margin-bottom: 15px;
+  margin-top: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 .hld_patient_packages .save-label {
   background-color: #d4f7d4;
@@ -1926,8 +1935,12 @@ div.ff-summary-value.ff-free {
   color: white;
 }
 .hld-thank-you-wrap {
-  padding: 3rem 2rem;
+  padding: 3rem 1rem;
   max-width: 900px !important;
+  margin: auto;
+}
+.mt-20{
+  margin-top: 20px;
 }
 .ff-message-success + div {
   padding: 0 !important;
@@ -2027,6 +2040,26 @@ div.ff-summary-value.ff-free {
 .hld_btn_dashboard:hover {
   background: #1e4fc7;
 }
+.hld-btn-secondary {
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+  font-size: 15px;
+  height: 40px;
+  text-decoration: none;
+  margin-top: 20px;
+}
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
@@ -2087,7 +2120,6 @@ div.ff-summary-value.ff-free {
   .hld_no_found_wrap a,
   .hld_action_item_wrap a {
     font-size: 0.875rem;
-    width: 100%;
     text-align: center;
   }
   .hld_login_wrapper {
@@ -2097,6 +2129,9 @@ div.ff-summary-value.ff-free {
 
   .hld_terms_consent span {
     font-size: 0.875rem;
+  }
+  .hld-subscription-card {
+    padding: 30px 15px;
   }
   .hld_terms_consent input[type="checkbox"] {
     margin-top: 5px;

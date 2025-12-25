@@ -946,7 +946,47 @@ if (! class_exists('HLD_Patient')) {
 
             return false;
         }
-        
+
+        public static function  format_address(array $patient): string
+        {
+            $parts = [];
+
+            // Street address
+            if (!empty($patient['address'])) {
+                $parts[] = trim($patient['address']);
+            }
+
+            // City, State ZIP
+            $cityStateZip = [];
+
+            if (!empty($patient['city'])) {
+                $cityStateZip[] = trim($patient['city']);
+            }
+
+            if (!empty($patient['state'])) {
+                $cityStateZip[] = trim($patient['state']);
+            }
+
+            $line2 = '';
+            if (!empty($cityStateZip)) {
+                $line2 = implode(', ', $cityStateZip);
+            }
+
+            if (!empty($patient['zip_code'])) {
+                $line2 .= ($line2 ? ' ' : '') . trim($patient['zip_code']);
+            }
+
+            if ($line2) {
+                $parts[] = $line2;
+            }
+
+            // Return formatted address or fallback
+            return !empty($parts)
+                ? implode('<br>', $parts)
+                : 'Address not available';
+        }
+
+
         public static function format_status(string $status): string
         {
             // Replace underscores with spaces

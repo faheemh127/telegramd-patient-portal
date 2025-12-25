@@ -1,8 +1,10 @@
 [healsend_form id="" slug="" type="postfunnel"]
 [healsend_form id="" slug="" type="prefunnel"  medications=""]
+/wp-content/plugins/telegramd-patient-portal
 
 // website that will be used to make the shortcode base64 String
 https://codebeautify.org/json-to-base64-converter#
+
 
 
 ---- Priority Sheet
