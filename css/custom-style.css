@@ -1939,7 +1939,7 @@ div.ff-summary-value.ff-free {
   max-width: 900px !important;
   margin: auto;
 }
-.mt-20{
+.mt-20 {
   margin-top: 20px;
 }
 .ff-message-success + div {
@@ -2060,6 +2060,12 @@ div.ff-summary-value.ff-free {
   text-decoration: none;
   margin-top: 20px;
 }
+section#hdlDashboard {
+  padding: 0 !important;
+}
+section#hdlDashboard .container .tabs .content{
+  padding: 0 16px !important;
+}
 
 /************** Design for healsend.com home page slider starts ****************/
 /* .hld-main-slider{
@@ -2075,6 +2081,9 @@ div.ff-summary-value.ff-free {
   .hld_form_container {
     margin-top: -30px;
     padding-top: 0px;
+  }
+  section#hdlDashboard .container .tabs ul {
+    border-radius: 0 !important;
   }
 
   .hld_login_form input {
@@ -2142,6 +2151,9 @@ div.ff-summary-value.ff-free {
   .hld_patient_login_title {
     margin-bottom: 2rem;
   }
+  .tabs-nav-wrapper {
+    position: fixed;
+  }
 
   /* checkbox style */
   .hld_login_form input[type="checkbox"] {
@@ -2191,6 +2203,9 @@ div.ff-summary-value.ff-free {
   .hld_no_found_wrap p,
   .hld_action_item_wrap p {
     font-size: 1rem !important;
+  }
+  .hld_action_item_wrap .title {
+    font-size: 1.2rem !important;
   }
   .profile-container .hld-patient-info {
     padding-top: 0px;
@@ -2291,6 +2306,9 @@ div.ff-summary-value.ff-free {
     position: absolute;
     right: 10px;
     top: 5px;
+  }
+  .tabs-nav-wrapper{
+    margin-top: 20px;
   }
 }
 

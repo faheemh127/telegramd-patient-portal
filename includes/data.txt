@@ -1,8 +1,13 @@
 //********** Telegra Questions ************//
+Do any other plans, such as Metabolic or PT-141, include follow-up questionnaires, or are these questions specific to GLP plans only?
+
+
+
 
 //*********** Red Zone ***************//
+
+
 -- add order failed callback
--- upgrade subscription
 -- if patient does not Eligible in action item how to get him removed?
 -- the subscription was created but when i see in orders i do not find any order detail that's scary
 -- Add realtime URL's to telegra later for webhooks
@@ -10,30 +15,19 @@
 -- make subscriptions data in stripe dynamic especially stripe-create-setup-intent.php
 -- on file stripe-create-setup-intent.php file we need to make the plan dynamic  'plan' => 'glp_1_prefunnel',
 -- NAD medication id did not save to the MySQl subscription table with i create order with ryahtest1@gmail.com
--- Add products to stripe
 -- improve the design of packages section
--- make action item for refund payment
 -- enable action item if disqualify
--- renew the order for one month and 3 months
 -- Add BMI check
--- Need to fix sermorelin error
--- Add action item for subscription revoke if patient disqualify
 -- Make sure stripe customers are handling properly  and everything is dynamic in stripe
 -- billing 28 days
 -- action item for add a card if they skip
--- test glp follow up form?
 -- in abdulcode we need to add delivery
 -- after logout user was not redirecting from my-account slug
--- fix next button on postfunnel especially
 -- save preference as well in the database messages preference
 -- confirm PT-141 questionns if any missing i.e what drug do you use after this 2 questions are missing i think
--- GLP-1 Follow-Up form after 56 days
 -- show revoke button on disqualify &  show add card action item
--- next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
--- how to pause order
 -- need to test datepicker issue date is invalid that vineeth face sometime
 -- test GHL with abubakar
--- Do telegra provide any pharmecy events?
 -- when we will consider that an order is fully completed? 
 -- put afterpay and klarna badge in 3month and 1st month plan
 -- most popular in weekly
@@ -41,7 +35,17 @@
 -- remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
 
 
+-- Add products to stripe
+-- make action item for refund payment
+-- renew the order for one month and 3 months
+-- Need to fix sermorelin error
+-- GLP-1 Follow-Up form after 56 days
+-- fix next button on postfunnel especially
+-- how to pause order
+-- Do telegra provide any pharmecy events?
+
 //********** Orange Zone *************//
+-- upgrade subscription
 -- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 -- he should get discount on the other products at this moment a patient can only get discount on first order
 -- It did not let to move farword on prefunnel multi select question
@@ -131,7 +135,7 @@
 -- package name is not displaying correctly
 -- remove Doctor Assigned: Not assigned
 -- display those documents on patient dashboard
-
+-- Email is coming in email on win profile section in patient dashboard
 
 
 

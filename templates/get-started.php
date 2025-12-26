@@ -67,7 +67,7 @@
 
             <a href="<?php echo esc_url(home_url('/nad-therapy')); ?>" class="treatment-card">
                 <span class="icon">📏</span>
-                <span class="text">Metabolic Optimization (NAD⁺ Therapy)</span>
+                <span class="text">Metabolic Optimization</span>
             </a>
 
             <a href="<?php echo esc_url(home_url('/pt-141-form')); ?>" class="treatment-card">
