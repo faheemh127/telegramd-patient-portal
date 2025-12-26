@@ -1,162 +1,215 @@
+//********** Telegra Questions ************//
+
 //*********** Red Zone ***************//
 -- add order failed callback
 -- upgrade subscription
 -- if patient does not Eligible in action item how to get him removed?
+-- the subscription was created but when i see in orders i do not find any order detail that's scary
+-- Add realtime URL's to telegra later for webhooks
+-- Need to add links at privacy policy  and terms and conditions in upload glp  agreement concent in action item 
+-- make subscriptions data in stripe dynamic especially stripe-create-setup-intent.php
+-- on file stripe-create-setup-intent.php file we need to make the plan dynamic  'plan' => 'glp_1_prefunnel',
+-- NAD medication id did not save to the MySQl subscription table with i create order with ryahtest1@gmail.com
+-- Add products to stripe
+-- improve the design of packages section
+-- make action item for refund payment
+-- enable action item if disqualify
+-- renew the order for one month and 3 months
+-- Add BMI check
+-- Need to fix sermorelin error
+-- Add action item for subscription revoke if patient disqualify
+-- Make sure stripe customers are handling properly  and everything is dynamic in stripe
+-- billing 28 days
+-- action item for add a card if they skip
+-- test glp follow up form?
+-- in abdulcode we need to add delivery
+-- after logout user was not redirecting from my-account slug
+-- fix next button on postfunnel especially
+-- save preference as well in the database messages preference
+-- confirm PT-141 questionns if any missing i.e what drug do you use after this 2 questions are missing i think
+-- GLP-1 Follow-Up form after 56 days
+-- show revoke button on disqualify &  show add card action item
+-- next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
+-- how to pause order
+-- need to test datepicker issue date is invalid that vineeth face sometime
+-- test GHL with abubakar
+-- Do telegra provide any pharmecy events?
+-- when we will consider that an order is fully completed? 
+-- put afterpay and klarna badge in 3month and 1st month plan
+-- most popular in weekly
+-- Choose your plan  (remove the line Please note that to select a specific you can use the above options)
+-- remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
 
 
 //********** Orange Zone *************//
+-- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
+-- he should get discount on the other products at this moment a patient can only get discount on first order
+-- It did not let to move farword on prefunnel multi select question
+-- it did not pick a gender and do not let forward
+-- what information we can store on vineeth server #hippa complient?
+-- Need to add required in follow up questionnaire
+-- show prices from stripe on product page instead of hardcoded
+-- On signup Email verification
+-- Error handling: test invalid data, missing fields
 -- Edit shipping information
 -- time for doctor appointment
 -- get started Page
+-- improve the UI of pt-141 is not available in your state
 -- if patient exists in sansucure by accedently the patieient id not available in MySQL Database then our system should fetch that patient id and store in database
 -- If already selected a checkbox show next button by default in that fluent form step
 -- fix phone number sending 1 extra to the beginingg to affiliate portal
 -- if a person selects metabolic recieve updates yes and weight loss no what should we do? 
-
-
+-- if due to any reason on prefunnel click order failed means create order failed then we should handle that no subscription should be created and even no need to create that patient to telegra
+-- need to add loading bar with hld_form_wrap_hidden so on page loads we can show loading bar we can
+-- Add PHP and more javascript checks those will double check that patient cannot submit any questionnnare based on selections. i see fluent form can mistakenly submit the qeustionnaries
+-- Error messages when API key is wrong
+-- dancing issue of glp post funnel questions when too many steps skip
+-- If api key is not setup accordingly we need to show error in the app
+-- some minor questions UI fix using css is pending
+-- Add an option so patient can request order i.e follow up consultation
+-- padding issue on question in action item 19.1 glp weight loss
 
 
 // ********* Green Zone ***************//
 
+-- insert for 30 minutes doctor timer in checkout
+-- fluent form flicker things in action item we need to solve them atleast the below 2 icons
+-- healsend.com/login //  for patient login
 -- glp follow up questions setup
 -- design ID upload correctly
 -- auto fill address dob and state, phone number
 -- we should create a document upload system so if patient have additional documents he can easily upload his documents
-
-
-
-
-
+-- we can add patient notes system to the patient dashboard
+-- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
+-- signup button hover color need to be fixed
+-- need to add sidebar popup of login
+-- on my Account do not need to show the My Account buton in the main navbar
+-- Display any instructions related to shipping information of his medication if possible in shipping address section in patient profiles
+-- On openeing another prefunnel if already available the shipping information just display those information instead of let him retyping the whole.
+-- on fluent form when we navigate to next steps the form flicker when too many steps skip in conditional logic you can give fixed height
+-- BMI class initialize twice due to next button not showing when page refresh so i set a timer also on other plans no need to initilaize the class if there are no fields
+-- we should only save the patient information if not already save saving the already patient information again and again does not make sense
+-- telegra have symptoms system as to vineeth should i display these symptoms and ask from the patient
+--  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
+--  at this moment if user fillout prefunnel first we create a subscription but if due to some reason the fluent form become failed the subscription still remain created we should make it not like that
+-- improve the design of purchased subscription and add more relevant data and professional options
+-- on prefunnel now its signup we need to make a way to sign in in easy way
+-- tighten the security of if (!isset($form['form_type']))  in before insert hook for disqualifier checks
+-- display correct type of error message in prefunnel signup page
+-- when click on klarna or afterpay you just need to show processing in that button instead of main card payment btn at this moment it display processing to below processing button
+-- create staging site with domain for beta development
+-- GHL text messaging
+-- Timeouts + retry logic
+-- BMI Color should be gray by default. then red or green based on selection
+-- i agree the checkbox in the login page
+-- take the photo there instead of upload or atleast improve the UI
+-- On Upload id and Upload signature there should be dashboard menu bar
+-- the sidebar that is opened from left side it should be animate slide animate in patient dashbaord
+-- remove prices hardcoded from shortcode data and fetch prices from realtime stripe account
+-- text message for lab orders
+-- take photo or choose file draw signature  (first i will double check) just message them
+-- If user land to a prefunnel page from getstarted he should go back to getstarted currently its going to home page
+-- add loading bar on klarna button not on processing
+-- Add a loading icon when fluent form first flicker solution we wrote using hld_form_wrap_hidden class
+-- on agreement page there should be not any sidebar opened
+-- add save progress
+-- submit questionnaire wala button should be hover bg color need to be fixed
+-- box biggewr for longer text
 
 
 
 //************** Abubakar Zone***********//
 -- people wo do not complete their prefunnel for send email after couple of 15 minutes
+-- we also need to only send sms if user click that yes i prefer to recieve updates
 
 
 
 
 
 
--- Add realtime URL's to telegra later for webhooks
--- show information again on 2nd plain
 -- Reminding for action items
 -- package name is not displaying correctly
 -- remove Doctor Assigned: Not assigned
 -- display those documents on patient dashboard
--- Shipping Address display in order detail
--- Product information
--- perscription fullfillment information
--- remove fallback values from create_patient function also patient_creation should be failed if any information is not provided
--- save preference as well in the database messages preference
--- we can add patient notes system to the patient dashboard
--- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
--- on login page when we click on sign in with google it displays a border non rounded border so need to fix that 
--- signup button hover color need to be fixed
--- need to add sidebar popup of login
--- on my Account do not need to show the My Account buton in the main navbar
--- On Shipping Address of patient dashboard display zipcode, city and state etc display complete address and any instructions related to shipping information of his medication if possible
--- On openeing another prefunnel if already available the shipping information just display those information instead of let him retyping the whole.
--- the subscription was created but when i see in orders i do not find any order detail that's scary
--- if due to any reason on prefunnel click order failed means create order failed then we should handle that no subscription should be created and even no need to create that patient to telegra
--- on fluent form when we navigate to next steps the form flicker when too many steps skip in conditional logic you can give fixed height
--- BMI class initialize twice due to next button not showing when page refresh so i set a timer also on other plans no need to initilaize the class if there are no fields
--- Need to add links at privacy policy  and terms and conditions in upload glp  agreement concent in action item 
--- On checkout when we refresh it do not loads the summary details but when we do click on back button it then shows everything correctly it looks that on page refresh getAmount function do not called when user on checkout page
--- we also need to only send sms if user click that yes i prefer to recieve updates
--- we should only save the patient information if not already save saving the already patient information again and again does not make sense
--- prevent action that if form is prefunnel he should not reach to submit questionnare or prepare questionnare code that is in after fluent form submit hook.
--- if order create failed we do not need to charge do not need to create order and do not need to do anything
--- we should pass no symptoms
--- need to add loading bar with hld_form_wrap_hidden so on page loads we can show loading bar we can
---  on prefunnel login page the errors are displayed on alert which is not nice. we can display errors below input fieds to enhance the user experience
---  at this moment if user fillout prefunnel first we create a subscription but if due to some reason the fluent form become failed the subscription still remain created we should make it not like that
--- make subscriptions data in stripe dynamic especially stripe-create-setup-intent.php
--- first it should display the email field then password for signup
--- Add PHP and more javascript checks those will double check that patient cannot submit any questionnnare based on selections. i see fluent form can mistakenly submit the qeustionnaries
--- on file stripe-create-setup-intent.php file we need to make the plan dynamic  'plan' => 'glp_1_prefunnel',
--- we only need to create subscription and everything else on telegra if patietns payment successfull.
--- improve the design of purchased subscription and add more relevant data and professional options
--- we need to fix medication issue specially on page refresh etc
--- need to fix the loader issue completely
--- on prefunnel now its signup we need to make a way to sign in in easy way
--- tighten the security of if (!isset($form['form_type']))  in before insert hook for disqualifier checks
--- display correct type of error message in prefunnel signup page
--- NAD medication id did not save to the MySQl subscription table with i create order with ryahtest1@gmail.com
--- when click on klarna or afterpay you just need to show processing in that button instead of main card payment btn at this moment it display processing to below processing button
--- Add products to stripe
--- create staging site with domain for beta development
--- most popular in weekly
--- Choose your plan  (remove the line Please note that to select a specific you can use the above options)
--- improve the design of packages section
--- GHL text messaging
--- Error handling: test invalid data, missing fields
--- Error messages when API key is wrong
--- Timeouts + retry logic
--- make action item for refund payment
--- enable action item if disqualify
--- Required stuff from abubakar for metabolic
--- Make sure stripe customers are handling properly  and everything is dynamic in stripe
--- billing 28 days
--- i agree the checkbox in the login page
--- padding issue on question in action item 19.1 glp weight loss
--- fluent form flicker things in action item we need to solve them atleast the below 2 icons
--- box biggewr for longer text
--- healsend.com/login //  for patient login
--- put afterpay and klarna badge in 3month and 1st month plan
--- insert for 30 minutes doctor timer in checkout
--- he should get discount on the other products at this moment a patient can only get discount on first order
--- GHL flow email flows tested
--- Add skip button in thankyou page if pay with klarna or afterpay
--- It did not let to move farword on prefunnel multi select question
--- it did not pick a gender and do not let forward
--- after saving card we should redirect to patient dashboard also display skip option there
--- action item for add a card if they skip
--- take the photo there instead of upload or atleast improve the UI
--- show prices from stripe on product page instead of hardcoded
--- in abdulcode we need to add delivery
--- text message for lab orders
--- take photo or choose file draw signature  (first i will double check) just message them
--- fix next button on postfunnel especially
--- add save progress
--- need to test datepicker issue date is invalid that vineeth face sometime
--- test GHL with abubakar
--- select all should select all logic
--- show revoke button on disqualify &  show add card action item
--- GLP-1 Follow-Up form after 56 days
--- Add an option so patient can request order i.e follow up consultation
--- how to pause order
--- we can add a status (required order submission, after provider review, requires_order_processing)
--- renew the order for one month and 3 months
--- subscription logic - we can use external order
--- test glp follow up form?
--- Do telegra provide any pharmecy events?
--- when we will consider that an order is fully completed? 
--- what information we can store on vineeth server #hippa complient?
--- next button should not be appear in case of bmi less than 25 ( we are fixing Next button that's why it will let you allow)
--- just need to double check the 2 questions in postfunnel of (pt-141) plan
--- some minor questions UI fix using css is pending
--- dancing issue of glp post funnel questions when too many steps skip
--- after logout user was not redirecting from my-account slug
--- on agreement page there should be not any sidebar opened
--- On Upload id and Upload signature there should be dashboard menu bar
--- submit questionnaire wala button should be hover bg color need to be fixed
--- remove prices hardcoded from shortcode data and fetch prices from realtime stripe account
--- Submit questionnaire not submit form in pt-141 action item
--- improve the UI of pt-141 is not available in your state
--- after klarna and afterpay success remove 4seconds pause and insert that in abubakar code
--- Need to add required in follow up questionnaire
--- Need to fix sermorelin error
--- Add action item for subscription revoke if patient disqualify
--- confirm PT-141 questionns if any missing i.e what drug do you use after this 2 questions are missing i think
--- Add BMI check
--- Add a loading icon when fluent form first flicker solution we wrote using hld_form_wrap_hidden class
--- add loading bar on klarna button not on processing
--- If user land to a prefunnel page from getstarted he should go back to getstarted currently its going to home page
--- BMI Color should be gray by default. then red or green based on selection
--- On signup Email verification
--- If api key is not setup accordingly we need to show error in the app
--- the sidebar that is opened from left side it should be animate slide animate in patient dashbaord
+
+
+
+
+
+
+
+
+Seamlesschex we need to setup on healsend
+delink the sanusecure completely  from Stripe
+snapmd.com
+Examine the project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
