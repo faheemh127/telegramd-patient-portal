@@ -488,10 +488,10 @@ if (! class_exists('HLD_Patient')) {
 
             try {
                 $GhlApiClient = new GhlApiClient(GHL_API_KEY);
-                $data = [
-                    "email" => $patient_email,
-                    "phone" => $patient_phone
-                ];
+                // $data = [
+                //     "email" => $patient_email,
+                //     "phone" => $patient_phone
+                // ];
 
                 //TODO change the webook to match the reminder hook created at GHL-CRM;
                 // $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/6Gq0WiCp523gtFLozsJX', $data);

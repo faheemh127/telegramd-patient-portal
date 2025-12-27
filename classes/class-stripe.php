@@ -140,6 +140,39 @@ class HLD_Stripe
 
 
 
+
+    public static function get_subscription_details($subscription_id)
+    {
+        if (empty($subscription_id)) {
+            return false;
+        }
+
+        require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';
+        \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+        try {
+            $subscription = \Stripe\Subscription::retrieve([
+                'id' => $subscription_id,
+                'expand' => [
+                    'latest_invoice',
+                    'latest_invoice.payment_intent',
+                    'default_payment_method',
+                    'items.data.price.product',
+                ],
+            ]);
+
+            return $subscription;
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            error_log('Stripe Subscription Fetch Error: ' . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log('General Error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+
+
     public static function hld_calculate_stripe_price($price_id, $promo_code, $duration = 1)
     {
         require_once HLD_PLUGIN_PATH . 'vendor/autoload.php';

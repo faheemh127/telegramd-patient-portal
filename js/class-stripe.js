@@ -8,6 +8,7 @@ class hldStripeHandler {
     this.paymentButtonId = config.paymentButtonId || "hdlMakeStipePayment";
     this.revokeButtonId = config.paymentButtonId || "hdlrevokeSub";
     this.prButtonId = config.prButtonId || "payment-request-button"; // NEW: container for Google Pay button
+    this.paymentBtnLabel = "Pay Now";
     this.klarnaBtnId = config.klarnaBtnId || "hldPayWithKlarna";
     this.afterPayBtnId = config.afterPayBtnId || "hldPayWithAP";
     this.stripe = null;
@@ -24,6 +25,7 @@ class hldStripeHandler {
     this.packageDuration = 1; // 1 is default
     this.promo = null;
     this.stripeData = null;
+
     this.init();
     this.submitWrapperClass =
       config.submitWrapperClass || ".hld_form_main_submit_button";
@@ -434,7 +436,7 @@ class hldStripeHandler {
       if (!intent.success) {
         this.showError("Error creating SetupIntent.");
         hldNavigation.toggleLoader(false);
-        this.toggleButtonState(false, "Save and Continue", this.paymentButton);
+        this.toggleButtonState(false, this.paymentBtnLabel, this.paymentButton);
         return;
       }
 
@@ -443,7 +445,7 @@ class hldStripeHandler {
 
       let result;
       let stateButton;
-      let stateButtonText = "Save and Continue";
+      let stateButtonText = this.paymentBtnLabel;
       switch (type) {
         case "card":
           this.isSubscription = true;
@@ -534,7 +536,7 @@ class hldStripeHandler {
           );
           this.toggleButtonState(
             false,
-            "Save and Continue",
+            this.paymentBtnLabel,
             this.paymentButton
           );
           return;
@@ -581,7 +583,7 @@ class hldStripeHandler {
           );
           this.toggleButtonState(
             false,
-            "Save and Continue",
+            this.paymentBtnLabel,
             this.paymentButton
           );
           return;
@@ -602,7 +604,7 @@ class hldStripeHandler {
           this.showError("Error saving card.");
           this.toggleButtonState(
             false,
-            "Save and Continue",
+            this.paymentBtnLabel,
             this.paymentButton
           );
           return;
@@ -616,7 +618,7 @@ class hldStripeHandler {
 
       // if (!saveResult.success) {
       //   this.showError("Error saving card.");
-      //   this.toggleButtonState(false, "Save and Continue");
+      //   this.toggleButtonState(false, this.paymentBtnLabel);
       //   return;
       // }
       // console.log("Card saved successfully!");
@@ -625,7 +627,7 @@ class hldStripeHandler {
     } catch (error) {
       console.error("Error during card payment handling:", error);
       this.showError("Something went wrong. Please try again.");
-      this.toggleButtonState(false, "Save and Continue", this.paymentButton);
+      this.toggleButtonState(false, this.paymentBtnLabel, this.paymentButton);
     }
   }
 
@@ -688,6 +690,7 @@ class hldStripeHandler {
     } else {
       console.warn("⚠️ Hidden input 'telegra_product_id' not found in DOM");
       hldNavigation.toggleLoader(false);
+      this.toggleButtonState(false, this.paymentBtnLabel, this.paymentButton);
     }
 
     // its important to call this function to avoid fluent form error while submit becuase fluent form only accept select values we add from fluent form settings so it do not accept
@@ -697,10 +700,12 @@ class hldStripeHandler {
     if (submitWrapper) {
       const submitButton = submitWrapper.querySelector('button[type="submit"]');
       if (submitButton) {
+        this.toggleButtonState(false, this.paymentBtnLabel, this.paymentButton);
         submitButton.click();
       }
     } else {
       hldNavigation.toggleLoader(false);
+      this.toggleButtonState(false, this.paymentBtnLabel, this.paymentButton);
     }
   }
 

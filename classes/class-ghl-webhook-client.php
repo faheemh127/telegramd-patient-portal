@@ -23,7 +23,7 @@ class GhlApiClient
             return;
         }
         error_log("createContact is called in ghl-webhook client");
-        $contactDataUrl = $this->apiBaseUrl . 'contacts/';
+        $contactDataUrl = $this->apiBaseUrl . 'contacts';
 
         if (empty($contactData['email']) && empty($contactData['phone'])) {
             throw new InvalidArgumentException("Contact data must include at least an 'email' or 'phone' field.");
@@ -47,7 +47,7 @@ class GhlApiClient
         $jsonData = json_encode($data);
         $headers = [
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonData)
+            // 'Content-Length: ' . strlen($jsonData)
         ];
 
         error_log("in sendToWebhook executeCurlRequest called");
@@ -72,6 +72,8 @@ class GhlApiClient
     private function makeApiRequest(string $method, string $url, array $data = [], $version = "")
     {
         $jsonData = json_encode($data);
+        error_log("JSON data inside makeApiRequest");
+        error_log(print_r($jsonData, true));
         $headers = [
             'Authorization: Bearer ' . $this->apiKey, // <-- The key difference
             'Content-Type: application/json',
@@ -81,6 +83,8 @@ class GhlApiClient
         if ($version !== "") {
             $headers[] = 'Version: ' . $version;
         }
+
+        error_log("Headers in makeApiRequest". print_r($headers, true));
 
         $result = self::executeCurlRequest($url, $method, $jsonData, $headers);
 
@@ -97,6 +101,8 @@ class GhlApiClient
 
         return $decodedResponse;
     }
+
+
 
     private static function executeCurlRequest(string $url, string $method, string $jsonData, array $headers)
     {

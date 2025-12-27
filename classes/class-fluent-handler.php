@@ -374,6 +374,15 @@ if (! class_exists('hldFluentHandler')) {
         }
 
 
+        public function order_confirmation()
+        {
+            error_log("function order_confirmation called");
+            $GhlApiClient = new GhlApiClient(GHL_API_KEY);
+            $data = [];
+            $GhlApiClient->sendToWebhook('https://services.leadconnectorhq.com/hooks/tqGhhCGePHa1hQkrrOQY/webhook-trigger/2a1c742c-ed0b-4819-ad91-f30cc959d008', $data);
+            error_log("order_confirmation webhook called");
+        }
+
 
         public function telegra($form_id)
         {
@@ -381,7 +390,7 @@ if (! class_exists('hldFluentHandler')) {
 
             if (empty($telegra_patient_id)) {
                 error_log("TelegraMD patient ID not found for current user.");
-                return;
+                return false;
             }
             error_log("telegra_patient_id is:245" . $telegra_patient_id);
             $medication_id = $this->get_medication_id();
@@ -395,6 +404,13 @@ if (! class_exists('hldFluentHandler')) {
                 $telegra_patient_id,
                 $medication_id,
             );
+
+            if (is_wp_error($order_id)) {
+                // error creating order do not try to do further executation
+                return $order_id;
+            }
+
+            $this->order_confirmation();
 
             if (is_user_logged_in()) {
                 HLD_UserSubscriptions::update_order_telegra_id($order_id, $this->stripe_subscription_id);
@@ -863,7 +879,14 @@ if (! class_exists('hldFluentHandler')) {
                 }
                 HLD_Telegra::create_patient();
                 HLD_Patient::prepareGHLContact();
-                $this->telegra($form_id);
+                $response = $this->telegra($form_id);
+                if (is_wp_error($response)) {
+                    wp_send_json_error([
+                        'errors' => [
+                            'OrderFailed' => 'We were unable to place your order. Please try again.',
+                        ],
+                    ]);
+                }
             } else {
                 error_log("The Form id" . $form_id . " not exists in telegra_forms. that's why we cannot create any order on telegra with this form");
             }

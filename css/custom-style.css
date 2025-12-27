@@ -2063,7 +2063,7 @@ div.ff-summary-value.ff-free {
 section#hdlDashboard {
   padding: 0 !important;
 }
-section#hdlDashboard .container .tabs .content{
+section#hdlDashboard .container .tabs .content {
   padding: 0 16px !important;
 }
 
@@ -2152,7 +2152,13 @@ section#hdlDashboard .container .tabs .content{
     margin-bottom: 2rem;
   }
   .tabs-nav-wrapper {
-    position: fixed;
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    touch-action: pan-x;
+  }
+  .hld-dashboard .content {
+    margin-top: 75px !important;
   }
 
   /* checkbox style */
@@ -2307,7 +2313,7 @@ section#hdlDashboard .container .tabs .content{
     right: 10px;
     top: 5px;
   }
-  .tabs-nav-wrapper{
+  .tabs-nav-wrapper {
     margin-top: 20px;
   }
 }
@@ -2449,6 +2455,98 @@ section#hdlDashboard .container .tabs .content{
   background: var(--hld-color-primary);
   opacity: 1 !important;
 }
+.hld-view-invoice {
+  color: white !important;
+}
+/* subscription_style */
+.hld-subscription {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-family: var(--hld-font-primary);
+}
+
+.hld-subscription .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hld-subscription .right {
+  text-align: right;
+}
+.hld-subscription .status {
+  background-color: #f2f2f2;
+  color: white;
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  color: black;
+}
+.hld-subscription .status.active {
+  background-color: #22C55E;
+  color: white;
+}
+
+/* Payment Method style for subscription */
+.hld-payment-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px;
+    background: #ffffff;
+    max-width: 100%;
+    /* shadow not required already we showed shadow */
+    /* box-shadow: 0 4px 14px rgba(0,0,0,0.05); */
+}
+
+.hld-payment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.hld-card-brand {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    text-transform: uppercase;
+}
+
+.hld-card-last4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.hld-payment-body {
+    display: grid;
+    row-gap: 10px;
+}
+
+.hld-payment-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.hld-label {
+    color: #6b7280;
+}
+
+.hld-value {
+    color: #111827;
+    font-weight: 500;
+}
+
+/* Brand accents (optional) */
+.hld-card-brand-visa { background: #e0ecff; color: #1a56db; }
+.hld-card-brand-mastercard { background: #ffe4e4; color: #b91c1c; }
+.hld-card-brand-amex { background: #e0f2fe; color: #0369a1; }
+
+
+/* Style ends for payment method */
 /* .hld_form_wrap label:hover {
   border: 1.2px solid var(--hld-color-primary) !important;
   color: var(--hld-color-primary);

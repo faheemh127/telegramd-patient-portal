@@ -45,6 +45,7 @@ Do any other plans, such as Metabolic or PT-141, include follow-up questionnaire
 -- Do telegra provide any pharmecy events?
 
 //********** Orange Zone *************//
+-- test refund payment with all the payment methods espesially klarna and afterpay
 -- upgrade subscription
 -- There should be next button in fluent form if user got back and already makes selections otherwise he will need to make his selections again if they are even already added
 -- he should get discount on the other products at this moment a patient can only get discount on first order
@@ -72,7 +73,7 @@ Do any other plans, such as Metabolic or PT-141, include follow-up questionnaire
 -- some minor questions UI fix using css is pending
 -- Add an option so patient can request order i.e follow up consultation
 -- padding issue on question in action item 19.1 glp weight loss
-
+-- let the user to purchase different products of different plan and give discount to that at this moment the discount is only on first order
 
 // ********* Green Zone ***************//
 
