@@ -1,7 +1,6 @@
 <?php
 
 /**
- *
  * Plugin Name: TelegraMD Patient Portal
  * Description: Provides a patient portal for Healsend.com with full TelegraMD REST API integration,
  *              including prescriptions, lab results, and subscription management.
@@ -14,10 +13,10 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+// dev/live controllers
 define('HLD_DEVELOPER_ENVIRONMENT', true);
 define('HLD_TELEGRA_AFFILIATE', false);
 define('HLD_PAUSE_GHL', false);
-// define("")
 
 
 
@@ -77,6 +76,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/prescription-received-webhook
 require_once plugin_dir_path(__FILE__) . 'ajax/save-form-url.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'includes/patient-signup.php';
+require_once plugin_dir_path(__FILE__) . 'source/cpt/healsend-products.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-login.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/patient-signup.php';
 require_once plugin_dir_path(__FILE__) . 'ajax/stripe-subscribe-patient.php';
@@ -92,6 +92,17 @@ require_once plugin_dir_path(__FILE__) . 'ajax/hld-cancel-user-card-reminders.ph
 require_once plugin_dir_path(__FILE__) . 'ajax/get-stripe-price-data.php';
 
 register_activation_hook(__FILE__, function () {
+
+
+    // on register its important to flush rewrite rules to keep and prevent the url structure
+    healsend_register_products_cpt();
+    healsend_register_product_taxonomy();
+    flush_rewrite_rules();
+
     HLD_DB_Tables::create_tables();
     HLD_ActionItems_Manager::seed_default_items();
+});
+
+register_deactivation_hook(__FILE__, function () {
+    flush_rewrite_rules();
 });

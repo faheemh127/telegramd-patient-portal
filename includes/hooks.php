@@ -335,3 +335,47 @@ add_action('user_register', function ($user_id) {
         HLD_Mail::patient_signup_welcome($user_id);
     }
 });
+
+
+
+// this code is mainly used for healsend to show single product
+add_filter('template_include', function ($template) {
+    if (is_singular(HLD_PRODUCT_POST_TYPE)) {
+        $plugin_template = HLD_PLUGIN_PATH . 'templates/single-product.php';
+        if (file_exists($plugin_template)) {
+            return $plugin_template;
+        }
+    }
+    return $template;
+});
+
+
+add_action('wp_enqueue_scripts', function () {
+    if (is_singular(HLD_PRODUCT_POST_TYPE)) {
+
+
+        error_log(HLD_PLUGIN_PATH . 'css/single-product.css');
+        // CSS 
+        wp_enqueue_style(
+            'healsend-product-css',
+            HLD_PLUGIN_URL . 'css/single-product.css',
+            [],
+            HLD_PLUGIN_VERSION
+        );
+
+        // JS
+        wp_enqueue_script(
+            'healsend-product-js',
+            HLD_PLUGIN_URL . 'js/product-script.js',
+            [], // remove if not needed
+            HLD_PLUGIN_VERSION,
+            true // load in footer
+        );
+    }
+});
+add_filter('use_block_editor_for_post_type', function ($use_block_editor, $post_type) {
+    if ($post_type === HLD_PRODUCT_POST_TYPE) {
+        return false;
+    }
+    return $use_block_editor;
+}, 10, 2);

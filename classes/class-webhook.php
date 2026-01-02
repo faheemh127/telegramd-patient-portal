@@ -46,7 +46,7 @@ class HLD_Webhook
 
     public function test_endpoint(WP_REST_Request $request)
     {
-        HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::restorder', 139, 10);
+        HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::restorder',  10, 139);
         return new WP_REST_Response(
             [
                 'status'  => 'success',
@@ -105,7 +105,7 @@ class HLD_Webhook
     }
     private function telegra_prescription_appraoved($event)
     {
-        HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::restorder', 139, 10);
+        HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::restorder',  10, 139);
     }
 
     private function telegra_order_updated($event) {}

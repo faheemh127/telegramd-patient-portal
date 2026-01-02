@@ -57,6 +57,7 @@ define("HLD_GENERAL_ACTION_ITEM", "general");
 // Define Slugs for plans
 
 define("HLD_GLP_WEIGHT_LOSS_SLUG", "glp_1_prefunnel");
+define("HLD_PRODUCT_POST_TYPE", "healsend_product");
 define("HLD_METABOLIC_SLUG", "metabolic");
 define("HLD_PT_141_SLUG", "pt_141");
 define("HLD_OXYTOCIN_SLUG", "oxytocin");

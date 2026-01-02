@@ -14,13 +14,13 @@ class HLD_Affiliate
      * Constructor
      * Runs on every page load
      */
-    
+
     public function __construct()
     {
         $this->maybe_set_affiliate_cookie();
     }
 
-    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $amount = 0, $provider_id)
+    public static function send_fluentaffiliate_referral($affiliate_id, $order_id, $provider_id, $amount = 0,)
     {
         // Make sure FluentAffiliate classes exist
         if (!class_exists('\FluentAffiliate\App\Models\Referral')) {
@@ -205,5 +205,5 @@ class HLD_Affiliate
 // init the class on each page reload
 add_action('init', function () {
     // new HLD_Affiliate();
-    HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::pov380', 139, 10);
+    HLD_Affiliate::send_fluentaffiliate_referral(1, 'order::pov380',  10, 139);
 });
