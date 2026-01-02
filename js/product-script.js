@@ -26,7 +26,41 @@ class HLDProduct {
 
     this.initFAQ();
     this.initReviewsSlider();
+    this.initFloatingCTA();
   } // init function ends
+
+
+
+
+  /* ADD THIS METHOD INSIDE YOUR EXISTING HLDProduct CLASS */
+  initFloatingCTA() {
+    const cta = document.querySelector('.hld-floating-cta');
+    if (!cta) return;
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 120 && currentScrollY > lastScrollY) {
+        // scrolling down → show
+        cta.classList.add('is-visible');
+        cta.classList.remove('is-hidden');
+      } else if (currentScrollY < lastScrollY) {
+        // scrolling up → hide (animate down)
+        cta.classList.add('is-hidden');
+        cta.classList.remove('is-visible');
+      }
+
+      if (currentScrollY < 80) {
+        cta.classList.remove('is-visible', 'is-hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
+
+
 
   /* PUT THIS METHOD INSIDE YOUR EXISTING HLDProduct CLASS */
   initReviewsSlider() {
