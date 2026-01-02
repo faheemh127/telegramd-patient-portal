@@ -39,14 +39,18 @@
 }
 .hld-product .img-wrap {
   width: 60%;
-  margin: auto;
+  margin-right: auto;
   display: block;
   border-radius: 15px;
   overflow: hidden;
+  margin-left: auto;
+  padding-top: 4rem;
 }
 .hld-product .img-wrap img {
   display: block;
   margin: auto;
+  max-height: 700px;
+  width: auto;
 }
 .hld-product .product-detail-wrap h1 {
   font-weight: bold;
@@ -665,8 +669,9 @@ ul.benefits li {
   max-width: 100%;
   height: auto;
   display: block;
-  width: 70%;
+  width: auto;
   margin: auto;
+  max-height: 600px;
 }
 
 /* Floating Button */

@@ -1000,7 +1000,7 @@ if (! class_exists('HLD_Patient')) {
         {
 
             if (empty($email) || !is_email($email)) {
-                error_log("email is empty or is_email");
+               
                 return false;
             }
 

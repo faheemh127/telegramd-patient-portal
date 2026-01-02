@@ -353,8 +353,6 @@ add_filter('template_include', function ($template) {
 add_action('wp_enqueue_scripts', function () {
     if (is_singular(HLD_PRODUCT_POST_TYPE)) {
 
-
-        error_log(HLD_PLUGIN_PATH . 'css/single-product.css');
         // CSS 
         wp_enqueue_style(
             'healsend-product-css',
