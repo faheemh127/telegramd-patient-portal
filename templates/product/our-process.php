@@ -74,7 +74,7 @@
             <article class="hld-step-card">
                 <div class="hld-step-content">
                     <h3 class="hld-step-title">
-                        Lose weight with 24/7 support and ongoing care
+                        Receive 24/7 support and ongoing care
                     </h3>
 
                     <hr class="hld-step-divider" />

@@ -1,43 +1,72 @@
+<?php
+$agreed_members     = get_field('agreed_members');
+$hero_title         = get_field('hero_title'); // WYSIWYG
+$success_percentage = get_field('success_percentage');
+$hero_link          = get_field('hero_get_started_link'); // URL
+$hero_main_image    = get_field('hero_main_right_image');
+?>
+
 <section class="hld-hero" aria-labelledby="hld-hero-title">
   <div class="hld-hero__container">
+
     <!-- Left Content -->
     <header class="hld-hero__content">
-      <span class="hld-hero__badge">
-        ⭐⭐⭐⭐⭐ <strong>1,000+</strong> Members Agree
-      </span>
 
-      <h1 id="hld-hero-title" class="hld-hero__title">
-        America’s #1 Most Effective<br />
-        <span>GLP-1 Program</span>
-      </h1>
+      <?php if ($agreed_members): ?>
+        <span class="hld-hero__badge">
+          ⭐⭐⭐⭐⭐ <strong><?php echo esc_html($agreed_members); ?></strong> Members Agree
+        </span>
+      <?php endif; ?>
+
+      <?php if ($hero_title): ?>
+        <h1 id="hld-hero-title" class="hld-hero__title">
+          <?php echo wp_kses_post($hero_title); ?>
+        </h1>
+      <?php endif; ?>
 
       <div class="hld-hero__stats">
-        <div class="hld-hero__rate">
-          <strong>96.8%</strong>
-          <span>Success Rate Nationwide</span>
-        </div>
 
-        <div class="hld-hero__avatars">
-          <img src="https://healsend.com/wp-content/uploads/2025/12/Untitled-500-x-500-px-1-Photoroom-optimized.png" alt="Member profile" />
-          <img src="https://healsend.com/wp-content/uploads/2025/12/Untitled-500-x-500-px-1-Photoroom-optimized.png" alt="Member profile" />
-          <img src="https://healsend.com/wp-content/uploads/2025/12/Untitled-500-x-500-px-1-Photoroom-optimized.png" alt="Member profile" />
-          <img src="https://healsend.com/wp-content/uploads/2025/12/Untitled-500-x-500-px-1-Photoroom-optimized.png" alt="Member profile" />
-          <img src="https://healsend.com/wp-content/uploads/2025/12/Untitled-500-x-500-px-1-Photoroom-optimized.png" alt="Member profile" />
-        </div>
+        <?php if ($success_percentage): ?>
+          <div class="hld-hero__rate">
+            <strong><?php echo esc_html($success_percentage); ?></strong>
+            <span>Success Rate Nationwide</span>
+          </div>
+        <?php endif; ?>
+
+        <?php if (have_rows('hero_avatars')): ?>
+          <div class="hld-hero__avatars">
+            <?php while (have_rows('hero_avatars')): the_row(); 
+              $avatar = get_sub_field('single_avatar_image');
+              if ($avatar):
+            ?>
+              <img
+                src="<?php echo esc_url($avatar['url']); ?>"
+                alt="<?php echo esc_attr($avatar['alt'] ?: 'Member profile'); ?>"
+              />
+            <?php endif; endwhile; ?>
+          </div>
+        <?php endif; ?>
+
       </div>
 
-      <a href="#" class="hld-btn-primary">
-        Get Started Now
-      </a>
+      <?php if ($hero_link): ?>
+        <a href="<?php echo esc_url($hero_link); ?>" class="hld-btn-primary">
+          Get Started Now
+        </a>
+      <?php endif; ?>
+
     </header>
 
     <!-- Right Visual -->
-    <div class="hld-hero__media">
-      <img
-        src="https://healsend.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-21-2025-01_07_52-PM-optimized.png"
-        alt="GLP-1 weight loss program product"
-        class="hld-hero__image" />
-    </div>
+    <?php if ($hero_main_image): ?>
+      <div class="hld-hero__media">
+        <img
+          src="<?php echo esc_url($hero_main_image); ?>"
+          alt="GLP-1 weight loss program product"
+          class="hld-hero__image"
+        />
+      </div>
+    <?php endif; ?>
 
   </div>
 </section>

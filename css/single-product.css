@@ -751,7 +751,7 @@ ul.benefits li {
 }
 
 .hld-pill {
-  position: absolute;
+  /* position: absolute; */
   top: 16px;
   left: 16px;
   background: var(--primary);
@@ -762,12 +762,32 @@ ul.benefits li {
   border-radius: 999px;
 }
 
+.hld-pill.hld-included {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  padding: 12px;
+  font-size: 1.1rem;
+}
 /* Card Content */
 .hld-card-content {
   display: flex;
   align-items: center;
   gap: 24px;
   margin-top: 24px;
+}
+.hld-remedy-content {
+  margin-top: 30px;
+}
+.hld-remedy-card {
+  min-height: 350px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(
+    rgb(255, 255, 255) 30%,
+    rgb(240, 245, 250) 100%
+  );
 }
 
 .hld-card-text {
@@ -1130,6 +1150,7 @@ Hero section
   border: 2px solid var(--primary);
   margin-left: -10px;
   background: var(--hld-white);
+  object-fit: cover;
 }
 
 /* ===== BUTTON ===== */
@@ -1204,7 +1225,7 @@ Popup Section
 /* ===== SECTION ===== */
 .hld-lab-section {
   padding: 4rem 3.5rem;
-  background: linear-gradient(135deg, #2f7f7b, #58c2ba);
+  background: linear-gradient(135deg, #6d6ffc, #494a98);
   border-radius: 2rem;
   margin: 4rem auto;
   max-width: var(--sec-max-width);

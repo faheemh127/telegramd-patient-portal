@@ -11,10 +11,10 @@
         <div class="hld-cards-grid">
 
             <!-- Card 1 -->
-            <article class="hld-card">
-                <span class="hld-pill">Included</span>
+            <article class="hld-card hld-remedy-card">
+                <span class="hld-pill hld-included">Included</span>
 
-                <div class="hld-card-content">
+                <div class="hld-card-content hld-remedy-content">
                     <div class="hld-card-text">
                         <h3>Unlimited Video Calls With Clinicians</h3>
                         <ul>
@@ -30,10 +30,10 @@
             </article>
 
             <!-- Card 2 -->
-            <article class="hld-card">
-                <span class="hld-pill">Included</span>
+            <article class="hld-card hld-remedy-card">
+                <span class="hld-pill hld-included">Included</span>
 
-                <div class="hld-card-content">
+                <div class="hld-card-content hld-remedy-content">
                     <div class="hld-card-text">
                         <h3>Always On Medical Assistance via Phone</h3>
                         <ul>
@@ -49,10 +49,10 @@
             </article>
 
             <!-- Card 3 -->
-            <article class="hld-card">
-                <span class="hld-pill">Included</span>
+            <article class="hld-card hld-remedy-card">
+                <span class="hld-pill hld-included">Included</span>
 
-                <div class="hld-card-content">
+                <div class="hld-card-content hld-remedy-content">
                     <div class="hld-card-text">
                         <h3>On-Time Refills Guaranteed</h3>
                         <ul>
@@ -68,10 +68,10 @@
             </article>
 
             <!-- Card 4 -->
-            <article class="hld-card">
-                <span class="hld-pill">Included</span>
+            <article class="hld-card hld-remedy-card">
+                <span class="hld-pill hld-included ">Included</span>
 
-                <div class="hld-card-content">
+                <div class="hld-card-content hld-remedy-content">
                     <div class="hld-card-text">
                         <h3>Real-Time Access to Member Community & Platform</h3>
                         <ul>

@@ -1,81 +1,35 @@
-<!-- FAQ SECTION -->
+<?php if (have_rows('main_faq')) : ?>
 <section class="hld-faq section-faq">
-    <article class="hld-faq-item is-open">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What’s included with my plan?</h3>
-            <span class="hld-faq-icon">×</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                Every Eden plan is built around you. You’ll receive a personalized
-                treatment plan created by a licensed medical provider after a full
-                review of your health profile. If medication is right for you, we’ll
-                craft a custom dosing schedule and ship your treatment straight to
-                your door through a certified, state-licensed pharmacy. You’ll also
-                get unlimited 24/7 messaging with your dedicated care team.
-            </p>
-        </div>
-    </article>
 
-    <article class="hld-faq-item">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What weight loss treatment options are available to me?</h3>
-            <span class="hld-faq-icon">+</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                Treatment options are personalized based on your health profile and
-                eligibility, ensuring safe and effective care.
-            </p>
-        </div>
-    </article>
+    <?php
+    $i = 0;
+    while (have_rows('main_faq')) : the_row();
+        $question = get_sub_field('main_faq_question');
+        $answer   = get_sub_field('main_faq_answer');
 
-    <article class="hld-faq-item">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What if I need to cancel?</h3>
-            <span class="hld-faq-icon">+</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                You can cancel anytime with no long-term commitments or hidden fees.
-            </p>
-        </div>
-    </article>
+        $is_open = ($i === 0) ? 'is-open' : '';
+        $icon    = ($i === 0) ? '×' : '+';
+    ?>
 
-     <article class="hld-faq-item">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What if I need to cancel?</h3>
-            <span class="hld-faq-icon">+</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                You can cancel anytime with no long-term commitments or hidden fees.
-            </p>
-        </div>
-    </article>
+        <article class="hld-faq-item <?php echo esc_attr($is_open); ?>">
+            <button class="hld-faq-question" type="button">
+                <h3 class="hld-faq-title">
+                    <?php echo esc_html($question); ?>
+                </h3>
+                <span class="hld-faq-icon"><?php echo esc_html($icon); ?></span>
+            </button>
 
+            <div class="hld-faq-answer">
+                <p>
+                    <?php echo esc_html($answer); ?>
+                </p>
+            </div>
+        </article>
 
-     <article class="hld-faq-item">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What if I need to cancel?</h3>
-            <span class="hld-faq-icon">+</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                You can cancel anytime with no long-term commitments or hidden fees.
-            </p>
-        </div>
-    </article>
+    <?php
+        $i++;
+    endwhile;
+    ?>
 
-     <article class="hld-faq-item">
-        <button class="hld-faq-question" type="button">
-            <h3 class="hld-faq-title">What if I need to cancel?</h3>
-            <span class="hld-faq-icon">+</span>
-        </button>
-        <div class="hld-faq-answer">
-            <p>
-                You can cancel anytime with no long-term commitments or hidden fees.
-            </p>
-        </div>
-    </article>
 </section>
+<?php endif; ?>

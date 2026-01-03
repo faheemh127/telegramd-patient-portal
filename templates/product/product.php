@@ -38,7 +38,7 @@
 
             <?php
             include HLD_PLUGIN_PATH . 'templates/product/main-tabs.php';
-            include HLD_PLUGIN_PATH . 'templates/product/main-faq-sec.php';
+            // include HLD_PLUGIN_PATH . 'templates/product/main-faq-sec.php';
             ?>
 
         </div>
