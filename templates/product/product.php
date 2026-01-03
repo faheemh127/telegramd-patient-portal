@@ -1,3 +1,12 @@
+<?php
+$one_month_price = get_field('one_month_price');
+$discount_first_month_for_one_month_plan = get_field('discount_first_month_for_one_month_plan');
+$three_month_price = get_field('three_month_price');
+$discount_first_month_for_three_month_plan = get_field('discount_first_month_for_three_month_plan');
+$card_tagger_line = get_field('card_tagger_line');
+$primary_get_started_link = get_field('primary_get_started_link');
+
+?>
 <section class="section section-product">
     <article class="section-inner product-wrap">
         <figure class="img-wrap">
@@ -17,13 +26,13 @@
 
             <div class="pricing-wrap">
                 <div class="tag">
-                    <strong>Ends Jan 15:</strong> Save $120 on your first order
+                    ✓ <strong><?php echo $card_tagger_line; ?></strong>
                 </div>
 
                 <div class="price-wrap">
                     <div class="price">
-                        <span class="discount-first-month">$119</span> first month
-                        <div>then <span class="regular-price">$239</span>/mon*</div>
+                        <span class="discount-first-month">$<?php echo $three_month_price - $discount_first_month_for_three_month_plan;  ?></span> first month
+                        <div>then <span class="regular-price">$<?php echo $three_month_price; ?></span>/mon*</div>
                     </div>
 
                     <div class="payment-methods">
@@ -32,7 +41,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="cta-link">Get Started</a>
+                <a href="<?php echo $primary_get_started_link; ?>" class="cta-link">Get Started</a>
                 <p class="info">Discount auto-applied at checkout</p>
             </div>
 
